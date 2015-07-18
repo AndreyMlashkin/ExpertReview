@@ -7,12 +7,21 @@ class TreeMetaInfo
 {
 public:
     TreeMetaInfo();
+    ~TreeMetaInfo();
 
     QList<ProperyNode*> createTestTree();
+    const QList<ProperyNode*> nodes();
 
-    void serialize();
-    void deserialize();
+    void open(const QString& _filename);
+    void save(const QString& _filename) const;
 
+private:
+    int calculateEnclosure(QString& _str);
+    void clearNodes();
+
+private:
+    QString m_openedFile;
+    QList<ProperyNode*> m_nodes;
 
 };
 

@@ -1,8 +1,19 @@
+#include <QStack>
+#include <QFile>
+#include <QTextStream>
+
 #include "treemetainfo.h"
 #include "properynode.h"
 
 TreeMetaInfo::TreeMetaInfo()
+    : m_openedFile("backup.txt")
 {
+    open(m_openedFile);
+}
+
+TreeMetaInfo::~TreeMetaInfo()
+{
+    clearNodes();
 }
 
 QList<ProperyNode *> TreeMetaInfo::createTestTree()
@@ -30,4 +41,71 @@ QList<ProperyNode *> TreeMetaInfo::createTestTree()
     QList<ProperyNode *> ans;
     ans << economic << risks;
     return ans;
+}
+
+const QList<ProperyNode *> TreeMetaInfo::nodes()
+{
+    return m_nodes;
+}
+
+void TreeMetaInfo::open(const QString &_filename)
+{
+    m_openedFile = _filename;
+    clearNodes();
+
+    QFile file(_filename);
+    bool success = file.open(QFile::ReadOnly);
+    Q_ASSERT(success);
+    if(success)
+    {
+        QTextStream in(&file);
+        QStack<ProperyNode*> nodesHierarhy;
+        while(!in.atEnd())
+        {
+            QString line = in.readLine();
+
+            ProperyNode* node = new ProperyNode();
+            node->setDescription(line.trimmed());
+
+            int enclosure = calculateEnclosure(line);
+
+            while(nodesHierarhy.size() > enclosure)
+                nodesHierarhy.pop();
+            if(enclosure == 0)
+                m_nodes << node;
+            else
+                nodesHierarhy.last()->addChild(node);
+
+            nodesHierarhy.push(node);
+        }
+    }
+}
+
+void TreeMetaInfo::save(const QString &_filename) const
+{
+
+}
+
+// 4 spaces or one tab == 1 enclosure level
+int TreeMetaInfo::calculateEnclosure(QString &_str)
+{
+    int i = 0, spaces = 0, tabs = 0;
+    int size = _str.size();
+    while(i < size)
+    {
+        if(_str.at(i) == ' ')
+            ++spaces;
+        else if(_str.at(i) == '\t')
+            ++tabs;
+        else
+            break;
+        ++i;
+    }
+    Q_ASSERT((spaces % 4) == 0);
+    return spaces / 4 + tabs;
+}
+
+void TreeMetaInfo::clearNodes()
+{
+    qDeleteAll(m_nodes);
 }
