@@ -32,3 +32,6 @@ Makefile*
 #QtCtreator Qml
 *.qmlproject.user
 *.qmlproject.user.*
+/bin/qtpropertybrowser.dll
+/bin/ExpertReview.exe
+/bin/libqtpropertybrowser.a
