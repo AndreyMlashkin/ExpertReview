@@ -23,12 +23,9 @@ void TreePropertyWidget::fill()
 {
     TreeMetaInfo metaInfo;
     const QList<ProperyNode *> nodes = metaInfo.nodes();
-            //metaInfo.createTestTree();
 
     foreach(ProperyNode* node, nodes)
         addProperty(toProperty(node));
-
-
 }
 
 QtProperty* TreePropertyWidget::toProperty(ProperyNode *_node)

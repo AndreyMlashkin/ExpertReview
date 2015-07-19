@@ -15,8 +15,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private:
-    void resizeEvent(QResizeEvent* _ev);
+private slots:
+    void tabChanged(int _newNum);
 
 private:
     Ui::MainWindow *m_ui;
