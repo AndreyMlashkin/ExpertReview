@@ -39,13 +39,18 @@
       </widget>
       <widget class="QWidget" name="add">
        <attribute name="icon">
-        <iconset>
-         <normaloff>pics/plus.png</normaloff>pics/plus.png</iconset>
+        <iconset resource="resources.qrc">
+         <normaloff>:/pics/pics/plus.png</normaloff>:/pics/pics/plus.png</iconset>
        </attribute>
        <attribute name="title">
         <string/>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2"/>
+      </widget>
+      <widget class="QWidget" name="average">
+       <attribute name="title">
+        <string>Average</string>
+       </attribute>
       </widget>
      </widget>
     </item>
@@ -80,6 +85,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

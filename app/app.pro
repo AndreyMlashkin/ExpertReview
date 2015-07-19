@@ -33,3 +33,6 @@ FORMS    += mainwindow.ui
 
 LIBS += -L$$PWD/../bin \
         -lqtpropertybrowser
+
+RESOURCES += \
+    resources.qrc
