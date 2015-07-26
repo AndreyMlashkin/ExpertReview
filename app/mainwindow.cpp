@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_ui->propertyWidget->setSplitterPosition(double(width()) / 0.5);
 
     connect(m_ui->tabWidget, SIGNAL(currentChanged(int)), SLOT(tabChanged(int)));
+
+   m_ui->propertyWidget->setCurrentJudge(m_ui->tabWidget->tabText(0));
 }
 
 MainWindow::~MainWindow()
@@ -49,4 +51,6 @@ void MainWindow::tabChanged(int _newNum)
         w->setLayout(l);
     }
     w->layout()->addWidget(m_ui->propertyWidget);
+
+    m_ui->propertyWidget->setCurrentJudge(m_ui->tabWidget->tabText(_newNum));
 }
