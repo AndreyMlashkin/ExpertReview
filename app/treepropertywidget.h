@@ -10,16 +10,20 @@ class TreePropertyWidget : public QtTreePropertyBrowser
     Q_OBJECT
 public:
     TreePropertyWidget(QWidget *_parent = 0);
+    static QString averageJudgeName();
 
     void fillMetadata();
     void setCurrentJudge(const QString& _name);
     QString currentJudge();
 
-//    void setAverageCalculation();
+    void setAverageCalculation();
 
 private:
+    typedef QMap<QtProperty*, QVariant> Judge;
+
     void storeJudge(const QString& _name);
     void displayJudge(const QString& _name);
+    void displayJudge(const Judge& _judge);
 
     QtProperty *toProperty(ProperyNode* _node);
     int nodeType(const ProperyNode* _node) const;
@@ -31,7 +35,6 @@ private:
     QtVariantPropertyManager *m_variantManager;
 
     QString m_currentJudgeName;
-    typedef QMap<QtProperty*, QVariant> Judge;
     QMap<QString, Judge> m_associatedValues;
 };
 

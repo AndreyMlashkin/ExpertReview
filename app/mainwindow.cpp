@@ -35,7 +35,13 @@ void MainWindow::tabChanged(int _newNum)
     if(!w)
         return;
 
-    if(w == m_ui->add)
+    if(w == m_ui->average)
+    {
+        m_ui->propertyWidget->setAverageCalculation();
+        w->layout()->addWidget(m_ui->propertyWidget);
+        return;
+    }
+    else if(w == m_ui->add)
     {
         QWidget* newWidget = new QWidget();
         int tabsCount = m_ui->tabWidget->indexOf(m_ui->add);
@@ -43,8 +49,7 @@ void MainWindow::tabChanged(int _newNum)
         m_ui->tabWidget->insertTab(tabsCount, newWidget, QString("Judge") + QString::number(++judgeCount));
         m_ui->tabWidget->setCurrentWidget(newWidget);
         return;
-    }
-
+    }    
     if(!w->layout())
     {
         QHBoxLayout* l = new QHBoxLayout();

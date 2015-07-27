@@ -51,6 +51,7 @@
        <attribute name="title">
         <string>Average</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout"/>
       </widget>
      </widget>
     </item>
