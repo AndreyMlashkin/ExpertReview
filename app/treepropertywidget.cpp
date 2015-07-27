@@ -32,30 +32,84 @@ void TreePropertyWidget::fillMetadata()
         addProperty(toProperty(node));
 }
 
-void TreePropertyWidget::setCurrentJudge(const QString _name)
+void TreePropertyWidget::setCurrentJudge(const QString &_name)
 {
-    if(!m_associatedValues.contains(_name))
-        m_associatedValues[_name] = Judge();
-
-    Judge oldJudge = m_associatedValues.value(m_currentJudgeName);
-    Judge newJudge = m_associatedValues.value(_name);
-
-    foreach(QtProperty* prop, m_variantManager->properties())
-    {
-        double valueToSave = toDouble(prop->valueText());
-        oldJudge[prop] = valueToSave;
-
-        QVariant newValue = newJudge.value(prop, QVariant(0.0d));
-        double newDoubleVal = toDouble(newValue);
-        m_variantManager->setValue(prop, newDoubleVal);
-    }
-    m_associatedValues[m_currentJudgeName] = oldJudge;
-    m_currentJudgeName = _name;
+    storeJudge(m_currentJudgeName);
+    displayJudge(_name);
 }
 
 QString TreePropertyWidget::currentJudge()
 {
     return m_currentJudgeName;
+}
+
+// должна использовать в итоге display Judge
+/*void TreePropertyWidget::setAverageCalculation()
+{
+    setCurrentJudge("Average");
+    Judge average;
+
+    foreach(Judge j, m_associatedValues.values())
+    {
+        QMapIterator<QtProperty*, QVariant> p(j);
+        while (p.hasNext())
+        {
+            if(!average.contains(p.key()))
+                average[p.key()] = 0.0;
+
+            average[p.key()] = toDouble(p.value()) + toDouble(average[p.key()]);
+            p.next();
+        }
+    }
+
+    int count = average.count();
+    QMapIterator<QtProperty*, QVariant> p(average);
+    while (p.hasNext())
+    {
+        double val = toDouble(p.value());
+        val /= count;
+        average[p.key()] = QVariant(val);
+
+        p.next();
+    }
+
+}
+*/
+/*!
+ * \brief TreePropertyWidget::storeJudge
+ * Saves judge from ui with the name _name
+ * \param _name
+ */
+void TreePropertyWidget::storeJudge(const QString &_name)
+{
+    if(!m_associatedValues.contains(_name))
+        m_associatedValues[_name] = Judge();
+
+    Judge storingJudge = m_associatedValues.value(_name);
+
+    foreach(QtProperty* prop, m_variantManager->properties())
+        storingJudge[prop] = prop->valueText();
+
+    m_associatedValues[_name] = storingJudge;
+}
+
+void TreePropertyWidget::displayJudge(const QString &_name)
+{
+    if(m_currentJudgeName == _name)
+        return;
+
+    if(!m_associatedValues.contains(_name))
+        m_associatedValues[_name] = Judge();
+
+    Judge displaying = m_associatedValues.value(_name);
+
+    foreach(QtProperty* prop, m_variantManager->properties())
+    {
+        QVariant newValue = displaying.value(prop, QVariant(0.0d));
+        double newDoubleVal = toDouble(newValue);
+        m_variantManager->setValue(prop, newDoubleVal);
+    }
+    m_currentJudgeName = _name;
 }
 
 QtProperty* TreePropertyWidget::toProperty(ProperyNode *_node)
@@ -85,9 +139,8 @@ double TreePropertyWidget::toDouble(const QString &_str)
     if(_str.isEmpty())
         return -1;
 
-    QLocale rus(QLocale::Russian);
     bool isOk;
-    double ans = rus.toDouble(_str, &isOk);
+    double ans = QLocale::system().toDouble(_str, &isOk);
     Q_ASSERT(isOk);
     return ans;
 }
