@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>PropertyTreeViewer</class>
+ <widget class="QMainWindow" name="PropertyTreeViewer">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -22,7 +22,7 @@
       </property>
       <widget class="QWidget" name="defaultTab">
        <attribute name="title">
-        <string>Judge 1</string>
+        <string>Эксперт 1</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>

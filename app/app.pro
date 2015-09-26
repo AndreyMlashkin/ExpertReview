@@ -19,17 +19,22 @@ MOC_DIR = ./tmp/moc
 RCC_DIR = ./tmp/rcc
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     treepropertywidget.cpp \
     treemetainfo.cpp \
-    properynode.cpp
+    properynode.cpp \
+    modechooserdialog.cpp \
+    propertytreeviewer.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     treepropertywidget.h \
     treemetainfo.h \
-    properynode.h
+    properynode.h \
+    modechooserdialog.h \
+    propertytreeviewer.h
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    modechooserdialog.ui \
+    propertytreeviewer.ui
 
 LIBS += -L$$PWD/../bin \
         -lqtpropertybrowser

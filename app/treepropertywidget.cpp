@@ -1,4 +1,3 @@
-#include <QDebug>
 #include <QString>
 #include <QLocale>
 
@@ -58,7 +57,6 @@ void TreePropertyWidget::setAverageCalculation()
     while (j.hasNext())
     {
         j.next();
-        qDebug() << j.key();
         if(j.key() == averageJudgeName())
             continue;
 

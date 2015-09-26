@@ -5,21 +5,21 @@
 
 namespace Ui
 {
-    class MainWindow;
+    class PropertyTreeViewer;
 }
 
-class MainWindow : public QMainWindow
+class PropertyTreeViewer : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    explicit PropertyTreeViewer(QWidget *parent = 0);
+    ~PropertyTreeViewer();
 
 private slots:
     void tabChanged(int _newNum);
 
 private:
-    Ui::MainWindow *m_ui;
+    Ui::PropertyTreeViewer *m_ui;
 };
 
 #endif // MAINWINDOW_H

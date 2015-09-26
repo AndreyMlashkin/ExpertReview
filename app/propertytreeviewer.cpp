@@ -1,10 +1,10 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "propertytreeviewer.h"
+#include "ui_propertytreeviewer.h"
 #include "treepropertywidget.h"
 
-MainWindow::MainWindow(QWidget *parent)
+PropertyTreeViewer::PropertyTreeViewer(QWidget *parent)
    : QMainWindow(parent),
-     m_ui(new Ui::MainWindow)
+     m_ui(new Ui::PropertyTreeViewer)
 {
     m_ui->setupUi(this);
     showMaximized();
@@ -12,7 +12,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_ui->propertyWidget->setResizeMode(QtTreePropertyBrowser::ResizeToContents);
     m_ui->propertyWidget->update();
     m_ui->propertyWidget->setResizeMode(QtTreePropertyBrowser::Interactive);
-
 
     QFont font = m_ui->propertyWidget->font();
     font.setPointSize(12);
@@ -24,12 +23,12 @@ MainWindow::MainWindow(QWidget *parent)
    m_ui->propertyWidget->setCurrentJudge(m_ui->tabWidget->tabText(0));
 }
 
-MainWindow::~MainWindow()
+PropertyTreeViewer::~PropertyTreeViewer()
 {
     delete m_ui;
 }
 
-void MainWindow::tabChanged(int _newNum)
+void PropertyTreeViewer::tabChanged(int _newNum)
 {
     QWidget* w = m_ui->tabWidget->widget(_newNum);
     if(!w)
@@ -46,7 +45,7 @@ void MainWindow::tabChanged(int _newNum)
         QWidget* newWidget = new QWidget();
         int tabsCount = m_ui->tabWidget->indexOf(m_ui->add);
         static int judgeCount = 1;
-        m_ui->tabWidget->insertTab(tabsCount, newWidget, QString("Judge") + QString::number(++judgeCount));
+        m_ui->tabWidget->insertTab(tabsCount, newWidget, QString("Эксперт") + QString::number(++judgeCount));
         m_ui->tabWidget->setCurrentWidget(newWidget);
         return;
     }    
