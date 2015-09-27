@@ -18,6 +18,10 @@ public:
 
 private slots:
     void tabChanged(int _newNum);
+    void normalise(bool _toggle);
+
+private:
+    bool normalise() const;
 
 private:
     Ui::PropertyTreeViewer *m_ui;

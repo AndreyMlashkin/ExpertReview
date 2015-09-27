@@ -22,8 +22,9 @@ PropertyTreeViewer::PropertyTreeViewer(QWidget *parent)
     m_treePropertyWidget->setSplitterPosition(double(width()) / 0.5);
 
     connect(m_ui->tabWidget, SIGNAL(currentChanged(int)), SLOT(tabChanged(int)));
+    connect(m_ui->normalise, SIGNAL(clicked(bool)),       SLOT(normalise(bool)));
 
-   m_treePropertyWidget->setCurrentJudge(m_ui->tabWidget->tabText(0));
+    m_treePropertyWidget->setCurrentJudge(m_ui->tabWidget->tabText(0),  normalise());
 }
 
 PropertyTreeViewer::~PropertyTreeViewer()
@@ -39,7 +40,7 @@ void PropertyTreeViewer::tabChanged(int _newNum)
 
     if(w == m_ui->average)
     {
-        m_treePropertyWidget->setAverageCalculation();
+        m_treePropertyWidget->setAverageCalculation(normalise());
         w->layout()->addWidget(m_treePropertyWidget);
         return;
     }
@@ -59,5 +60,16 @@ void PropertyTreeViewer::tabChanged(int _newNum)
     }
     w->layout()->addWidget(m_treePropertyWidget);
 
-    m_treePropertyWidget->setCurrentJudge(m_ui->tabWidget->tabText(_newNum));
+    m_treePropertyWidget->setCurrentJudge(m_ui->tabWidget->tabText(_newNum), normalise());
 }
+
+void PropertyTreeViewer::normalise(bool _toggled)
+{
+    m_treePropertyWidget->normalise(_toggled);
+}
+
+bool PropertyTreeViewer::normalise() const
+{
+    return m_ui->normalise->isChecked();
+}
+

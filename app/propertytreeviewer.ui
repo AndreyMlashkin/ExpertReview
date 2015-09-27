@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
@@ -38,10 +38,23 @@
       </widget>
       <widget class="QWidget" name="average">
        <attribute name="title">
-        <string>Average</string>
+        <string>Приведённая оценка</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout"/>
       </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="normalise">
+      <property name="text">
+       <string>Нормировать</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
      </widget>
     </item>
    </layout>
