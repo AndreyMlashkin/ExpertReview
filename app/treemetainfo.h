@@ -2,6 +2,7 @@
 #define TREEMETAINFO_H
 
 #include <QList>
+#include <QString>
 class ProperyNode;
 class TreeMetaInfo
 {

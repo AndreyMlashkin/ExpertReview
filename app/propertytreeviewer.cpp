@@ -4,23 +4,26 @@
 
 PropertyTreeViewer::PropertyTreeViewer(QWidget *parent)
    : QMainWindow(parent),
-     m_ui(new Ui::PropertyTreeViewer)
+     m_ui(new Ui::PropertyTreeViewer),
+     m_treePropertyWidget(new TreePropertyWidget())
 {
     m_ui->setupUi(this);
     showMaximized();
 
-    m_ui->propertyWidget->setResizeMode(QtTreePropertyBrowser::ResizeToContents);
-    m_ui->propertyWidget->update();
-    m_ui->propertyWidget->setResizeMode(QtTreePropertyBrowser::Interactive);
+    m_ui->defaultTab->layout()->addWidget(m_treePropertyWidget);
 
-    QFont font = m_ui->propertyWidget->font();
+    m_treePropertyWidget->setResizeMode(QtTreePropertyBrowser::ResizeToContents);
+    m_treePropertyWidget->update();
+    m_treePropertyWidget->setResizeMode(QtTreePropertyBrowser::Interactive);
+
+    QFont font = m_treePropertyWidget->font();
     font.setPointSize(12);
-    m_ui->propertyWidget->setFont(font);
-    m_ui->propertyWidget->setSplitterPosition(double(width()) / 0.5);
+    m_treePropertyWidget->setFont(font);
+    m_treePropertyWidget->setSplitterPosition(double(width()) / 0.5);
 
     connect(m_ui->tabWidget, SIGNAL(currentChanged(int)), SLOT(tabChanged(int)));
 
-   m_ui->propertyWidget->setCurrentJudge(m_ui->tabWidget->tabText(0));
+   m_treePropertyWidget->setCurrentJudge(m_ui->tabWidget->tabText(0));
 }
 
 PropertyTreeViewer::~PropertyTreeViewer()
@@ -36,8 +39,8 @@ void PropertyTreeViewer::tabChanged(int _newNum)
 
     if(w == m_ui->average)
     {
-        m_ui->propertyWidget->setAverageCalculation();
-        w->layout()->addWidget(m_ui->propertyWidget);
+        m_treePropertyWidget->setAverageCalculation();
+        w->layout()->addWidget(m_treePropertyWidget);
         return;
     }
     else if(w == m_ui->add)
@@ -54,7 +57,7 @@ void PropertyTreeViewer::tabChanged(int _newNum)
         QHBoxLayout* l = new QHBoxLayout();
         w->setLayout(l);
     }
-    w->layout()->addWidget(m_ui->propertyWidget);
+    w->layout()->addWidget(m_treePropertyWidget);
 
-    m_ui->propertyWidget->setCurrentJudge(m_ui->tabWidget->tabText(_newNum));
+    m_treePropertyWidget->setCurrentJudge(m_ui->tabWidget->tabText(_newNum));
 }

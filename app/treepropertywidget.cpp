@@ -29,8 +29,9 @@ QString TreePropertyWidget::averageJudgeName()
 
 void TreePropertyWidget::fillMetadata()
 {
-    TreeMetaInfo metaInfo;
-    const QList<ProperyNode *> nodes = metaInfo.nodes();
+    // remove previous nodes here!
+    TreeMetaInfo* metaInfo = getTreeMetaInfo();
+    const QList<ProperyNode *> nodes = metaInfo->nodes();
 
     foreach(ProperyNode* node, nodes)
         addProperty(toProperty(node));
@@ -84,6 +85,11 @@ void TreePropertyWidget::setAverageCalculation()
     m_currentJudgeName = averageJudgeName();
 }
 
+TreeMetaInfo *TreePropertyWidget::getTreeMetaInfo()
+{
+    return new TreeMetaInfo();
+}
+
 /*!
  * \brief TreePropertyWidget::storeJudge
  * Saves judge from ui with the name _name
@@ -122,7 +128,7 @@ void TreePropertyWidget::displayJudge(const Judge &_judge)
 {
     foreach(QtProperty* prop, m_variantManager->properties())
     {
-        QVariant newValue = _judge.value(prop, QVariant(0.0d));
+        QVariant newValue = _judge.value(prop, QVariant(double(0)));
         double newDoubleVal = toDouble(newValue);
         m_variantManager->setValue(prop, newDoubleVal);
     }

@@ -5,6 +5,8 @@
 class QtVariantPropertyManager;
 
 class ProperyNode;
+class TreeMetaInfo;
+
 class TreePropertyWidget : public QtTreePropertyBrowser
 {
     Q_OBJECT
@@ -20,6 +22,8 @@ public:
 
 private:
     typedef QMap<QtProperty*, QVariant> Judge;
+
+    static TreeMetaInfo* getTreeMetaInfo();
 
     void storeJudge(const QString& _name);
     void displayJudge(const QString& _name);

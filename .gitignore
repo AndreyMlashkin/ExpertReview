@@ -35,3 +35,12 @@ Makefile*
 /bin/qtpropertybrowser.dll
 /bin/ExpertReview.exe
 /bin/libqtpropertybrowser.a
+object_script.ExpertReview.Debug
+object_script.ExpertReview.Release
+Makefile
+Makefile.Debug
+Makefile.Release
+Makefile.app
+Makefile.app.Debug
+Makefile.app.Release
+/app/tmp

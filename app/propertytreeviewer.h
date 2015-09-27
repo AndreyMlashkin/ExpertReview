@@ -7,6 +7,7 @@ namespace Ui
 {
     class PropertyTreeViewer;
 }
+class TreePropertyWidget;
 
 class PropertyTreeViewer : public QMainWindow
 {
@@ -20,6 +21,7 @@ private slots:
 
 private:
     Ui::PropertyTreeViewer *m_ui;
+    TreePropertyWidget* m_treePropertyWidget;
 };
 
 #endif // MAINWINDOW_H

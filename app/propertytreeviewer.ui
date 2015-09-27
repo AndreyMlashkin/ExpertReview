@@ -24,18 +24,7 @@
        <attribute name="title">
         <string>Эксперт 1</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="TreePropertyWidget" name="propertyWidget" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>500</width>
-            <height>0</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <layout class="QHBoxLayout" name="horizontalLayout_2"/>
       </widget>
       <widget class="QWidget" name="add">
        <attribute name="icon">
@@ -69,14 +58,6 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>TreePropertyWidget</class>
-   <extends>QWidget</extends>
-   <header>treepropertywidget.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="resources.qrc"/>
  </resources>
