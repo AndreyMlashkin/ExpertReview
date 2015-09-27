@@ -44,3 +44,16 @@ Makefile.app
 Makefile.app.Debug
 Makefile.app.Release
 /app/tmp
+tmp
+qtpropertybrowser.dll.embed.manifest
+object_script.qtpropertybrowser.Debug
+object_script.qtpropertybrowser.Release
+*.pdb
+/bin/ExpertReview.exe.embed.manifest
+/bin/ExpertReview.exe_manifest.bak
+/bin/ExpertReview.exe_manifest.rc
+/bin/qtpropertybrowser.dll_manifest.rc
+/bin/qtpropertybrowser.dll_manifest.res
+/bin/qtpropertybrowser.exp
+/bin/qtpropertybrowser.ilk
+/bin/qtpropertybrowser.lib

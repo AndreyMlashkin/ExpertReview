@@ -1,12 +1,12 @@
-#include "modechooserdialog.h"
+#include "modechooser.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    ModeChooserDialog dlg;
-    dlg.exec();
+    ModeChooser chooser;
+    chooser.show();
 
     return a.exec();
 }

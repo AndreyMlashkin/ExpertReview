@@ -22,19 +22,22 @@ SOURCES += main.cpp\
     treepropertywidget.cpp \
     treemetainfo.cpp \
     properynode.cpp \
-    modechooserdialog.cpp \
-    propertytreeviewer.cpp
+    propertytreeviewer.cpp \
+    modechooser.cpp \
+    projectsourcedata.cpp
 
 HEADERS  += \
     treepropertywidget.h \
     treemetainfo.h \
     properynode.h \
-    modechooserdialog.h \
-    propertytreeviewer.h
+    propertytreeviewer.h \
+    modechooser.h \
+    projectsourcedata.h
 
 FORMS    += \
-    modechooserdialog.ui \
-    propertytreeviewer.ui
+    propertytreeviewer.ui \
+    modechooser.ui \
+    projectsourcedata.ui
 
 LIBS += -L$$PWD/../bin \
         -lqtpropertybrowser

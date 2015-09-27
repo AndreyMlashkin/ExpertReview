@@ -11,7 +11,7 @@
 #include "treemetainfo.h"
 #include "properynode.h"
 
-TreePropertyWidget::TreePropertyWidget(QWidget *_parent)
+TreePropertyWidget::TreePropertyWidget(const QString &_propertiesFile, QWidget *_parent)
     : QtTreePropertyBrowser(_parent),
       m_normalised(false),
       m_variantManager(new QtVariantPropertyManager())
@@ -21,7 +21,7 @@ TreePropertyWidget::TreePropertyWidget(QWidget *_parent)
     setPropertiesWithoutValueMarked(true);
     setRootIsDecorated(false);
 
-    fillMetadata();
+    fillMetadata(_propertiesFile);
 }
 
 QString TreePropertyWidget::averageJudgeName()
@@ -29,10 +29,10 @@ QString TreePropertyWidget::averageJudgeName()
     return "Average";
 }
 
-void TreePropertyWidget::fillMetadata()
+void TreePropertyWidget::fillMetadata(const QString &_fileName)
 {
     // remove previous nodes here!
-    TreeMetaInfo* metaInfo = getTreeMetaInfo();
+    TreeMetaInfo* metaInfo = getTreeMetaInfo(_fileName);
     const QList<ProperyNode *> nodes = metaInfo->nodes();
 
     foreach(ProperyNode* node, nodes)
@@ -101,9 +101,12 @@ void TreePropertyWidget::normalise(bool _norm)
     setEditable(!_norm);
 }
 
-TreeMetaInfo *TreePropertyWidget::getTreeMetaInfo()
+TreeMetaInfo *TreePropertyWidget::getTreeMetaInfo(const QString& _fileName)
 {
-    return new TreeMetaInfo();
+    // Возможно здесь будет фабрика.
+    TreeMetaInfo* info = new TreeMetaInfo();
+    info->open(_fileName);
+    return info;
 }
 
 /*!

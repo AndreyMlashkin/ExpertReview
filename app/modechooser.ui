@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ModeChooserDialog</class>
- <widget class="QDialog" name="ModeChooserDialog">
+ <class>ModeChooser</class>
+ <widget class="QWidget" name="ModeChooser">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>247</width>
-    <height>208</height>
+    <width>301</width>
+    <height>231</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -39,14 +39,14 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="constants">
+    <widget class="QPushButton" name="calculation">
      <property name="font">
       <font>
        <pointsize>16</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>Константы</string>
+      <string>Рассчёт проекта</string>
      </property>
     </widget>
    </item>

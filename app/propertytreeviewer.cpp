@@ -3,9 +3,9 @@
 #include "treepropertywidget.h"
 
 PropertyTreeViewer::PropertyTreeViewer(QWidget *parent)
-   : QMainWindow(parent),
+   : QWidget(parent),
      m_ui(new Ui::PropertyTreeViewer),
-     m_treePropertyWidget(new TreePropertyWidget())
+     m_treePropertyWidget(new TreePropertyWidget("factors.txt"))
 {
     m_ui->setupUi(this);
     showMaximized();

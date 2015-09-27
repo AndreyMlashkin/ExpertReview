@@ -11,21 +11,21 @@ class TreePropertyWidget : public QtTreePropertyBrowser
 {
     Q_OBJECT
 public:
-    TreePropertyWidget(QWidget *_parent = 0);
+    TreePropertyWidget(const QString& _propertiesFile, QWidget *_parent = 0);
     static QString averageJudgeName();
 
-    void fillMetadata();
+    void fillMetadata(const QString& _fileName);
     void setCurrentJudge(const QString& _name, bool _normalise);
     QString currentJudge();
-
+    // Нужно дать возможность задавать и значения (правую часть) и снимать значения.
+    // на виджете с константами нужно снять значения, а на виджете рассчёта получить и рассчитать.
     void setAverageCalculation(bool _normalise);
-
     void normalise(bool _norm);
 
 private:
     typedef QMap<QtProperty*, QVariant> Judge;
 
-    static TreeMetaInfo* getTreeMetaInfo();
+    static TreeMetaInfo* getTreeMetaInfo(const QString &_fileName);
 
     void storeJudge(const QString& _name);
     void displayJudge(const QString& _name, bool _normalise);

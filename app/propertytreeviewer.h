@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QWidget>
 
 namespace Ui
 {
@@ -9,12 +9,15 @@ namespace Ui
 }
 class TreePropertyWidget;
 
-class PropertyTreeViewer : public QMainWindow
+class PropertyTreeViewer : public QWidget
 {
     Q_OBJECT
 public:
     explicit PropertyTreeViewer(QWidget *parent = 0);
     ~PropertyTreeViewer();
+
+signals:
+    void closing();
 
 private slots:
     void tabChanged(int _newNum);

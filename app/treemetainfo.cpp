@@ -6,9 +6,9 @@
 #include "properynode.h"
 
 TreeMetaInfo::TreeMetaInfo()
-    : m_openedFile("backup.txt")
+//    : m_openedFile("factors.txt")
 {
-    open(m_openedFile);
+//    open(m_openedFile);
 }
 
 TreeMetaInfo::~TreeMetaInfo()
