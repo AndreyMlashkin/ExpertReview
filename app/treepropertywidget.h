@@ -17,13 +17,20 @@ public:
     void fillMetadata(const QString& _fileName);
     void setCurrentJudge(const QString& _name, bool _normalise);
     QString currentJudge();
-    // Нужно дать возможность задавать и значения (правую часть) и снимать значения.
-    // на виджете с константами нужно снять значения, а на виджете рассчёта получить и рассчитать.
+
+    QList<double> values();
+    QList<double> values(const QString& _judgeName);
+    void valuesToFile(const QString& _judgeName, const QString& _file);
+
+    void setValues(const QString& _judgeName, const QList<double>& _values);
+    void readValues(const QString& _judgeName, const QString& _file);
+
     void setAverageCalculation(bool _normalise);
     void normalise(bool _norm);
 
 private:
     typedef QMap<QtProperty*, QVariant> Judge;
+    Judge emptyJudge();
 
     static TreeMetaInfo* getTreeMetaInfo(const QString &_fileName);
 
@@ -42,11 +49,11 @@ private:
 
 private:
     bool m_normalised;
+    TreeMetaInfo* m_metaInfo;
     QtVariantPropertyManager *m_variantManager;
 
     QString m_currentJudgeName;
     QMap<QString, Judge> m_sourceJudges;
-    QMap<QString, Judge> m_normalisedJudges;
 };
 
 #endif // TREEPROPERTYWIDGET_H

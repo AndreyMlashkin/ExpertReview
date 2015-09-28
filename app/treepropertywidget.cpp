@@ -1,6 +1,8 @@
 #include <QDebug>
 #include <QString>
 #include <QLocale>
+#include <QFile>
+#include <QTextStream>
 
 #include <QtVariantPropertyManager>
 #include <QtVariantProperty>
@@ -13,6 +15,7 @@
 
 TreePropertyWidget::TreePropertyWidget(const QString &_propertiesFile, QWidget *_parent)
     : QtTreePropertyBrowser(_parent),
+      m_metaInfo(NULL),
       m_normalised(false),
       m_variantManager(new QtVariantPropertyManager())
 {
@@ -32,8 +35,8 @@ QString TreePropertyWidget::averageJudgeName()
 void TreePropertyWidget::fillMetadata(const QString &_fileName)
 {
     // remove previous nodes here!
-    TreeMetaInfo* metaInfo = getTreeMetaInfo(_fileName);
-    const QList<ProperyNode *> nodes = metaInfo->nodes();
+    m_metaInfo = getTreeMetaInfo(_fileName);
+    const QList<ProperyNode *> nodes = m_metaInfo->nodes();
 
     foreach(ProperyNode* node, nodes)
         addProperty(toProperty(node));
@@ -48,6 +51,86 @@ void TreePropertyWidget::setCurrentJudge(const QString &_name, bool _normalise)
 QString TreePropertyWidget::currentJudge()
 {
     return m_currentJudgeName;
+}
+
+QList<double> TreePropertyWidget::values()
+{
+    storeJudge(currentJudge());
+    return values(currentJudge());
+}
+
+QList<double> TreePropertyWidget::values(const QString &_judgeName)
+{
+    QList<double> ans;
+    if(!m_sourceJudges.contains(_judgeName))
+        return ans;
+
+    Judge jud = m_sourceJudges[_judgeName];
+    QStringList orderedKeys = m_metaInfo->planeNodes();
+    foreach (QString key, orderedKeys)
+    {
+        foreach(QtProperty* prop, jud.keys())
+        {
+            if(prop->propertyName() == key)
+                ans << toDouble(prop->valueText());
+        }
+    }
+    return ans;
+}
+
+void TreePropertyWidget::valuesToFile(const QString &_judgeName, const QString &_file)
+{
+    QList<double> vals = values(_judgeName);
+    QFile file(_file);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    QTextStream out(&file);
+    foreach (double val, vals)
+        out << val;
+}
+
+void TreePropertyWidget::setValues(const QString &_judgeName, const QList<double> &_values)
+{
+    Judge jud = emptyJudge();
+
+//    Q_ASSERT(jud.size() != _values.size());
+
+    QStringList orderedKeys = m_metaInfo->planeNodes();
+
+    int size = qMin(jud.size(), _values.size());
+    for(int i = 0; i < size; ++i)
+    {
+        QString key = orderedKeys.at(i);
+        QMapIterator<QtProperty*, QVariant> p(jud);
+        while (p.hasNext())
+        {
+            p.next();
+            if(p.key()->propertyName() == key)
+            {
+                jud[p.key()] = _values.at(i);
+                break;
+            }
+        }
+    }
+    m_sourceJudges[_judgeName] = jud;
+}
+
+void TreePropertyWidget::readValues(const QString &_judgeName, const QString &_file)
+{
+    QFile file(_file);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QList<double> vals;
+    QTextStream in(&file);
+    while(!in.atEnd())
+    {
+        double d;
+        in >> d;
+        vals << d;
+    }
+    setValues(_judgeName, vals);
 }
 
 void TreePropertyWidget::setAverageCalculation(bool _normalise)
@@ -99,6 +182,14 @@ void TreePropertyWidget::normalise(bool _norm)
 
     m_normalised = _norm;
     setEditable(!_norm);
+}
+
+TreePropertyWidget::Judge TreePropertyWidget::emptyJudge()
+{
+    Judge empty;
+    foreach(QtProperty* prop, m_variantManager->properties())
+        empty[prop] = double(0);
+    return empty;
 }
 
 TreeMetaInfo *TreePropertyWidget::getTreeMetaInfo(const QString& _fileName)

@@ -7,6 +7,9 @@ namespace Ui {
 class ModeChooser;
 }
 
+class PropertyTreeViewer;
+class ProjectSourceData;
+
 class ModeChooser : public QWidget
 {
     Q_OBJECT
@@ -21,6 +24,8 @@ private slots:
 
 private:
     Ui::ModeChooser *m_ui;
+    PropertyTreeViewer* m_viewer;
+    ProjectSourceData* m_sourceData;
 };
 
 #endif // MODECHOOSER_H

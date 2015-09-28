@@ -17,7 +17,7 @@
    <item>
     <widget class="QPushButton" name="calculate">
      <property name="text">
-      <string>Рассчёт &gt;</string>
+      <string>Расчёт &gt;</string>
      </property>
     </widget>
    </item>

@@ -6,7 +6,9 @@
 
 ModeChooser::ModeChooser(QWidget *parent) :
     QWidget(parent),
-    m_ui(new Ui::ModeChooser)
+    m_ui(new Ui::ModeChooser),
+    m_viewer(NULL),
+    m_sourceData(NULL)
 {
     m_ui->setupUi(this);
     connect(m_ui->metodicJudges, SIGNAL(clicked()), SLOT(callMetodicJudges()));
@@ -15,6 +17,8 @@ ModeChooser::ModeChooser(QWidget *parent) :
 
 ModeChooser::~ModeChooser()
 {
+    delete m_viewer;
+    delete m_sourceData;
     delete m_ui;
 }
 

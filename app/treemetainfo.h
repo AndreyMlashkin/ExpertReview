@@ -12,6 +12,7 @@ public:
 
     QList<ProperyNode*> createTestTree();
     const QList<ProperyNode*> nodes();
+    QStringList planeNodes();
 
     void open(const QString& _filename);
     void save(const QString& _filename) const;
@@ -23,7 +24,7 @@ private:
 private:
     QString m_openedFile;
     QList<ProperyNode*> m_nodes;
-
+    QStringList m_planeNodes;
 };
 
 #endif // TREEMETAINFO_H

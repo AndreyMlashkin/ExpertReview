@@ -48,6 +48,11 @@ const QList<ProperyNode *> TreeMetaInfo::nodes()
     return m_nodes;
 }
 
+QStringList TreeMetaInfo::planeNodes()
+{
+    return m_planeNodes;
+}
+
 void TreeMetaInfo::open(const QString &_filename)
 {
     m_openedFile = _filename;
@@ -66,6 +71,7 @@ void TreeMetaInfo::open(const QString &_filename)
 
             ProperyNode* node = new ProperyNode();
             node->setDescription(line.trimmed());
+            m_planeNodes << line.trimmed();
 
             int enclosure = calculateEnclosure(line);
 

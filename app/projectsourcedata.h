@@ -20,6 +20,9 @@ private slots:
     void callCalculation();
 
 private:
+    QList<double> calculateProject(QList<double> _source) const;
+
+private:
     Ui::ProjectSourceData *m_ui;
     TreePropertyWidget* m_tree;
 };
