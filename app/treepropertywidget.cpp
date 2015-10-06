@@ -15,8 +15,8 @@
 
 TreePropertyWidget::TreePropertyWidget(const QString &_propertiesFile, QWidget *_parent)
     : QtTreePropertyBrowser(_parent),
-      m_metaInfo(NULL),
       m_normalised(false),
+      m_metaInfo(NULL),
       m_variantManager(new QtVariantPropertyManager())
 {
     QtVariantEditorFactory *variantFactory = new QtVariantEditorFactory();
