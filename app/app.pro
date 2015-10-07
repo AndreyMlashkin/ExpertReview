@@ -24,8 +24,9 @@ SOURCES += main.cpp\
     propertytreeviewer.cpp \
     modechooser.cpp \
     projectsourcedata.cpp \
-    treeleftsideinfofile.cpp \
-    treeleftsideinfotest.cpp
+    nodesinfo/treeleftsideinfofile.cpp \
+    nodesinfo/treeleftsideinfotest.cpp \
+    nodesinfo/treerightsidevaluesfile.cpp
 
 HEADERS  += \
     treepropertywidget.h \
@@ -33,9 +34,11 @@ HEADERS  += \
     propertytreeviewer.h \
     modechooser.h \
     projectsourcedata.h \
-    treeleftsideinfo.h \
-    treeleftsideinfofile.h \
-    treeleftsideinfotest.h
+    nodesinfo/treeleftsideinfo.h \
+    nodesinfo/treeleftsideinfofile.h \
+    nodesinfo/treeleftsideinfotest.h \
+    nodesinfo/treerightsidevalues.h \
+    nodesinfo/treerightsidevaluesfile.h
 
 FORMS    += \
     propertytreeviewer.ui \

@@ -7,6 +7,7 @@ class QtVariantPropertyManager;
 class ProperyNode;
 class TreeLeftSideInfo;
 
+// Переписать!
 class TreePropertyWidget : public QtTreePropertyBrowser
 {
     Q_OBJECT
@@ -32,7 +33,7 @@ private:
     typedef QMap<QtProperty*, QVariant> Judge;
     Judge emptyJudge();
 
-    static TreeLeftSideInfo* getTreeLedtSideInfo(const QString &_fileName);
+    static TreeLeftSideInfo* getTreeLeftSideInfo(const QString &_fileName);
 
     void storeJudge(const QString& _name);
     void displayJudge(const QString& _name, bool _normalise);

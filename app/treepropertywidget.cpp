@@ -10,7 +10,7 @@
 
 #include "treepropertywidget.h"
 
-#include "treeleftsideinfofile.h"
+#include "nodesinfo/treeleftsideinfofile.h"
 #include "properynode.h"
 
 TreePropertyWidget::TreePropertyWidget(const QString &_propertiesFile, QWidget *_parent)
@@ -35,7 +35,7 @@ QString TreePropertyWidget::averageJudgeName()
 void TreePropertyWidget::fillMetadata(const QString &_fileName)
 {
     // remove previous nodes here!
-    m_metaInfo = getTreeLedtSideInfo(_fileName);
+    m_metaInfo = getTreeLeftSideInfo(_fileName);
     const QList<ProperyNode *> nodes = m_metaInfo->nodes();
 
     foreach(ProperyNode* node, nodes)
@@ -192,7 +192,7 @@ TreePropertyWidget::Judge TreePropertyWidget::emptyJudge()
     return empty;
 }
 
-TreeLeftSideInfo *TreePropertyWidget::getTreeLedtSideInfo(const QString& _fileName)
+TreeLeftSideInfo *TreePropertyWidget::getTreeLeftSideInfo(const QString& _fileName)
 {
     // Возможно здесь будет фабрика.
     TreeLeftSideInfo* info = new TreeLeftSideInfoFile();

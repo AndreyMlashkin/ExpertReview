@@ -2,7 +2,6 @@
 #define PROPERYNODE_H
 
 #include <QObject>
-#include <QVariant>
 
 class ProperyNode : public QObject
 {
