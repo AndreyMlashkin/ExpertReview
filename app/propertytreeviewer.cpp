@@ -1,11 +1,15 @@
 #include "propertytreeviewer.h"
 #include "ui_propertytreeviewer.h"
 #include "treepropertywidget.h"
+#include "nodesinfo/treeinfofactory.h"
 
-PropertyTreeViewer::PropertyTreeViewer(QWidget *parent)
+PropertyTreeViewer::PropertyTreeViewer(const QString &_treeId, QWidget *parent)
    : QWidget(parent),
      m_ui(new Ui::PropertyTreeViewer),
-     m_treePropertyWidget(new TreePropertyWidget("factors.txt"))
+     m_treePropertyWidget(new TreePropertyWidget("factors.txt")),
+     m_factory(new TreeInfoFactory()),
+     m_info(m_factory->getLeftSideInfo(_treeId))
+   // как загрузить и значения?
 {
     m_ui->setupUi(this);
     showMaximized();
@@ -46,11 +50,7 @@ void PropertyTreeViewer::tabChanged(int _newNum)
     }
     else if(w == m_ui->add)
     {
-        QWidget* newWidget = new QWidget();
-        int tabsCount = m_ui->tabWidget->indexOf(m_ui->add);
-        static int judgeCount = 1;
-        m_ui->tabWidget->insertTab(tabsCount, newWidget, QString("Эксперт") + QString::number(++judgeCount));
-        m_ui->tabWidget->setCurrentWidget(newWidget);
+        addTab();
         return;
     }    
     if(!w->layout())
@@ -66,6 +66,15 @@ void PropertyTreeViewer::tabChanged(int _newNum)
 void PropertyTreeViewer::normalise(bool _toggled)
 {
     m_treePropertyWidget->normalise(_toggled);
+}
+
+void PropertyTreeViewer::addTab()
+{
+    QWidget* newWidget = new QWidget();
+    int tabsCount = m_ui->tabWidget->indexOf(m_ui->add);
+    static int judgeCount = 1;
+    m_ui->tabWidget->insertTab(tabsCount, newWidget, QString("Эксперт") + QString::number(++judgeCount));
+    m_ui->tabWidget->setCurrentWidget(newWidget);
 }
 
 bool PropertyTreeViewer::normalise() const

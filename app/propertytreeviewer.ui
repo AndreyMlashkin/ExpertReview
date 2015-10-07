@@ -28,23 +28,7 @@
         <attribute name="title">
          <string>Эксперт 1</string>
         </attribute>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-        </layout>
+        <layout class="QHBoxLayout" name="defaultLauout"/>
        </widget>
        <widget class="QWidget" name="add">
         <attribute name="icon">

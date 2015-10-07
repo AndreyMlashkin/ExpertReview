@@ -7,7 +7,7 @@ class QtVariantPropertyManager;
 class ProperyNode;
 class TreeLeftSideInfo;
 
-// Переписать!
+// Переписать! вместо судей - TreeLeftSideInfo и TreeRightSideValues
 class TreePropertyWidget : public QtTreePropertyBrowser
 {
     Q_OBJECT

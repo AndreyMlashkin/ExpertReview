@@ -10,7 +10,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ExpertReview
 TEMPLATE = app
-INCLUDEPATH += ../include/qtpropertybrowser
+INCLUDEPATH += ../include/qtpropertybrowser \
+               /nodesinfo
 
 DESTDIR = $$PWD/../bin
 OBJECTS_DIR = ./tmp/obj
@@ -26,7 +27,8 @@ SOURCES += main.cpp\
     projectsourcedata.cpp \
     nodesinfo/treeleftsideinfofile.cpp \
     nodesinfo/treeleftsideinfotest.cpp \
-    nodesinfo/treerightsidevaluesfile.cpp
+    nodesinfo/treerightsidevaluesfile.cpp \
+    nodesinfo/treeinfofactory.cpp
 
 HEADERS  += \
     treepropertywidget.h \
@@ -38,7 +40,8 @@ HEADERS  += \
     nodesinfo/treeleftsideinfofile.h \
     nodesinfo/treeleftsideinfotest.h \
     nodesinfo/treerightsidevalues.h \
-    nodesinfo/treerightsidevaluesfile.h
+    nodesinfo/treerightsidevaluesfile.h \
+    nodesinfo/treeinfofactory.h
 
 FORMS    += \
     propertytreeviewer.ui \
