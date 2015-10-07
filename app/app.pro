@@ -20,19 +20,22 @@ RCC_DIR = ./tmp/rcc
 
 SOURCES += main.cpp\
     treepropertywidget.cpp \
-    treemetainfo.cpp \
     properynode.cpp \
     propertytreeviewer.cpp \
     modechooser.cpp \
-    projectsourcedata.cpp
+    projectsourcedata.cpp \
+    treeleftsideinfofile.cpp \
+    treeleftsideinfotest.cpp
 
 HEADERS  += \
     treepropertywidget.h \
-    treemetainfo.h \
     properynode.h \
     propertytreeviewer.h \
     modechooser.h \
-    projectsourcedata.h
+    projectsourcedata.h \
+    treeleftsideinfo.h \
+    treeleftsideinfofile.h \
+    treeleftsideinfotest.h
 
 FORMS    += \
     propertytreeviewer.ui \

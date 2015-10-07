@@ -41,13 +41,3 @@ void ProperyNode::setDescription(const QString &_desc)
 {
     m_description = _desc;
 }
-
-QVariant ProperyNode::value() const
-{
-    return m_value;
-}
-
-void ProperyNode::setValue(const QVariant &_val)
-{
-    m_value = _val;
-}

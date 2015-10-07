@@ -19,13 +19,9 @@ public:
     QString description() const;
     void setDescription(const QString& _desc);
 
-    QVariant value() const;
-    void setValue(const QVariant& _val);
-
 private:
     QList<ProperyNode*> m_children;
     QString m_description;
-    QVariant m_value;
 };
 
 #endif // PROPERYNODE_H

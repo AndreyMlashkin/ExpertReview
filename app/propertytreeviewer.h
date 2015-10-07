@@ -9,6 +9,7 @@ namespace Ui
 }
 class TreePropertyWidget;
 
+// нужно сделать инъекцию зависимости TreePropertyWidget - получать в конструктре
 class PropertyTreeViewer : public QWidget
 {
     Q_OBJECT
