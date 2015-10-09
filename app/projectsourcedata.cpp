@@ -1,12 +1,13 @@
-#include <QDebug>
 #include "projectsourcedata.h"
 #include "ui_projectsourcedata.h"
 #include "treepropertywidget.h"
+#include "nodesinfo/treeinfofactory.h"
 
 ProjectSourceData::ProjectSourceData(QWidget *parent) :
     QWidget(parent),
     m_ui(new Ui::ProjectSourceData),
-    m_tree(new TreePropertyWidget("constants.txt"))
+    m_factory(new TreeInfoFactory()),
+    m_tree(new TreePropertyWidget(m_factory->getLeftSideInfo("constants.txt")))
 {
     m_ui->setupUi(this);
     m_ui->verticalLayout->addWidget(m_tree);
@@ -26,7 +27,8 @@ void ProjectSourceData::callCalculation()
 {
     QList<double> vals = calculateProject(m_tree->values());
 
-    TreePropertyWidget* calculation = new TreePropertyWidget("factors.txt");
+    TreeLeftSideInfo* info = m_factory->getLeftSideInfo("factors.txt");
+    TreePropertyWidget* calculation = new TreePropertyWidget(info);
     calculation->setValues("Project1", vals);
     calculation->setCurrentJudge("Project1", false);
 //    calculation->showMaximized();

@@ -1,6 +1,7 @@
 #ifndef TREELEFTSIDEINFOFILE_H
 #define TREELEFTSIDEINFOFILE_H
 
+#include <QStringList>
 #include "treeleftsideinfo.h"
 
 class TreeLeftSideInfoFile : public TreeLeftSideInfo

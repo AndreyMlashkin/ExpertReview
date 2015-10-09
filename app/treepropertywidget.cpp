@@ -13,10 +13,10 @@
 #include "nodesinfo/treeleftsideinfofile.h"
 #include "properynode.h"
 
-TreePropertyWidget::TreePropertyWidget(const QString &_propertiesFile, QWidget *_parent)
+TreePropertyWidget::TreePropertyWidget(TreeLeftSideInfo* _info, QWidget *_parent)
     : QtTreePropertyBrowser(_parent),
+      m_info(_info),
       m_normalised(false),
-      m_metaInfo(NULL),
       m_variantManager(new QtVariantPropertyManager())
 {
     QtVariantEditorFactory *variantFactory = new QtVariantEditorFactory();
@@ -24,22 +24,12 @@ TreePropertyWidget::TreePropertyWidget(const QString &_propertiesFile, QWidget *
     setPropertiesWithoutValueMarked(true);
     setRootIsDecorated(false);
 
-    fillMetadata(_propertiesFile);
+    fillLeftSide();
 }
 
 QString TreePropertyWidget::averageJudgeName()
 {
     return "Average";
-}
-
-void TreePropertyWidget::fillMetadata(const QString &_fileName)
-{
-    // remove previous nodes here!
-    m_metaInfo = getTreeLeftSideInfo(_fileName);
-    const QList<ProperyNode *> nodes = m_metaInfo->nodes();
-
-    foreach(ProperyNode* node, nodes)
-        addProperty(toProperty(node));
 }
 
 void TreePropertyWidget::setCurrentJudge(const QString &_name, bool _normalise)
@@ -66,7 +56,7 @@ QList<double> TreePropertyWidget::values(const QString &_judgeName)
         return ans;
 
     Judge jud = m_sourceJudges[_judgeName];
-    QStringList orderedKeys = m_metaInfo->planeNodes();
+    QStringList orderedKeys = m_info->planeNodes();
     foreach (QString key, orderedKeys)
     {
         foreach(QtProperty* prop, jud.keys())
@@ -96,7 +86,7 @@ void TreePropertyWidget::setValues(const QString &_judgeName, const QList<double
 
 //    Q_ASSERT(jud.size() != _values.size());
 
-    QStringList orderedKeys = m_metaInfo->planeNodes();
+    QStringList orderedKeys = m_info->planeNodes();
 
     int size = qMin(jud.size(), _values.size());
     for(int i = 0; i < size; ++i)
@@ -192,12 +182,11 @@ TreePropertyWidget::Judge TreePropertyWidget::emptyJudge()
     return empty;
 }
 
-TreeLeftSideInfo *TreePropertyWidget::getTreeLeftSideInfo(const QString& _fileName)
+void TreePropertyWidget::fillLeftSide()
 {
-    // Возможно здесь будет фабрика.
-    TreeLeftSideInfo* info = new TreeLeftSideInfoFile();
-    info->open(_fileName);
-    return info;
+    const QList<ProperyNode *> nodes = m_info->nodes();
+    foreach(ProperyNode* node, nodes)
+        addProperty(toProperty(node));
 }
 
 /*!

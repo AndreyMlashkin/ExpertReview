@@ -6,11 +6,13 @@
 PropertyTreeViewer::PropertyTreeViewer(const QString &_treeId, QWidget *parent)
    : QWidget(parent),
      m_ui(new Ui::PropertyTreeViewer),
-     m_treePropertyWidget(new TreePropertyWidget("factors.txt")),
-     m_factory(new TreeInfoFactory()),
-     m_info(m_factory->getLeftSideInfo(_treeId))
-   // как загрузить и значения?
+     m_treeId(_treeId),
+     m_treePropertyWidget(NULL),
+     m_factory(NULL),
+     m_leftInfo(NULL)
 {
+    init();
+
     m_ui->setupUi(this);
     showMaximized();
 
@@ -34,6 +36,21 @@ PropertyTreeViewer::PropertyTreeViewer(const QString &_treeId, QWidget *parent)
 PropertyTreeViewer::~PropertyTreeViewer()
 {
     delete m_ui;
+}
+
+void PropertyTreeViewer::setDefaultTabName(const QString &_name)
+{
+    m_defaultTabName = _name;
+
+    int tabsCount = m_ui->tabWidget->count();
+
+    for(int i = 0; i < tabsCount - 2; ++i)
+        m_ui->tabWidget->setTabText(i, generateTabName(i));
+}
+
+QString PropertyTreeViewer::defaultTabName() const
+{
+    return m_defaultTabName;
 }
 
 void PropertyTreeViewer::tabChanged(int _newNum)
@@ -68,17 +85,32 @@ void PropertyTreeViewer::normalise(bool _toggled)
     m_treePropertyWidget->normalise(_toggled);
 }
 
+void PropertyTreeViewer::init()
+{
+    m_factory = new TreeInfoFactory();
+    m_leftInfo = m_factory->getLeftSideInfo(m_treeId);
+    m_treePropertyWidget = new TreePropertyWidget(m_leftInfo);
+  // как загрузить и значения?
+}
+
 void PropertyTreeViewer::addTab()
 {
     QWidget* newWidget = new QWidget();
-    int tabsCount = m_ui->tabWidget->indexOf(m_ui->add);
-    static int judgeCount = 1;
-    m_ui->tabWidget->insertTab(tabsCount, newWidget, QString("Эксперт") + QString::number(++judgeCount));
+//    int tabsCount = m_ui->tabWidget->indexOf(m_ui->add);
+    int tabsCount = m_ui->tabWidget->count();
+    int insertPos = tabsCount - 2;
+
+    m_ui->tabWidget->insertTab(insertPos, newWidget, generateTabName(insertPos));
     m_ui->tabWidget->setCurrentWidget(newWidget);
 }
 
 bool PropertyTreeViewer::normalise() const
 {
     return m_ui->normalise->isChecked();
+}
+
+QString PropertyTreeViewer::generateTabName(int _num) const
+{
+    return m_defaultTabName + " " + QString::number(_num + 1);
 }
 

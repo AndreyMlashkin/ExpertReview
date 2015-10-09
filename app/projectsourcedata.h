@@ -7,6 +7,7 @@ namespace Ui {
 class ProjectSourceData;
 }
 class TreePropertyWidget;
+class TreeInfoFactory;
 
 class ProjectSourceData : public QWidget
 {
@@ -24,6 +25,8 @@ private:
 
 private:
     Ui::ProjectSourceData *m_ui;
+
+    TreeInfoFactory* m_factory;
     TreePropertyWidget* m_tree;
 };
 

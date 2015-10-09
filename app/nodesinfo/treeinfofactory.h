@@ -11,8 +11,8 @@ class TreeInfoFactory
 public:
     TreeInfoFactory();
 
-    virtual TreeLeftSideInfo* getLeftSideInfo(const QString& _id) = 0;
-    virtual TreeRightSideValues* getRightSideValues(const QString& _id) = 0;
+    TreeLeftSideInfo* getLeftSideInfo(const QString& _id);
+    TreeRightSideValues* getRightSideValues(const QString& _id);
 };
 
 #endif // TREEINFOFACTORY_H

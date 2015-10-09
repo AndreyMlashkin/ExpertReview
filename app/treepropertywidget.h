@@ -12,10 +12,9 @@ class TreePropertyWidget : public QtTreePropertyBrowser
 {
     Q_OBJECT
 public:
-    TreePropertyWidget(const QString& _propertiesFile, QWidget *_parent = 0);
+    TreePropertyWidget(TreeLeftSideInfo *_info, QWidget *_parent = 0);
     static QString averageJudgeName();
 
-    void fillMetadata(const QString& _fileName);
     void setCurrentJudge(const QString& _name, bool _normalise);
     QString currentJudge();
 
@@ -33,7 +32,7 @@ private:
     typedef QMap<QtProperty*, QVariant> Judge;
     Judge emptyJudge();
 
-    static TreeLeftSideInfo* getTreeLeftSideInfo(const QString &_fileName);
+    void fillLeftSide();
 
     void storeJudge(const QString& _name);
     void displayJudge(const QString& _name, bool _normalise);
@@ -49,8 +48,9 @@ private:
     void setEditable(bool _set);
 
 private:
+    TreeLeftSideInfo* m_info;
+
     bool m_normalised;
-    TreeLeftSideInfo* m_metaInfo;
     QtVariantPropertyManager *m_variantManager;
 
     QString m_currentJudgeName;

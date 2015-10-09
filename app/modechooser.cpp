@@ -24,7 +24,8 @@ ModeChooser::~ModeChooser()
 
 void ModeChooser::callMetodicJudges()
 {
-    PropertyTreeViewer* metodicJudges = new PropertyTreeViewer();
+    PropertyTreeViewer* metodicJudges = new PropertyTreeViewer("metodicJudges");
+    metodicJudges->setDefaultTabName("Эксперт");
     metodicJudges->show();
 }
 
