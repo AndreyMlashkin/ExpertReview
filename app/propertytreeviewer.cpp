@@ -61,15 +61,14 @@ void PropertyTreeViewer::tabChanged(int _newNum)
     if(!w)
         return;
 
-    if(!isServiceTab(m_currentTab))
+    if(!isServiceTab(m_currentTab) && !isNormalised())
         saveValuesFromUi();
 
     if(w == m_ui->average)
     {
-        displayArithmeticalMean();
+        displayValuesForArithmeticalMean();
         w->layout()->addWidget(m_treePropertyWidget);
         m_currentTab = _newNum;
-        return;
     }
     else if(w == m_ui->add)
     {
@@ -83,6 +82,7 @@ void PropertyTreeViewer::tabChanged(int _newNum)
     }
 
     setActiveTab(w);
+    normalise(isNormalised());
 }
 
 void PropertyTreeViewer::normalise(bool _toggled)
@@ -119,7 +119,7 @@ void PropertyTreeViewer::normalise(bool _toggled)
     else
     {
         if(m_ui->tabWidget->widget(m_currentTab) == m_ui->average)
-            displayArithmeticalMean();
+            displayValuesForArithmeticalMean();
         else
             m_treePropertyWidget->setValues(m_values[m_currentTab]);
     }
@@ -154,7 +154,7 @@ bool PropertyTreeViewer::isNormalised() const
     return m_ui->normalise->isChecked();
 }
 
-void PropertyTreeViewer::displayArithmeticalMean()
+void PropertyTreeViewer::displayValuesForArithmeticalMean()
 {
     QVector<double> arMean;
     arMean.resize(m_leftInfo->planeNodes().size());

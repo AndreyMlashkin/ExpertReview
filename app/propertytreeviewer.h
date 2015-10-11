@@ -30,7 +30,7 @@ private:
     void init();
     void addTab();
     bool isNormalised() const;
-    void displayArithmeticalMean();
+    void displayValuesForArithmeticalMean();
 
     QString generateTabName(int _num) const;
     bool isServiceTab(int _num) const;
