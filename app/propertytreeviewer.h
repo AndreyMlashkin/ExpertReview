@@ -16,7 +16,18 @@ class PropertyTreeViewer : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PropertyTreeViewer(const QString& _treeId, QWidget *parent = 0);
+    enum Mode { Minimal = 0,
+                AddTabs = 0x1,
+                AverageTab = 0x2,
+                NormalizeButton = 0x4,
+
+                SaveRegularOnExit = 0x8,
+                SaveAverageNormalOnExit = 0x10,
+
+                All = 0xFFFFFFF
+              };
+
+    explicit PropertyTreeViewer(const QString& _leftSideTreeId, int _mode = All, QWidget *parent = 0);
     ~PropertyTreeViewer();
 
     void setDefaultTabName(const QString& _name);
@@ -28,8 +39,13 @@ private slots:
 
 private:
     void init();
+    void setMode(int _mode);
+
     void addTab();
     bool isNormalised() const;
+    TreeRightSideValues *normalise(TreeRightSideValues* _values);
+
+    TreeRightSideValues* arithmeticalMean();
     void displayValuesForArithmeticalMean();
 
     QString generateTabName(int _num) const;
@@ -44,8 +60,13 @@ private:
 
 private:
     Ui::PropertyTreeViewer *m_ui;
+    int m_mode;
+    QWidget* m_average;
+    QWidget* m_add;
+    int m_serviceTabsCount;
+
     QString m_defaultTabName;
-    QString m_treeId;
+    QString m_leftSideTreeId;
 
     TreePropertyWidget* m_treePropertyWidget;
     int m_currentTab;

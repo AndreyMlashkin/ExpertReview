@@ -1,4 +1,3 @@
-#include <QDebug>
 #include <QFileInfo>
 
 #include "propertytreeviewer.h"
@@ -8,27 +7,27 @@
 #include "nodesinfo/treerightsidevalues.h"
 #include "nodesinfo/treeleftsideinfo.h"
 
-const int SERVICE_TABS_COUNT = 2;
-
-PropertyTreeViewer::PropertyTreeViewer(const QString &_treeId, QWidget *parent)
+PropertyTreeViewer::PropertyTreeViewer(const QString &_leftSideTreeId, int _mode, QWidget *parent)
    : QWidget(parent),
      m_ui(new Ui::PropertyTreeViewer),
-     m_treeId(_treeId),
+     m_mode(_mode),
+     m_serviceTabsCount(0),
+
+     m_leftSideTreeId(_leftSideTreeId),
      m_treePropertyWidget(NULL),
      m_currentTab(0),
      m_factory(NULL),
      m_leftInfo(NULL)
 {
     setAttribute(Qt::WA_DeleteOnClose);
-
-    init();
-
     m_ui->setupUi(this);
+    init();
     showMaximized();
+    setMode(_mode);
 
     readRightSideVals();
 
-    if(m_ui->tabWidget->count() == SERVICE_TABS_COUNT)
+    if(m_ui->tabWidget->count() == m_serviceTabsCount)
         addTab();
 //  ----------------------
     m_treePropertyWidget->setValues(m_values[0]);
@@ -51,9 +50,23 @@ PropertyTreeViewer::PropertyTreeViewer(const QString &_treeId, QWidget *parent)
 
 PropertyTreeViewer::~PropertyTreeViewer()
 {
-    writeRightSideVals();
+    if(m_mode & SaveRegularOnExit)
+        writeRightSideVals();
     delete m_ui;
 }
+
+//PropertyTreeViewer::Mode PropertyTreeViewer::mode() const
+//{
+//    int currMode = 0x0;
+//    if(m_ui->add->isVisible())
+//        currMode |= AddTabs;
+//    if(m_ui->average->isVisible())
+//        currMode |= AverageTab;
+//    if(m_ui->normalise->isVisible())
+//        currMode |= NormalizeButton;
+
+//    return Mode(currMode);
+//}
 
 void PropertyTreeViewer::setDefaultTabName(const QString &_name)
 {
@@ -61,7 +74,7 @@ void PropertyTreeViewer::setDefaultTabName(const QString &_name)
 
     int tabsCount = m_ui->tabWidget->count();
 
-    for(int i = 0; i < tabsCount - SERVICE_TABS_COUNT; ++i)
+    for(int i = 0; i < tabsCount - m_serviceTabsCount; ++i)
         m_ui->tabWidget->setTabText(i, generateTabName(i));
 }
 
@@ -115,20 +128,22 @@ void PropertyTreeViewer::normalise(bool _toggled)
             oldVals = m_values[m_currentTab];
         Q_ASSERT(oldVals);
 
-        QVariantList savedValues = oldVals->values();
+//        QVariantList savedValues = oldVals->values();
 
-        double summ = 0;
-        foreach(QVariant v, savedValues)
-            summ += v.value<double>();
+//        double summ = 0;
+//        foreach(QVariant v, savedValues)
+//            summ += v.value<double>();
 
-        for(int i = 0; i < savedValues.size(); ++i)
-        {
-            double val = savedValues.at(i).value<double>();
-            savedValues[i] = val / summ;
-        }
+//        for(int i = 0; i < savedValues.size(); ++i)
+//        {
+//            double val = savedValues.at(i).value<double>();
+//            savedValues[i] = val / summ;
+//        }
 
-        TreeRightSideValues* newVals = m_factory->getRightSideValues();
-        newVals->setValues(savedValues);
+//        TreeRightSideValues* newVals = m_factory->getRightSideValues();
+//        newVals->setValues(savedValues);
+
+        TreeRightSideValues* newVals = normalise(oldVals);
         m_treePropertyWidget->setValues(newVals);
     }
     else
@@ -143,8 +158,34 @@ void PropertyTreeViewer::normalise(bool _toggled)
 void PropertyTreeViewer::init()
 {
     m_factory = new TreeInfoFactory();
-    m_leftInfo = m_factory->getLeftSideInfo(m_treeId);
+    m_leftInfo = m_factory->getLeftSideInfo(m_leftSideTreeId);
     m_treePropertyWidget = new TreePropertyWidget(m_leftInfo, m_factory);
+
+    m_average = m_ui->average;
+    m_add = m_ui->add;
+}
+
+void PropertyTreeViewer::setMode(int _mode)
+{
+    m_serviceTabsCount = 0;
+
+    m_ui->normalise->setVisible(_mode & NormalizeButton);
+
+    if(_mode & AddTabs)
+        ++m_serviceTabsCount;
+    else
+    {
+        int addWgtIndex = m_ui->tabWidget->indexOf(m_add);
+        m_ui->tabWidget->removeTab(addWgtIndex);
+    }
+
+    if(_mode & AverageTab)
+        ++m_serviceTabsCount;
+    else
+    {
+        int averageWgtIndex = m_ui->tabWidget->indexOf(m_average);
+        m_ui->tabWidget->removeTab(averageWgtIndex);
+    }
 }
 
 void PropertyTreeViewer::addTab()
@@ -152,7 +193,7 @@ void PropertyTreeViewer::addTab()
     QWidget* newWidget = new QWidget();
 //    int tabsCount = m_ui->tabWidget->indexOf(m_ui->add);
     int tabsCount = m_ui->tabWidget->count();
-    int insertPos = tabsCount - SERVICE_TABS_COUNT;
+    int insertPos = tabsCount - m_serviceTabsCount;
 
     m_ui->tabWidget->insertTab(insertPos, newWidget, generateTabName(insertPos));
 
@@ -169,7 +210,26 @@ bool PropertyTreeViewer::isNormalised() const
     return m_ui->normalise->isChecked();
 }
 
-void PropertyTreeViewer::displayValuesForArithmeticalMean()
+TreeRightSideValues* PropertyTreeViewer::normalise(TreeRightSideValues *_values)
+{
+    QVariantList savedValues = _values->values();
+
+    double summ = 0;
+    foreach(QVariant v, savedValues)
+        summ += v.value<double>();
+
+    for(int i = 0; i < savedValues.size(); ++i)
+    {
+        double val = savedValues.at(i).value<double>();
+        savedValues[i] = val / summ;
+    }
+
+    TreeRightSideValues* newVals = m_factory->getRightSideValues();
+    newVals->setValues(savedValues);
+    return newVals;
+}
+
+TreeRightSideValues *PropertyTreeViewer::arithmeticalMean()
 {
     QVector<double> arMean;
     arMean.resize(m_leftInfo->planeNodes().size());
@@ -192,7 +252,13 @@ void PropertyTreeViewer::displayValuesForArithmeticalMean()
 
     TreeRightSideValues* values = m_factory->getRightSideValues();
     values->setValues(ans);
-    m_treePropertyWidget->setValues(values);
+    return values;
+}
+
+void PropertyTreeViewer::displayValuesForArithmeticalMean()
+{
+    TreeRightSideValues* arMean = arithmeticalMean();
+    m_treePropertyWidget->setValues(arMean);
 }
 
 QString PropertyTreeViewer::generateTabName(int _num) const
@@ -240,9 +306,13 @@ void PropertyTreeViewer::writeRightSideVals()
     int count = 0;
     foreach(TreeRightSideValues* rSide, m_values)
     {
-        QString path = m_treeId + QString::number(count++);
+        QString path = m_leftSideTreeId + QString::number(count++);
         rSide->writeValues(path);
-    }
+    }        
+
+    TreeRightSideValues* arMean = arithmeticalMean();
+    arMean = normalise(arMean);
+    arMean->writeValues(m_leftSideTreeId + "_average");
 }
 
 void PropertyTreeViewer::readRightSideVals()
@@ -251,14 +321,12 @@ void PropertyTreeViewer::readRightSideVals()
     int count = 0;
     forever
     {
-        QString path = m_treeId + QString::number(count++);
+        QString path = m_leftSideTreeId + QString::number(count++);
         QFileInfo info(path);
         if(info.exists())
         {
             m_values << m_factory->getRightSideValues(path);
-            qDebug() << m_values.size();
             addTab();
-            qDebug() << m_values.size();
         }
         else
             break;
