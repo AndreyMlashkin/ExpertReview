@@ -7,11 +7,11 @@ ProjectSourceData::ProjectSourceData(QWidget *parent) :
     QWidget(parent),
     m_ui(new Ui::ProjectSourceData),
     m_factory(new TreeInfoFactory()),
-    m_tree(new TreePropertyWidget(m_factory->getLeftSideInfo("constants.txt")))
+    m_tree(new TreePropertyWidget(m_factory->getLeftSideInfo("constants.txt"), m_factory))
 {
     m_ui->setupUi(this);
     m_ui->verticalLayout->addWidget(m_tree);
-    m_tree->setCurrentJudge(QString("constants"), false);
+//    m_tree->setCurrentJudge(QString("constants"), false);
 
     connect(m_ui->calculate, SIGNAL(clicked()), SLOT(callCalculation()));
 
@@ -25,14 +25,14 @@ ProjectSourceData::~ProjectSourceData()
 
 void ProjectSourceData::callCalculation()
 {
-    QList<double> vals = calculateProject(m_tree->values());
+/*    QList<double> vals = calculateProject(m_tree->values());
 
     TreeLeftSideInfo* info = m_factory->getLeftSideInfo("factors.txt");
     TreePropertyWidget* calculation = new TreePropertyWidget(info);
     calculation->setValues("Project1", vals);
     calculation->setCurrentJudge("Project1", false);
 //    calculation->showMaximized();
-    calculation->show();
+    calculation->show();*/
 }
 
 QList<double> ProjectSourceData::calculateProject(QList<double> _source) const

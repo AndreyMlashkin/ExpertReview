@@ -7,7 +7,7 @@
 class TreeRightSideValues
 {
 public:
-    TreeRightSideValues(/*const QStringList& _planeNodes*/) {}
+    TreeRightSideValues() {}
     virtual ~TreeRightSideValues() {}
 
     virtual QVariantList values() const = 0;

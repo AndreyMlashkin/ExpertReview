@@ -24,12 +24,6 @@
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="defaultTab">
-        <attribute name="title">
-         <string>Эксперт 1</string>
-        </attribute>
-        <layout class="QHBoxLayout" name="defaultLauout"/>
-       </widget>
        <widget class="QWidget" name="add">
         <attribute name="icon">
          <iconset resource="resources.qrc">

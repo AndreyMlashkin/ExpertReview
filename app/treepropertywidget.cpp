@@ -11,11 +11,14 @@
 #include "treepropertywidget.h"
 
 #include "nodesinfo/treeleftsideinfofile.h"
+#include "nodesinfo/treerightsidevaluesfile.h"
+#include "nodesinfo/treeinfofactory.h"
 #include "properynode.h"
 
-TreePropertyWidget::TreePropertyWidget(TreeLeftSideInfo* _info, QWidget *_parent)
+TreePropertyWidget::TreePropertyWidget(TreeLeftSideInfo* _info, TreeInfoFactory *_factory, QWidget *_parent)
     : QtTreePropertyBrowser(_parent),
       m_info(_info),
+      m_factory(_factory),
       m_normalised(false),
       m_variantManager(new QtVariantPropertyManager())
 {
@@ -27,6 +30,60 @@ TreePropertyWidget::TreePropertyWidget(TreeLeftSideInfo* _info, QWidget *_parent
     fillLeftSide();
 }
 
+inline QtProperty* findPropery(QtVariantPropertyManager* _mananger, const QString& _key)
+{
+    foreach(QtProperty* prop, _mananger->properties())
+    {
+        if(prop->propertyName() == _key)
+            return prop;
+    }
+}
+
+void TreePropertyWidget::setValues(TreeRightSideValues *_values)
+{
+//    Q_ASSERT(_values->values().size() == m_info->planeNodes().size());
+
+    if(!_values || _values->values().isEmpty())
+    {
+        clear();
+        return;
+    }
+
+    QStringList orderedKeys = m_info->planeNodes();
+
+    int size = _values->values().size();
+    for(int i = 0; i < size; ++i)
+    {
+        QString key = orderedKeys.at(i);
+        QVariant newVal = _values->values().at(i);
+
+        QtProperty* prop = findPropery(m_variantManager, key);
+        m_variantManager->setValue(prop, newVal);
+    }
+}
+
+TreeRightSideValues *TreePropertyWidget::getValues() const
+{
+    QVariantList values;
+    QStringList orderedKeys = m_info->planeNodes();
+    foreach (QString key, orderedKeys)
+    {
+        QtProperty* prop = findPropery(m_variantManager, key);
+        values << m_variantManager->value(prop);
+    }
+
+    TreeRightSideValues* ans = m_factory->getRightSideValues();
+    ans->setValues(values);
+    return ans;
+}
+
+void TreePropertyWidget::clear()
+{
+    foreach (QtProperty* prop, m_variantManager->properties())
+        m_variantManager->setValue(prop, QVariant(0.0d));
+}
+
+/*
 QString TreePropertyWidget::averageJudgeName()
 {
     return "Average";
@@ -181,20 +238,20 @@ TreePropertyWidget::Judge TreePropertyWidget::emptyJudge()
         empty[prop] = double(0);
     return empty;
 }
-
+*/
 void TreePropertyWidget::fillLeftSide()
 {
     const QList<ProperyNode *> nodes = m_info->nodes();
     foreach(ProperyNode* node, nodes)
         addProperty(toProperty(node));
 }
-
+/*
 /*!
  * \brief TreePropertyWidget::storeJudge
  * Saves judge from ui with the name _name
  * \param _name
  */
-void TreePropertyWidget::storeJudge(const QString &_name)
+/*void TreePropertyWidget::storeJudge(const QString &_name)
 {
     if(_name.isEmpty() || m_normalised || _name == averageJudgeName())
         return;
@@ -242,7 +299,7 @@ void TreePropertyWidget::displayJudge(const Judge &_judge)
         m_variantManager->setValue(prop, newDoubleVal);
     }
 }
-
+*/
 QtProperty* TreePropertyWidget::toProperty(ProperyNode *_node)
 {
     QtProperty *property = m_variantManager->addProperty(nodeType(_node), _node->description());
@@ -283,7 +340,7 @@ double TreePropertyWidget::toDouble(const QVariant &_var) const
 {
     return toDouble(_var.toString());
 }
-
+/*
 TreePropertyWidget::Judge TreePropertyWidget::normalise(const Judge &_judge) const
 {
     double summ = 0;
@@ -306,7 +363,7 @@ TreePropertyWidget::Judge TreePropertyWidget::normalise(const Judge &_judge) con
     }
     return normalised;
 }
-
+*/
 void TreePropertyWidget::setEditable(bool _set)
 {
     foreach(QtProperty* prop, m_variantManager->properties())

@@ -12,7 +12,6 @@ class TreeInfoFactory;
 class TreeRightSideValues;
 class TreeLeftSideInfo;
 
-// нужно сделать инъекцию зависимости TreePropertyWidget - получать в конструктре
 class PropertyTreeViewer : public QWidget
 {
     Q_OBJECT
@@ -31,7 +30,13 @@ private:
     void init();
     void addTab();
     bool normalise() const;    
+    void updateArithmeticalMean();
+
     QString generateTabName(int _num) const;
+    bool isServiceTab(int _num) const;
+
+    void setActiveTab(int _tabNum);
+    void setActiveTab(QWidget* _tab);
 
 private:
     Ui::PropertyTreeViewer *m_ui;
@@ -39,10 +44,11 @@ private:
     QString m_treeId;
 
     TreePropertyWidget* m_treePropertyWidget;
+    int m_currentTab;
 
     TreeInfoFactory* m_factory;
     TreeLeftSideInfo* m_leftInfo;
-    QList<TreeRightSideValues*> m_values;
+    QVector<TreeRightSideValues*> m_values;
 };
 
 #endif // MAINWINDOW_H

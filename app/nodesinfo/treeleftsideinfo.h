@@ -11,6 +11,8 @@ public:
     TreeLeftSideInfo() {}
     virtual ~TreeLeftSideInfo() {}
 
+    virtual QString id() const = 0;
+
     virtual const QList<ProperyNode*> nodes() = 0;
     virtual QStringList planeNodes() = 0;
 

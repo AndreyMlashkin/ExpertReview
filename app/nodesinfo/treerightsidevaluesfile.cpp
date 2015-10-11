@@ -1,8 +1,7 @@
 #include "treerightsidevaluesfile.h"
 
 TreeRightSideValuesFile::TreeRightSideValuesFile()
-{
-}
+{}
 
 QVariantList TreeRightSideValuesFile::values() const
 {
@@ -16,10 +15,12 @@ void TreeRightSideValuesFile::setValues(const QVariantList &_values)
 
 void TreeRightSideValuesFile::readValues(const QString _id)
 {
-
+    if(_id.isEmpty())
+        return;
 }
 
 void TreeRightSideValuesFile::writeValues(const QString _id)
 {
-
+    if(_id.isEmpty())
+        return;
 }

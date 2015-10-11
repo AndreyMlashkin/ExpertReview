@@ -3,8 +3,7 @@
 #include "treerightsidevaluesfile.h"
 
 TreeInfoFactory::TreeInfoFactory()
-{
-}
+{}
 
 TreeLeftSideInfo *TreeInfoFactory::getLeftSideInfo(const QString &_id)
 {

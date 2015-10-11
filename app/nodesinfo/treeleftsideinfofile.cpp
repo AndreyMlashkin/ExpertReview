@@ -14,6 +14,11 @@ TreeLeftSideInfoFile::~TreeLeftSideInfoFile()
     clearNodes();
 }
 
+QString TreeLeftSideInfoFile::id() const
+{
+    return m_openedFile;
+}
+
 const QList<ProperyNode *> TreeLeftSideInfoFile::nodes()
 {
     return m_nodes;
@@ -21,7 +26,6 @@ const QList<ProperyNode *> TreeLeftSideInfoFile::nodes()
 
 QStringList TreeLeftSideInfoFile::planeNodes()
 {
-    // !!!
     return m_planeNodes;
 }
 

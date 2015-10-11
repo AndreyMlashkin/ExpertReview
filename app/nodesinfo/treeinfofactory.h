@@ -12,7 +12,7 @@ public:
     TreeInfoFactory();
 
     TreeLeftSideInfo* getLeftSideInfo(const QString& _id);
-    TreeRightSideValues* getRightSideValues(const QString& _id);
+    TreeRightSideValues* getRightSideValues(const QString& _id = QString());
 };
 
 #endif // TREEINFOFACTORY_H
