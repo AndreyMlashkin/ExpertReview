@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     nodesinfo/treeleftsideinfofile.cpp \
     nodesinfo/treeleftsideinfotest.cpp \
     nodesinfo/treerightsidevaluesfile.cpp \
-    nodesinfo/treeinfofactory.cpp
+    nodesinfo/treeinfofactory.cpp \
+    projectcalculation.cpp
 
 HEADERS  += \
     treepropertywidget.h \
@@ -43,7 +44,8 @@ HEADERS  += \
     nodesinfo/treeleftsideinfotest.h \
     nodesinfo/treerightsidevalues.h \
     nodesinfo/treerightsidevaluesfile.h \
-    nodesinfo/treeinfofactory.h
+    nodesinfo/treeinfofactory.h \
+    projectcalculation.h
 
 FORMS    += \
     propertytreeviewer.ui \

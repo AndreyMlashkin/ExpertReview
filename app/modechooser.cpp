@@ -1,14 +1,15 @@
+#include <QFileInfo>
+
 #include "modechooser.h"
 #include "ui_modechooser.h"
 
 #include "propertytreeviewer.h"
 #include "projectsourcedata.h"
+#include "projectcalculation.h"
 
 ModeChooser::ModeChooser(QWidget *parent) :
     QWidget(parent),
-    m_ui(new Ui::ModeChooser),
-    m_viewer(NULL),
-    m_sourceData(NULL)
+    m_ui(new Ui::ModeChooser)
 {
     m_ui->setupUi(this);
     connect(m_ui->metodicJudges, SIGNAL(clicked()), SLOT(callMetodicJudges()));
@@ -19,8 +20,6 @@ ModeChooser::ModeChooser(QWidget *parent) :
 
 ModeChooser::~ModeChooser()
 {
-    delete m_viewer;
-    delete m_sourceData;
     delete m_ui;
 }
 
@@ -40,13 +39,32 @@ void ModeChooser::callSectionJudges()
 
 void ModeChooser::callSourceData()
 {
-    PropertyTreeViewer* sourceData = new PropertyTreeViewer("constants");
+    PropertyTreeViewer* sourceData = new PropertyTreeViewer("constants", PropertyTreeViewer::SaveRegularOnExit);
     sourceData->setDefaultTabName("Проект");
     sourceData->show();
 }
 
 void ModeChooser::callCalculation()
 {
-    ProjectSourceData* data = new ProjectSourceData();
-    data->show();
+//    int count = 0;
+//    QStringList projectsNames;
+//    forever
+//    {
+//        QString path = "constants" + QString::number(count++);
+//        QFileInfo info(path);
+//        if(info.exists())
+//            projectsNames << path;
+//        else
+//            break;
+//    }
+
+    ProjectCalculator::calculate("metodicJudges_average",
+                                 "sections_average",
+                                 "constants0",
+                                 "constants1",
+                                 "result");
+
+    PropertyTreeViewer* calculation = new PropertyTreeViewer("result", PropertyTreeViewer::Minimal);
+    calculation->setDefaultTabName("Проект");
+    calculation->show();
 }
