@@ -1,3 +1,6 @@
+#include <QFile>
+#include <QTextStream>
+
 #include "treerightsidevaluesfile.h"
 
 TreeRightSideValuesFile::TreeRightSideValuesFile()
@@ -17,10 +20,33 @@ void TreeRightSideValuesFile::readValues(const QString _id)
 {
     if(_id.isEmpty())
         return;
+
+    m_values.clear();
+
+    QFile file(_id);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    while (!file.atEnd())
+    {
+        QByteArray line = file.readLine();
+        QVariant v(line);
+        m_values << v;
+    }
 }
 
 void TreeRightSideValuesFile::writeValues(const QString _id)
 {
     if(_id.isEmpty())
         return;
+
+    QFile file(_id);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    foreach (QVariant v, m_values)
+    {
+        QByteArray line = v.toByteArray();
+        file.write(line);
+    }
 }

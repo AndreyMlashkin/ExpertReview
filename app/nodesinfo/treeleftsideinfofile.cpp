@@ -63,11 +63,6 @@ void TreeLeftSideInfoFile::open(const QString &_treeName)
     }
 }
 
-void TreeLeftSideInfoFile::save(const QString &_treeName) const
-{
-
-}
-
 // 4 spaces or one tab == 1 enclosure level
 int TreeLeftSideInfoFile::calculateEnclosure(QString &_str)
 {

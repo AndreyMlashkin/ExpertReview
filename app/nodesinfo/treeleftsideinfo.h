@@ -17,7 +17,6 @@ public:
     virtual QStringList planeNodes() = 0;
 
     virtual void open(const QString& _treeName) = 0;
-    virtual void save(const QString& _treeName) const = 0;
 };
 
 #endif // TREELEFTSIDEINFO_H

@@ -16,7 +16,6 @@ public:
     QStringList planeNodes() override;
 
     void open(const QString& _treeName) override;
-    void save(const QString& _treeName) const override;
 
 private:
     int calculateEnclosure(QString& _str);

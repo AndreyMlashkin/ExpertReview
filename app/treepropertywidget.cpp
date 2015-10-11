@@ -33,6 +33,7 @@ inline QtProperty* findPropery(QtVariantPropertyManager* _mananger, const QStrin
         if(prop->propertyName() == _key)
             return prop;
     }
+    return NULL;
 }
 
 void TreePropertyWidget::setValues(TreeRightSideValues *_values)

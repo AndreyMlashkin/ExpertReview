@@ -12,8 +12,7 @@ public:
     const QList<ProperyNode*> nodes() override;
     QStringList planeNodes() override;
 
-    void open(const QString& _treeName) override {}
-    void save(const QString& _treeName) const override {}
+    void open(const QString&) override {}
 
 private:
     QStringList m_planeNodes;
