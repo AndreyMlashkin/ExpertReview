@@ -9,11 +9,11 @@ public:
     TreeRightSideValuesFile();
     ~TreeRightSideValuesFile() {}
 
-    QVariantList values() const;
-    void setValues(const QVariantList& _values);
+    QVariantList values() const override;
+    void setValues(const QVariantList& _values) override;
 
-    void readValues(const QString &_id);
-    void writeValues(const QString& _id);
+    void readValues(const QString &_id) override;
+    void writeValues(const QString& _id) override;
 
 private:
     QVariantList m_values;

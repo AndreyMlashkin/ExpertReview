@@ -10,7 +10,7 @@ public:
     TreeLeftSideInfoFile();
     ~TreeLeftSideInfoFile();
 
-    QString id() const;
+    QString id() const override;
 
     const QList<ProperyNode*> nodes() override;
     QStringList planeNodes() override;

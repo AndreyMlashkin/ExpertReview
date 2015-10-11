@@ -1,3 +1,5 @@
+#include <QLocale>
+
 #include <QtVariantPropertyManager>
 #include <QtVariantProperty>
 #include <QtTreePropertyBrowser>
@@ -129,7 +131,5 @@ double TreePropertyWidget::toDouble(const QVariant &_var) const
 void TreePropertyWidget::setEditable(bool _set)
 {
     foreach(QtProperty* prop, m_variantManager->properties())
-    {
         prop->setEnabled(_set);
-    }
 }
