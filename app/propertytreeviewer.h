@@ -39,6 +39,9 @@ private:
     void setActiveTab(int _tabNum);
     void setActiveTab(QWidget* _tab);
 
+    void writeRightSideVals();
+    void readRightSideVals();
+
 private:
     Ui::PropertyTreeViewer *m_ui;
     QString m_defaultTabName;

@@ -13,8 +13,8 @@ public:
     virtual QVariantList values() const = 0;
     virtual void setValues(const QVariantList& _values) = 0;
 
-    virtual void readValues(const QString _id) = 0;
-    virtual void writeValues(const QString _id) = 0;
+    virtual void readValues(const QString& _id) = 0;
+    virtual void writeValues(const QString& _id) = 0;
 };
 
 #endif // TREERIGHTSIDEVALUES_H

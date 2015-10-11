@@ -1,5 +1,3 @@
-#include <QDebug>
-
 #include <QtVariantPropertyManager>
 #include <QtVariantProperty>
 #include <QtTreePropertyBrowser>
@@ -48,7 +46,7 @@ void TreePropertyWidget::setValues(TreeRightSideValues *_values)
 
     QStringList orderedKeys = m_info->planeNodes();
 
-    int size = _values->values().size();
+    int size = qMin(_values->values().size(), orderedKeys.size());
     for(int i = 0; i < size; ++i)
     {
         QString key = orderedKeys.at(i);

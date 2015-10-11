@@ -1,9 +1,14 @@
+#include <QDebug>
+#include <QFileInfo>
+
 #include "propertytreeviewer.h"
 #include "ui_propertytreeviewer.h"
 #include "treepropertywidget.h"
 #include "nodesinfo/treeinfofactory.h"
 #include "nodesinfo/treerightsidevalues.h"
 #include "nodesinfo/treeleftsideinfo.h"
+
+const int SERVICE_TABS_COUNT = 2;
 
 PropertyTreeViewer::PropertyTreeViewer(const QString &_treeId, QWidget *parent)
    : QWidget(parent),
@@ -14,13 +19,22 @@ PropertyTreeViewer::PropertyTreeViewer(const QString &_treeId, QWidget *parent)
      m_factory(NULL),
      m_leftInfo(NULL)
 {
+    setAttribute(Qt::WA_DeleteOnClose);
+
     init();
 
     m_ui->setupUi(this);
     showMaximized();
 
-    addTab();
+    readRightSideVals();
+
+    if(m_ui->tabWidget->count() == SERVICE_TABS_COUNT)
+        addTab();
+//  ----------------------
+    m_treePropertyWidget->setValues(m_values[0]);
+    m_currentTab = 0;
     setActiveTab(0);
+//  ----------------------
 
     m_treePropertyWidget->setResizeMode(QtTreePropertyBrowser::ResizeToContents);
     m_treePropertyWidget->update();
@@ -37,6 +51,7 @@ PropertyTreeViewer::PropertyTreeViewer(const QString &_treeId, QWidget *parent)
 
 PropertyTreeViewer::~PropertyTreeViewer()
 {
+    writeRightSideVals();
     delete m_ui;
 }
 
@@ -46,7 +61,7 @@ void PropertyTreeViewer::setDefaultTabName(const QString &_name)
 
     int tabsCount = m_ui->tabWidget->count();
 
-    for(int i = 0; i < tabsCount - 2; ++i)
+    for(int i = 0; i < tabsCount - SERVICE_TABS_COUNT; ++i)
         m_ui->tabWidget->setTabText(i, generateTabName(i));
 }
 
@@ -137,7 +152,7 @@ void PropertyTreeViewer::addTab()
     QWidget* newWidget = new QWidget();
 //    int tabsCount = m_ui->tabWidget->indexOf(m_ui->add);
     int tabsCount = m_ui->tabWidget->count();
-    int insertPos = tabsCount - 2;
+    int insertPos = tabsCount - SERVICE_TABS_COUNT;
 
     m_ui->tabWidget->insertTab(insertPos, newWidget, generateTabName(insertPos));
 
@@ -216,5 +231,37 @@ void PropertyTreeViewer::setActiveTab(QWidget *_tab)
     }
     _tab->layout()->addWidget(m_treePropertyWidget);
     m_ui->tabWidget->setCurrentWidget(_tab);
+}
+
+void PropertyTreeViewer::writeRightSideVals()
+{
+    if(!isNormalised())
+        saveValuesFromUi();
+    int count = 0;
+    foreach(TreeRightSideValues* rSide, m_values)
+    {
+        QString path = m_treeId + QString::number(count++);
+        rSide->writeValues(path);
+    }
+}
+
+void PropertyTreeViewer::readRightSideVals()
+{
+    //!!!
+    int count = 0;
+    forever
+    {
+        QString path = m_treeId + QString::number(count++);
+        QFileInfo info(path);
+        if(info.exists())
+        {
+            m_values << m_factory->getRightSideValues(path);
+            qDebug() << m_values.size();
+            addTab();
+            qDebug() << m_values.size();
+        }
+        else
+            break;
+    }
 }
 

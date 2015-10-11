@@ -12,8 +12,8 @@ public:
     QVariantList values() const;
     void setValues(const QVariantList& _values);
 
-    void readValues(const QString _id);
-    void writeValues(const QString _id);
+    void readValues(const QString &_id);
+    void writeValues(const QString& _id);
 
 private:
     QVariantList m_values;

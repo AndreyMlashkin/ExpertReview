@@ -16,7 +16,7 @@ void TreeRightSideValuesFile::setValues(const QVariantList &_values)
     m_values = _values;
 }
 
-void TreeRightSideValuesFile::readValues(const QString _id)
+void TreeRightSideValuesFile::readValues(const QString& _id)
 {
     if(_id.isEmpty())
         return;
@@ -30,12 +30,13 @@ void TreeRightSideValuesFile::readValues(const QString _id)
     while (!file.atEnd())
     {
         QByteArray line = file.readLine();
-        QVariant v(line);
+        line = line.trimmed();
+        QVariant v(line.toDouble());
         m_values << v;
     }
 }
 
-void TreeRightSideValuesFile::writeValues(const QString _id)
+void TreeRightSideValuesFile::writeValues(const QString &_id)
 {
     if(_id.isEmpty())
         return;
@@ -47,6 +48,7 @@ void TreeRightSideValuesFile::writeValues(const QString _id)
     foreach (QVariant v, m_values)
     {
         QByteArray line = v.toByteArray();
+        line.append('\n');
         file.write(line);
     }
 }
