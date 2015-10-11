@@ -21,6 +21,7 @@ public:
 private slots:
     void callMetodicJudges();
     void callSectionJudges();
+    void callSourceData();
     void callCalculation();
 
 private:

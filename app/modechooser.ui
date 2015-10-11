@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>301</width>
+    <width>342</width>
     <height>231</height>
    </rect>
   </property>
@@ -39,6 +39,18 @@
     </widget>
    </item>
    <item>
+    <widget class="QPushButton" name="sourceData">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Исходные данные проектов</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QPushButton" name="calculation">
      <property name="font">
       <font>
@@ -46,7 +58,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Расчёт проекта</string>
+      <string>Расчёт проектов</string>
      </property>
     </widget>
    </item>
