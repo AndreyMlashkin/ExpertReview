@@ -12,6 +12,7 @@ ModeChooser::ModeChooser(QWidget *parent) :
 {
     m_ui->setupUi(this);
     connect(m_ui->metodicJudges, SIGNAL(clicked()), SLOT(callMetodicJudges()));
+    connect(m_ui->sectionJudges, SIGNAL(clicked()), SLOT(callSectionJudges()));
     connect(m_ui->calculation,   SIGNAL(clicked()), SLOT(callCalculation()));
 }
 
@@ -27,6 +28,13 @@ void ModeChooser::callMetodicJudges()
     PropertyTreeViewer* metodicJudges = new PropertyTreeViewer("metodicJudges");
     metodicJudges->setDefaultTabName("Эксперт");
     metodicJudges->show();
+}
+
+void ModeChooser::callSectionJudges()
+{
+    PropertyTreeViewer* sectionJudges = new PropertyTreeViewer("sections");
+    sectionJudges->setDefaultTabName("Эксперт");
+    sectionJudges->show();
 }
 
 void ModeChooser::callCalculation()

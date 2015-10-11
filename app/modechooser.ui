@@ -27,14 +27,14 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="projectJudges">
+    <widget class="QPushButton" name="sectionJudges">
      <property name="font">
       <font>
        <pointsize>16</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>Эксперты проектов</string>
+      <string>Эксперты разделов</string>
      </property>
     </widget>
    </item>
