@@ -29,11 +29,12 @@ private slots:
 private:
     void init();
     void addTab();
-    bool normalise() const;    
-    void updateArithmeticalMean();
+    bool isNormalised() const;
+    void displayArithmeticalMean();
 
     QString generateTabName(int _num) const;
     bool isServiceTab(int _num) const;
+    void saveValuesFromUi();
 
     void setActiveTab(int _tabNum);
     void setActiveTab(QWidget* _tab);

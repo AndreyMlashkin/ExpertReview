@@ -61,9 +61,12 @@ void PropertyTreeViewer::tabChanged(int _newNum)
     if(!w)
         return;
 
+    if(!isServiceTab(m_currentTab))
+        saveValuesFromUi();
+
     if(w == m_ui->average)
     {
-        updateArithmeticalMean();
+        displayArithmeticalMean();
         w->layout()->addWidget(m_treePropertyWidget);
         m_currentTab = _newNum;
         return;
@@ -75,13 +78,6 @@ void PropertyTreeViewer::tabChanged(int _newNum)
     }    
     else
     {
-        if(!isServiceTab(m_currentTab))
-        {
-            TreeRightSideValues* previousVals = m_treePropertyWidget->getValues();
-            delete m_values[m_currentTab];
-            m_values[m_currentTab] = previousVals;
-        }
-
         m_treePropertyWidget->setValues(m_values[_newNum]);
         m_currentTab = _newNum;
     }
@@ -92,6 +88,41 @@ void PropertyTreeViewer::tabChanged(int _newNum)
 void PropertyTreeViewer::normalise(bool _toggled)
 {
     m_treePropertyWidget->setEditable(!_toggled);
+
+    if(_toggled)
+    {
+        saveValuesFromUi();
+        TreeRightSideValues* oldVals = NULL;
+
+        if(isServiceTab(m_currentTab))
+            oldVals = m_treePropertyWidget->getValues();
+        else
+            oldVals = m_values[m_currentTab];
+        Q_ASSERT(oldVals);
+
+        QVariantList savedValues = oldVals->values();
+
+        double summ = 0;
+        foreach(QVariant v, savedValues)
+            summ += v.value<double>();
+
+        for(int i = 0; i < savedValues.size(); ++i)
+        {
+            double val = savedValues.at(i).value<double>();
+            savedValues[i] = val / summ;
+        }
+
+        TreeRightSideValues* newVals = m_factory->getRightSideValues();
+        newVals->setValues(savedValues);
+        m_treePropertyWidget->setValues(newVals);
+    }
+    else
+    {
+        if(m_ui->tabWidget->widget(m_currentTab) == m_ui->average)
+            displayArithmeticalMean();
+        else
+            m_treePropertyWidget->setValues(m_values[m_currentTab]);
+    }
 }
 
 void PropertyTreeViewer::init()
@@ -112,24 +143,27 @@ void PropertyTreeViewer::addTab()
 
     if(m_values.size() <= insertPos)
     {
-        m_values.resize(insertPos + 1);
+        m_values.resize(insertPos + 1); // 1 - index to size;
         m_values[insertPos] = m_factory->getRightSideValues();
     }
     m_ui->tabWidget->setCurrentWidget(newWidget);
 }
 
-bool PropertyTreeViewer::normalise() const
+bool PropertyTreeViewer::isNormalised() const
 {
     return m_ui->normalise->isChecked();
 }
 
-void PropertyTreeViewer::updateArithmeticalMean()
+void PropertyTreeViewer::displayArithmeticalMean()
 {
     QVector<double> arMean;
     arMean.resize(m_leftInfo->planeNodes().size());
 
     foreach (TreeRightSideValues* vals, m_values)
     {
+        if(!vals)
+            continue;
+
         for(int i = 0; i < vals->values().size(); ++i)
         {
             double digit = vals->values().at(i).value<double>();
@@ -155,6 +189,16 @@ bool PropertyTreeViewer::isServiceTab(int _num) const
 {
     QWidget* tab = m_ui->tabWidget->widget(_num);
     return (tab == m_ui->add || tab == m_ui->average);
+}
+
+void PropertyTreeViewer::saveValuesFromUi()
+{
+    if(!isServiceTab(m_currentTab))
+    {
+        TreeRightSideValues* previousVals = m_treePropertyWidget->getValues();
+        delete m_values[m_currentTab];
+        m_values[m_currentTab] = previousVals;
+    }
 }
 
 void PropertyTreeViewer::setActiveTab(int _tabNum)
