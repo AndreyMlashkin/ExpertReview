@@ -16,6 +16,12 @@ public:
 //                          const QString& _project,
 //                          const QString& _resultName);
 
+private:
+    static QList<double> multiply(const QList<double>& _values, const QList<double>& _average);
+    static QList<double> multiplyByGroups(const QList<double>& _vals, const QList<double>& _groupsKoeff);
+
+    static QList<int> groupTitles();
+
 };
 
 #endif // PROJECTCALCULATION_H

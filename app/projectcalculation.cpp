@@ -6,8 +6,8 @@
 #include "nodesinfo/treerightsidevalues.h"
 
 QList<double> calculateProject(QList<double> _source);
-QList<double> multiply(const QList<double>& _one, const QList<double>& _other);
-QList<double> multiplyByGroups(const QList<double>& _vals, const QList<double>& _groupsKoeff);
+//QList<double> multiply(const QList<double>& _values, const QList<double>& _average);
+//QList<double> multiplyByGroups(const QList<double>& _vals, const QList<double>& _groupsKoeff);
 
 inline QList<double> toDoubleList(const QVariantList& _varList)
 {
@@ -32,6 +32,7 @@ inline void normalise(double& _one, double& _other)
     {
         _one = 1;
         _other = 1;
+        return;
     }
     _one /= max;
     _other /= max;
@@ -68,11 +69,20 @@ void ProjectCalculator::calculate(const QString &_metodicJudgesAverage, const QS
     otherProjectCalculation = multiplyByGroups(otherProjectCalculation, sectionsAv);
 
     oneProjConstantsVals->setValues(toVariantList(oneProjectCalculation));
-    otherProjConstantsVals->setValues(toVariantList(oneProjectCalculation));
+    otherProjConstantsVals->setValues(toVariantList(otherProjectCalculation));
 
     oneProjConstantsVals->writeValues(_baseResultName + QString::number(0));
     otherProjConstantsVals->writeValues(_baseResultName + QString::number(1));
     delete factory;
+}
+
+QList<int> ProjectCalculator::groupTitles()
+{
+    static QList<int> titles;
+    if(titles.isEmpty())
+        titles << 0 << 12 << 14 << 31 << 33 << 36 << 38 << 43 << 61;
+
+    return titles;
 }
 
 QList<double> calculateProject(QList<double> _source)
@@ -119,39 +129,46 @@ QList<double> calculateProject(QList<double> _source)
     ans[34] = _source[92] / _source[93] + (_source[94] * _source[95]) / _source[96];//
     ans[35] = _source[97] / _source[98];
 
-    for(int i = 98; i < _source.size(); ++i)
-        ans << _source.at(i);
+//    for(int i = 98; i < _source.size(); ++i)
+//        ans << _source.at(i);
 
-//    for(int i = 36; i <= 57; i++)
-//    {
-//       ans[i] = _source[i + 63];
-//    }
+    for(int i = 36; i <= 57; i++)
+    {
+       ans[i] = _source[i + 63];
+    }
     return ans.toList();
 }
 
-QList<double> multiply(const QList<double>& _one, const QList<double>& _other)
+QList<double> ProjectCalculator::multiply(const QList<double>& _values, const QList<double>& _average)
 {
     QList<double> ans;
-    int size = qMin(_one.size(), _other.size());
-    for(int i = 0; i < size; ++i)
-        ans << _one.at(i) * _other.at(i);
+    int size = _values.size();
+    int count = 0;
+    int j = 0;
+    for(int i = 0; i < size; ++i, ++j)
+    {
+        if(groupTitles().at(count) == i)
+        {
+            ++count;
+            ++j;
+        }
+        ans << _values.at(i) * _average.at(j);
+    }
 
     return ans;
 }
 
-QList<double> multiplyByGroups(const QList<double>& _vals, const QList<double>& _groupsKoeff)
+QList<double> ProjectCalculator::multiplyByGroups(const QList<double>& _vals, const QList<double>& _groupsKoeff)
 {
     QList<double> ans;
 
-    static QList<int> intervals;
-    if(intervals.isEmpty())
-        intervals << 0 << 12 << 14 << 31 << 33 << 36 << 38 << 43 << 61;
+    QList<int> intervals = groupTitles();
 
     for(int i = 0; i < intervals.size() - 1; ++i)
     {
         int left = intervals.at(i);
         int right = intervals.at(i + 1);
-        for(int j = left + 1; j < right; ++j)
+        for(int j = left - i; j < right - i; ++j)
         {
             ans << _groupsKoeff.at(i) * _vals.at(j);
         }
