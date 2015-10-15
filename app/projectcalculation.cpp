@@ -38,12 +38,12 @@ void ProjectCalculator::calculate(const QString &_metodicJudgesAverage, const QS
     QList<double> oneProjectCalculation   = calculateProject(oneProjConstants);
     QList<double> otherProjectCalculation = calculateProject(otherProjConstants);
 
-    qDebug() << oneProjectCalculation << "------" << otherProjectCalculation;
+    qDebug() << "AFTER CALCULATION:\n" << oneProjectCalculation << "\n------\n" << otherProjectCalculation;
 
     for(int i = 0; i < oneProjectCalculation.size(); ++i)
         normalise(oneProjectCalculation[i], otherProjectCalculation[i]);
 
-    qDebug() << oneProjectCalculation << "\n\n\n--------\n\n\n" << otherProjectCalculation;
+    qDebug() << "\nAFTER NORMALISATION:\n" << oneProjectCalculation << "\n--------\n" << otherProjectCalculation;
 
     oneProjectCalculation   = multiply(oneProjectCalculation,   methodicAv);
     otherProjectCalculation = multiply(otherProjectCalculation, methodicAv);

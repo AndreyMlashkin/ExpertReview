@@ -83,6 +83,11 @@ QString PropertyTreeViewer::defaultTabName() const
     return m_defaultTabName;
 }
 
+void PropertyTreeViewer::setPrecision(int _newPrecision)
+{
+    m_treePropertyWidget->setPrecision(_newPrecision);
+}
+
 void PropertyTreeViewer::tabChanged(int _newNum)
 {
     QWidget* w = m_ui->tabWidget->widget(_newNum);

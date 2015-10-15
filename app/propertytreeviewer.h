@@ -33,6 +33,8 @@ public:
     void setDefaultTabName(const QString& _name);
     QString defaultTabName() const;
 
+    void setPrecision(int _newPrecision);
+
 private slots:
     void tabChanged(int _newNum);
     void normalise(bool _toggle);

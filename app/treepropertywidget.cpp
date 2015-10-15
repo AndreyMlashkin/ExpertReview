@@ -16,12 +16,14 @@ TreePropertyWidget::TreePropertyWidget(TreeLeftSideInfo* _info, TreeInfoFactory 
       m_info(_info),
       m_factory(_factory),
       m_normalised(false),
+      m_precision(2),
       m_variantManager(new QtVariantPropertyManager())
 {
     QtVariantEditorFactory *variantFactory = new QtVariantEditorFactory();
     setFactoryForManager(m_variantManager, variantFactory);
     setPropertiesWithoutValueMarked(true);
     setRootIsDecorated(false);
+
 
     fillLeftSide();
 }
@@ -55,6 +57,7 @@ void TreePropertyWidget::setValues(TreeRightSideValues *_values)
         QVariant newVal = _values->values().at(i);
 
         QtProperty* prop = findPropery(m_variantManager, key);
+        m_variantManager->setAttribute(prop, "decimals", QVariant(m_precision));
         m_variantManager->setValue(prop, newVal);
     }
 }
@@ -132,4 +135,16 @@ void TreePropertyWidget::setEditable(bool _set)
 {
     foreach(QtProperty* prop, m_variantManager->properties())
         prop->setEnabled(_set);
+}
+
+void TreePropertyWidget::setPrecision(int _newPrecision)
+{
+    m_precision = _newPrecision;
+    foreach(QtProperty* prop, m_variantManager->properties())
+    {
+        m_variantManager->setAttribute(prop, "decimals", QVariant(_newPrecision));
+        m_variantManager->setValue(prop, toDouble(prop->valueText()));
+    }
+
+    update();
 }

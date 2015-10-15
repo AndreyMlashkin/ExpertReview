@@ -21,6 +21,8 @@ public:
     void clear();
     void setEditable(bool _set);
 
+    void setPrecision(int _newPrecision);
+
 private:
     void fillLeftSide();
 
@@ -35,6 +37,7 @@ private:
     TreeInfoFactory* m_factory;
 
     bool m_normalised;
+    int m_precision;
     QtVariantPropertyManager *m_variantManager;
 };
 

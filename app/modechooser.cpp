@@ -45,6 +45,7 @@ void ModeChooser::callSourceData()
 {
     PropertyTreeViewer* sourceData = new PropertyTreeViewer("constants", PropertyTreeViewer::SaveRegularOnExit);
     sourceData->setDefaultTabName("Проект");
+    sourceData->setPrecision(4);
     sourceData->show();
 }
 
@@ -78,6 +79,7 @@ void ModeChooser::callCalculation()
 
     PropertyTreeViewer* calculation = new PropertyTreeViewer("result", PropertyTreeViewer::Minimal);
     calculation->setDefaultTabName("Проект");
+    calculation->setPrecision(6);
     calculation->show();
 
     TreeInfoFactory* factory = new TreeInfoFactory();
