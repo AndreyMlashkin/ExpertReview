@@ -109,7 +109,7 @@ QList<double> calculateProject(QList<double> _source)
     ans[27]	= 1140 * _source[74] / _source[73] +
              (_source[75] * _source[76] * _source[77]) / _source[78]; // train + auto. Увеличение пропускной способности путей сообщения
     ans[28]	= _source[79] / _source[80];
-    ans[29] = _source[81] / _source[82];
+    ans[29] = _source[82] / _source[81];
     ans[30]	= _source[83] / _source[84]; // Платежная способность населения в регионе
     ans[31]	= _source[85] / _source[86];
     ans[32]	= _source[87] + _source[88] + _source[89] + _source[90];
