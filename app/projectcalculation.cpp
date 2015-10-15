@@ -73,7 +73,7 @@ QList<double> calculateProject(QList<double> _source)
     QVector <double> ans;
     ans.resize(58);
 
-    ans[0]  =  _source[0] / _source[1];
+    ans[0]  =  _source[0] / _source[1] + 1;
     ans[1]  =  _source[2] / _source[3];
     ans[2]  =  _source[4] / _source[5];
     ans[3]  = (_source[6] + _source[7]  + _source[8]) /
@@ -97,7 +97,7 @@ QList<double> calculateProject(QList<double> _source)
     ans[15]	= _source[38] / _source[39];
     ans[16]	= _source[40] * _source[41] / _source[42]; // Количество создаваемых (сохраняемых) рабочих мест  в смежных отраслях
     ans[17]	= _source[43] + _source[44] + _source[45];
-    ans[18]	=  1       -    _source[46] / _source[47]; // Наличие трудовых ресурсов соответствующей квалификации
+    ans[18]	= _source[46] - _source[47]; // Наличие трудовых ресурсов соответствующей квалификации. Внесено изменение с методикой.
     ans[19]	= _source[48] + _source[49] + _source[50];
     ans[20]	=(_source[51] + _source[52] + _source[53])/ _source[54];
     ans[21]	= _source[55] + _source[56] + _source[57] + _source[58];
@@ -125,7 +125,7 @@ QList<double> calculateProject(QList<double> _source)
 
     for(int i = 0; i < ans.size(); ++i)
     {
-        if(ans[i] == std::isnan(ans[i]) || ans[i] == std::isinf(ans[i]))
+        if(std::isnan(ans[i]) || std::isinf(ans[i]))
         {
             qDebug() << "WARNING! ans[" << i << "] is nan!!!";
             ans[i] = 0;
