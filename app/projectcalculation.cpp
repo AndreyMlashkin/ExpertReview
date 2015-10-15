@@ -1,29 +1,12 @@
 #include <QDebug>
 #include <QStringList>
 
+#include "projectapi.h"
 #include "projectcalculation.h"
 #include "nodesinfo/treeinfofactory.h"
 #include "nodesinfo/treerightsidevalues.h"
 
 QList<double> calculateProject(QList<double> _source);
-//QList<double> multiply(const QList<double>& _values, const QList<double>& _average);
-//QList<double> multiplyByGroups(const QList<double>& _vals, const QList<double>& _groupsKoeff);
-
-inline QList<double> toDoubleList(const QVariantList& _varList)
-{
-    QList<double> ans;
-    foreach(QVariant v, _varList)
-        ans << v.toDouble();
-    return ans;
-}
-
-inline QVariantList toVariantList(const QList<double>& _doubleList)
-{
-    QVariantList ans;
-    foreach(double d, _doubleList)
-        ans << QVariant(d);
-    return ans;
-}
 
 inline void normalise(double& _one, double& _other)
 {
@@ -95,7 +78,11 @@ QList<double> calculateProject(QList<double> _source)
     ans[2]  =  _source[4] / _source[5];
     ans[3]  = (_source[6] + _source[7]  + _source[8]) /
               (_source[9] + _source[10] + _source[11]) ;
-    ans[4]  = _source[12] / _source[13];
+
+    if(_source[13] == 0)
+        ans[4] = 0;
+    else
+        ans[4]  = _source[12] / _source[13];
     ans[5]  = _source[14] / _source[15];
     ans[6]  = _source[16] / _source[17];
     ans[7]  =(_source[18] + _source[19] + _source[20]) /
@@ -136,6 +123,14 @@ QList<double> calculateProject(QList<double> _source)
     {
        ans[i] = _source[i + 63];
     }
+
+    double errorFlag = 0.0d / 0.0d;
+    for(int i = 0; i < ans.size(); ++i)
+    {
+        if(ans[i] == errorFlag)
+            ans[i] = 0;
+    }
+
     return ans.toList();
 }
 

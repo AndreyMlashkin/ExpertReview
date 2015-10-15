@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     nodesinfo/treeleftsideinfotest.cpp \
     nodesinfo/treerightsidevaluesfile.cpp \
     nodesinfo/treeinfofactory.cpp \
-    projectcalculation.cpp
+    projectcalculation.cpp \
+    finalcalculationdialog.cpp
 
 HEADERS  += \
     treepropertywidget.h \
@@ -45,12 +46,15 @@ HEADERS  += \
     nodesinfo/treerightsidevalues.h \
     nodesinfo/treerightsidevaluesfile.h \
     nodesinfo/treeinfofactory.h \
-    projectcalculation.h
+    projectcalculation.h \
+    finalcalculationdialog.h \
+    projectapi.h
 
 FORMS    += \
     propertytreeviewer.ui \
     modechooser.ui \
-    projectsourcedata.ui
+    projectsourcedata.ui \
+    finalcalculationdialog.ui
 
 LIBS += -L$$PWD/../bin \
         -lqtpropertybrowser

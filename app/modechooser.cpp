@@ -3,9 +3,13 @@
 #include "modechooser.h"
 #include "ui_modechooser.h"
 
+#include "projectapi.h"
+#include "nodesinfo/treerightsidevalues.h"
+#include "nodesinfo/treeinfofactory.h"
 #include "propertytreeviewer.h"
 #include "projectsourcedata.h"
 #include "projectcalculation.h"
+#include "finalcalculationdialog.h"
 
 ModeChooser::ModeChooser(QWidget *parent) :
     QWidget(parent),
@@ -44,6 +48,14 @@ void ModeChooser::callSourceData()
     sourceData->show();
 }
 
+inline double calculateFinalCriterium(QList<double>& _projectKoeffs)
+{
+    double ans = 0;
+    foreach(double val, _projectKoeffs)
+        ans += val;
+    return ans;
+}
+
 void ModeChooser::callCalculation()
 {
 //    int count = 0;
@@ -67,4 +79,17 @@ void ModeChooser::callCalculation()
     PropertyTreeViewer* calculation = new PropertyTreeViewer("result", PropertyTreeViewer::Minimal);
     calculation->setDefaultTabName("Проект");
     calculation->show();
+
+    TreeInfoFactory* factory = new TreeInfoFactory();
+    TreeRightSideValues* proj1Result = factory->getRightSideValues("result0");
+    TreeRightSideValues* proj2Result = factory->getRightSideValues("result1");
+
+    QList<double> firstResult  = toDoubleList(proj1Result->values());
+    QList<double> secondResult = toDoubleList(proj2Result->values());
+
+    double firstFinalCriterium  = calculateFinalCriterium(firstResult);
+    double secondFinalCriterium = calculateFinalCriterium(secondResult);
+
+    FinalCalculationDialog dialog(firstFinalCriterium, secondFinalCriterium, this);
+    dialog.exec();
 }
