@@ -6,7 +6,7 @@
 #include "nodesinfo/treeinfofactory.h"
 #include "nodesinfo/treerightsidevalues.h"
 
-QList<double> calculateProject(QList<double> _source);
+QList<double> calculateProject(const QList<double> &_source);
 
 inline void normalise(double& _one, double& _other)
 {
@@ -21,18 +21,38 @@ inline void normalise(double& _one, double& _other)
     _other /= max;
 }
 
-void ProjectCalculator::calculate(const QString &_metodicJudgesAverage, const QString &_sectionsAverage, const QString &_oneProject, const QString &_otherProject, const QString &_baseResultName)
+ProjectCalculator::ProjectCalculator(const QString &_metodicJudgesAverage, const QString &_sectionsAverage, TreeInfoFactory* _factory)
+    : m_factory(_factory)
 {
-    TreeInfoFactory* factory = new TreeInfoFactory();
-    TreeRightSideValues* methodicAverageVals    = factory->getRightSideValues(_metodicJudgesAverage);
-    TreeRightSideValues* sectionsVals           = factory->getRightSideValues(_sectionsAverage);
-    TreeRightSideValues* oneProjConstantsVals   = factory->getRightSideValues(_oneProject);
-    TreeRightSideValues* otherProjConstantsVals = factory->getRightSideValues(_otherProject);
+    Q_ASSERT(_factory);
+    m_metodicJudgesAverage = m_factory->getRightSideValues(_metodicJudgesAverage);
+    m_sectionsAverage = m_factory->getRightSideValues(_sectionsAverage);
+}
 
-    QList<double> methodicAv          = toDoubleList(methodicAverageVals->values());
-    QList<double> sectionsAv          = toDoubleList(sectionsVals->values());
-    QList<double> oneProjConstants    = toDoubleList(oneProjConstantsVals->values());
-    QList<double> otherProjConstants  = toDoubleList(otherProjConstantsVals->values());
+ProjectCalculator::ProjectCalculator(TreeRightSideValues *_metodicJudgesAverage, TreeRightSideValues *_sectionsAverage, TreeInfoFactory *_factory)
+    : m_factory(_factory),
+      m_metodicJudgesAverage(_metodicJudgesAverage),
+      m_sectionsAverage(_sectionsAverage)
+{}
+
+void ProjectCalculator::calculate(const QString &_oneProject, const QString &_otherProject, const QString &_result1, const QString &_result2)
+{
+    TreeRightSideValues* oneProj   = m_factory->getRightSideValues(_oneProject);
+    TreeRightSideValues* otherProj = m_factory->getRightSideValues(_otherProject);
+
+    TreeRightSideValues* result1 = m_factory->getRightSideValues();
+    TreeRightSideValues* result2 = m_factory->getRightSideValues();
+    calculate(oneProj, otherProj, result1, result2);
+    result1->writeValues(_result1);
+    result2->writeValues(_result2);
+}
+
+void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSideValues *_otherProject, TreeRightSideValues *_result1, TreeRightSideValues *_result2)
+{
+    QList<double> methodicAv          = toDoubleList(m_metodicJudgesAverage->values());
+    QList<double> sectionsAv          = toDoubleList(m_sectionsAverage->values());
+    QList<double> oneProjConstants    = toDoubleList(_oneProject->values());
+    QList<double> otherProjConstants  = toDoubleList(_otherProject->values());
     Q_ASSERT(oneProjConstants.size() == otherProjConstants.size());
 
     QList<double> oneProjectCalculation   = calculateProject(oneProjConstants);
@@ -51,12 +71,8 @@ void ProjectCalculator::calculate(const QString &_metodicJudgesAverage, const QS
     oneProjectCalculation   = multiplyByGroups(oneProjectCalculation,   sectionsAv);
     otherProjectCalculation = multiplyByGroups(otherProjectCalculation, sectionsAv);
 
-    oneProjConstantsVals->setValues(toVariantList(oneProjectCalculation));
-    otherProjConstantsVals->setValues(toVariantList(otherProjectCalculation));
-
-    oneProjConstantsVals->writeValues(_baseResultName + QString::number(0));
-    otherProjConstantsVals->writeValues(_baseResultName + QString::number(1));
-    delete factory;
+    _result1->setValues(toVariantList(oneProjectCalculation));
+    _result2->setValues(toVariantList(otherProjectCalculation));
 }
 
 QList<int> ProjectCalculator::groupTitles()
@@ -68,10 +84,22 @@ QList<int> ProjectCalculator::groupTitles()
     return titles;
 }
 
-QList<double> calculateProject(QList<double> _source)
+// по-новому
+QHash<QString, double> calculateProject(const QHash<QString, double>& _source)
+{
+    QHash<QString, double> ans;
+
+    ans["ansHashTag1"] = _source["sourceHashTag1"];
+    ans["ansHashTag2"] = _source.value("sourceHashTag2", -1);
+
+    return ans;
+}
+
+// по-старому
+QList<double> calculateProject(const QList<double>& _source)
 {
     QVector <double> ans;
-    ans.resize(58);
+    ans.resize(59);
 
     ans[0]  =  _source[0] / _source[1] + 1;
     ans[1]  =  _source[2] / _source[3];
@@ -118,7 +146,7 @@ QList<double> calculateProject(QList<double> _source)
     ans[35]	= _source[99] / _source[100]; // Изменение населенности подвижного состава
 
 
-    for(int i = 36; i <= 57; i++)
+    for(int i = 36; i <= 58; i++)
     {
        ans[i] = _source[i + 63];
     }
@@ -131,9 +159,6 @@ QList<double> calculateProject(QList<double> _source)
             ans[i] = 0;
         }
     }
-
-
-
     return ans.toList();
 }
 

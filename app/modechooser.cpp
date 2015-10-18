@@ -62,23 +62,10 @@ inline double calculateFinalCriterium(QList<double>& _projectKoeffs)
 
 void ModeChooser::callCalculation()
 {
-//    int count = 0;
-//    QStringList projectsNames;
-//    forever
-//    {
-//        QString path = "constants" + QString::number(count++);
-//        QFileInfo info(path);
-//        if(info.exists())
-//            projectsNames << path;
-//        else
-//            break;
-//    }
+    TreeInfoFactory* factory = new TreeInfoFactory();
+    ProjectCalculator calc("metodicJudges_average", "sections_average", factory);
+    calc.calculate("constants0", "constants1", "result0", "result1");
 
-    ProjectCalculator::calculate("metodicJudges_average",
-                                 "sections_average",
-                                 "constants0",
-                                 "constants1",
-                                 "result");
 
     PropertyTreeViewer* calculation = new PropertyTreeViewer("result", PropertyTreeViewer::Minimal);
     calculation->setDefaultTabName("Проект");
@@ -86,10 +73,9 @@ void ModeChooser::callCalculation()
     calculation->setPrecision(6);
     calculation->show();
 
-    TreeInfoFactory* factory = new TreeInfoFactory();
+
     TreeRightSideValues* proj1Result = factory->getRightSideValues("result0");
     TreeRightSideValues* proj2Result = factory->getRightSideValues("result1");
-
     QList<double> firstResult  = toDoubleList(proj1Result->values());
     QList<double> secondResult = toDoubleList(proj2Result->values());
 
