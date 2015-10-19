@@ -5,9 +5,12 @@
 #include "projectcalculation.h"
 #include "nodesinfo/treeleftsideinfo.h"
 #include "nodesinfo/treerightsidevalues.h"
+#include "properynode.h"
 
 QMap<QString, double> calculateProject(const QMap<QString, double>& _source);
 QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QString, double>& _other);
+QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, const QMap<QString, double>& _sections, const QList<ProperyNode*>& _nodes);
+
 void removeNan(QMap<QString, double>& _values);
 
 inline void normalise(double& _one, double& _other)
@@ -23,8 +26,9 @@ inline void normalise(double& _one, double& _other)
     _other /= max;
 }
 
-ProjectCalculator::ProjectCalculator(TreeRightSideValues *_metodicJudgesAverage, TreeRightSideValues *_sectionsAverage)
-    : m_metodicJudgesAverage(_metodicJudgesAverage),
+ProjectCalculator::ProjectCalculator(TreeLeftSideInfo* _methodicJudges, TreeRightSideValues *_metodicJudgesAverage, TreeRightSideValues *_sectionsAverage)
+    : m_methodicJudges(_methodicJudges),
+      m_metodicJudgesAverage(_metodicJudgesAverage),
       m_sectionsAverage(_sectionsAverage)
 {}
 
@@ -66,8 +70,8 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
     oneProjectCalculation   = multiply(oneProjectCalculation,   m_metodicJudgesAverage->values());
     otherProjectCalculation = multiply(otherProjectCalculation, m_metodicJudgesAverage->values());
 
-//    oneProjectCalculation   = multiplyByGroups(oneProjectCalculation,   sectionsAv);
-//    otherProjectCalculation = multiplyByGroups(otherProjectCalculation, sectionsAv);
+    oneProjectCalculation   = multiplyWithSection(oneProjectCalculation,   m_sectionsAverage->values(), m_methodicJudges->nodes());
+    otherProjectCalculation = multiplyWithSection(otherProjectCalculation, m_sectionsAverage->values(), m_methodicJudges->nodes());
 
     _result0->setValues(oneProjectCalculation);
     _result1->setValues(otherProjectCalculation);
@@ -75,15 +79,6 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
     //!!!
     _result0->writeValues("result0");
     _result1->writeValues("result1");
-}
-
-QList<int> ProjectCalculator::groupTitles()
-{
-    static QList<int> titles;
-    if(titles.isEmpty())
-        titles << 0 << 12 << 14 << 31 << 33 << 36 << 38 << 43 << 61;
-
-    return titles;
 }
 
 // по-новому
@@ -177,6 +172,25 @@ QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QSt
     }
     return ans;
 }
+
+QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, const QMap<QString, double>& _sections, const QList<ProperyNode*>& _nodes)
+{
+    QMap<QString, double> ans;
+    for(int i = 0; i < _nodes.size(); ++i)
+    {
+        ProperyNode* titleNode = _nodes.at(i);
+        QString titleKey = titleNode->key();
+        double groupKoef = _sections[titleKey];
+
+        foreach(ProperyNode* node, titleNode->children())
+        {
+            QString key = node->key();
+            ans[key] = _values[key] * groupKoef;
+        }
+    }
+    return ans;
+}
+
 
 void removeNan(QMap<QString, double>& _values)
 {

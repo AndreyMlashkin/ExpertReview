@@ -6,10 +6,11 @@
 class TreeRightSideValues;
 class TreeLeftSideInfo;
 
+// should be refactored
 class ProjectCalculator
 {
 public:
-    ProjectCalculator(TreeRightSideValues* _metodicJudgesAverage, TreeRightSideValues* _sectionsAverage);
+    ProjectCalculator(TreeLeftSideInfo* _methodicJudges, TreeRightSideValues* _metodicJudgesAverage, TreeRightSideValues* _sectionsAverage);
 
     void calculate(TreeLeftSideInfo* _source, TreeLeftSideInfo* _result);
 
@@ -17,10 +18,7 @@ public:
                    TreeRightSideValues* _result1,    TreeRightSideValues* _result2);
 
 private:
-    static QList<double> multiplyByGroups(const QList<double>& _vals, const QList<double>& _groupsKoeff);
-    static QList<int> groupTitles();
-
-private:
+    TreeLeftSideInfo* m_methodicJudges;
     TreeRightSideValues* m_metodicJudgesAverage;
     TreeRightSideValues* m_sectionsAverage;
 };

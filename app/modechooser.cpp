@@ -75,7 +75,8 @@ void ModeChooser::callCalculation()
     TreeLeftSideInfo* constants = factory->getLeftSideInfo("constants");
     TreeLeftSideInfo* result    = factory->getLeftSideInfo("result");
 
-    ProjectCalculator calc(methodicJudgesAverage, sectionsAverage);
+    TreeLeftSideInfo* methodicJudges = factory->getLeftSideInfo("metodicJudges");
+    ProjectCalculator calc(methodicJudges, methodicJudgesAverage, sectionsAverage);
     calc.calculate(constants, result);
 
     PropertyTreeViewer* calculation = new PropertyTreeViewer("result", PropertyTreeViewer::Minimal);
