@@ -2,18 +2,19 @@
 #define TREEPROPERTYWIDGET_H
 
 #include <QtTreePropertyBrowser>
+#include <QMap>
 class QtVariantPropertyManager;
 
 class ProperyNode;
 class TreeLeftSideInfo;
 class TreeRightSideValues;
-class TreeInfoFactory;
+class TreeLeftSideInfoFactory;
 
 class TreePropertyWidget : public QtTreePropertyBrowser
 {
     Q_OBJECT
 public:
-    TreePropertyWidget(TreeLeftSideInfo *_info, TreeInfoFactory* _factory, QWidget *_parent = 0);
+    TreePropertyWidget(TreeLeftSideInfo *_info, QWidget *_parent = 0);
 
     void setValues(TreeRightSideValues* _values);
     TreeRightSideValues* getValues() const;
@@ -25,16 +26,15 @@ public:
 
 private:
     void fillLeftSide();
-
     QtProperty *toProperty(ProperyNode* _node);
     int nodeType(const ProperyNode* _node) const;
 
-    double toDouble(const QString& _str) const;
-    double toDouble(const QVariant& _var) const;
+//    double toDouble(const QString& _str) const;
+//    double toDouble(const QVariant& _var) const;
 
 private:
-    TreeLeftSideInfo* m_info;
-    TreeInfoFactory* m_factory;
+    QMap<QString, QtProperty*> m_planeProperties;
+    TreeLeftSideInfo* m_leftSide;
 
     bool m_normalised;
     int m_precision;

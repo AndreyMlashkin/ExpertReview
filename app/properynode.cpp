@@ -1,7 +1,8 @@
 #include "properynode.h"
 
-ProperyNode::ProperyNode(QObject *_parent)
-    : QObject(_parent)
+ProperyNode::ProperyNode(const QString &_description, const QString &_key)
+    : m_description(_description),
+      m_key(_key)
 {}
 
 ProperyNode::~ProperyNode()
@@ -37,7 +38,7 @@ QString ProperyNode::description() const
     return m_description;
 }
 
-void ProperyNode::setDescription(const QString &_desc)
+QString ProperyNode::key() const
 {
-    m_description = _desc;
+    return m_key;
 }

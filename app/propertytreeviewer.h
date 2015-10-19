@@ -8,7 +8,7 @@ namespace Ui
     class PropertyTreeViewer;
 }
 class TreePropertyWidget;
-class TreeInfoFactory;
+class TreeLeftSideInfoFactory;
 class TreeRightSideValues;
 class TreeLeftSideInfo;
 
@@ -73,7 +73,7 @@ private:
     TreePropertyWidget* m_treePropertyWidget;
     int m_currentTab;
 
-    TreeInfoFactory* m_factory;
+    TreeLeftSideInfoFactory* m_factory;
     TreeLeftSideInfo* m_leftInfo;
     QVector<TreeRightSideValues*> m_values;
 };

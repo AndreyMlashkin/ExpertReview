@@ -26,34 +26,30 @@ SOURCES += main.cpp\
     properynode.cpp \
     propertytreeviewer.cpp \
     modechooser.cpp \
-    projectsourcedata.cpp \
     nodesinfo/treeleftsideinfofile.cpp \
-    nodesinfo/treeleftsideinfotest.cpp \
     nodesinfo/treerightsidevaluesfile.cpp \
-    nodesinfo/treeinfofactory.cpp \
     projectcalculation.cpp \
-    finalcalculationdialog.cpp
+    finalcalculationdialog.cpp \
+    nodesinfo/treeleftsideinfo.cpp \
+    nodesinfo/treeleftsideinfofactory.cpp
 
 HEADERS  += \
     treepropertywidget.h \
     properynode.h \
     propertytreeviewer.h \
     modechooser.h \
-    projectsourcedata.h \
     nodesinfo/treeleftsideinfo.h \
     nodesinfo/treeleftsideinfofile.h \
-    nodesinfo/treeleftsideinfotest.h \
     nodesinfo/treerightsidevalues.h \
     nodesinfo/treerightsidevaluesfile.h \
-    nodesinfo/treeinfofactory.h \
     projectcalculation.h \
     finalcalculationdialog.h \
-    projectapi.h
+    projectapi.h \
+    nodesinfo/treeleftsideinfofactory.h
 
 FORMS    += \
     propertytreeviewer.ui \
     modechooser.ui \
-    projectsourcedata.ui \
     finalcalculationdialog.ui
 
 LIBS += -L$$PWD/../bin \

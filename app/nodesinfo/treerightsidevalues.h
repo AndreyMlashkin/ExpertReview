@@ -10,8 +10,8 @@ public:
     TreeRightSideValues() {}
     virtual ~TreeRightSideValues() {}
 
-    virtual QVariantList values() const = 0;
-    virtual void setValues(const QVariantList& _values) = 0;
+    virtual QMap<QString, double> values() const = 0; // key - value
+    virtual void setValues(const QMap<QString, double>& _values) = 0;
 
     virtual void readValues(const QString& _id) = 0;
     virtual void writeValues(const QString& _id) = 0;

@@ -7,7 +7,7 @@ class ProperyNode : public QObject
 {
     Q_OBJECT
 public:
-    explicit ProperyNode(QObject *_parent = 0);
+    explicit ProperyNode(const QString& _description, const QString& _key);
     ~ProperyNode();
 
     const QList<ProperyNode*> children() const;
@@ -16,11 +16,12 @@ public:
     void clearChilds();
 
     QString description() const;
-    void setDescription(const QString& _desc);
+    QString key() const;
 
 private:
     QList<ProperyNode*> m_children;
     QString m_description;
+    QString m_key;
 };
 
 #endif // PROPERYNODE_H

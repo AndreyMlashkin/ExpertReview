@@ -7,7 +7,6 @@ namespace Ui {
 class ModeChooser;
 }
 
-class ProjectSourceData;
 class ProjectCalculator;
 
 class ModeChooser : public QWidget

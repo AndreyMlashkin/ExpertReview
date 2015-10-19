@@ -6,17 +6,21 @@
 class TreeRightSideValuesFile : public TreeRightSideValues
 {
 public:
-    TreeRightSideValuesFile();
+    TreeRightSideValuesFile(const QStringList& _orderedKeys);
     ~TreeRightSideValuesFile() {}
 
-    QVariantList values() const override;
-    void setValues(const QVariantList& _values) override;
+    QMap<QString, double> values() const override;
+    void setValues(const QMap<QString, double>& _values) override;
 
     void readValues(const QString &_id) override;
     void writeValues(const QString& _id) override;
 
 private:
-    QVariantList m_values;
+    void fillWithEmptyVals();
+
+private:
+    QStringList m_orderedKeys;
+    QMap<QString, double> m_values;
 };
 
 #endif // TREERIGHTSIDEVALUESFILE_H

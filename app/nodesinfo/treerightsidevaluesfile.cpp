@@ -1,18 +1,24 @@
 #include <QFile>
 #include <QTextStream>
+#include "projectapi.h"
 
 #include "treerightsidevaluesfile.h"
 
-TreeRightSideValuesFile::TreeRightSideValuesFile()
+TreeRightSideValuesFile::TreeRightSideValuesFile(const QStringList &_orderedKeys)
+    : m_orderedKeys(_orderedKeys)
 {}
 
-QVariantList TreeRightSideValuesFile::values() const
+QMap<QString, double> TreeRightSideValuesFile::values() const
 {
+    if(m_values.isEmpty())
+        const_cast<TreeRightSideValuesFile*>(this)->fillWithEmptyVals();
+
     return m_values;
 }
 
-void TreeRightSideValuesFile::setValues(const QVariantList &_values)
+void TreeRightSideValuesFile::setValues(const QMap<QString, double>& _values)
 {
+    // Вставить проверку
     m_values = _values;
 }
 
@@ -27,13 +33,22 @@ void TreeRightSideValuesFile::readValues(const QString& _id)
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
 
-    while (!file.atEnd())
+    QTextStream in(&file);
+
+    int count = 0;
+    while(!in.atEnd())
     {
-        QByteArray line = file.readLine();
-        line = line.trimmed();
-        QVariant v(line.toDouble());
-        m_values << v;
+        QString line = in.readLine();
+
+        Q_ASSERT_X(m_orderedKeys.size() > count, "out of range", "too much values in file or duplicate tags");
+
+        QString key = m_orderedKeys[count];
+        m_values[key] = toDouble(line);
+
+        ++count;
     }
+    Q_ASSERT_X(m_orderedKeys.size() == count, "too much keys!",
+                                              "no enought values in file!");
 }
 
 void TreeRightSideValuesFile::writeValues(const QString &_id)
@@ -45,10 +60,17 @@ void TreeRightSideValuesFile::writeValues(const QString &_id)
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
-    foreach (QVariant v, m_values)
+    QTextStream out(&file);
+    foreach (QString key, m_orderedKeys)
     {
-        QByteArray line = v.toByteArray();
-        line.append('\n');
-        file.write(line);
+        double val = m_values[key];
+        QString line = QString::number(val) + '\n';
+        out << line;
     }
+}
+
+void TreeRightSideValuesFile::fillWithEmptyVals()
+{
+    foreach(QString key, m_orderedKeys)
+        m_values[key] = 0.0;
 }

@@ -1,13 +1,17 @@
 #include <QStack>
 #include <QFile>
+#include <QFileInfo>
 #include <QTextStream>
 
 #include "treeleftsideinfofile.h"
+#include "treerightsidevaluesfile.h"
 #include "properynode.h"
 
-TreeLeftSideInfoFile::TreeLeftSideInfoFile()
+TreeLeftSideInfoFile::TreeLeftSideInfoFile(const QString &_treeName)
     : TreeLeftSideInfo()
-{}
+{
+    open(_treeName);
+}
 
 TreeLeftSideInfoFile::~TreeLeftSideInfoFile()
 {
@@ -24,9 +28,69 @@ const QList<ProperyNode *> TreeLeftSideInfoFile::nodes()
     return m_nodes;
 }
 
-QStringList TreeLeftSideInfoFile::planeNodes()
+QStringList TreeLeftSideInfoFile::planeDescriptions() const
 {
     return m_planeNodes;
+}
+
+QStringList TreeLeftSideInfoFile::planeKeys() const
+{
+    return m_planeKeys;
+}
+
+int TreeLeftSideInfoFile::savedRightSidesCount() const
+{
+    int count = 0;
+    forever
+    {
+        QString path = m_openedFile + QString::number(count);
+        QFileInfo info(path);
+        if(info.exists())
+            ++count;
+        else
+            return count;
+    }
+}
+
+QStringList TreeLeftSideInfoFile::savedRightSidesIds() const
+{
+    QStringList ans;
+    int count = 0;
+    forever
+    {
+        QString path = m_openedFile + QString::number(count);
+        QFileInfo info(path);
+        if(info.exists())
+        {
+            ++count;
+            ans << path;
+        }
+        else
+            return ans;
+    }
+}
+
+QString TreeLeftSideInfoFile::savedAverageRightSideId() const
+{
+    QString path = m_openedFile + "_average";
+    QFileInfo info(path);
+    if(info.exists())
+        return path;
+    return QString();
+}
+
+TreeRightSideValues *TreeLeftSideInfoFile::createRightSide() const
+{
+    TreeRightSideValues* values = new TreeRightSideValuesFile(m_planeKeys);
+    return values;
+}
+
+inline QStringList split(const QString& _str)
+{
+    QStringList splitted = _str.split(QRegExp("[\\s\\t]+#"), QString::SkipEmptyParts);
+    for(int i = 0; i < splitted.size(); ++i)
+        splitted[i] = splitted[i].trimmed();
+    return splitted;
 }
 
 void TreeLeftSideInfoFile::open(const QString &_treeName)
@@ -44,10 +108,14 @@ void TreeLeftSideInfoFile::open(const QString &_treeName)
         while(!in.atEnd())
         {
             QString line = in.readLine();
+            QStringList decriptionAndKey = split(line);
 
-            ProperyNode* node = new ProperyNode();
-            node->setDescription(line.trimmed());
-            m_planeNodes << line.trimmed();
+            Q_ASSERT(decriptionAndKey.size() == 2);
+            ProperyNode* node = new ProperyNode(decriptionAndKey.at(0),
+                                                decriptionAndKey.at(1));
+
+            m_planeNodes << decriptionAndKey.at(0);
+            m_planeKeys  << decriptionAndKey.at(1);
 
             int enclosure = calculateEnclosure(line);
 

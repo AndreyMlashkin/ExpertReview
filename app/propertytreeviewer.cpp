@@ -3,7 +3,7 @@
 #include "propertytreeviewer.h"
 #include "ui_propertytreeviewer.h"
 #include "treepropertywidget.h"
-#include "nodesinfo/treeinfofactory.h"
+#include "nodesinfo/treeleftsideinfofactory.h"
 #include "nodesinfo/treerightsidevalues.h"
 #include "nodesinfo/treeleftsideinfo.h"
 
@@ -133,21 +133,6 @@ void PropertyTreeViewer::normalise(bool _toggled)
             oldVals = m_values[m_currentTab];
         Q_ASSERT(oldVals);
 
-//        QVariantList savedValues = oldVals->values();
-
-//        double summ = 0;
-//        foreach(QVariant v, savedValues)
-//            summ += v.value<double>();
-
-//        for(int i = 0; i < savedValues.size(); ++i)
-//        {
-//            double val = savedValues.at(i).value<double>();
-//            savedValues[i] = val / summ;
-//        }
-
-//        TreeRightSideValues* newVals = m_factory->getRightSideValues();
-//        newVals->setValues(savedValues);
-
         TreeRightSideValues* newVals = normalise(oldVals);
         m_treePropertyWidget->setValues(newVals);
     }
@@ -162,9 +147,9 @@ void PropertyTreeViewer::normalise(bool _toggled)
 
 void PropertyTreeViewer::init()
 {
-    m_factory = new TreeInfoFactory();
+    m_factory = new TreeLeftSideInfoFactory();
     m_leftInfo = m_factory->getLeftSideInfo(m_leftSideTreeId);
-    m_treePropertyWidget = new TreePropertyWidget(m_leftInfo, m_factory);
+    m_treePropertyWidget = new TreePropertyWidget(m_leftInfo);
 
     m_average = m_ui->average;
     m_add = m_ui->add;
@@ -205,7 +190,7 @@ void PropertyTreeViewer::addTab()
     if(m_values.size() <= insertPos)
     {
         m_values.resize(insertPos + 1); // 1 - index to size;
-        m_values[insertPos] = m_factory->getRightSideValues();
+        m_values[insertPos] = m_leftInfo->createRightSide();
     }
     m_ui->tabWidget->setCurrentWidget(newWidget);
 }
@@ -217,46 +202,53 @@ bool PropertyTreeViewer::isNormalised() const
 
 TreeRightSideValues* PropertyTreeViewer::normalise(TreeRightSideValues *_values)
 {
-    QVariantList savedValues = _values->values();
+    QMap<QString, double> savedValues = _values->values();
 
     double summ = 0;
-    foreach(QVariant v, savedValues)
-        summ += v.value<double>();
+    foreach(double d, savedValues)
+        summ += d;
 
-    for(int i = 0; i < savedValues.size(); ++i)
+    QMapIterator<QString, double> iter(savedValues);
+    while (iter.hasNext())
     {
-        double val = savedValues.at(i).value<double>();
-        savedValues[i] = val / summ;
+        iter.next();
+        double val = iter.value();
+        savedValues[iter.key()] = val / summ;
     }
 
-    TreeRightSideValues* newVals = m_factory->getRightSideValues();
+    TreeRightSideValues* newVals = m_leftInfo->createRightSide();
     newVals->setValues(savedValues);
     return newVals;
 }
 
 TreeRightSideValues *PropertyTreeViewer::arithmeticalMean()
 {
-    QVector<double> arMean;
-    arMean.resize(m_leftInfo->planeNodes().size());
+    QMap<QString, double> arMean;
 
     foreach (TreeRightSideValues* vals, m_values)
     {
         if(!vals)
             continue;
 
-        for(int i = 0; i < vals->values().size(); ++i)
+        QMapIterator<QString, double> iter(vals->values());
+        while (iter.hasNext())
         {
-            double digit = vals->values().at(i).value<double>();
-            arMean[i] += digit;
+            iter.next();
+            QString key = iter.key();
+            arMean[key] += iter.value();
         }
     }
 
-    QVariantList ans;
-    for(int i = 0; i < arMean.size(); ++i)
-        ans << double(arMean.at(i) / m_values.size());
+    QMapIterator<QString, double> iter(arMean);
+    while (iter.hasNext())
+    {
+        iter.next();
+        QString key = iter.key();
+        arMean[key] = iter.value() / m_values.size();
+    }
 
-    TreeRightSideValues* values = m_factory->getRightSideValues();
-    values->setValues(ans);
+    TreeRightSideValues* values = m_leftInfo->createRightSide();
+    values->setValues(arMean);
     return values;
 }
 
@@ -308,6 +300,7 @@ void PropertyTreeViewer::writeRightSideVals()
 {
     if(!isNormalised())
         saveValuesFromUi();
+    //!!!
     int count = 0;
     foreach(TreeRightSideValues* rSide, m_values)
     {
@@ -322,19 +315,12 @@ void PropertyTreeViewer::writeRightSideVals()
 
 void PropertyTreeViewer::readRightSideVals()
 {
-    //!!!
-    int count = 0;
-    forever
+    int count = m_leftInfo->savedRightSidesCount();
+    for(int i = 0; i < count; ++i)
     {
-        QString path = m_leftSideTreeId + QString::number(count++);
-        QFileInfo info(path);
-        if(info.exists())
-        {
-            m_values << m_factory->getRightSideValues(path);
-            addTab();
-        }
-        else
-            break;
+        TreeRightSideValues* rightSide = m_leftInfo->openRightSide(i);
+        m_values << rightSide;
+        addTab();
     }
 }
 

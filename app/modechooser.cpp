@@ -1,13 +1,11 @@
-#include <QFileInfo>
-
 #include "modechooser.h"
 #include "ui_modechooser.h"
 
 #include "projectapi.h"
 #include "nodesinfo/treerightsidevalues.h"
-#include "nodesinfo/treeinfofactory.h"
+#include "nodesinfo/treeleftsideinfofactory.h"
+#include "nodesinfo/treeleftsideinfo.h"
 #include "propertytreeviewer.h"
-#include "projectsourcedata.h"
 #include "projectcalculation.h"
 #include "finalcalculationdialog.h"
 
@@ -60,12 +58,25 @@ inline double calculateFinalCriterium(QList<double>& _projectKoeffs)
     return ans;
 }
 
+inline TreeRightSideValues* getAverage(TreeLeftSideInfoFactory* _factory, const QString& _name)
+{
+    TreeLeftSideInfo* leftSide = _factory->getLeftSideInfo(_name);
+    TreeRightSideValues* rightAverage = leftSide->createRightSide();
+    rightAverage->readValues(leftSide->savedAverageRightSideId());
+    return rightAverage;
+}
+
 void ModeChooser::callCalculation()
 {
-    TreeInfoFactory* factory = new TreeInfoFactory();
-    ProjectCalculator calc("metodicJudges_average", "sections_average", factory);
-    calc.calculate("constants0", "constants1", "result0", "result1");
+    TreeLeftSideInfoFactory* factory = new TreeLeftSideInfoFactory();
+    TreeRightSideValues* methodicJudgesAverage = getAverage(factory, "metodicJudges");
+    TreeRightSideValues* sectionsAverage = getAverage(factory, "sections");
 
+    TreeLeftSideInfo* constants = factory->getLeftSideInfo("constants");
+    TreeLeftSideInfo* result    = factory->getLeftSideInfo("result");
+
+    ProjectCalculator calc(methodicJudgesAverage, sectionsAverage);
+    calc.calculate(constants, result);
 
     PropertyTreeViewer* calculation = new PropertyTreeViewer("result", PropertyTreeViewer::Minimal);
     calculation->setDefaultTabName("Проект");
@@ -73,11 +84,17 @@ void ModeChooser::callCalculation()
     calculation->setPrecision(6);
     calculation->show();
 
+    TreeLeftSideInfo* leftSide = factory->getLeftSideInfo("result");
+    TreeRightSideValues* proj1Result = leftSide->createRightSide();
+    TreeRightSideValues* proj2Result = leftSide->createRightSide();
+    proj1Result->readValues(leftSide->savedRightSidesIds().at(0));
+    proj2Result->readValues(leftSide->savedRightSidesIds().at(1));
 
-    TreeRightSideValues* proj1Result = factory->getRightSideValues("result0");
-    TreeRightSideValues* proj2Result = factory->getRightSideValues("result1");
-    QList<double> firstResult  = toDoubleList(proj1Result->values());
-    QList<double> secondResult = toDoubleList(proj2Result->values());
+//    TreeRightSideValues* proj1Result = factory->getRightSideValues("result0");
+//    TreeRightSideValues* proj2Result = factory->getRightSideValues("result1");
+
+    QList<double> firstResult  = proj1Result->values().values();
+    QList<double> secondResult = proj2Result->values().values();
 
     double firstFinalCriterium  = calculateFinalCriterium(firstResult);
     double secondFinalCriterium = calculateFinalCriterium(secondResult);
