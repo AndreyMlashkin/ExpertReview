@@ -52,7 +52,14 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
     QMap<QString, double> oneProjectCalculation   = calculateProject(oneProjConstants);
     QMap<QString, double> otherProjectCalculation = calculateProject(otherProjConstants);
 
-    qDebug() << "AFTER CALCULATION:\n" << oneProjectCalculation << "\n------\n" << otherProjectCalculation;
+    qDebug() << "AFTER CALCULATION:\n" ;//<< oneProjectCalculation << "\n------\n" << otherProjectCalculation;
+    QMapIterator<QString, double> k(oneProjectCalculation);
+    while (k.hasNext())
+    {
+        k.next();
+        QString key = k.key();
+        qDebug() << key << "\t" << oneProjectCalculation[key] << "\t" << otherProjectCalculation[key];
+    }
 
     removeNan(oneProjectCalculation);
     removeNan(otherProjectCalculation);
@@ -81,80 +88,87 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
     _result1->writeValues("result1");
 }
 
-// по-новому
 QMap<QString, double> calculateProject(const QMap<QString, double>& _source)
 {
+    auto getValue = [&_source](const QString& _key)
+    {
+        bool haveValue = _source.contains(_key);
+        if(!haveValue)
+            qDebug() << "WARNING! There is no tag with name " << _key;
+        return _source[_key];
+    };
+
     QMap<QString, double> ans;
 
-    ans["dinNDSpred"]    = 1 + _source["NDS_pr"] / _source["NDS_tek"];
-    ans["dinNPpred"]     = 1 + _source["NP_pr"]  / _source["NP_tek"];
-    ans["dinNIpred"]     = 1 + _source["NI_pr"]  / _source["NI_tek"];
-    ans["dinVneBUDpred"] = 1 + (_source["PF_pr"]  + _source["FSS_pr"]  + _source["OMS_pr"]) /
-                               (_source["PF_tek"] + _source["FSS_tek"] + _source["OMS_tek"]);
+    ans["dinNDSpred"]    = 1 + getValue("NDS_pr") / getValue("NDS_tek");
+    ans["dinNPpred"]     = 1 + getValue("NP_pr")  / getValue("NP_tek");
+    ans["dinNIpred"]     = 1 + getValue("NI_pr")  / getValue("NI_tek");
+    ans["dinVneBUDpred"] = 1 + (getValue("PF_pr")  + getValue("FSS_pr")  + getValue("OMS_pr")) /
+                               (getValue("PF_tek") + getValue("FSS_tek") + getValue("OMS_tek"));
 
-    ans["dinNDS"] = (_source["NDS_tek_E"] == 0)? 0 : 1 + _source["NDS_pr_E"] / _source["NDS_tek_E"];
+    ans["dinNDS"] = (getValue("NDS_tek_E") == 0)? 0 : 1 + getValue("NDS_pr_E") / getValue("NDS_tek_E");
 
-    ans["dinNP"]         = 1 + _source["NP_pr_E"]  / _source["NP_tek_E"];
-    ans["dinNI"]         = 1 + _source["NI_pr_E"]  / _source["NI_tek_E"];
-    ans["dinVneBUD"]     = 1 + (_source["PF_pr_E"]  + _source["FSS_pr_E"]  + _source["OMS_pr_E"]) /
-                               (_source["PF_tek_E"] + _source["FSS_tek_E"] + _source["OMS_tek_E"]);
-    ans["dinNDFLtransp"] = 1 + _source["NDFL_pr_TrE"] / _source["NDFL_tek_TrE"];
-    ans["dinNDFLkosv"]   = 1 + _source["NDFL_pr_KE"]  / _source["NDFL_tek_KE"];
-    ans["dinZemN"]       = 1 + _source["NZ_pr_E"]     / _source["NZ_tek_E"];
+    ans["dinNP"]         = 1 + getValue("NP_pr_E")  / getValue("NP_tek_E");
+    ans["dinNI"]         = 1 + getValue("NI_pr_E")  / getValue("NI_tek_E");
+    ans["dinVneBUD"]     = 1 + (getValue("PF_pr_E")  + getValue("FSS_pr_E")  + getValue("OMS_pr_E")) /
+                               (getValue("PF_tek_E") + getValue("FSS_tek_E") + getValue("OMS_tek_E"));
+    ans["dinNDFLtransp"] = 1 + getValue("NDFL_pr_TrE") / getValue("NDFL_tek_TrE");
+    ans["dinNDFLkosv"]   = 1 + getValue("NDFL_pr_KE")  / getValue("NDFL_tek_KE");
+    ans["dinZemN"]       = 1 + getValue("NZ_pr_E")     / getValue("NZ_tek_E");
 
-    ans["doljaPredpr"]   = 1 + _source["PPd"]      / _source["PP"];
-    ans["uslugiTovar"]   = 1 + _source["NP_pr_SE"] / _source["NP_tek_SE"];
-    ans["stoim.1kv.m"]   = 1 + _source["Ned_pr"]   / _source["Ned_tek"];
-    ans["rabMestTr"]     = 1 + _source["PMt_pr"]   / _source["PMt_tek"];
-    ans["rabMestSm"]     =  _source["_I"]  * _source["_d"]  / _source["_S"]; //  Количество создаваемых (сохраняемых) рабочих мест  в смежных отраслях
-    ans["stoimRes"]      =  _source["_Sm"] + _source["Str"] + _source["Scmr"];
-    ans["trudRes"]       = 1 + _source[""] / _source[""]; //  Наличие трудовых ресурсов соответствующей квалификации. Внесено изменение с методикой.
-    ans["passPotok"]     =  _source["POprr"] + _source["POpra"] + _source["POprb"];
-    ans["podvizhnNasel"] = (_source["Pt"] + _source["Po"] + _source["Pn"]) / _source["Chislenn"];
-    ans["otechProd"]     =  _source["IZsps"] + _source["IZsi"] + _source["IZeps"] + _source["IZei"];
-    ans["vremjaPuti"]    =  _source["Ttr"] * _source["Sp"] * _source["Knp"];
-    ans["stoimZemli"]    =  _source["Zem_pr"] / _source["Zem_tek"];
-    ans["naselPunkt"]    =  _source["NPd"] / _source["NP"];
-    ans["innovProd"]     =  _source["IPsps"] + _source["IPsi"] + _source["IPeps"] + _source["IPei"];
-    ans["zemleotvod"]    =  _source["Srs"] + _source["Spk"] + _source["Sob"];
-    ans["propuskSpos"]   =  1140 * _source["k"] / _source["T"] +
-                           (_source["lt"] * _source["lp"] * _source["la"]) / _source["U"]; // train + auto. Увеличение пропускной способности путей сообщения
+    ans["doljaPredpr"]   = 1 + getValue("PPd")      / getValue("PP");
+    ans["uslugiTovar"]   = 1 + getValue("NP_pr_SE") / getValue("NP_tek_SE");
+    ans["stoim.1kv.m"]   = 1 + getValue("Ned_pr")   / getValue("Ned_tek");
+    ans["rabMestTr"]     = 1 + getValue("PMt_pr")   / getValue("PMt_tek");
+    ans["rabMestSm"]     =  getValue("_I")  * getValue("_d")  / getValue("_S"); //  Количество создаваемых (сохраняемых) рабочих мест  в смежных отраслях
+    ans["stoimRes"]      =  getValue("_Sm") + getValue("Str") + getValue("Scmr");
+//    ans["trudRes"]       = 1 + _source[""] / _source[""]; //  Наличие трудовых ресурсов соответствующей квалификации. Внесено изменение с методикой.
+    ans["passPotok"]     =  getValue("POprr") + getValue("POpra") + getValue("POprb");
+    ans["podvizhnNasel"] = (getValue("Pt") + getValue("Po") + getValue("Pn")) / getValue("Chislenn");
+    ans["otechProd"]     =  getValue("IZsps") + getValue("IZsi") + getValue("IZeps") + getValue("IZei");
+    ans["vremjaPuti"]    =  getValue("Ttr") * getValue("Sp") * getValue("Knp");
+    ans["stoimZemli"]    =  getValue("Zem_pr") / getValue("Zem_tek");
+    ans["naselPunkt"]    =  getValue("NPd") / getValue("Np");
+    ans["innovProd"]     =  getValue("IPsps") + getValue("IPsi") + getValue("IPeps") + getValue("IPei");
+    ans["zemleotvod"]    =  getValue("Srs") + getValue("Spk") + getValue("Sob");
+    ans["propuskSpos"]   =  1140 * getValue("k") / getValue("T") +
+                           (getValue("lt") * getValue("lp") * getValue("la")) / getValue("U"); // train + auto. Увеличение пропускной способности путей сообщения
 
-    ans["dinKoefInfr"]     = _source["POchp"] / _source["POpr"];
+    ans["dinKoefInfr"]     = getValue("POchp") / getValue("POpr");
 
-    ans["dinDostup"]       = _source["Z"] / _source["pass_km"];
-    ans["platezhespos"]    = _source["Sb"] / _source["Zsrm"]; // платежная способность населения в регионе
+    ans["dinDostup"]       = getValue("Z") / getValue("pass_km");
+    ans["platezhespos"]    = getValue("Sb") / getValue("Zsrm"); // платежная способность населения в регионе
 
-    ans["kachestvoUslug"]  = _source["L"] / _source["S"];
-    ans["dohodPerev"]      = _source["Dprr"] + _source["Dpra"] + _source["Dprch"] + _source["Dprb"];
-    ans["tOborota"]        = _source["Tto"] + _source["Tpv"] + _source["Tdv"];
-    ans["podvSostav"]      = _source["Qsut"] / _source["Urd"] + (_source["Qmax"] * _source["Tob"]) / _source["qvm"];
-    ans["naselPodvSostav"] = _source["Pkm"] / _source["Vkm"]; // Изменение населенности подвижного состава
+    ans["kachestvoUslug"]  = getValue("L") / getValue("S");
+    ans["dohodPerev"]      = getValue("Dprr") + getValue("Dpra") + getValue("Dprch") + getValue("Dprb");
+    ans["tOborota"]        = getValue("Tto") + getValue("Tpv") + getValue("Tdv");
+    ans["podvSostav"]      = getValue("Qsut") / getValue("Urd") + (getValue("Qmax") * getValue("Tob")) / getValue("qvm");
+    ans["naselPodvSostav"] = getValue("Pkm") / getValue("Vkm"); // Изменение населенности подвижного состава
 
-    ans["riskTehnPrir"]      = _source["rTehnPrir"];
-    ans["riskNacCrizis"]     = _source["rNacCrizis"];
-    ans["riskVVP"]           = _source["rVVP"];
-    ans["riskInfl"]          = _source["rInfl"];
-    ans["riskBezrab"]        = _source["rBezrab"];
-    ans["riskNalog"]         = _source["rNalog"];
-    ans["riskKonkur"]        = _source["rKonkur"];
-    ans["riskIzmPredp"]      = _source["rIzmPredp"];
-    ans["riskZaderzh"]       = _source["rZaderzh"];
-    ans["riskOperac"]        = _source["rOperac"];
-    ans["riskStoim_Zaderzh"] = _source["rStoim_Zaderzh"];
-    ans["riskFinans"]        = _source["rFinans"];
-    ans["riskPostavok"]      = _source["rPostavok"];
-    ans["riskEcologii"]      = _source["rEcologii"];
-    ans["riskChPStroit"]     = _source["rChPStroit"];
-    ans["riskStroitNorm"]    = _source["rStroitNorm"];
-    ans["riskForceMajor"]    = _source["rForceMajor"];
+    ans["riskTehnPrir"]      = getValue("rTehnPrir");
+    ans["riskNacCrizis"]     = getValue("rNacCrizis");
+    ans["riskVVP"]           = getValue("rVVP");
+    ans["riskInfl"]          = getValue("rInfl");
+    ans["riskBezrab"]        = getValue("rBezrab");
+    ans["riskNalog"]         = getValue("rNalog");
+    ans["riskKonkur"]        = getValue("rKonkur");
+    ans["riskIzmPredp"]      = getValue("rIzmPredp");
+    ans["riskZaderzh"]       = getValue("rZaderzh");
+//    ans["riskOperac"]        = getValue("rOperac");
+    ans["riskStoim_Zaderzh"] = getValue("rStoim_Zaderzh");
+    ans["riskFinans"]        = getValue("rFinans");
+    ans["riskPostavok"]      = getValue("rPostavok");
+    ans["riskEcologii"]      = getValue("rEcologii");
+    ans["riskChPStroit"]     = getValue("rChPStroit");
+    ans["riskStroitNorm"]    = getValue("rStroitNorm");
+    ans["riskForceMajor"]    = getValue("rForceMajor");
 
-    ans["riskShum"]     = _source["rShum"];
-    ans["riskVibro"]    = _source["rVibro"];
-    ans["riskIzluch"]   = _source["rIzluch"];
-    ans["riskZagrVoda"] = _source["rZagrVoda"];
-    ans["riskZagrVozd"] = _source["rZagrVozd"];
-    ans["riskMusor"]    = _source["rMusor"];
+    ans["riskShum"]     = getValue("rShum");
+    ans["riskVibro"]    = getValue("rVibro");
+    ans["riskIzluch"]   = getValue("rIzluch");
+    ans["riskZagrVoda"] = getValue("rZagrVoda");
+    ans["riskZagrVozd"] = getValue("rZagrVozd");
+    ans["riskMusor"]    = getValue("rMusor");
 
     return ans;
 }
