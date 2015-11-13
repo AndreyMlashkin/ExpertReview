@@ -77,18 +77,6 @@ TreeRightSideValues *TreePropertyWidget::getValues() const
     TreeRightSideValues* rightSide = m_leftSide->createRightSide();
     rightSide->setValues(values);
     return rightSide;
-
-//    QVariantList values;
-//    QStringList orderedKeys = m_leftSide->planeDescriptions();
-//    foreach (QString key, orderedKeys)
-//    {
-//        QtProperty* prop = findPropery(m_variantManager, key);
-//        values << m_variantManager->value(prop);
-//    }
-
-//    TreeRightSideValues* ans = m_leftSide->createRightSide();
-//    ans->setValues(values);
-//    return ans;
 }
 
 void TreePropertyWidget::clear()
@@ -126,25 +114,6 @@ int TreePropertyWidget::nodeType(const ProperyNode *_node) const
     else
         return QVariant::Double;
 }
-
-//double TreePropertyWidget::toDouble(const QString &_str) const
-//{
-//    if(_str.isEmpty())
-//        return 0;
-
-//    bool isOk;
-//    double ans = QLocale::system().toDouble(_str, &isOk);
-//    if(!isOk)
-//        ans = _str.toDouble(&isOk);
-//    Q_ASSERT(isOk);
-
-//    return ans;
-//}
-
-//double TreePropertyWidget::toDouble(const QVariant &_var) const
-//{
-//    return toDouble(_var.toString());
-//}
 
 void TreePropertyWidget::setEditable(bool _set)
 {
