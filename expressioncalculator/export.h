@@ -1,0 +1,12 @@
+#ifndef EXPORT_H
+#define EXPORT_H
+
+#include <QtCore/QtGlobal>
+
+#if defined(EXPRESSIONCALCULATOR_LIBRARY)
+#  define EXPRESSIONCALCULATOR_EXPORT Q_DECL_EXPORT
+#else
+#  define EXPRESSIONCALCULATOR_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // EXPORT_H

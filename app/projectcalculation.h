@@ -5,6 +5,10 @@
 
 class TreeRightSideValues;
 class TreeLeftSideInfo;
+namespace parser
+{
+    class ParserAdaptor;
+}
 
 // should be refactored
 class ProjectCalculator
@@ -18,6 +22,7 @@ public:
                    TreeRightSideValues* _result1,    TreeRightSideValues* _result2);
 
 private:
+    parser::ParserAdaptor* m_adaptor;
     TreeLeftSideInfo* m_methodicJudges;
     TreeRightSideValues* m_metodicJudgesAverage;
     TreeRightSideValues* m_sectionsAverage;

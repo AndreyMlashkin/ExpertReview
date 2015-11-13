@@ -1,0 +1,1 @@
+dinNDSpred = 1 + NDS_pr / NDS_tek

@@ -6,6 +6,7 @@
 #include "nodesinfo/treeleftsideinfo.h"
 #include "nodesinfo/treerightsidevalues.h"
 #include "properynode.h"
+#include "../expressioncalculator/parseradaptor.h"
 
 QMap<QString, double> calculateProject(const QMap<QString, double>& _source);
 QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QString, double>& _other);
@@ -27,10 +28,15 @@ inline void normalise(double& _one, double& _other)
 }
 
 ProjectCalculator::ProjectCalculator(TreeLeftSideInfo* _methodicJudges, TreeRightSideValues *_metodicJudgesAverage, TreeRightSideValues *_sectionsAverage)
-    : m_methodicJudges(_methodicJudges),
+    : m_adaptor(new parser::ParserAdaptor),
+      m_methodicJudges(_methodicJudges),
       m_metodicJudgesAverage(_metodicJudgesAverage),
       m_sectionsAverage(_sectionsAverage)
-{}
+{
+    qDebug() << m_adaptor->calculate("2 + 2 * 2");
+    qDebug() << m_adaptor->calculate("(15.01 + 14.99) / 3 - 0.001");
+
+}
 
 void ProjectCalculator::calculate(TreeLeftSideInfo *_source, TreeLeftSideInfo *_result)
 {
@@ -106,7 +112,7 @@ QMap<QString, double> calculateProject(const QMap<QString, double>& _source)
     ans["dinVneBUDpred"] = 1 + (getValue("PF_pr")  + getValue("FSS_pr")  + getValue("OMS_pr")) /
                                (getValue("PF_tek") + getValue("FSS_tek") + getValue("OMS_tek"));
 
-    ans["dinNDS"] = (getValue("NDS_tek_E") == 0)? 0 : 1 + getValue("NDS_pr_E") / getValue("NDS_tek_E");
+    ans["dinNDS"]        = 1 + getValue("NDS_pr_E") / getValue("NDS_tek_E");
 
     ans["dinNP"]         = 1 + getValue("NP_pr_E")  / getValue("NP_tek_E");
     ans["dinNI"]         = 1 + getValue("NI_pr_E")  / getValue("NI_tek_E");

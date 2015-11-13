@@ -53,7 +53,8 @@ FORMS    += \
     finalcalculationdialog.ui
 
 LIBS += -L$$PWD/../bin \
-        -lqtpropertybrowser
+        -lqtpropertybrowser \
+        -lexpressioncalculator
 
 RESOURCES += \
     resources.qrc
