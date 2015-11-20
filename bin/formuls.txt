@@ -1,5 +1,65 @@
-dinNDSpred= 1 + NDS_pr / NDS_tek
-
-1dinNPpred = 1 + NP_pr  / NP_tek
-dinNIpred = 1 + NI_pr  / NI_tek
+dinNDSpred    = 1 + NDS_pr / NDS_tek
+dinNPpred     = 1 + NP_pr  / NP_tek
+dinNIpred     = 1 + NI_pr  / NI_tek
 dinVneBUDpred = 1 + (PF_pr  + FSS_pr  + OMS_pr) / (PF_tek + FSS_tek + OMS_tek)
+
+dinNDS        = 1 + NDS_pr_E / NDS_tek_E
+
+dinNP         = 1 + NP_pr_E  / NP_tek_E
+dinNI         = 1 + NI_pr_E  / NI_tek_E
+dinVneBUD     = 1 + (PF_pr_E  + FSS_pr_E  + OMS_pr_E) / (PF_tek_E + FSS_tek_E + OMS_tek_E)
+dinNDFLtransp = 1 + NDFL_pr_TrE / NDFL_tek_TrE
+dinNDFLkosv   = 1 + NDFL_pr_KE  / NDFL_tek_KE
+dinZemN       = 1 + NZ_pr_E     / NZ_tek_E
+
+doljaPredpr   = 1 + PPd      / PP
+uslugiTovar   = 1 + NP_pr_SE / NP_tek_SE
+stoim.1kv.m   = 1 + Ned_pr   / Ned_tek
+rabMestTr     = 1 + PMt_pr   / PMt_tek
+rabMestSm     =  _I  * _d  / _S
+stoimRes      =  _Sm + Str + Scmr
+
+passPotok     =  POprr + POpra + POprb
+podvizhnNasel = (Pt + Po + Pn) / Chislenn
+otechProd     =  IZsps + IZsi + IZeps + IZei
+vremjaPuti    =  Ttr * Sp * Knp
+stoimZemli    =  Zem_pr / Zem_tek
+naselPunkt    =  NPd / Np
+innovProd     =  IPsps + IPsi + IPeps + IPei
+zemleotvod    =  Srs + Spk + Sob
+propuskSpos   =  1140 * k / T + (lt * lp * la) / U
+
+dinKoefInfr     = POchp / POpr
+
+dinDostup       = Z / pass_km
+platezhespos    = Sb / Zsrm
+
+kachestvoUslug  = L / S
+dohodPerev      = Dprr + Dpra + Dprch + Dprb
+tOborota        = Tto + Tpv + Tdv
+podvSostav      = Qsut / Urd + (Qmax * Tob) / qvm
+naselPodvSostav = Pkm / Vkm 
+
+riskTehnPrir      = rTehnPrir
+riskNacCrizis     = rNacCrizis
+riskVVP           = rVVP
+riskInfl          = rInfl
+riskBezrab        = rBezrab
+riskNalog         = rNalog
+riskKonkur        = rKonkur
+riskIzmPredp      = rIzmPredp
+riskZaderzh       = rZaderzh
+riskStoim_Zaderzh = rStoim_Zaderzh
+riskFinans        = rFinans
+riskPostavok      = rPostavok
+riskEcologii      = rEcologii
+riskChPStroit     = rChPStroit
+riskStroitNorm    = rStroitNorm
+riskForceMajor    = rForceMajor
+
+riskShum     = rShum
+riskVibro    = rVibro
+riskIzluch   = rIzluch
+riskZagrVoda = rZagrVoda
+riskZagrVozd = rZagrVozd
+riskMusor    = rMusor
