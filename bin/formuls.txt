@@ -1,0 +1,5 @@
+dinNDSpred= 1 + NDS_pr / NDS_tek
+
+1dinNPpred = 1 + NP_pr  / NP_tek
+dinNIpred = 1 + NI_pr  / NI_tek
+dinVneBUDpred = 1 + (PF_pr  + FSS_pr  + OMS_pr) / (PF_tek + FSS_tek + OMS_tek)

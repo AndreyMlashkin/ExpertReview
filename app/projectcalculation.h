@@ -2,6 +2,7 @@
 #define PROJECTCALCULATION_H
 
 #include <QString>
+#include <QMap>
 
 class TreeRightSideValues;
 class TreeLeftSideInfo;
@@ -20,6 +21,10 @@ public:
 
     void calculate(TreeRightSideValues* _oneProject, TreeRightSideValues* _otherProject,
                    TreeRightSideValues* _result1,    TreeRightSideValues* _result2);
+
+private:
+    QMap<QString, double> calculateProject(const QMap<QString, double>& _source);
+    static QString substitute(const QString& _expression, const QMap<QString, double>& _source);
 
 private:
     parser::ParserAdaptor* m_adaptor;

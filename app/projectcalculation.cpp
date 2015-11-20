@@ -1,5 +1,6 @@
 #include <QDebug>
 #include <QStringList>
+#include <QFile>
 
 #include "projectapi.h"
 #include "projectcalculation.h"
@@ -33,9 +34,6 @@ ProjectCalculator::ProjectCalculator(TreeLeftSideInfo* _methodicJudges, TreeRigh
       m_metodicJudgesAverage(_metodicJudgesAverage),
       m_sectionsAverage(_sectionsAverage)
 {
-    qDebug() << m_adaptor->calculate("2 + 2 * 2");
-    qDebug() << m_adaptor->calculate("(15.01 + 14.99) / 3 - 0.001");
-
 }
 
 void ProjectCalculator::calculate(TreeLeftSideInfo *_source, TreeLeftSideInfo *_result)
@@ -94,7 +92,69 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
     _result1->writeValues("result1");
 }
 
-QMap<QString, double> calculateProject(const QMap<QString, double>& _source)
+QMap<QString, double> ProjectCalculator::calculateProject(const QMap<QString, double> &_source)
+{
+    QMap<QString, double> ans;
+    QFile file("formuls.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qDebug() << "no file formuls.txt";
+        return ans;
+    }
+
+    QTextStream in(&file);
+    while (!in.atEnd())
+    {
+        QString line = in.readLine().simplified();
+        if(line.isEmpty())
+            continue;
+
+        int equalSignPos = line.indexOf("=");
+        QString lSide = line.left(equalSignPos).simplified();
+
+        int equalSignPosFromRight = line.size() - equalSignPos - 1;
+        line = line.right(equalSignPosFromRight).simplified();
+        line = substitute(line, _source);
+
+        QString calculated = m_adaptor->calculate(line);
+        double calculatedMean = toDouble(calculated);
+        ans[lSide] = calculatedMean;
+    }
+    return ans;
+}
+
+QString ProjectCalculator::substitute(const QString &_expression, const QMap<QString, double> &_source)
+{
+    QString ans = _expression;
+    QStringList rSide = _expression.split(QRegExp("[\\s+=*/()]"), QString::SkipEmptyParts);
+
+    for(QString operand : rSide)
+    {
+        static QRegExp variableMatcher("^[a-zA-Z_][a-zA-Z0-9_]*$");
+        bool isVariable = operand.contains(variableMatcher);
+        if(!isVariable)
+        {
+            static QRegExp constantsMatcher("^[-+]?[0-9]*\.?[0-9]*$");
+            if(!operand.contains(constantsMatcher))
+            {
+                qDebug() << "Wrong argument passed in calculator:" << operand;
+                Q_ASSERT(false);
+            }
+            continue;
+        }
+
+
+        if(!_source.contains(operand))
+        {
+            qDebug() << "WARNING! There is no tag with name " << operand;
+            break; // !!!
+        }
+        double operandMean = _source[operand];
+        ans.replace(operand, QString::number(operandMean));
+    }
+    return ans;
+}
+/*QMap<QString, double> calculateProject(const QMap<QString, double>& _source)
 {
     auto getValue = [&_source](const QString& _key)
     {
@@ -177,7 +237,7 @@ QMap<QString, double> calculateProject(const QMap<QString, double>& _source)
     ans["riskMusor"]    = getValue("rMusor");
 
     return ans;
-}
+}*/
 
 QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QString, double>& _other)
 {

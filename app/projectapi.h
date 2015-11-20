@@ -31,6 +31,8 @@ inline double toDouble(const QString &_str)
     if(!isOk)
         ans = str.toDouble(&isOk);
     Q_ASSERT(isOk);
+    if(!isOk)
+        return 0;
 
     return ans;
 }
