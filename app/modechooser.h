@@ -7,8 +7,6 @@ namespace Ui {
 class ModeChooser;
 }
 
-class ProjectCalculator;
-
 class ModeChooser : public QWidget
 {
     Q_OBJECT
@@ -25,6 +23,8 @@ private slots:
 
 private:
     Ui::ModeChooser *m_ui;
+    struct ModeChooserPrivate;
+    ModeChooserPrivate* p;
 };
 
 #endif // MODECHOOSER_H

@@ -1,6 +1,8 @@
 #include "modechooser.h"
 #include "ui_modechooser.h"
 
+#include <QPointer>
+
 #include "projectapi.h"
 #include "nodesinfo/treerightsidevalues.h"
 #include "nodesinfo/treeleftsideinfofactory.h"
@@ -9,9 +11,31 @@
 #include "projectcalculation.h"
 #include "finalcalculationdialog.h"
 
+struct ModeChooser::ModeChooserPrivate
+{
+    ModeChooserPrivate()
+        : metodicJudges(NULL),
+          sectionJudges(NULL),
+          sourceData(NULL)
+    {}
+
+    ~ModeChooserPrivate()
+    {
+        delete metodicJudges;
+        delete sectionJudges;
+        delete sourceData;
+    }
+
+    QPointer <PropertyTreeViewer> metodicJudges;
+    QPointer <PropertyTreeViewer> sectionJudges;
+    QPointer <PropertyTreeViewer> sourceData;
+    QPointer <PropertyTreeViewer> calculation;
+};
+
 ModeChooser::ModeChooser(QWidget *parent) :
     QWidget(parent),
-    m_ui(new Ui::ModeChooser)
+    m_ui(new Ui::ModeChooser),
+    p(new ModeChooserPrivate)
 {
     m_ui->setupUi(this);
     connect(m_ui->metodicJudges, SIGNAL(clicked()), SLOT(callMetodicJudges()));
@@ -23,31 +47,37 @@ ModeChooser::ModeChooser(QWidget *parent) :
 ModeChooser::~ModeChooser()
 {
     delete m_ui;
+    delete p;
 }
 
 void ModeChooser::callMetodicJudges()
 {
-    PropertyTreeViewer* metodicJudges = new PropertyTreeViewer("metodicJudges");
-    metodicJudges->setDefaultTabName("Эксперт");
-    metodicJudges->setWindowTitle("Эксперты методики");
-    metodicJudges->show();
+    delete p->metodicJudges;
+    p->metodicJudges.clear();
+    p->metodicJudges = new PropertyTreeViewer("metodicJudges");
+    p->metodicJudges->setDefaultTabName("Эксперт");
+    p->metodicJudges->setWindowTitle("Эксперты методики");
+    p->metodicJudges->show();
 }
 
 void ModeChooser::callSectionJudges()
 {
-    PropertyTreeViewer* sectionJudges = new PropertyTreeViewer("sections");
-    sectionJudges->setDefaultTabName("Эксперт");
-    sectionJudges->setWindowTitle("Эксперты разделов");
-    sectionJudges->show();
+    delete p->sectionJudges;
+    p->sectionJudges.clear();
+    p->sectionJudges = new PropertyTreeViewer("sections");
+    p->sectionJudges->setDefaultTabName("Эксперт");
+    p->sectionJudges->setWindowTitle("Эксперты разделов");
+    p->sectionJudges->show();
 }
 
 void ModeChooser::callSourceData()
 {
-    PropertyTreeViewer* sourceData = new PropertyTreeViewer("constants", PropertyTreeViewer::SaveRegularOnExit);
-    sourceData->setDefaultTabName("Проект");
-    sourceData->setWindowTitle("Исходные данные проектов");
-    sourceData->setPrecision(4);
-    sourceData->show();
+    delete p->sourceData;
+    p->sourceData = new PropertyTreeViewer("constants", PropertyTreeViewer::SaveRegularOnExit);
+    p->sourceData->setDefaultTabName("Проект");
+    p->sourceData->setWindowTitle("Исходные данные проектов");
+    p->sourceData->setPrecision(4);
+    p->sourceData->show();
 }
 
 inline double calculateFinalCriterium(QList<double>& _projectKoeffs)
@@ -79,11 +109,12 @@ void ModeChooser::callCalculation()
     ProjectCalculator calc(methodicJudges, methodicJudgesAverage, sectionsAverage);
     calc.calculate(constants, result);
 
-    PropertyTreeViewer* calculation = new PropertyTreeViewer("result", PropertyTreeViewer::Minimal);
-    calculation->setDefaultTabName("Проект");
-    calculation->setWindowTitle("Расчёт");
-    calculation->setPrecision(6);
-    calculation->show();
+    delete p->calculation;
+    p->calculation = new PropertyTreeViewer("result", PropertyTreeViewer::Minimal);
+    p->calculation->setDefaultTabName("Проект");
+    p->calculation->setWindowTitle("Расчёт");
+    p->calculation->setPrecision(6);
+    p->calculation->show();
 
     TreeLeftSideInfo* leftSide = factory->getLeftSideInfo("result");
     TreeRightSideValues* proj1Result = leftSide->createRightSide();
@@ -102,4 +133,6 @@ void ModeChooser::callCalculation()
 
     FinalCalculationDialog dialog(firstFinalCriterium, secondFinalCriterium, this);
     dialog.exec();
+
+    delete factory;
 }
