@@ -2,14 +2,13 @@
 #include <QStringList>
 #include <QFile>
 
+#include <include/expressioncalculator/parseradaptor.h>
 #include "projectapi.h"
 #include "projectcalculation.h"
 #include "nodesinfo/treeleftsideinfo.h"
 #include "nodesinfo/treerightsidevalues.h"
 #include "properynode.h"
-#include "../expressioncalculator/parseradaptor.h"
 
-QMap<QString, double> calculateProject(const QMap<QString, double>& _source);
 QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QString, double>& _other);
 QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, const QMap<QString, double>& _sections, const QList<ProperyNode*>& _nodes);
 
@@ -33,7 +32,11 @@ ProjectCalculator::ProjectCalculator(TreeLeftSideInfo* _methodicJudges, TreeRigh
       m_methodicJudges(_methodicJudges),
       m_metodicJudgesAverage(_metodicJudgesAverage),
       m_sectionsAverage(_sectionsAverage)
+{}
+
+ProjectCalculator::~ProjectCalculator()
 {
+    delete m_adaptor;
 }
 
 void ProjectCalculator::calculate(TreeLeftSideInfo *_source, TreeLeftSideInfo *_result)
@@ -134,7 +137,7 @@ QString ProjectCalculator::substitute(const QString &_expression, const QMap<QSt
         bool isVariable = operand.contains(variableMatcher);
         if(!isVariable)
         {
-            static QRegExp constantsMatcher("^[-+]?[0-9]*\.?[0-9]*$");
+            static QRegExp constantsMatcher("^[-+]?[0-9]*\\.?[0-9]*$");
             if(!operand.contains(constantsMatcher))
             {
                 qDebug() << "Wrong argument passed in calculator:" << operand;
@@ -142,7 +145,6 @@ QString ProjectCalculator::substitute(const QString &_expression, const QMap<QSt
             }
             continue;
         }
-
 
         if(!_source.contains(operand))
         {
@@ -152,6 +154,7 @@ QString ProjectCalculator::substitute(const QString &_expression, const QMap<QSt
         double operandMean = _source[operand];
         ans.replace(operand, QString::number(operandMean));
     }
+
     return ans;
 }
 

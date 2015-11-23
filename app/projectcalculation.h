@@ -16,6 +16,7 @@ class ProjectCalculator
 {
 public:
     ProjectCalculator(TreeLeftSideInfo* _methodicJudges, TreeRightSideValues* _metodicJudgesAverage, TreeRightSideValues* _sectionsAverage);
+    ~ProjectCalculator();
 
     void calculate(TreeLeftSideInfo* _source, TreeLeftSideInfo* _result);
 

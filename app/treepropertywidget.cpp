@@ -1,9 +1,9 @@
 #include <QMap>
 #include <QLocale>
 
-#include <QtVariantPropertyManager>
-#include <QtVariantProperty>
-#include <QtTreePropertyBrowser>
+#include <include/qtpropertybrowser/QtVariantPropertyManager>
+#include <include/qtpropertybrowser/QtVariantProperty>
+#include <include/qtpropertybrowser/QtTreePropertyBrowser>
 
 #include "treepropertywidget.h"
 
@@ -26,6 +26,11 @@ TreePropertyWidget::TreePropertyWidget(TreeLeftSideInfo* _info, QWidget *_parent
     setRootIsDecorated(false);
 
     fillLeftSide();
+}
+
+TreePropertyWidget::~TreePropertyWidget()
+{
+    delete m_variantManager;
 }
 
 inline QtProperty* findPropery(QtVariantPropertyManager* _mananger, const QString& _key)

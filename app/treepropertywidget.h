@@ -1,8 +1,8 @@
 #ifndef TREEPROPERTYWIDGET_H
 #define TREEPROPERTYWIDGET_H
 
-#include <QtTreePropertyBrowser>
 #include <QMap>
+#include <include/qtpropertybrowser/QtTreePropertyBrowser>
 class QtVariantPropertyManager;
 
 class ProperyNode;
@@ -15,6 +15,7 @@ class TreePropertyWidget : public QtTreePropertyBrowser
     Q_OBJECT
 public:
     TreePropertyWidget(TreeLeftSideInfo *_info, QWidget *_parent = 0);
+    ~TreePropertyWidget();
 
     void setValues(TreeRightSideValues* _values);
     TreeRightSideValues* getValues() const;

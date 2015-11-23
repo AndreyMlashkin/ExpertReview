@@ -12,7 +12,7 @@ TARGET = ExpertReview
 TEMPLATE = app
 QMAKE_CXXFLAGS += -std=c++11
 
-INCLUDEPATH += ../include/qtpropertybrowser \
+INCLUDEPATH += .. \
                /nodesinfo
 
 DESTDIR = $$PWD/../bin
