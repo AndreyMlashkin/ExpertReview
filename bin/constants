@@ -60,6 +60,8 @@ C              #_S
 Кнп            #Knp
 Зем_пр         #Zem_pr
 Зем_тек        #Zem_tek
+ТСП_пр_э	   #TSP_pr
+ТСП_тек_э	   #TSP_tek
 НПд            #NPd
 НП             #Np
 ИПспс          #IPsps
