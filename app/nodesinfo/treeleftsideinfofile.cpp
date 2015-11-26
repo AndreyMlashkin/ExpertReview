@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QStack>
 #include <QFile>
 #include <QFileInfo>
@@ -108,14 +109,17 @@ void TreeLeftSideInfoFile::open(const QString &_treeName)
         while(!in.atEnd())
         {
             QString line = in.readLine();
-            QStringList decriptionAndKey = split(line);
+            QStringList descriptionAndKey = split(line);
 
-            Q_ASSERT(decriptionAndKey.size() == 2);
-            ProperyNode* node = new ProperyNode(decriptionAndKey.at(0),
-                                                decriptionAndKey.at(1));
+            Q_ASSERT(descriptionAndKey.size() == 2);
+            if(m_planeKeys.contains(descriptionAndKey.at(1)))
+                qDebug() << "Warning! duplicate tag" << descriptionAndKey;
 
-            m_planeNodes << decriptionAndKey.at(0);
-            m_planeKeys  << decriptionAndKey.at(1);
+            ProperyNode* node = new ProperyNode(descriptionAndKey.at(0),
+                                                descriptionAndKey.at(1));
+
+            m_planeNodes << descriptionAndKey.at(0);
+            m_planeKeys  << descriptionAndKey.at(1);
 
             int enclosure = calculateEnclosure(line);
 

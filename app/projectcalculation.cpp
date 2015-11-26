@@ -121,6 +121,9 @@ QMap<QString, double> ProjectCalculator::calculateProject(const QMap<QString, do
 
         QString calculated = m_adaptor->calculate(line);
         double calculatedMean = toDouble(calculated);
+
+        if(std::isnan(calculatedMean) || std::isinf(calculatedMean))
+            qDebug() << "wrong calculated" << lSide << "=" << line;
         ans[lSide] = calculatedMean;
     }
     return ans;
@@ -200,6 +203,6 @@ void removeNan(QMap<QString, double>& _values)
         QString key = iter.key();
         double val = _values[key];
         if(std::isnan(val) || std::isinf(val))
-            _values[key] = -1;
+            _values[key] = 0;
     }
 }
