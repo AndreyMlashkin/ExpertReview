@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QFile>
 #include <QTextStream>
 #include "projectapi.h"
@@ -40,15 +41,19 @@ void TreeRightSideValuesFile::readValues(const QString& _id)
     {
         QString line = in.readLine();
 
-        Q_ASSERT_X(m_orderedKeys.size() > count, "out of range", "too much values in file or duplicate tags");
+        if(m_orderedKeys.size() > count)
+        {
+            qDebug() << "too much values in file" << _id;
+            continue;
+        }
 
         QString key = m_orderedKeys[count];
         m_values[key] = toDouble(line);
 
         ++count;
     }
-    Q_ASSERT_X(m_orderedKeys.size() == count, "too much keys!",
-                                              "no enought values in file!");
+    if(m_orderedKeys.size() == count)
+        qDebug() << "too much keys!, no enought values in file!";
 }
 
 void TreeRightSideValuesFile::writeValues(const QString &_id)

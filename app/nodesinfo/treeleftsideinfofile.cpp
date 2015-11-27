@@ -113,8 +113,10 @@ void TreeLeftSideInfoFile::open(const QString &_treeName)
 
             Q_ASSERT(descriptionAndKey.size() == 2);
             if(m_planeKeys.contains(descriptionAndKey.at(1)))
+            {
                 qDebug() << "Warning! duplicate tag" << descriptionAndKey;
-
+                continue;
+            }
             ProperyNode* node = new ProperyNode(descriptionAndKey.at(0),
                                                 descriptionAndKey.at(1));
 
