@@ -116,3 +116,13 @@ void TreeLeftSideJsonFile::deseraliseNodes(const QVariantList &_nodes)
         m_nodes     << jsonNode->original();
     }
 }
+
+void TreeLeftSideJsonFile::import(TreeLeftSideInfo *_info)
+{
+    foreach (ProperyNode* node, _info->nodes())
+    {
+        PropertyNodeJsonSerializerAdapter* adapter = new PropertyNodeJsonSerializerAdapter(node, false);
+        m_jsonNodes << adapter;
+        m_nodes << adapter->original();
+    }
+}

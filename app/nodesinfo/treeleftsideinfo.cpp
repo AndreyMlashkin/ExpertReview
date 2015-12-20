@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QStringList>
 #include <QStack>
 
@@ -35,6 +36,11 @@ TreeRightSideValues *TreeLeftSideInfo::openRightSide(int _num)
     values->readValues(saved);
     return values;
 
+}
+
+void TreeLeftSideInfo::import(TreeLeftSideInfo *)
+{
+    qDebug() << "Import function is not defined!";
 }
 
 void TreeLeftSideInfo::fillTitlesAndLeafs()

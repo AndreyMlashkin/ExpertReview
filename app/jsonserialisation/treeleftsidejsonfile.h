@@ -33,6 +33,8 @@ public:
     QVariantList serialiseNodes() const;
     void deseraliseNodes(const QVariantList& _nodes);
 
+    void import(TreeLeftSideInfo* _info) override;
+
 private:
     QString m_openedFile;
     QList<ProperyNode*> m_nodes;

@@ -28,6 +28,8 @@ public:
     virtual TreeRightSideValues* createRightSide() const = 0;
     TreeRightSideValues* openRightSide(int _num);
 
+    virtual void import(TreeLeftSideInfo* _info);
+
 private:
     void fillTitlesAndLeafs();
 
