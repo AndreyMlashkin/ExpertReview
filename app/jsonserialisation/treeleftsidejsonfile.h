@@ -7,6 +7,8 @@
 
 #include <nodesinfo/treeleftsideinfo.h>
 
+class PropertyNodeJsonSerializerAdapter;
+
 class TreeLeftSideJsonFile : public QObject, public TreeLeftSideInfo
 {
     Q_OBJECT
@@ -41,6 +43,7 @@ private:
     QStringList m_planeNodes;
     QStringList m_planeKeys;
 
+    QList<PropertyNodeJsonSerializerAdapter*> m_jsonNodes;
 
 };
 
