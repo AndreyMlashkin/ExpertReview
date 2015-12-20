@@ -23,6 +23,8 @@ public:
     void calculate(TreeRightSideValues* _oneProject, TreeRightSideValues* _otherProject,
                    TreeRightSideValues* _result1,    TreeRightSideValues* _result2);
 
+    void calculateSections(TreeLeftSideInfo* _calculatedFactors,  TreeLeftSideInfo* _sectionsResult);
+
 private:
     QMap<QString, double> calculateProject(const QMap<QString, double>& _source);
     static QString substitute(const QString& _expression, const QMap<QString, double>& _source);

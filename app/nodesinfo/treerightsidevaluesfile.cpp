@@ -41,7 +41,7 @@ void TreeRightSideValuesFile::readValues(const QString& _id)
     {
         QString line = in.readLine();
 
-        if(m_orderedKeys.size() > count)
+        if(m_orderedKeys.count() < count)
         {
             qDebug() << "too much values in file" << _id;
             continue;
@@ -52,7 +52,7 @@ void TreeRightSideValuesFile::readValues(const QString& _id)
 
         ++count;
     }
-    if(m_orderedKeys.size() == count)
+    if(m_orderedKeys.size() != count)
         qDebug() << "too much keys!, no enought values in file!";
 }
 

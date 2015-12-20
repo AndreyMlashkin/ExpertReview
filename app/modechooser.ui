@@ -51,6 +51,18 @@
     </widget>
    </item>
    <item>
+    <widget class="QPushButton" name="sectionsCalculation">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Расчёт секций</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QPushButton" name="calculation">
      <property name="font">
       <font>

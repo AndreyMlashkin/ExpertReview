@@ -30,7 +30,7 @@ inline double toDouble(const QString &_str)
     double ans = QLocale::system().toDouble(str, &isOk);
     if(!isOk)
         ans = str.toDouble(&isOk);
-    Q_ASSERT(isOk);
+//    Q_ASSERT(isOk);
     if(!isOk)
         return 0;
 

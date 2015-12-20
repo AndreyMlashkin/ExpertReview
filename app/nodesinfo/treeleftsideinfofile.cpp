@@ -111,7 +111,7 @@ void TreeLeftSideInfoFile::open(const QString &_treeName)
             QString line = in.readLine();
             QStringList descriptionAndKey = split(line);
 
-            Q_ASSERT(descriptionAndKey.size() == 2);
+            Q_ASSERT_X(descriptionAndKey.size() == 2, "error in", line.toStdString().c_str());
             if(m_planeKeys.contains(descriptionAndKey.at(1)))
             {
                 qDebug() << "Warning! duplicate tag" << descriptionAndKey;

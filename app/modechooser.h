@@ -19,7 +19,11 @@ private slots:
     void callMetodicJudges();
     void callSectionJudges();
     void callSourceData();
+    void callSectionCalculation();
     void callCalculation();
+
+private:
+    void updateResult();
 
 private:
     Ui::ModeChooser *m_ui;
