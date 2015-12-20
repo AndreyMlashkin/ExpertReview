@@ -33,10 +33,6 @@ public:
     QVariantList serialiseNodes() const;
     void deseraliseNodes(const QVariantList& _nodes);
 
-//private:
-//    int calculateEnclosure(QString& _str);
-//    void clearNodes();
-
 private:
     QString m_openedFile;
     QList<ProperyNode*> m_nodes;
@@ -44,7 +40,6 @@ private:
     QStringList m_planeKeys;
 
     QList<PropertyNodeJsonSerializerAdapter*> m_jsonNodes;
-
 };
 
 #endif // TREELEFTSIDEJSONFILE_H

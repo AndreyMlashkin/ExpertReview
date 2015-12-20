@@ -9,6 +9,8 @@
 #include "properynode.h"
 #include "propertynodejsonserializeradapter.h"
 
+#include "../nodesinfo/treeleftsideinfofile.h"
+
 TreeLeftSideJsonFile::TreeLeftSideJsonFile()
     : QObject(),
       TreeLeftSideInfo()
@@ -20,7 +22,7 @@ TreeLeftSideJsonFile::~TreeLeftSideJsonFile()
     QVariantMap self = QJson::QObjectHelper::qobject2qvariant(this);
 
     QFile file(m_openedFile);
-    bool successOpen = !file.open(QIODevice::WriteOnly | QIODevice::Text);
+    bool successOpen = (!file.open(QIODevice::WriteOnly | QIODevice::Text));
     Q_ASSERT(successOpen);
 
     QJson::Serializer ser;
@@ -95,7 +97,7 @@ TreeRightSideValues *TreeLeftSideJsonFile::createRightSide() const
 QVariantList TreeLeftSideJsonFile::serialiseNodes() const
 {
     QVariantList ans;
-    foreach(ProperyNode* node, m_nodes)
+    foreach(PropertyNodeJsonSerializerAdapter* node, m_jsonNodes)
     {
         ans << QJson::QObjectHelper::qobject2qvariant(node);
     }

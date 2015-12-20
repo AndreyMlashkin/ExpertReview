@@ -5,6 +5,38 @@
 PropertyNodeJsonSerializerAdapter::PropertyNodeJsonSerializerAdapter()
 {
 }
+/*!
+ * \brief PropertyNodeJsonSerializerAdapter::PropertyNodeJsonSerializerAdapter
+ * \param _original
+ * \param manage if this sets to true, than life time of _original is similar to object and
+ * \sa original() returns pointer to this param.
+ */
+
+PropertyNodeJsonSerializerAdapter::PropertyNodeJsonSerializerAdapter(ProperyNode *_original, bool _manage)
+{
+    if(_manage)
+    {
+        m_original = _original;
+        m_originalChildren = _original->children();
+    }
+    else
+    {
+        foreach (ProperyNode* node, _original->children())
+        {
+            ProperyNode* original = new ProperyNode(node->description(), node->key());
+            m_originalChildren << original;
+        }
+    }
+
+    m_description = _original->description();
+    m_key = _original->key();
+
+    foreach (ProperyNode* node, _original->children())
+    {
+        PropertyNodeJsonSerializerAdapter* child = new PropertyNodeJsonSerializerAdapter(node);
+        m_jsonChildren << child;
+    }
+}
 
 PropertyNodeJsonSerializerAdapter::~PropertyNodeJsonSerializerAdapter()
 {

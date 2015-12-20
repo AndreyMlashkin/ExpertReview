@@ -1,11 +1,11 @@
 #ifndef PROPERYNODE_H
 #define PROPERYNODE_H
 
-#include <QObject>
+#include <QString>
+#include <QList>
 
-class ProperyNode : public QObject
+class ProperyNode
 {
-    Q_OBJECT
 public:
     explicit ProperyNode(const QString& _description, const QString& _key);
     ~ProperyNode();

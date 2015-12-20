@@ -10,9 +10,9 @@ class PropertyNodeJsonSerializerAdapter : public QObject
     Q_PROPERTY(QString nodes READ description WRITE setDescription)
     Q_PROPERTY(QString key   READ key         WRITE setKey)
 
-
 public:
     PropertyNodeJsonSerializerAdapter();
+    PropertyNodeJsonSerializerAdapter(ProperyNode* _original, bool _manage = true);
     ~PropertyNodeJsonSerializerAdapter();
 
     QString description() const;
