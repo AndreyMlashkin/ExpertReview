@@ -31,7 +31,9 @@ SOURCES += main.cpp\
     projectcalculation.cpp \
     finalcalculationdialog.cpp \
     nodesinfo/treeleftsideinfo.cpp \
-    nodesinfo/treeleftsideinfofactory.cpp
+    nodesinfo/treeleftsideinfofactory.cpp \
+    jsonserialisation/treeleftsidejsonfile.cpp \
+    jsonserialisation/propertynodejsonserializeradapter.cpp
 
 HEADERS  += \
     treepropertywidget.h \
@@ -45,7 +47,9 @@ HEADERS  += \
     projectcalculation.h \
     finalcalculationdialog.h \
     projectapi.h \
-    nodesinfo/treeleftsideinfofactory.h
+    nodesinfo/treeleftsideinfofactory.h \
+    jsonserialisation/treeleftsidejsonfile.h \
+    jsonserialisation/propertynodejsonserializeradapter.h
 
 FORMS    += \
     propertytreeviewer.ui \

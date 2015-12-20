@@ -1,8 +1,7 @@
 #ifndef TREELEFTSIDEINFO_H
 #define TREELEFTSIDEINFO_H
 
-#include <QList>
-#include <QString>
+#include <QStringList>
 
 class ProperyNode;
 class TreeRightSideValues;
