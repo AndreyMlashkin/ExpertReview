@@ -23,7 +23,6 @@ RCC_DIR = ./tmp/rcc
 
 SOURCES += main.cpp\
     treepropertywidget.cpp \
-    properynode.cpp \
     propertytreeviewer.cpp \
     modechooser.cpp \
     nodesinfo/treeleftsideinfofile.cpp \
@@ -31,11 +30,12 @@ SOURCES += main.cpp\
     projectcalculation.cpp \
     finalcalculationdialog.cpp \
     nodesinfo/treeleftsideinfo.cpp \
-    nodesinfo/treeleftsideinfofactory.cpp
+    nodesinfo/treeleftsideinfofactory.cpp \
+    #jsonserialiser/treeleftsideinfojson.cpp \
+    propertynode.cpp
 
 HEADERS  += \
     treepropertywidget.h \
-    properynode.h \
     propertytreeviewer.h \
     modechooser.h \
     nodesinfo/treeleftsideinfo.h \
@@ -45,7 +45,9 @@ HEADERS  += \
     projectcalculation.h \
     finalcalculationdialog.h \
     projectapi.h \
-    nodesinfo/treeleftsideinfofactory.h
+    nodesinfo/treeleftsideinfofactory.h \
+    #jsonserialiser/treeleftsideinfojson.h \
+    propertynode.h
 
 FORMS    += \
     propertytreeviewer.ui \

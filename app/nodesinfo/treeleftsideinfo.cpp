@@ -2,12 +2,12 @@
 #include <QStack>
 
 #include "treeleftsideinfo.h"
-#include "properynode.h"
+#include "propertynode.h"
 #include "treerightsidevalues.h"
 
-void operator <<(QStack<ProperyNode*>& _stack, const QList<ProperyNode*>& _list)
+void operator <<(QStack<PropertyNode*>& _stack, const QList<PropertyNode*>& _list)
 {
-    foreach (ProperyNode* node, _list)
+    foreach (PropertyNode* node, _list)
         _stack.append(node);
 }
 
@@ -39,14 +39,14 @@ TreeRightSideValues *TreeLeftSideInfo::openRightSide(int _num)
 
 void TreeLeftSideInfo::fillTitlesAndLeafs()
 {
-    QList<ProperyNode*> allNodes = nodes();
-    QStack<ProperyNode*> stack;
+    QList<PropertyNode*> allNodes = nodes();
+    QStack<PropertyNode*> stack;
 
     stack << allNodes;
 
     while(!stack.isEmpty())
     {
-        ProperyNode* node = stack.pop();
+        PropertyNode* node = stack.pop();
         if(node->children().isEmpty())
             m_leafs << node->description();
         else

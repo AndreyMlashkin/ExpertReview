@@ -11,9 +11,9 @@ public:
     ~TreeLeftSideInfoFile();
 
     void open(const QString& _treeName) override;
-    QString id() const override;
+    QString treeName() const override;
 
-    const QList<ProperyNode*> nodes() override;
+    const QList<PropertyNode*> nodes() override;
     QStringList planeDescriptions() const override;
     QStringList planeKeys() const override;
 
@@ -28,7 +28,7 @@ private:
 
 private:
     QString m_openedFile;
-    QList<ProperyNode*> m_nodes;
+    QList<PropertyNode*> m_nodes;
     QStringList m_planeNodes;
     QStringList m_planeKeys;
 };

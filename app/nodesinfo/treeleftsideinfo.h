@@ -1,10 +1,10 @@
 #ifndef TREELEFTSIDEINFO_H
 #define TREELEFTSIDEINFO_H
 
-#include <QList>
-#include <QString>
+#include <QStringList>
+#include <QJsonObject>
 
-class ProperyNode;
+class PropertyNode;
 class TreeRightSideValues;
 
 class TreeLeftSideInfo
@@ -14,9 +14,9 @@ public:
     virtual ~TreeLeftSideInfo() {}
 
     virtual void open(const QString& _treeName) = 0;
-    virtual QString id() const = 0;
+    virtual QString treeName() const = 0;
 
-    virtual const QList<ProperyNode*> nodes() = 0;
+    virtual const QList<PropertyNode*> nodes() = 0;
     virtual QStringList planeDescriptions() const = 0;
     virtual QStringList planeKeys() const = 0;
 

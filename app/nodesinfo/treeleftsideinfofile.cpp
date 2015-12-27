@@ -6,7 +6,7 @@
 
 #include "treeleftsideinfofile.h"
 #include "treerightsidevaluesfile.h"
-#include "properynode.h"
+#include "propertynode.h"
 
 TreeLeftSideInfoFile::TreeLeftSideInfoFile(const QString &_treeName)
     : TreeLeftSideInfo()
@@ -19,12 +19,12 @@ TreeLeftSideInfoFile::~TreeLeftSideInfoFile()
     clearNodes();
 }
 
-QString TreeLeftSideInfoFile::id() const
+QString TreeLeftSideInfoFile::treeName() const
 {
     return m_openedFile;
 }
 
-const QList<ProperyNode *> TreeLeftSideInfoFile::nodes()
+const QList<PropertyNode *> TreeLeftSideInfoFile::nodes()
 {
     return m_nodes;
 }
@@ -105,7 +105,7 @@ void TreeLeftSideInfoFile::open(const QString &_treeName)
     if(success)
     {
         QTextStream in(&file);
-        QStack<ProperyNode*> nodesHierarhy;
+        QStack<PropertyNode*> nodesHierarhy;
         while(!in.atEnd())
         {
             QString line = in.readLine();
@@ -117,7 +117,7 @@ void TreeLeftSideInfoFile::open(const QString &_treeName)
                 qDebug() << "Warning! duplicate tag" << descriptionAndKey;
                 continue;
             }
-            ProperyNode* node = new ProperyNode(descriptionAndKey.at(0),
+            PropertyNode* node = new PropertyNode(descriptionAndKey.at(0),
                                                 descriptionAndKey.at(1));
 
             m_planeNodes << descriptionAndKey.at(0);

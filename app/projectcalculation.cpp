@@ -7,10 +7,10 @@
 #include "projectcalculation.h"
 #include "nodesinfo/treeleftsideinfo.h"
 #include "nodesinfo/treerightsidevalues.h"
-#include "properynode.h"
+#include "propertynode.h"
 
 QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QString, double>& _other);
-QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, const QMap<QString, double>& _sections, const QList<ProperyNode*>& _nodes);
+QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, const QMap<QString, double>& _sections, const QList<PropertyNode*>& _nodes);
 
 void removeNan(QMap<QString, double>& _values);
 
@@ -104,11 +104,11 @@ void ProjectCalculator::calculateSections(TreeLeftSideInfo *_calculatedFactors, 
     {
         QMap<QString, double> ans;
 
-        foreach (ProperyNode* node, m_methodicJudges->nodes())
+        foreach (PropertyNode* node, m_methodicJudges->nodes())
         {
             QString groupKey = node->key();
             ans[groupKey] = 0;
-            foreach (ProperyNode* subNode, node->children())
+            foreach (PropertyNode* subNode, node->children())
             {
                 QString subNodeKey = subNode->key();
                 double subNodeValue = _calculatedVals[subNodeKey];
@@ -210,16 +210,16 @@ QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QSt
     return ans;
 }
 
-QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, const QMap<QString, double>& _sections, const QList<ProperyNode*>& _nodes)
+QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, const QMap<QString, double>& _sections, const QList<PropertyNode*>& _nodes)
 {
     QMap<QString, double> ans;
     for(int i = 0; i < _nodes.size(); ++i)
     {
-        ProperyNode* titleNode = _nodes.at(i);
+        PropertyNode* titleNode = _nodes.at(i);
         QString titleKey = titleNode->key();
         double groupKoef = _sections[titleKey];
 
-        foreach(ProperyNode* node, titleNode->children())
+        foreach(PropertyNode* node, titleNode->children())
         {
             QString key = node->key();
             ans[key] = _values[key] * groupKoef;

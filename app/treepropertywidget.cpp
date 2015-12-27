@@ -11,7 +11,7 @@
 #include "nodesinfo/treeleftsideinfofile.h"
 #include "nodesinfo/treerightsidevaluesfile.h"
 #include "nodesinfo/treeleftsideinfofactory.h"
-#include "properynode.h"
+#include "propertynode.h"
 
 TreePropertyWidget::TreePropertyWidget(TreeLeftSideInfo* _info, QWidget *_parent)
     : QtTreePropertyBrowser(_parent),
@@ -92,17 +92,17 @@ void TreePropertyWidget::clear()
 
 void TreePropertyWidget::fillLeftSide()
 {
-    const QList<ProperyNode *> nodes = m_leftSide->nodes();
-    foreach(ProperyNode* node, nodes)
+    const QList<PropertyNode *> nodes = m_leftSide->nodes();
+    foreach(PropertyNode* node, nodes)
         addProperty(toProperty(node));
 }
 
-QtProperty* TreePropertyWidget::toProperty(ProperyNode *_node)
+QtProperty* TreePropertyWidget::toProperty(PropertyNode *_node)
 {
     QtProperty *property = m_variantManager->addProperty(nodeType(_node), _node->description());
     m_planeProperties[_node->key()] = property;
 
-    foreach(ProperyNode* node, _node->children())
+    foreach(PropertyNode* node, _node->children())
     {
         QtProperty* subProperty = toProperty(node);
         property->addSubProperty(subProperty);
@@ -111,7 +111,7 @@ QtProperty* TreePropertyWidget::toProperty(ProperyNode *_node)
     return property;
 }
 
-int TreePropertyWidget::nodeType(const ProperyNode *_node) const
+int TreePropertyWidget::nodeType(const PropertyNode *_node) const
 {
     bool hasChildren = !_node->children().isEmpty();
     if(hasChildren)

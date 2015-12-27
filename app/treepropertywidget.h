@@ -5,7 +5,7 @@
 #include <include/qtpropertybrowser/QtTreePropertyBrowser>
 class QtVariantPropertyManager;
 
-class ProperyNode;
+class PropertyNode;
 class TreeLeftSideInfo;
 class TreeRightSideValues;
 class TreeLeftSideInfoFactory;
@@ -27,8 +27,8 @@ public:
 
 private:
     void fillLeftSide();
-    QtProperty *toProperty(ProperyNode* _node);
-    int nodeType(const ProperyNode* _node) const;
+    QtProperty *toProperty(PropertyNode* _node);
+    int nodeType(const PropertyNode* _node) const;
 
 //    double toDouble(const QString& _str) const;
 //    double toDouble(const QVariant& _var) const;
