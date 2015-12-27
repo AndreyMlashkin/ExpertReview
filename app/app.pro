@@ -54,8 +54,7 @@ FORMS    += \
 
 LIBS += -L$$PWD/../bin \
         -lqtpropertybrowser \
-        -lexpressioncalculator \
-        -lqjson
+        -lexpressioncalculator
 
 RESOURCES += \
     resources.qrc
