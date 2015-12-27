@@ -28,6 +28,8 @@
 НДФЛ_(тек(КЭ)) #NDFL_tek_KE
 НЗ_(пр(Э))     #NZ_pr_E
 НЗ_(тек(Э))    #NZ_tek_E
+ТСП_пр       #TSP_pr
+ТСП_тек      #TSP_tek
 ППд            #PPd
 ПП             #PP
 НП_(пр(СЭ))    #NP_pr_SE
@@ -36,69 +38,119 @@
 Нед_тек        #Ned_tek
 РМт_пр         #PMt_pr
 РМт_тек        #PMt_tek
-И              #_I        
-d              #_d
-C              #_S
+И_пр           #_I_pr        
+d_пр           #_d_pr
+C_пр           #_S_pr
+И_тек          #_I_tek        
+d_тек          #_d_tek
+C_тек          #_S_tek
 См             #_Sm
 Стр            #Str
 Ссмр           #Scmr
 Тр(им)         #Tr_im
 Тр(потр)       #Tr_potr
-ПОпрр          #POprr
-ПОпра          #POpra
-ПОпрб          #POprb
-Пт             #Pt
-По             #Po
-Пн             #Pn
-Ч              #Chislenn
-ИЗспс          #IZsps
-ИЗси           #IZsi
-ИЗэпс          #IZeps
-ИЗэи           #IZei
+ПОпрр_пр          #POprr_pr
+ПОпра_пр          #POpra_pr
+ПОпрб_пр          #POprb_pr
+ПОпрр_тек          #POprr_tek
+ПОпра_тек          #POpra_tek
+ПОпрб_тек          #POprb_tek
+Пт_пр             #Pt_pr
+По_пр             #Po_pr
+Пн_пр             #Pn_pr
+Ч_пр              #Chislenn_pr
+Пт_тек             #Pt_tek
+По_тек             #Po_tek
+Пн_тек             #Pn_tek
+Ч_тек              #Chislenn_tek
+ИЗспс_пр          #IZsps_pr
+ИЗси_пр           #IZsi_pr
+ИЗэпс_пр          #IZeps_pr
+ИЗэи_пр           #IZei_pr
+ИЗспс_тек          #IZsps_tek
+ИЗси_тек           #IZsi_tek
+ИЗэпс_тек          #IZeps_tek
+ИЗэи_тек           #IZei_tek
 Ттр            #Ttr
 Сп             #Sp
 Кнп            #Knp
 Зем_пр         #Zem_pr
 Зем_тек        #Zem_tek
-ТСП_пр_э	   #TSP_pr
-ТСП_тек_э	   #TSP_tek
+ТСП_пр_э	   #TSP_pr_e
+ТСП_тек_э	   #TSP_tek_e
 НПд            #NPd
 НП             #Np
-ИПспс          #IPsps
-ИПси           #IPsi
-ИПэпс          #IPeps
-ИПэи           #IPei
+ИПспс_пр          #IPsps_pr
+ИПси_пр           #IPsi_pr
+ИПэпс_пр          #IPeps_pr
+ИПэи_пр           #IPei_pr
+ИПспс_тек          #IPsps_tek
+ИПси_тек           #IPsi_tek
+ИПэпс_тек          #IPeps_tek
+ИПэи_тек           #IPei_tek
 Срс            #Srs
 Спк            #Spk
 Соб            #Sob
-T - для автодороги = 1   #T
-k - для автодороги = 0   #k
+T_pr - для автодороги = 1   #T_pr
+k_pr - для автодороги = 0   #k_pr
+T_tek - для автодороги = 1   #T_tek
+k_tek - для автодороги = 0   #k_tek
 lt - для ЖД = 0          #lt
 lp                       #lp
 la                       #la
 U - для ЖД = 1, а для авто-скорость машин    #U
-ПОчп                     #POchp
-ПОпр                     #POpr
-З                        #Z
-пасс-км                  #pass_km
-Сб                       #Sb
-Зсрм                     #Zsrm
-L                        #L
-S                        #S
-Дпрр                     #Dprr
-Дпра                     #Dpra
-Дпрч                     #Dprch
-Дпрб                     #Dprb
-Тто                      #Tto
-Тпв                      #Tpv
-Тдв                      #Tdv
-Q сут - если известна максимальная мощность пассажиропотока в час пик, то Q сут = 0, Uрд = 1. Иначе Qmax = 0, и q вм = 1.   #Qsut
-U рд                     #Urd
+ПОчп_пр                     #POchp_pr
+ПОпр_пр                     #POpr_pr
+ПОчп_тек                     #POchp_tek
+ПОпр_тек                     #POpr_tek
+Современность конструкций, технологической базы   #sovrConstrBall
+Сложность ремонта                                 #sloznRemBall
+Уровень информатизации периода эксплуатации       #urovenInformExplBall
+З_пр                        #Z_pr
+пасс-км_пр                  #pass_km_pr
+З_тек                        #Z_tek
+пасс-км_тек                  #pass_km_tek
+Сб_пр                       #Sb_pr
+Зсрм_пр                     #Zsrm_pr
+Сб_тек                       #Sb_tek
+Зсрм_тек                     #Zsrm_tek
+Наличие соц. и произв. объектов       #SocialObjBall
+L_пр                        #L_pr
+S_пр                        #S_pr
+Тактность расписания в часы пиковой нагрузки    #takt
+L_tek                        #L_tek
+S_tek                        #S_tek
+Точность соблюдения расписания                    #tochnRaspBall
+Безопасность                                      #bezopBall
+Личная безопасность                               #lichnBezopBall
+Изменение природного и урбанистического ландшафта #izmLandBall
+Дпрр_пр                     #Dprr_pr
+Дпра_пр                     #Dpra_pr
+Дпрч_пр                     #Dprch_pr
+Дпрб_пр                     #Dprb_pr
+Дпрр_тек                     #Dprr_tek
+Дпра_тек                     #Dpra_tek
+Дпрч_тек                     #Dprch_tek
+Дпрб_тек                     #Dprb_tek
+Тто_пр                      #Tto_pr
+Тпв_пр                      #Tpv_pr
+Тдв_пр                      #Tdv_pr
+Тто_тек                      #Tto_tek
+Тпв_тек                      #Tpv_tek
+Тдв_тек                      #Tdv_tek
+Q сут - если известна максимальная мощность пассажиропотока в час пик, то Q сут = 0, Uрд = 1. Иначе Qmax = 0, и q вм = 1._пр  #Qsut_pr
+U рд_пр                    #Urd_pr
+Q сут - если известна максимальная мощность пассажиропотока в час пик, то Q сут = 0, Uрд = 1. Иначе Qmax = 0, и q вм = 1._тек   #Qsut_tek
+U рд_тек                     #Urd_tek
 Q mах                    #Qmax
 Т об                     #Tob
 q вм                     #qvm
-Пкм                      #Pkm
-Вкм                      #Vkm
+Пкм_пр                      #Pkm_pr
+Вкм_пр                      #Vkm_pr
+Пкм_тек                      #Pkm_tek
+Вкм_тек                      #Vkm_tek
+Интеграция со смежными видами транспорта        #integrPerevBall
+Увеличение доходов от услуг по неосновной деят  #uvelDohodNeosnDejatBall
 Риски техногенного и природного характера                                   #rTehnPrir   
 Риск национального экономического кризиса                                   #rNacCrizis
 Риск снижения темпов роста ВВП                                              #rVVP
@@ -121,3 +173,53 @@ q вм                     #qvm
 Загрязнение воды                                                     #rZagrVoda
 Динамика выбросов загрязняющих веществ в атмосферный воздух          #rZagrVozd
 Уборка мусора и отходов                                              #rMusor
+Объем затрачиваемых экологических ресурсов на 1 км.путей сообщения   #rZatrEcoRes
+Влияние на изменение естественной миграции животных                  #rMigrZhiv
+Пропускная способность строящегося железнодорожного участка по ограничивающему перегону, пар поездов/сутки (Njpr)   #Njpr
+Пропускная способность имеющегося  железнодорожного участка по ограничивающему перегону, пар поездов/сутки (Njtek)  #Njtek
+Протяженность главных путей имеющегося  железнодорожного участка, км (Ltek)               #Ltek
+Протяженность главных путей строящегося железнодорожного участка, км (Lpr)                #Lpr
+Размеры движения на железнодорожном участке в настоящее время, пар поездов/сутки (Ntek)   #Ntek
+Размеры движения на примыкающих железнодорожных участках в настоящее время, пар поездов/сутки (NtekPrim)           #NtekPrim
+Пропускная способность примыкающих ж.д. участков по ограничивающему перегону, пар поездов/сутки (NjtekPrim)  #NjtekPrim
+PpoTr              #PpoTr
+PpoPr              #PpoPr
+PpoG               #PpoG
+PpoM               #PpoM
+PpoC               #PpoC
+Sg2               #Sg2
+Sg5               #Sg5
+Sg10              #Sg10
+Sg15              #Sg15
+Spr2               #Spr2
+Spr5               #Spr5
+Spr10              #Spr10
+Spr15              #Spr15
+Zs3             #Zs3
+passKm3         #passKm3
+Ze3             #Ze3
+PdPass          #PdPass
+PdGrPr          #PdGrPr
+PdGrTer         #PdGrTer
+Ifb          #Ifb
+Irb          #Irb
+Irgd         #Irgd
+Ich          #Ich
+Ogr          #Ogr
+Opds         #Opds
+Oppgt        #Oppgt
+Fotpr        #Fotpr
+Fnazn        #Fnazn
+Ftr          #Ftr
+Iprgd        #Iprgd
+Kotpr        #Kotpr
+Knazn        #Knazn
+Ktr          #Ktr
+Vsl          #Vsl
+Vpk          #Vpk
+SumDef       #SumDef
+Rtz3         #Rtz3
+Rtp3         #Rtp3
+Rb3          #Rb3
+Rti3         #Rti3
+Rtv3         #Rtv3
