@@ -25,19 +25,21 @@ SOURCES += main.cpp\
     treepropertywidget.cpp \
     propertytreeviewer.cpp \
     modechooser.cpp \
+    nodesinfo/propertynode.cpp \
     nodesinfo/treeleftsideinfofile.cpp \
     nodesinfo/treerightsidevaluesfile.cpp \
     projectcalculation.cpp \
     finalcalculationdialog.cpp \
     nodesinfo/treeleftsideinfo.cpp \
     nodesinfo/treeleftsideinfofactory.cpp \
-    #jsonserialiser/treeleftsideinfojson.cpp \
-    propertynode.cpp
+    jsonserialiser/treeleftsideinfojson.cpp \
+    jsonserialiser/propertynodejson.cpp
 
 HEADERS  += \
     treepropertywidget.h \
     propertytreeviewer.h \
     modechooser.h \
+    nodesinfo/propertynode.h \
     nodesinfo/treeleftsideinfo.h \
     nodesinfo/treeleftsideinfofile.h \
     nodesinfo/treerightsidevalues.h \
@@ -46,9 +48,8 @@ HEADERS  += \
     finalcalculationdialog.h \
     projectapi.h \
     nodesinfo/treeleftsideinfofactory.h \
-    #jsonserialiser/treeleftsideinfojson.h \
-    propertynode.h
-
+    jsonserialiser/treeleftsideinfojson.h \
+    jsonserialiser/propertynodejson.h
 FORMS    += \
     propertytreeviewer.ui \
     modechooser.ui \

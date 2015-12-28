@@ -11,7 +11,7 @@
 #include "nodesinfo/treeleftsideinfofile.h"
 #include "nodesinfo/treerightsidevaluesfile.h"
 #include "nodesinfo/treeleftsideinfofactory.h"
-#include "propertynode.h"
+#include "nodesinfo/propertynode.h"
 
 TreePropertyWidget::TreePropertyWidget(TreeLeftSideInfo* _info, QWidget *_parent)
     : QtTreePropertyBrowser(_parent),

@@ -19,7 +19,7 @@ public:
 
     int savedRightSidesCount() const override;
     QStringList savedRightSidesIds() const override;
-    QString savedAverageRightSideId() const override;
+    QString savedAverageRightSideTreeName() const override;
     TreeRightSideValues* createRightSide() const override;
 
 private:
@@ -29,7 +29,7 @@ private:
 private:
     QString m_openedFile;
     QList<PropertyNode*> m_nodes;
-    QStringList m_planeNodes;
+    QStringList m_planeDescriptions;
     QStringList m_planeKeys;
 };
 

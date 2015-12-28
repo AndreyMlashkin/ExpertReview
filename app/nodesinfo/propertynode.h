@@ -8,15 +8,20 @@ class PropertyNode : public QObject
     Q_OBJECT
 public:
     explicit PropertyNode(const QString& _description, const QString& _key);
-    ~PropertyNode();
+    virtual ~PropertyNode();
 
-    const QList<PropertyNode*> children() const;
-    void setChildren(QList<PropertyNode*> _nodes);
-    void addChild(PropertyNode* _node);
-    void clearChilds();
+    virtual const QList<PropertyNode*> children() const;
+    virtual void setChildren(QList<PropertyNode*> _nodes);
+    virtual void addChild(PropertyNode* _node);
+    virtual void clearChilds();
 
     QString description() const;
     QString key() const;
+
+protected:
+    PropertyNode() {}
+    void setKey(const QString& _key);
+    void setDescription(const QString& _description);
 
 private:
     QList<PropertyNode*> m_children;

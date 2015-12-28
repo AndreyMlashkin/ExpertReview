@@ -31,7 +31,7 @@ const QList<PropertyNode *> TreeLeftSideInfoFile::nodes()
 
 QStringList TreeLeftSideInfoFile::planeDescriptions() const
 {
-    return m_planeNodes;
+    return m_planeDescriptions;
 }
 
 QStringList TreeLeftSideInfoFile::planeKeys() const
@@ -71,7 +71,7 @@ QStringList TreeLeftSideInfoFile::savedRightSidesIds() const
     }
 }
 
-QString TreeLeftSideInfoFile::savedAverageRightSideId() const
+QString TreeLeftSideInfoFile::savedAverageRightSideTreeName() const
 {
     QString path = m_openedFile + "_average";
     QFileInfo info(path);
@@ -120,7 +120,7 @@ void TreeLeftSideInfoFile::open(const QString &_treeName)
             PropertyNode* node = new PropertyNode(descriptionAndKey.at(0),
                                                 descriptionAndKey.at(1));
 
-            m_planeNodes << descriptionAndKey.at(0);
+            m_planeDescriptions << descriptionAndKey.at(0);
             m_planeKeys  << descriptionAndKey.at(1);
 
             int enclosure = calculateEnclosure(line);

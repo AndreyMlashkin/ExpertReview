@@ -94,7 +94,7 @@ inline TreeRightSideValues* getAverage(TreeLeftSideInfoFactory* _factory, const 
 {
     TreeLeftSideInfo* leftSide = _factory->getLeftSideInfo(_name);
     TreeRightSideValues* rightAverage = leftSide->createRightSide();
-    rightAverage->readValues(leftSide->savedAverageRightSideId());
+    rightAverage->readValues(leftSide->savedAverageRightSideTreeName());
     return rightAverage;
 }
 void createResulSectionstLeftSideFile()

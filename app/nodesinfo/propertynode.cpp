@@ -42,3 +42,13 @@ QString PropertyNode::key() const
 {
     return m_key;
 }
+
+void PropertyNode::setKey(const QString &_key)
+{
+    m_key = _key;
+}
+
+void PropertyNode::setDescription(const QString &_description)
+{
+    m_description = _description;
+}

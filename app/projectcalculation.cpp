@@ -7,7 +7,7 @@
 #include "projectcalculation.h"
 #include "nodesinfo/treeleftsideinfo.h"
 #include "nodesinfo/treerightsidevalues.h"
-#include "propertynode.h"
+#include "nodesinfo/propertynode.h"
 
 QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QString, double>& _other);
 QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, const QMap<QString, double>& _sections, const QList<PropertyNode*>& _nodes);
