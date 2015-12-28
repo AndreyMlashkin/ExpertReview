@@ -53,7 +53,7 @@ int TreeLeftSideInfoFile::savedRightSidesCount() const
     }
 }
 
-QStringList TreeLeftSideInfoFile::savedRightSidesIds() const
+QStringList TreeLeftSideInfoFile::savedRightSidesTreeNames() const
 {
     QStringList ans;
     int count = 0;

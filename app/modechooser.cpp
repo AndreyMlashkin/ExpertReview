@@ -144,8 +144,8 @@ void ModeChooser::callCalculation()
     TreeLeftSideInfo* leftSide = factory->getLeftSideInfo("result");
     TreeRightSideValues* proj1Result = leftSide->createRightSide();
     TreeRightSideValues* proj2Result = leftSide->createRightSide();
-    proj1Result->readValues(leftSide->savedRightSidesIds().at(0));
-    proj2Result->readValues(leftSide->savedRightSidesIds().at(1));
+    proj1Result->readValues(leftSide->savedRightSidesTreeNames().at(0));
+    proj2Result->readValues(leftSide->savedRightSidesTreeNames().at(1));
 
     QList<double> firstResult  = proj1Result->values().values();
     QList<double> secondResult = proj2Result->values().values();

@@ -1,5 +1,6 @@
 #include <QDebug>
 #include <QFile>
+#include <QFileInfo>
 #include <QJsonDocument>
 #include <QJsonArray>
 
@@ -74,17 +75,39 @@ QStringList TreeLeftSideInfoJson::planeKeys() const
 
 int TreeLeftSideInfoJson::savedRightSidesCount() const
 {
-
+    int count = 0;
+    forever
+    {
+        QString path = rightSidePath(count);
+        QFileInfo info(path);
+        if(info.exists())
+            ++count;
+        else
+            return count;
+    }
 }
 
-QStringList TreeLeftSideInfoJson::savedRightSidesIds() const
+QStringList TreeLeftSideInfoJson::savedRightSidesTreeNames() const
 {
-
+    QStringList ans;
+    int count = 0;
+    forever
+    {
+        QString path = rightSidePath(count);
+        QFileInfo info(path);
+        if(info.exists())
+        {
+            ++count;
+            ans << path;
+        }
+        else
+            return ans;
+    }
 }
 
 QString TreeLeftSideInfoJson::savedAverageRightSideTreeName() const
 {
-
+    return m_treeName + "Average" + extension();
 }
 
 TreeRightSideValues *TreeLeftSideInfoJson::createRightSide() const
@@ -109,6 +132,11 @@ bool TreeLeftSideInfoJson::import(TreeLeftSideInfo *_otherInfo, ImportPolicy _po
 QString TreeLeftSideInfoJson::extension()
 {
     return QStringLiteral(".json");
+}
+
+QString TreeLeftSideInfoJson::rightSidePath(int _numer) const
+{
+    return m_treeName + QString::number(_numer) + extension();
 }
 
 void TreeLeftSideInfoJson::read(const QJsonObject &_json)

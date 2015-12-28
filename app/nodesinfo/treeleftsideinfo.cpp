@@ -32,7 +32,7 @@ TreeRightSideValues *TreeLeftSideInfo::openRightSide(int _num)
 {
     Q_ASSERT(_num < savedRightSidesCount());
     TreeRightSideValues* values = createRightSide();
-    QString saved = savedRightSidesIds().at(_num);
+    QString saved = savedRightSidesTreeNames().at(_num);
     values->readValues(saved);
     return values;
 

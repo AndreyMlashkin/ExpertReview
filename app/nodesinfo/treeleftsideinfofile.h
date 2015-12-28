@@ -18,7 +18,7 @@ public:
     QStringList planeKeys() const override;
 
     int savedRightSidesCount() const override;
-    QStringList savedRightSidesIds() const override;
+    QStringList savedRightSidesTreeNames() const override;
     QString savedAverageRightSideTreeName() const override;
     TreeRightSideValues* createRightSide() const override;
 
