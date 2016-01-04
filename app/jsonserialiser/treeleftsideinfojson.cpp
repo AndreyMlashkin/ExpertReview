@@ -8,11 +8,13 @@
 #include "treerightsidevaluesjson.h"
 
 TreeLeftSideInfoJson::TreeLeftSideInfoJson()
-    : TreeLeftSideInfo()
+    : TreeLeftSideInfo(),
+      m_isActual(false)
 {}
 
 TreeLeftSideInfoJson::TreeLeftSideInfoJson(const QString &_treeName)
-    : TreeLeftSideInfo()
+    : TreeLeftSideInfo(),
+      m_isActual(false)
 {
     open(_treeName);
 }
@@ -24,11 +26,13 @@ TreeLeftSideInfoJson::~TreeLeftSideInfoJson()
 
 void TreeLeftSideInfoJson::clear()
 {
+    m_isActual = false;
     qDeleteAll(m_nodes);
 }
 
 void TreeLeftSideInfoJson::open(const QString &_treeName)
 {
+    m_isActual = false;
     m_treeName = _treeName;
 
     QFile loadFile(_treeName + extension());
@@ -56,6 +60,9 @@ bool TreeLeftSideInfoJson::save() const
     write(leftSideObject);
     QJsonDocument saveDoc(leftSideObject);
     saveFile.write(saveDoc.toJson());
+
+    m_actualJson = leftSideObject;
+    m_isActual = true;
 
     return true;
 }
@@ -119,11 +126,7 @@ QString TreeLeftSideInfoJson::savedAverageRightSideTreeName() const
 
 TreeRightSideValues *TreeLeftSideInfoJson::createRightSide() const
 {
-    // TODO cache it
-    QJsonObject selfJson;
-    write(selfJson);
-
-    TreeRightSideValuesJson* rightSideValues = new TreeRightSideValuesJson(selfJson);
+    TreeRightSideValuesJson* rightSideValues = new TreeRightSideValuesJson(actualJson());
     return rightSideValues;
 }
 
@@ -138,6 +141,8 @@ bool TreeLeftSideInfoJson::import(TreeLeftSideInfo *_otherInfo, ImportPolicy _po
     m_nodes << PropertyNodeJson::fromBaseNodesList(_otherInfo->nodes());
     m_planeDescriptions << _otherInfo->planeDescriptions();
     m_planeKeys << _otherInfo->planeKeys();
+
+    m_isActual = false;
     return true;
 }
 
@@ -153,6 +158,8 @@ QString TreeLeftSideInfoJson::rightSidePath(int _numer) const
 
 void TreeLeftSideInfoJson::read(const QJsonObject &_json)
 {
+    m_isActual = false;
+
     clear();
 
     QJsonArray nodes = _json["nodes"].toArray();
@@ -177,4 +184,15 @@ void TreeLeftSideInfoJson::write(QJsonObject &json) const
         nodesArray.append(nodeObject);
     }
     json["nodes"] = nodesArray;
+}
+
+QJsonObject &TreeLeftSideInfoJson::actualJson() const
+{
+    if(!m_isActual)
+    {
+        QJsonObject obj;
+        write(obj);
+        m_actualJson = obj;
+    }
+    return m_actualJson;
 }

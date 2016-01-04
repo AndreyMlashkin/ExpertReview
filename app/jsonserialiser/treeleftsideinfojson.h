@@ -33,9 +33,12 @@ private:
 
     void read(const QJsonObject &_json);
     void write(QJsonObject &json) const;
+    QJsonObject& actualJson() const;
 
 private:
     QString m_treeName;
+    mutable bool m_isActual;
+    mutable QJsonObject m_actualJson;
 
     QList<PropertyNodeJson*> m_nodes;
     QStringList m_planeDescriptions;

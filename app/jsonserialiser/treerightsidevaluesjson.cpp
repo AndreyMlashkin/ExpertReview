@@ -35,7 +35,6 @@ void TreeRightSideValuesJson::readValues(const QString &_treeName)
     }
     QByteArray saveData = loadFile.readAll();
     QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
-//    read(loadDoc.object());
 
     QJsonObject obj = loadDoc.object();
     m_values = extractValues(obj);
