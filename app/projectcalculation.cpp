@@ -41,7 +41,7 @@ ProjectCalculator::~ProjectCalculator()
 
 void ProjectCalculator::calculate(TreeLeftSideInfo *_source, TreeLeftSideInfo *_result)
 {
-    Q_ASSERT(_source->savedRightSidesCount() == 2); // Пока так
+    Q_ASSERT_X(_source->savedRightSidesCount() == 2, Q_FUNC_INFO, "it should be 2 constants values files"); // Пока так
     TreeRightSideValues* values0 = _source->openRightSide(0);
     TreeRightSideValues* values1 = _source->openRightSide(1);
 

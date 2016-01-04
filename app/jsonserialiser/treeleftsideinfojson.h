@@ -28,6 +28,8 @@ public:
     bool import(TreeLeftSideInfo* _otherInfo, ImportPolicy _policy = ResetOldData) override;
 
 private:
+    static QStringList getPlaneListOfProperties(const QJsonObject& _json, const QString& _prop);
+
     static QString extension();
     QString rightSidePath(int _numer) const;
 

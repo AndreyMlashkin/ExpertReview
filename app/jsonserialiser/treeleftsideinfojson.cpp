@@ -38,7 +38,7 @@ void TreeLeftSideInfoJson::open(const QString &_treeName)
     QFile loadFile(_treeName + extension());
     if (!loadFile.open(QIODevice::ReadOnly))
     {
-        qDebug() << "Couldn't open" << _treeName + extension();
+        qDebug() << "Couldn't open" << _treeName + extension() << "at" << Q_FUNC_INFO;
         return;
     }
     QByteArray saveData = loadFile.readAll();
@@ -52,7 +52,7 @@ bool TreeLeftSideInfoJson::save() const
 
     if (!saveFile.open(QIODevice::WriteOnly))
     {
-        qDebug() << Q_FUNC_INFO << "Couldn't open save file.";
+        qDebug() << "Couldn't open save file" << Q_FUNC_INFO;
         return false;
     }
 
@@ -79,12 +79,12 @@ const QList<PropertyNode *> TreeLeftSideInfoJson::nodes()
 
 QStringList TreeLeftSideInfoJson::planeDescriptions() const
 {
-    return m_planeDescriptions;
+    return getPlaneListOfProperties(actualJson(), "description");
 }
 
 QStringList TreeLeftSideInfoJson::planeKeys() const
 {
-    return m_planeKeys;
+    return getPlaneListOfProperties(actualJson(), "key");
 }
 
 int TreeLeftSideInfoJson::savedRightSidesCount() const
@@ -121,7 +121,7 @@ QStringList TreeLeftSideInfoJson::savedRightSidesTreeNames() const
 
 QString TreeLeftSideInfoJson::savedAverageRightSideTreeName() const
 {
-    return m_treeName + "Average" + extension();
+    return m_treeName + "_average" + extension();
 }
 
 TreeRightSideValues *TreeLeftSideInfoJson::createRightSide() const
@@ -144,6 +144,24 @@ bool TreeLeftSideInfoJson::import(TreeLeftSideInfo *_otherInfo, ImportPolicy _po
 
     m_isActual = false;
     return true;
+}
+
+QStringList TreeLeftSideInfoJson::getPlaneListOfProperties(const QJsonObject &_json, const QString &_prop)
+{
+    QStringList ans;
+    if(_json.contains(_prop))
+    {
+        QString desc = _json[_prop].toString();
+        ans << desc;
+    }
+
+    if(_json.contains("nodes"))
+    {
+        QJsonArray arr = _json["nodes"].toArray();
+        for(int i = 0; i < arr.size(); ++i)
+            ans << getPlaneListOfProperties(arr.at(i).toObject(), _prop);
+    }
+    return ans;
 }
 
 QString TreeLeftSideInfoJson::extension()
