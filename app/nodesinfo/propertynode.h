@@ -1,11 +1,11 @@
 #ifndef PROPERYNODE_H
 #define PROPERYNODE_H
 
-#include <QObject>
+#include <QString>
+#include <QList>
 
-class PropertyNode : public QObject
+class PropertyNode
 {
-    Q_OBJECT
 public:
     explicit PropertyNode(const QString& _description, const QString& _key);
     virtual ~PropertyNode();

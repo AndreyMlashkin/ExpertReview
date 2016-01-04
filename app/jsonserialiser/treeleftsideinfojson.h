@@ -8,6 +8,7 @@ class TreeLeftSideInfoJson : public TreeLeftSideInfo
 {
 public:
     TreeLeftSideInfoJson();
+    TreeLeftSideInfoJson(const QString& _treeName);
     ~TreeLeftSideInfoJson();
     void clear() override;
 

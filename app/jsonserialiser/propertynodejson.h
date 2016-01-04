@@ -20,9 +20,9 @@ public:
 
     static QList<PropertyNode*>     toBaseNodesList  (QList<PropertyNodeJson*> _jList);
     static QList<PropertyNodeJson*> fromBaseNodesList(QList<PropertyNode *> _jList);
+
 private:
     QList<PropertyNodeJson*> m_jsonChildren;
-
 };
 
 #endif // PROPERTYNODEJSON_H

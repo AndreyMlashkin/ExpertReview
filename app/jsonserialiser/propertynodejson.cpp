@@ -35,6 +35,7 @@ void PropertyNodeJson::addChild(PropertyNode *_node)
 
 void PropertyNodeJson::clearChilds()
 {
+    PropertyNode::clearChilds();
     foreach (PropertyNodeJson* node, m_jsonChildren)
     {
         node->clearChilds();
@@ -44,6 +45,8 @@ void PropertyNodeJson::clearChilds()
 
 void PropertyNodeJson::read(const QJsonObject &_json)
 {
+    clearChilds();
+
     setKey(_json["key"].toString());
     setDescription(_json["description"].toString());
 
@@ -51,7 +54,9 @@ void PropertyNodeJson::read(const QJsonObject &_json)
     for(int i = 0; i < childs.size(); ++i)
     {
         QJsonObject node = childs.at(i).toObject();
-        m_jsonChildren.at(i)->read(node);
+        PropertyNodeJson* jNode = new PropertyNodeJson();
+        jNode->read(node);
+        m_jsonChildren << jNode;
     }
 }
 

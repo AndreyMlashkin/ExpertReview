@@ -5,10 +5,17 @@
 #include <QJsonArray>
 
 #include "treeleftsideinfojson.h"
+#include "treerightsidevaluesjson.h"
 
 TreeLeftSideInfoJson::TreeLeftSideInfoJson()
     : TreeLeftSideInfo()
 {}
+
+TreeLeftSideInfoJson::TreeLeftSideInfoJson(const QString &_treeName)
+    : TreeLeftSideInfo()
+{
+    open(_treeName);
+}
 
 TreeLeftSideInfoJson::~TreeLeftSideInfoJson()
 {
@@ -112,7 +119,12 @@ QString TreeLeftSideInfoJson::savedAverageRightSideTreeName() const
 
 TreeRightSideValues *TreeLeftSideInfoJson::createRightSide() const
 {
-    return nullptr;
+    // TODO cache it
+    QJsonObject selfJson;
+    write(selfJson);
+
+    TreeRightSideValuesJson* rightSideValues = new TreeRightSideValuesJson(selfJson);
+    return rightSideValues;
 }
 
 bool TreeLeftSideInfoJson::import(TreeLeftSideInfo *_otherInfo, ImportPolicy _policy)
@@ -141,17 +153,16 @@ QString TreeLeftSideInfoJson::rightSidePath(int _numer) const
 
 void TreeLeftSideInfoJson::read(const QJsonObject &_json)
 {
+    clear();
 
-//    mPlayer.read(json["player"].toObject());
-
-//    mLevels.clear();
-//    QJsonArray levelArray = json["levels"].toArray();
-//    for (int levelIndex = 0; levelIndex < levelArray.size(); ++levelIndex) {
-//        QJsonObject levelObject = levelArray[levelIndex].toObject();
-//        Level level;
-//        level.read(levelObject);
-//        mLevels.append(level);
-//    }
+    QJsonArray nodes = _json["nodes"].toArray();
+    for (int i = 0; i < nodes.size(); ++i)
+    {
+        QJsonObject node = nodes[i].toObject();
+        PropertyNodeJson* jNode = new PropertyNodeJson();
+        jNode->read(node);
+        m_nodes << jNode;
+    }
 }
 
 void TreeLeftSideInfoJson::write(QJsonObject &json) const
