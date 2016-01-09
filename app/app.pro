@@ -52,6 +52,7 @@ HEADERS  += \
     jsonserialiser/treeleftsideinfojson.h \
     jsonserialiser/propertynodejson.h \
     jsonserialiser/treerightsidevaluesjson.h
+
 FORMS    += \
     propertytreeviewer.ui \
     modechooser.ui \
