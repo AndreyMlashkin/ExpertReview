@@ -2,7 +2,6 @@
 #define TREELEFTSIDEINFO_H
 
 #include <QStringList>
-#include <QJsonObject>
 
 class PropertyNode;
 class TreeRightSideValues;
