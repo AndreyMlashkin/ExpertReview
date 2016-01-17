@@ -4,207 +4,207 @@
         {
             "description": "НДС_пр",
             "key": "NDS_pr",
-            "value": 1
+            "value": 0.85999999999999999
         },
         {
             "description": "НДС_тек",
             "key": "NDS_tek",
-            "value": 1
+            "value": 0.68000000000000005
         },
         {
             "description": "НП_пр",
             "key": "NP_pr",
-            "value": 11
+            "value": 0.070000000000000007
         },
         {
             "description": "НП_тек",
             "key": "NP_tek",
-            "value": 1
+            "value": 0.053999999999999999
         },
         {
             "description": "НИ_пр",
             "key": "NI_pr",
-            "value": 1
+            "value": 0.10299999999999999
         },
         {
             "description": "НИ_тек",
             "key": "NI_tek",
-            "value": 1
+            "value": 0.094
         },
         {
             "description": "ПФ_пр",
             "key": "PF_pr",
-            "value": 1
+            "value": 2.8199999999999998
         },
         {
             "description": "ФСС_пр",
             "key": "FSS_pr",
-            "value": 11
+            "value": 0
         },
         {
             "description": "ОМС_пр",
             "key": "OMS_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ПФ_тек",
             "key": "PF_tek",
-            "value": 1
+            "value": 2.2599999999999998
         },
         {
             "description": "ФСС_тек",
             "key": "FSS_tek",
-            "value": 11
+            "value": 0
         },
         {
             "description": "ОМС_тек",
             "key": "OMS_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "НДС_(пр(Э))",
             "key": "NDS_pr_E",
-            "value": 1
+            "value": 0
         },
         {
             "description": "НДС_(тек (Э))",
             "key": "NDS_tek_E",
-            "value": 1
+            "value": 0
         },
         {
             "description": "НП_(пр(Э))",
             "key": "NP_pr_E",
-            "value": 11
+            "value": 1.1100000000000001
         },
         {
             "description": "НП_(тек(Э))",
             "key": "NP_tek_E",
-            "value": 1
+            "value": 0.80000000000000004
         },
         {
             "description": "НИ_(пр(Э))",
             "key": "NI_pr_E",
-            "value": 1
+            "value": 0.28999999999999998
         },
         {
             "description": "НИ_(тек(Э))",
             "key": "NI_tek_E",
-            "value": 1
+            "value": 0.22
         },
         {
             "description": "ПФ_(пр(Э))",
             "key": "PF_pr_E",
-            "value": 1
+            "value": 2.3199999999999998
         },
         {
             "description": "ФСС_(пр(Э))",
             "key": "FSS_pr_E",
-            "value": 11
+            "value": 0
         },
         {
             "description": "ОМС_(пр(Э))",
             "key": "OMS_pr_E",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ПФ_(тек(Э))",
             "key": "PF_tek_E",
-            "value": 1
+            "value": 2.0099999999999998
         },
         {
             "description": "ФСС_(тек(Э))",
             "key": "FSS_tek_E",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ОМС_(тек(Э))",
             "key": "OMS_tek_E",
-            "value": 1
+            "value": 0
         },
         {
             "description": "НДФЛ_(пр(ТрЭ))",
             "key": "NDFL_pr_TrE",
-            "value": 11
+            "value": 2.0800000000000001
         },
         {
             "description": "НДФЛ_(тек(ТрЭ))",
             "key": "NDFL_tek_TrE",
-            "value": 1
+            "value": 1.8
         },
         {
             "description": "НДФЛ_(пр(КЭ))",
             "key": "NDFL_pr_KE",
-            "value": 1
+            "value": 5.7000000000000002
         },
         {
             "description": "НДФЛ_(тек(КЭ))",
             "key": "NDFL_tek_KE",
-            "value": 1
+            "value": 5.6900000000000004
         },
         {
             "description": "НЗ_(пр(Э))",
             "key": "NZ_pr_E",
-            "value": 1
+            "value": 0
         },
         {
             "description": "НЗ_(тек(Э))",
             "key": "NZ_tek_E",
-            "value": 11
+            "value": 0
         },
         {
             "description": "ТСП_пр",
             "key": "TSP_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ТСП_тек",
             "key": "TSP_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ППд",
             "key": "PPd",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ПП",
             "key": "PP",
-            "value": 1
+            "value": 0
         },
         {
             "description": "НП_(пр(СЭ))",
             "key": "NP_pr_SE",
-            "value": 1
+            "value": 4.5099999999999998
         },
         {
             "description": "НП_(тек(СЭ))",
             "key": "NP_tek_SE",
-            "value": 1
+            "value": 4.0300000000000002
         },
         {
             "description": "Нед_пр",
             "key": "Ned_pr",
-            "value": 1
+            "value": 6.2000000000000002
         },
         {
             "description": "Нед_тек",
             "key": "Ned_tek",
-            "value": 1
+            "value": 6.2000000000000002
         },
         {
             "description": "РМт_пр",
             "key": "PMt_pr",
-            "value": 1
+            "value": 145
         },
         {
             "description": "РМт_тек",
             "key": "PMt_tek",
-            "value": 1
+            "value": 102
         },
         {
             "description": "И_пр",
             "key": "_I_pr",
-            "value": 0
+            "value": 247
         },
         {
             "description": "d_пр",
@@ -214,12 +214,12 @@
         {
             "description": "C_пр",
             "key": "_S_pr",
-            "value": 11
+            "value": 1
         },
         {
             "description": "И_тек",
             "key": "_I_tek",
-            "value": 1
+            "value": 220
         },
         {
             "description": "d_тек",
@@ -234,142 +234,142 @@
         {
             "description": "См",
             "key": "_Sm",
-            "value": 1
+            "value": 23.850000000000001
         },
         {
             "description": "Стр",
             "key": "Str",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Ссмр",
             "key": "Scmr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Тр(им)",
             "key": "Tr_im",
-            "value": 11
+            "value": 247
         },
         {
             "description": "Тр(потр)",
             "key": "Tr_potr",
-            "value": 1
+            "value": 247
         },
         {
             "description": "ПОпрр_пр",
             "key": "POprr_pr",
-            "value": 1
+            "value": 79.599999999999994
         },
         {
             "description": "ПОпра_пр",
             "key": "POpra_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ПОпрб_пр",
             "key": "POprb_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ПОпрр_тек",
             "key": "POprr_tek",
-            "value": 1
+            "value": 78.799999999999997
         },
         {
             "description": "ПОпра_тек",
             "key": "POpra_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ПОпрб_тек",
             "key": "POprb_tek",
-            "value": 11
+            "value": 0
         },
         {
             "description": "Пт_пр",
             "key": "Pt_pr",
-            "value": 1
+            "value": 79.599999999999994
         },
         {
             "description": "По_пр",
             "key": "Po_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Пн_пр",
             "key": "Pn_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Ч_пр",
             "key": "Chislenn_pr",
-            "value": 11
+            "value": 0.189
         },
         {
             "description": "Пт_тек",
             "key": "Pt_tek",
-            "value": 1
+            "value": 78.799999999999997
         },
         {
             "description": "По_тек",
             "key": "Po_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Пн_тек",
             "key": "Pn_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Ч_тек",
             "key": "Chislenn_tek",
-            "value": 1
+            "value": 0.189
         },
         {
             "description": "ИЗспс_пр",
             "key": "IZsps_pr",
-            "value": 1
+            "value": 10
         },
         {
             "description": "ИЗси_пр",
             "key": "IZsi_pr",
-            "value": 11
+            "value": 0
         },
         {
             "description": "ИЗэпс_пр",
             "key": "IZeps_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ИЗэи_пр",
             "key": "IZei_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ИЗспс_тек",
             "key": "IZsps_tek",
-            "value": 1
+            "value": 6
         },
         {
             "description": "ИЗси_тек",
             "key": "IZsi_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ИЗэпс_тек",
             "key": "IZeps_tek",
-            "value": 11
+            "value": 0
         },
         {
             "description": "ИЗэи_тек",
             "key": "IZei_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Ттр",
             "key": "Ttr",
-            "value": 1
+            "value": 0.97999999999999998
         },
         {
             "description": "Сп",
@@ -384,12 +384,12 @@
         {
             "description": "Зем_пр",
             "key": "Zem_pr",
-            "value": 11
+            "value": 51.25
         },
         {
             "description": "Зем_тек",
             "key": "Zem_tek",
-            "value": 1
+            "value": 51.25
         },
         {
             "description": "ТСП_пр_э",
@@ -399,72 +399,72 @@
         {
             "description": "ТСП_тек_э",
             "key": "TSP_tek_e",
-            "value": 1
+            "value": 1.008
         },
         {
             "description": "НПд",
             "key": "NPd",
-            "value": 1
+            "value": 3
         },
         {
             "description": "НП",
             "key": "Np",
-            "value": 1
+            "value": 5
         },
         {
             "description": "ИПспс_пр",
             "key": "IPsps_pr",
-            "value": 1
+            "value": 10
         },
         {
             "description": "ИПси_пр",
             "key": "IPsi_pr",
-            "value": 11
+            "value": 0
         },
         {
             "description": "ИПэпс_пр",
             "key": "IPeps_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ИПэи_пр",
             "key": "IPei_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ИПспс_тек",
             "key": "IPsps_tek",
-            "value": 1
+            "value": 6
         },
         {
             "description": "ИПси_тек",
             "key": "IPsi_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ИПэпс_тек",
             "key": "IPeps_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "ИПэи_тек",
             "key": "IPei_tek",
-            "value": 11
+            "value": 0
         },
         {
             "description": "Срс",
             "key": "Srs",
-            "value": 1
+            "value": 58.700000000000003
         },
         {
             "description": "Спк",
             "key": "Spk",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Соб",
             "key": "Sob",
-            "value": 1
+            "value": 0
         },
         {
             "description": "T_pr - для автодороги = 1",
@@ -474,32 +474,32 @@
         {
             "description": "k_pr - для автодороги = 0",
             "key": "k_pr",
-            "value": 0
+            "value": 154
         },
         {
             "description": "T_tek - для автодороги = 1",
             "key": "T_tek",
-            "value": 11
+            "value": 1
         },
         {
             "description": "k_tek - для автодороги = 0",
             "key": "k_tek",
-            "value": 1
+            "value": 115
         },
         {
             "description": "lt - для ЖД = 0",
             "key": "lt",
-            "value": 1
+            "value": 0
         },
         {
             "description": "lp",
             "key": "lp",
-            "value": 1
+            "value": 0
         },
         {
             "description": "la",
             "key": "la",
-            "value": 1
+            "value": 0
         },
         {
             "description": "U - для ЖД = 1, а для авто-скорость машин",
@@ -509,52 +509,52 @@
         {
             "description": "ПОчп_пр",
             "key": "POchp_pr",
-            "value": 1
+            "value": 501.48000000000002
         },
         {
             "description": "ПОпр_пр",
             "key": "POpr_pr",
-            "value": 1
+            "value": 405.80000000000001
         },
         {
             "description": "ПОчп_тек",
             "key": "POchp_tek",
-            "value": 11
+            "value": 496.39999999999998
         },
         {
             "description": "ПОпр_тек",
             "key": "POpr_tek",
-            "value": 1
+            "value": 405.80000000000001
         },
         {
             "description": "Современность конструкций, технологической базы",
             "key": "sovrConstrBall",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Сложность ремонта",
             "key": "sloznRemBall",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Уровень информатизации периода эксплуатации",
             "key": "urovenInformExplBall",
-            "value": 1
+            "value": 2
         },
         {
             "description": "З_пр",
             "key": "Z_pr",
-            "value": 1
+            "value": 4.6799999999999997
         },
         {
             "description": "пасс-км_пр",
             "key": "pass_km_pr",
-            "value": 11
+            "value": 1
         },
         {
             "description": "З_тек",
             "key": "Z_tek",
-            "value": 1
+            "value": 4.54
         },
         {
             "description": "пасс-км_тек",
@@ -564,62 +564,62 @@
         {
             "description": "Сб_пр",
             "key": "Sb_pr",
-            "value": 1
+            "value": 19
         },
         {
             "description": "Зсрм_пр",
             "key": "Zsrm_pr",
-            "value": 1
+            "value": 45.5
         },
         {
             "description": "Сб_тек",
             "key": "Sb_tek",
-            "value": 1
+            "value": 19
         },
         {
             "description": "Зсрм_тек",
             "key": "Zsrm_tek",
-            "value": 1
+            "value": 45.5
         },
         {
             "description": "Наличие соц. и произв. объектов",
             "key": "SocialObjBall",
-            "value": 11
+            "value": 1
         },
         {
             "description": "L_пр",
             "key": "L_pr",
-            "value": 1
+            "value": 119.56
         },
         {
             "description": "S_пр",
             "key": "S_pr",
-            "value": 1
+            "value": 195
         },
         {
             "description": "Тактность расписания в часы пиковой нагрузки",
             "key": "takt",
-            "value": 1
+            "value": 10
         },
         {
             "description": "L_tek",
             "key": "L_tek",
-            "value": 1
+            "value": 79.760000000000005
         },
         {
             "description": "S_tek",
             "key": "S_tek",
-            "value": 1
+            "value": 195
         },
         {
             "description": "Точность соблюдения расписания",
             "key": "tochnRaspBall",
-            "value": 11
+            "value": 1
         },
         {
             "description": "Безопасность",
             "key": "bezopBall",
-            "value": 0
+            "value": 1
         },
         {
             "description": "Личная безопасность",
@@ -629,17 +629,17 @@
         {
             "description": "Изменение природного и урбанистического ландшафта",
             "key": "izmLandBall",
-            "value": 1
+            "value": 6
         },
         {
             "description": "Дпрр_пр",
             "key": "Dprr_pr",
-            "value": 1
+            "value": 1512.4000000000001
         },
         {
             "description": "Дпра_пр",
             "key": "Dpra_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Дпрч_пр",
@@ -649,62 +649,62 @@
         {
             "description": "Дпрб_пр",
             "key": "Dprb_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Дпрр_тек",
             "key": "Dprr_tek",
-            "value": 1
+            "value": 1482.2
         },
         {
             "description": "Дпра_тек",
             "key": "Dpra_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Дпрч_тек",
             "key": "Dprch_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Дпрб_тек",
             "key": "Dprb_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Тто_пр",
             "key": "Tto_pr",
-            "value": 1
+            "value": 52.399999999999999
         },
         {
             "description": "Тпв_пр",
             "key": "Tpv_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Тдв_пр",
             "key": "Tdv_pr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Тто_тек",
             "key": "Tto_tek",
-            "value": 11
+            "value": 57.93
         },
         {
             "description": "Тпв_тек",
             "key": "Tpv_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Тдв_тек",
             "key": "Tdv_tek",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Q сут - если известна максимальная мощность пассажиропотока в час пик, то Q сут = 0, Uрд = 1. Иначе Qmax = 0, и q вм = 1._пр",
             "key": "Qsut_pr",
-            "value": 1
+            "value": 146
         },
         {
             "description": "U рд_пр",
@@ -714,7 +714,7 @@
         {
             "description": "Q сут - если известна максимальная мощность пассажиропотока в час пик, то Q сут = 0, Uрд = 1. Иначе Qmax = 0, и q вм = 1._тек",
             "key": "Qsut_tek",
-            "value": 1
+            "value": 151
         },
         {
             "description": "U рд_тек",
@@ -724,12 +724,12 @@
         {
             "description": "Q mах",
             "key": "Qmax",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Т об",
             "key": "Tob",
-            "value": 1
+            "value": 0
         },
         {
             "description": "q вм",
@@ -739,17 +739,17 @@
         {
             "description": "Пкм_пр",
             "key": "Pkm_pr",
-            "value": 11
+            "value": 75
         },
         {
             "description": "Вкм_пр",
             "key": "Vkm_pr",
-            "value": 0
+            "value": 1
         },
         {
             "description": "Пкм_тек",
             "key": "Pkm_tek",
-            "value": 1
+            "value": 82
         },
         {
             "description": "Вкм_тек",
@@ -764,202 +764,202 @@
         {
             "description": "Увеличение доходов от услуг по неосновной деят",
             "key": "uvelDohodNeosnDejatBall",
-            "value": 1
+            "value": 2
         },
         {
             "description": "Риски техногенного и природного характера",
             "key": "rTehnPrir",
-            "value": 11
+            "value": 3
         },
         {
             "description": "Риск национального экономического кризиса",
             "key": "rNacCrizis",
-            "value": 1
+            "value": 2
         },
         {
             "description": "Риск снижения темпов роста ВВП",
             "key": "rVVP",
-            "value": 1
+            "value": 2
         },
         {
             "description": "Риск высокой инфляции",
             "key": "rInfl",
-            "value": 1
+            "value": 2
         },
         {
             "description": "Риск высокой безработицы",
             "key": "rBezrab",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Риск негативного изменения налогообложения",
             "key": "rNalog",
-            "value": 1
+            "value": 2
         },
         {
             "description": "Риск конкурентоспособности услуги",
             "key": "rKonkur",
-            "value": 1
+            "value": 2
         },
         {
             "description": "Риск изменения предпочтений потребителей",
             "key": "rIzmPredp",
-            "value": 1
+            "value": 2
         },
         {
             "description": "Риск задержки отведения земельных участков под строительство трассы",
             "key": "rZaderzh",
-            "value": 11
+            "value": 2
         },
         {
             "description": "Риск превышения стоимости строительства и задержки ввода в эксплуатацию",
             "key": "rStoim_Zaderzh",
-            "value": 0
+            "value": 2
         },
         {
             "description": "Риск прекращения или отсрочки финансирования проекта",
             "key": "rFinans",
-            "value": 11
+            "value": 2
         },
         {
             "description": "Риски срыва поставок",
             "key": "rPostavok",
-            "value": 0
+            "value": 3
         },
         {
             "description": "Риск негативных экологических последствий",
             "key": "rEcologii",
-            "value": 11
+            "value": 3
         },
         {
             "description": "Риск ЧП при строительстве",
             "key": "rChPStroit",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Риск несоответствия строительным и др. нормам",
             "key": "rStroitNorm",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Риск форс-мажора",
             "key": "rForceMajor",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Уровень шума",
             "key": "rShum",
-            "value": 1
+            "value": 2
         },
         {
             "description": "Уровень вибрации",
             "key": "rVibro",
-            "value": 1
+            "value": 2
         },
         {
             "description": "Уровень излучения",
             "key": "rIzluch",
-            "value": 1
+            "value": 2
         },
         {
             "description": "Загрязнение воды",
             "key": "rZagrVoda",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Динамика выбросов загрязняющих веществ в атмосферный воздух",
             "key": "rZagrVozd",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Уборка мусора и отходов",
             "key": "rMusor",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Объем затрачиваемых экологических ресурсов на 1 км.путей сообщения",
             "key": "rZatrEcoRes",
-            "value": 11
+            "value": 3
         },
         {
             "description": "Влияние на изменение естественной миграции животных",
             "key": "rMigrZhiv",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Пропускная способность строящегося железнодорожного участка по ограничивающему перегону, пар поездов/сутки (Njpr)",
             "key": "Njpr",
-            "value": 1
+            "value": 39
         },
         {
             "description": "Пропускная способность имеющегося  железнодорожного участка по ограничивающему перегону, пар поездов/сутки (Njtek)",
             "key": "Njtek",
-            "value": 1
+            "value": 115
         },
         {
             "description": "Протяженность главных путей имеющегося  железнодорожного участка, км (Ltek)",
             "key": "Ltek",
-            "value": 1
+            "value": 85.200000000000003
         },
         {
             "description": "Протяженность главных путей строящегося железнодорожного участка, км (Lpr)",
             "key": "Lpr",
-            "value": 1
+            "value": 42.600000000000001
         },
         {
             "description": "Размеры движения на железнодорожном участке в настоящее время, пар поездов/сутки (Ntek)",
             "key": "Ntek",
-            "value": 1
+            "value": 181
         },
         {
             "description": "Размеры движения на примыкающих железнодорожных участках в настоящее время, пар поездов/сутки (NtekPrim)",
             "key": "NtekPrim",
-            "value": 1
+            "value": 151
         },
         {
             "description": "Пропускная способность примыкающих ж.д. участков по ограничивающему перегону, пар поездов/сутки (NjtekPrim)",
             "key": "NjtekPrim",
-            "value": 11
+            "value": 115
         },
         {
             "description": "PpoTr",
             "key": "PpoTr",
-            "value": 0
+            "value": 3
         },
         {
             "description": "PpoPr",
             "key": "PpoPr",
-            "value": 11
+            "value": 2
         },
         {
             "description": "PpoG",
             "key": "PpoG",
-            "value": 1
+            "value": 0
         },
         {
             "description": "PpoM",
             "key": "PpoM",
-            "value": 0
+            "value": 0.5
         },
         {
             "description": "PpoC",
             "key": "PpoC",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Sg2",
             "key": "Sg2",
-            "value": 1
+            "value": 5
         },
         {
             "description": "Sg5",
             "key": "Sg5",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Sg10",
             "key": "Sg10",
-            "value": 11
+            "value": 2
         },
         {
             "description": "Sg15",
@@ -969,17 +969,17 @@
         {
             "description": "Spr2",
             "key": "Spr2",
-            "value": 1
+            "value": 5
         },
         {
             "description": "Spr5",
             "key": "Spr5",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Spr10",
             "key": "Spr10",
-            "value": 1
+            "value": 2
         },
         {
             "description": "Spr15",
@@ -989,102 +989,102 @@
         {
             "description": "Zs3",
             "key": "Zs3",
-            "value": 1
+            "value": 47.799999999999997
         },
         {
             "description": "passKm3",
             "key": "passKm3",
-            "value": 1
+            "value": 1695.5
         },
         {
             "description": "Ze3",
             "key": "Ze3",
-            "value": 1
+            "value": 4.6799999999999997
         },
         {
             "description": "PdPass",
             "key": "PdPass",
-            "value": 1
+            "value": 0
         },
         {
             "description": "PdGrPr",
             "key": "PdGrPr",
-            "value": 1
+            "value": 4
         },
         {
             "description": "PdGrTer",
             "key": "PdGrTer",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Ifb",
             "key": "Ifb",
-            "value": 1
+            "value": 5
         },
         {
             "description": "Irb",
             "key": "Irb",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Irgd",
             "key": "Irgd",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Ich",
             "key": "Ich",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Ogr",
             "key": "Ogr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Opds",
             "key": "Opds",
-            "value": 1
+            "value": 4
         },
         {
             "description": "Oppgt",
             "key": "Oppgt",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Fotpr",
             "key": "Fotpr",
-            "value": 1
+            "value": 5
         },
         {
             "description": "Fnazn",
             "key": "Fnazn",
-            "value": 1
+            "value": 3
         },
         {
             "description": "Ftr",
             "key": "Ftr",
-            "value": 0
+            "value": 1
         },
         {
             "description": "Iprgd",
             "key": "Iprgd",
-            "value": 11
+            "value": 0
         },
         {
             "description": "Kotpr",
             "key": "Kotpr",
-            "value": 1
+            "value": 5
         },
         {
             "description": "Knazn",
             "key": "Knazn",
-            "value": 1
+            "value": 5
         },
         {
             "description": "Ktr",
             "key": "Ktr",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Vsl",
@@ -1094,37 +1094,37 @@
         {
             "description": "Vpk",
             "key": "Vpk",
-            "value": 11
+            "value": 2
         },
         {
             "description": "SumDef",
             "key": "SumDef",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Rtz3",
             "key": "Rtz3",
-            "value": 1
+            "value": 0
         },
         {
             "description": "Rtp3",
             "key": "Rtp3",
-            "value": 1
+            "value": 4
         },
         {
             "description": "Rb3",
             "key": "Rb3",
-            "value": 1
+            "value": 4
         },
         {
             "description": "Rti3",
             "key": "Rti3",
-            "value": 1
+            "value": 5
         },
         {
             "description": "Rtv3",
             "key": "Rtv3",
-            "value": 1
+            "value": 5
         }
     ]
 }
