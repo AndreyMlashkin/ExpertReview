@@ -24,6 +24,7 @@ private slots:
 
 private:
     void updateResult();
+    void closeEvent(QCloseEvent * event) override;
 
 private:
     Ui::ModeChooser *m_ui;

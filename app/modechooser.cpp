@@ -25,6 +25,7 @@ struct ModeChooser::ModeChooserPrivate
         delete metodicJudges;
         delete sectionJudges;
         delete sourceData;
+        delete calculation;
     }
 
     QPointer <PropertyTreeViewer> metodicJudges;
@@ -39,6 +40,7 @@ ModeChooser::ModeChooser(QWidget *parent) :
     p(new ModeChooserPrivate)
 {
     m_ui->setupUi(this);
+
     connect(m_ui->metodicJudges, SIGNAL(clicked()), SLOT(callMetodicJudges()));
     connect(m_ui->sectionJudges, SIGNAL(clicked()), SLOT(callSectionJudges()));
     connect(m_ui->sourceData,    SIGNAL(clicked()), SLOT(callSourceData()));
@@ -175,4 +177,10 @@ void ModeChooser::updateResult()
     calc.calculate(constants, result);
 
     delete factory;
+}
+
+void ModeChooser::closeEvent(QCloseEvent *event)
+{
+    QWidget::closeEvent(event);
+    qApp->closeAllWindows();
 }
