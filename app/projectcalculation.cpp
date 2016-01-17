@@ -14,19 +14,6 @@ QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, 
 
 void removeNan(QMap<QString, double>& _values);
 
-inline void normalise(double& _one, double& _other)
-{
-    double max = qMax(_one, _other);
-    if(max == 0)
-    {
-        _one = 1;
-        _other = 1;
-        return;
-    }
-    _one /= max;
-    _other /= max;
-}
-
 ProjectCalculator::ProjectCalculator(TreeLeftSideInfo* _methodicJudges, TreeRightSideValues *_metodicJudgesAverage, TreeRightSideValues *_sectionsAverage)
     : m_adaptor(new parser::ParserAdaptor),
       m_methodicJudges(_methodicJudges),
@@ -128,6 +115,19 @@ void ProjectCalculator::calculateSections(TreeLeftSideInfo *_calculatedFactors, 
     TreeRightSideValues* groupSums2 = _sectionsResult->createRightSide();
     groupSums2->setValues(groupSumsVals2);
     groupSums2->writeValues("sectionsResult1");
+}
+
+void ProjectCalculator::normalise(double &_one, double &_other)
+{
+    double max = qMax(_one, _other);
+    if(max == 0)
+    {
+        _one = 1;
+        _other = 1;
+        return;
+    }
+    _one /= max;
+    _other /= max;
 }
 
 QMap<QString, double> ProjectCalculator::calculateProject(const QMap<QString, double> &_source)

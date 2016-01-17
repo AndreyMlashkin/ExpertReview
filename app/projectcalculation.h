@@ -25,6 +25,8 @@ public:
 
     void calculateSections(TreeLeftSideInfo* _calculatedFactors,  TreeLeftSideInfo* _sectionsResult);
 
+    static void normalise(double& _one, double& _other);// !!! make universal
+
 private:
     QMap<QString, double> calculateProject(const QMap<QString, double>& _source);
     static QString substitute(const QString& _expression, const QMap<QString, double>& _source);

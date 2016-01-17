@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     nodesinfo/treeleftsideinfofactory.cpp \
     jsonserialiser/treeleftsideinfojson.cpp \
     jsonserialiser/propertynodejson.cpp \
-    jsonserialiser/treerightsidevaluesjson.cpp
+    jsonserialiser/treerightsidevaluesjson.cpp \
+    fulltreetablemodel.cpp
 
 HEADERS  += \
     treepropertywidget.h \
@@ -51,7 +52,8 @@ HEADERS  += \
     nodesinfo/treeleftsideinfofactory.h \
     jsonserialiser/treeleftsideinfojson.h \
     jsonserialiser/propertynodejson.h \
-    jsonserialiser/treerightsidevaluesjson.h
+    jsonserialiser/treerightsidevaluesjson.h \
+    fulltreetablemodel.h
 
 FORMS    += \
     propertytreeviewer.ui \
