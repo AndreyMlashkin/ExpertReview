@@ -155,7 +155,7 @@ void ModeChooser::callCalculation()
     double firstFinalCriterium  = calculateFinalCriterium(firstResult);
     double secondFinalCriterium = calculateFinalCriterium(secondResult);
 
-    FinalCalculationDialog dialog(firstFinalCriterium, secondFinalCriterium, "sections", this);
+    FinalCalculationDialog dialog(firstFinalCriterium, secondFinalCriterium, "sectionsResult", this);
     dialog.exec();
 
     delete factory;
