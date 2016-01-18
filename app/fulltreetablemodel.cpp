@@ -4,7 +4,6 @@
 #include "nodesinfo/treerightsidevalues.h"
 
 #include "fulltreetablemodel.h"
-#include "projectcalculation.h" // !!! remove dependency
 
 FullTreeTableModel::FullTreeTableModel()
     : QAbstractTableModel()
@@ -133,25 +132,11 @@ void FullTreeTableModel::normaliseRows()
 
     for(int i = 0; i < m_values.size(); ++i)
     {
-        auto line = m_values[i];
+        Line& line = m_values[i];
         Q_ASSERT(line.size() == 2);
 
-        ProjectCalculator::normalise(line[0], line[1]);
-
-        m_values[i] = line;
+        normaliseLine(line);
     }
-
-
-/*    for(int i = 0; i < m_values.size(); ++i)
-    {
-        auto line = m_values[i];
-        double lineSum = sum(line);
-        for(int j = 0; j < line.size(); ++j)
-            line[j] /= lineSum;
-
-        m_values[i] = line;
-    }
-*/
     endResetModel();
 }
 
@@ -173,4 +158,17 @@ QString FullTreeTableModel::report() const
         ans += "\r\n";
     }
     return ans;
+}
+
+void FullTreeTableModel::normaliseLine(FullTreeTableModel::Line &_line)
+{
+    double maxVal = -1;
+    foreach(double val, _line)
+        maxVal = qMax(maxVal, val);
+
+    if(maxVal == 0)
+        return;
+
+    for(double& val : _line)
+        val /= maxVal;
 }

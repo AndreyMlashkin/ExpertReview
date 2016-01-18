@@ -28,11 +28,16 @@ public:
     QString report() const;
 
 private:
+    typedef QVector< double> Line;
+    void normaliseLine(Line& _line);
+
+private:
     QString m_treeName;
 
     QStringList m_linesNames;
     QStringList m_columnsNames;
-    QVector<QVector< double> > m_values;
+
+    QVector<Line> m_values;
 };
 
 #endif // FULLTREETABLEMODEL_H
