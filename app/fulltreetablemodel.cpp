@@ -58,7 +58,7 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
         values->values();
     }
 */
-    delete leftSide;
+//    delete leftSide;
     delete factory;
 
     endResetModel();
@@ -78,6 +78,7 @@ void FullTreeTableModel::clear()
 
 QModelIndex FullTreeTableModel::index(int row, int column, const QModelIndex &parent) const
 {
+    Q_UNUSED(parent);
     return createIndex(row, column);
 }
 
