@@ -10,7 +10,7 @@ class TreeLeftSideInfo
 {
 public:
     TreeLeftSideInfo() {}
-    virtual ~TreeLeftSideInfo();
+    virtual ~TreeLeftSideInfo() {}
     virtual void clear() {} // !!! todo abstract
 
     virtual void open(const QString& _treeName) = 0;

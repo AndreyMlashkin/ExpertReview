@@ -7,8 +7,7 @@
 
 FullTreeTableModel::FullTreeTableModel()
     : QAbstractTableModel()
-{
-}
+{}
 
 FullTreeTableModel::FullTreeTableModel(const QString &_treeName)
     : QAbstractTableModel(),
@@ -31,7 +30,7 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
     m_linesNames   = leftSide->planeDescriptions();
     QStringList lineKeys = leftSide->planeKeys();
 
-    int columnCount = m_columnsNames.count();
+   // int columnCount = m_columnsNames.count();
     int rowCount    = m_linesNames.count();
 
     m_values.resize(rowCount);
@@ -49,18 +48,7 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
             m_values[i] << lineValue;
         }
     }
-
-/*
-    foreach (const QString name, m_columnsNames)
-    {
-        TreeRightSideValues* values = leftSide->createRightSide();
-        values->readValues(name);
-        values->values();
-    }
-*/
-//    delete leftSide;
     delete factory;
-
     endResetModel();
 }
 
@@ -116,7 +104,7 @@ void FullTreeTableModel::setBaseName(const QString &_baseName)
 {
     int count = m_columnsNames.size();
     for(int i = 0; i < count; ++i)
-        m_columnsNames[i] = _baseName + QString::number(i);
+        m_columnsNames[i] = _baseName + QString::number(i + 1);
 }
 
 inline double sum(const QVector<double> vals)
