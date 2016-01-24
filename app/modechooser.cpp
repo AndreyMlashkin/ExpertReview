@@ -60,7 +60,6 @@ void ModeChooser::callMetodicJudges()
     p->metodicJudges.clear();
     p->metodicJudges = new PropertyTreeViewer("metodicJudges");
     p->metodicJudges->setDefaultTabName("Эксперт");
-    p->metodicJudges->setWindowTitle("Эксперты методики");
     p->metodicJudges->show();
 }
 
@@ -70,7 +69,6 @@ void ModeChooser::callSectionJudges()
     p->sectionJudges.clear();
     p->sectionJudges = new PropertyTreeViewer("sections");
     p->sectionJudges->setDefaultTabName("Эксперт");
-    p->sectionJudges->setWindowTitle("Эксперты разделов");
     p->sectionJudges->show();
 }
 
@@ -79,7 +77,6 @@ void ModeChooser::callSourceData()
     delete p->sourceData;
     p->sourceData = new PropertyTreeViewer("constants", PropertyTreeViewer::SaveRegularOnExit);
     p->sourceData->setDefaultTabName("Проект");
-    p->sourceData->setWindowTitle("Исходные данные проектов");
     p->sourceData->setPrecision(4);
     p->sourceData->show();
 }
@@ -121,7 +118,6 @@ void ModeChooser::callSectionCalculation()
 
     PropertyTreeViewer* sectionResult = new PropertyTreeViewer("sectionsResult", PropertyTreeViewer::SaveRegularOnExit);
     sectionResult->setDefaultTabName("Проект");
-    sectionResult->setWindowTitle("Расчёт разделов");
     sectionResult->setPrecision(6);
     sectionResult->show();
 }
@@ -138,7 +134,6 @@ void ModeChooser::callCalculation()
     delete p->calculation;
     p->calculation = new PropertyTreeViewer("result", PropertyTreeViewer::Minimal);
     p->calculation->setDefaultTabName("Проект");
-    p->calculation->setWindowTitle("Расчёт");
     p->calculation->setPrecision(6);
     p->calculation->show();
 

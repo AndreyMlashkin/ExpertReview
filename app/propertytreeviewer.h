@@ -30,8 +30,6 @@ public:
     explicit PropertyTreeViewer(const QString& _leftSideTreeId, int _mode = All, QWidget *parent = 0);
     ~PropertyTreeViewer();
 
-    void setWindowTitle(const QString &) {}
-
     void setDefaultTabName(const QString& _name);
     QString defaultTabName() const;
 

@@ -1,4 +1,3 @@
-#include <QDebug>
 #include "nodesinfo/treeleftsideinfofactory.h"
 #include "nodesinfo/treeleftsideinfo.h"
 #include "nodesinfo/treerightsidevalues.h"

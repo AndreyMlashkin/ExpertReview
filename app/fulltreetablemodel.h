@@ -3,6 +3,7 @@
 
 #include <QAbstractTableModel>
 
+
 // TODO find better name
 class FullTreeTableModel : public QAbstractTableModel
 {
