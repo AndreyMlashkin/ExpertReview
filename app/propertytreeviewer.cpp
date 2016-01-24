@@ -153,6 +153,8 @@ void PropertyTreeViewer::init()
 
     m_average = m_ui->average;
     m_add = m_ui->add;
+
+    QWidget::setWindowTitle(m_leftInfo->name());
 }
 
 void PropertyTreeViewer::setMode(int _mode)

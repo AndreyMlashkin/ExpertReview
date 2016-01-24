@@ -72,6 +72,13 @@ QString TreeLeftSideInfoJson::treeName() const
     return m_treeName;
 }
 
+QString TreeLeftSideInfoJson::name() const
+{
+    if(m_name.isEmpty())
+        return TreeLeftSideInfo::name();
+    return m_name;
+}
+
 const QList<PropertyNode *> TreeLeftSideInfoJson::nodes()
 {
     return PropertyNodeJson::toBaseNodesList(m_nodes);
@@ -178,7 +185,9 @@ void TreeLeftSideInfoJson::read(const QJsonObject &_json)
 {
     m_isActual = false;
 
-    clear();
+    clear(); // !!!
+
+    m_name = _json["name"].toString();
 
     QJsonArray nodes = _json["nodes"].toArray();
     for (int i = 0; i < nodes.size(); ++i)

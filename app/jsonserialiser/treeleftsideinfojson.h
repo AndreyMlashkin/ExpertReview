@@ -15,6 +15,7 @@ public:
     void open(const QString& _treeName) override;
     bool save() const;
     QString treeName() const override;
+    QString name() const override;
 
     const QList<PropertyNode*> nodes() override;
     QStringList planeDescriptions() const override;
@@ -38,6 +39,7 @@ private:
     QJsonObject& actualJson() const;
 
 private:
+    QString m_name;
     QString m_treeName;
     mutable bool m_isActual;
     mutable QJsonObject m_actualJson;

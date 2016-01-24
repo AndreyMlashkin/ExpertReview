@@ -15,6 +15,7 @@ public:
 
     virtual void open(const QString& _treeName) = 0;
     virtual QString treeName() const = 0;
+    virtual QString name() const { return treeName(); }
 
     virtual const QList<PropertyNode*> nodes() = 0;
     virtual QStringList planeDescriptions() const = 0;
