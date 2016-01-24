@@ -26,8 +26,6 @@ SOURCES += main.cpp\
     propertytreeviewer.cpp \
     modechooser.cpp \
     nodesinfo/propertynode.cpp \
-    nodesinfo/treeleftsideinfofile.cpp \
-    nodesinfo/treerightsidevaluesfile.cpp \
     projectcalculation.cpp \
     finalcalculationdialog.cpp \
     nodesinfo/treeleftsideinfo.cpp \
@@ -44,9 +42,7 @@ HEADERS  += \
     modechooser.h \
     nodesinfo/propertynode.h \
     nodesinfo/treeleftsideinfo.h \
-    nodesinfo/treeleftsideinfofile.h \
     nodesinfo/treerightsidevalues.h \
-    nodesinfo/treerightsidevaluesfile.h \
     projectcalculation.h \
     finalcalculationdialog.h \
     projectapi.h \

@@ -1,4 +1,5 @@
 {
+	"defaultRightSideName" : "Проект",
     "name": "Расчёт проектов",
     "nodes": [
         {

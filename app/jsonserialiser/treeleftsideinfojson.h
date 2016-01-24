@@ -22,6 +22,7 @@ public:
     QStringList planeKeys() const override;
 
     int savedRightSidesCount() const override;
+    QString defaultRightSideTreeName() const override;
     QStringList savedRightSidesTreeNames() const override;
     QString savedAverageRightSideTreeName() const override;
     TreeRightSideValues* createRightSide() const override;
@@ -41,6 +42,7 @@ private:
 private:
     QString m_name;
     QString m_treeName;
+    QString m_defaultRightSideTreeName;
     mutable bool m_isActual;
     mutable QJsonObject m_actualJson;
 

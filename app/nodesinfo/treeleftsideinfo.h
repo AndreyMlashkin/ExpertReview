@@ -25,6 +25,7 @@ public:
     QStringList leafs() const;
 
     virtual int savedRightSidesCount() const = 0;
+    virtual QString defaultRightSideTreeName() const = 0;
     virtual QStringList savedRightSidesTreeNames() const = 0;
     virtual QString savedAverageRightSideTreeName() const = 0;
     virtual TreeRightSideValues* createRightSide() const = 0;

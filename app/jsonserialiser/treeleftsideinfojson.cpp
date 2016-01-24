@@ -108,6 +108,11 @@ int TreeLeftSideInfoJson::savedRightSidesCount() const
     }
 }
 
+QString TreeLeftSideInfoJson::defaultRightSideTreeName() const
+{
+    return m_defaultRightSideTreeName;
+}
+
 QStringList TreeLeftSideInfoJson::savedRightSidesTreeNames() const
 {
     QStringList ans;
@@ -188,6 +193,7 @@ void TreeLeftSideInfoJson::read(const QJsonObject &_json)
     clear(); // !!!
 
     m_name = _json["name"].toString();
+    m_defaultRightSideTreeName = _json["defaultRightSideName"].toString();
 
     QJsonArray nodes = _json["nodes"].toArray();
     for (int i = 0; i < nodes.size(); ++i)

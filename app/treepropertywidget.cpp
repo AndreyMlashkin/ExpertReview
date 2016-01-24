@@ -8,8 +8,8 @@
 #include "treepropertywidget.h"
 
 #include "projectapi.h"
-#include "nodesinfo/treeleftsideinfofile.h"
-#include "nodesinfo/treerightsidevaluesfile.h"
+#include "nodesinfo/treeleftsideinfo.h"
+#include "nodesinfo/treerightsidevalues.h"
 #include "nodesinfo/treeleftsideinfofactory.h"
 #include "nodesinfo/propertynode.h"
 
