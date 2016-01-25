@@ -46,6 +46,8 @@ PropertyTreeViewer::PropertyTreeViewer(const QString &_leftSideTreeId, int _mode
 
     connect(m_ui->tabWidget, SIGNAL(currentChanged(int)), SLOT(tabChanged(int)));
     connect(m_ui->normalise, SIGNAL(clicked(bool)),       SLOT(normalise(bool)));
+
+    setDefaultTabName(m_leftInfo->defaultRightSideTreeName());
 }
 
 PropertyTreeViewer::~PropertyTreeViewer()
