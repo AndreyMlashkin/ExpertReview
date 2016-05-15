@@ -27,6 +27,8 @@ private:
     void closeEvent(QCloseEvent * event) override;
 
 private:
+    Q_DISABLE_COPY(ModeChooser);
+
     Ui::ModeChooser *m_ui;
     struct ModeChooserPrivate;
     ModeChooserPrivate* p;

@@ -25,35 +25,35 @@ SOURCES += main.cpp\
     treepropertywidget.cpp \
     propertytreeviewer.cpp \
     modechooser.cpp \
-    nodesinfo/propertynode.cpp \
+    serialization/nodesinfo/propertynode.cpp \
     projectcalculation.cpp \
     finalcalculationdialog.cpp \
-    nodesinfo/treeleftsideinfo.cpp \
-    nodesinfo/treeleftsideinfofactory.cpp \
-    jsonserialiser/treeleftsideinfojson.cpp \
-    jsonserialiser/propertynodejson.cpp \
-    jsonserialiser/treerightsidevaluesjson.cpp \
+    serialization/nodesinfo/treeleftsideinfo.cpp \
+    serialization/nodesinfo/treeleftsideinfofactory.cpp \
+    serialization/jsonserialiser/treeleftsideinfojson.cpp \
+    serialization/jsonserialiser/propertynodejson.cpp \
+    serialization/jsonserialiser/treerightsidevaluesjson.cpp \
     fulltreetablemodel.cpp \
     finalreportviewdelegate.cpp \
-    projectchoosedialog.cpp
+    projectchoosedialog.cpp \
 
 HEADERS  += \
     treepropertywidget.h \
     propertytreeviewer.h \
     modechooser.h \
-    nodesinfo/propertynode.h \
-    nodesinfo/treeleftsideinfo.h \
-    nodesinfo/treerightsidevalues.h \
+    serialization/nodesinfo/propertynode.h \
+    serialization/nodesinfo/treeleftsideinfo.h \
+    serialization/nodesinfo/treerightsidevalues.h \
     projectcalculation.h \
     finalcalculationdialog.h \
     projectapi.h \
-    nodesinfo/treeleftsideinfofactory.h \
-    jsonserialiser/treeleftsideinfojson.h \
-    jsonserialiser/propertynodejson.h \
-    jsonserialiser/treerightsidevaluesjson.h \
+    serialization/nodesinfo/treeleftsideinfofactory.h \
+    serialization/jsonserialiser/treeleftsideinfojson.h \
+    serialization/jsonserialiser/propertynodejson.h \
+    serialization/jsonserialiser/treerightsidevaluesjson.h \
     fulltreetablemodel.h \
     finalreportviewdelegate.h \
-    projectchoosedialog.h
+    projectchoosedialog.h \
 
 FORMS    += \
     propertytreeviewer.ui \
