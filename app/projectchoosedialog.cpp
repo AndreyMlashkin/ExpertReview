@@ -3,13 +3,16 @@
 
 #include "projectchoosedialog.h"
 #include "ui_projectchoosedialog.h"
+#include "serialization/projectsloader.h"
 
-ProjectChooseDialog::ProjectChooseDialog(QWidget *parent) :
+ProjectChooseDialog::ProjectChooseDialog(const std::shared_ptr<ProjectsLoader> &loader, QWidget *parent) :
     QWidget(parent),
     m_ui(new Ui::ProjectChooseDialog)
 {
     m_ui->setupUi(this);
     updateProjectList();
+
+    connect(this, &ProjectChooseDialog::projectChoosen, loader.get(), &ProjectsLoader::load);
 }
 
 ProjectChooseDialog::~ProjectChooseDialog()

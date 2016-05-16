@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QDir>
 #include <QFileInfo>
 
 #include <QJsonDocument>
@@ -13,10 +14,16 @@ ProjectsLoader::ProjectsLoader()
 
 }
 
+ProjectsLoader::~ProjectsLoader()
+{
+    unload();
+}
+
 bool ProjectsLoader::load(const QFileInfo &fileInfo)
 {
-    // TODO здесь нужно грузить список файлов аналогично TreeLeftSideInfoJson::open(const QString &_treeName)
-    // В случае если пустой, то? занести все файлы с расширением json?
+    qDebug() << Q_FUNC_INFO;
+    if(m_opendProject.exists() && !m_loadedStructure.isEmpty())
+        unload();
 
     QFile loadFile(fileInfo.absoluteFilePath());
     if (!loadFile.open(QIODevice::ReadOnly))
@@ -28,13 +35,33 @@ bool ProjectsLoader::load(const QFileInfo &fileInfo)
     QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
     read(loadDoc.object());
     m_opendProject = fileInfo;
+
+    //TODO remove it
+    tryCompatibilityFillStructure();
+
+    return true;
+}
+
+bool ProjectsLoader::unload() const
+{
+    qDebug() << Q_FUNC_INFO;
+    QFile saveFile(m_opendProject.absoluteFilePath());
+    if (!saveFile.open(QIODevice::WriteOnly))
+    {
+        qDebug() << "Couldn't open" << m_opendProject.absoluteFilePath() << " at " << Q_FUNC_INFO;
+        return false;
+    }
+    QJsonObject projectStructure;
+    write(projectStructure);
+
+    QJsonDocument saveDoc(projectStructure);
+    saveFile.write(saveDoc.toJson(QJsonDocument::Indented));
+
     return true;
 }
 
 void ProjectsLoader::read(const QJsonObject &_json)
 {
-//    m_name = _json["name"].toString();
-
     m_loadedStructure.clear();
     QJsonArray nodes = _json["leftSides"].toArray();
     for (int i = 0; i < nodes.size(); ++i)
@@ -45,5 +72,44 @@ void ProjectsLoader::read(const QJsonObject &_json)
         QStringList rightSideNames = toStringList(varRightSideNames);
 
         m_loadedStructure[leftSideName] = rightSideNames;
+    }
+}
+
+void ProjectsLoader::write(QJsonObject &_json) const
+{
+    QMapIterator<QString, QStringList> iter(m_loadedStructure);
+
+    while(iter.hasNext())
+    {
+        iter.next();
+        _json[iter.key()] = QJsonArray::fromStringList(iter.value());
+    }
+}
+
+void ProjectsLoader::tryCompatibilityFillStructure()
+{
+    qDebug() << Q_FUNC_INFO;
+    QDir current = m_opendProject.absoluteDir();
+    QStringList filters {"*.json"};
+    QFileInfoList allFiles = current.entryInfoList(filters, QDir::NoDotAndDotDot | QDir::Files);
+
+    qDebug() << Q_FUNC_INFO << current.absolutePath() << " " << allFiles.size();
+
+    for(const QFileInfo& info : allFiles)
+    {
+        QString name = info.baseName();
+        QChar lastChar = name.at(name.size() - 1);
+        bool isRightSide = lastChar.isDigit();
+        if(isRightSide)
+        {
+            QString rightSideName = name;
+            rightSideName = rightSideName.remove(rightSideName.size() - 1, 1);
+            m_loadedStructure[rightSideName].append(name);
+        }
+        else
+        {
+            if(!m_loadedStructure.contains(name))
+                m_loadedStructure[name] = QStringList();
+        }
     }
 }

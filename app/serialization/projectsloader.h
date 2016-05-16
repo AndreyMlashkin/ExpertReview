@@ -10,12 +10,18 @@ class ProjectsLoader : public QObject
 {
 public:
     ProjectsLoader();
+    ~ProjectsLoader();
 
+public slots:
     //! \brief load loads all left and right sides from project file, specified in fileInfo
     bool load(const QFileInfo& fileInfo);
+    bool unload() const;
 
 private:
     void read(const QJsonObject &_json);
+    void write(QJsonObject &_json) const;
+
+    void tryCompatibilityFillStructure();
 
 private:
     QFileInfo m_opendProject;

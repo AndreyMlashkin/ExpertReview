@@ -1,6 +1,8 @@
 #ifndef PROJECTCHOOSEDIALOG_H
 #define PROJECTCHOOSEDIALOG_H
 
+#include "memory"
+
 #include <QWidget>
 #include <QMap>
 #include <QFileInfo>
@@ -11,13 +13,14 @@ class ProjectChooseDialog;
 }
 
 class QPushButton;
+class ProjectsLoader;
 
 class ProjectChooseDialog : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit ProjectChooseDialog(QWidget *parent = 0);
+    explicit ProjectChooseDialog(const std::shared_ptr<ProjectsLoader>& loader, QWidget *parent = 0);
     ~ProjectChooseDialog();
 
     void updateProjectList();
