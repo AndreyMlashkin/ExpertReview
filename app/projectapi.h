@@ -4,6 +4,15 @@
 #include <QVariantList>
 #include <QLocale>
 
+inline QStringList toStringList(const QVariantList& _varList)
+{
+    QStringList result;
+    for(QVariant v : _varList)
+        result << v.toString();
+
+    return result;
+}
+
 inline QList<double> toDoubleList(const QVariantList& _varList)
 {
     QList<double> ans;

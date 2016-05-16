@@ -36,6 +36,7 @@ SOURCES += main.cpp\
     fulltreetablemodel.cpp \
     finalreportviewdelegate.cpp \
     projectchoosedialog.cpp \
+    serialization/projectsloader.cpp
 
 HEADERS  += \
     treepropertywidget.h \
@@ -54,6 +55,7 @@ HEADERS  += \
     fulltreetablemodel.h \
     finalreportviewdelegate.h \
     projectchoosedialog.h \
+    serialization/projectsloader.h
 
 FORMS    += \
     propertytreeviewer.ui \
