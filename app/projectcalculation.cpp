@@ -5,9 +5,9 @@
 #include <include/expressioncalculator/parseradaptor.h>
 #include "projectapi.h"
 #include "projectcalculation.h"
-#include "nodesinfo/treeleftsideinfo.h"
-#include "nodesinfo/treerightsidevalues.h"
-#include "nodesinfo/propertynode.h"
+#include "serialization/nodesinfo/treeleftsideinfo.h"
+#include "serialization/nodesinfo/treerightsidevalues.h"
+#include "serialization/nodesinfo/propertynode.h"
 
 QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QString, double>& _other);
 QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, const QMap<QString, double>& _sections, const QList<PropertyNode*>& _nodes);

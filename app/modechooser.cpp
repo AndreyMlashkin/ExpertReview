@@ -5,9 +5,9 @@
 #include <QFile>
 
 #include "projectapi.h"
-#include "nodesinfo/treerightsidevalues.h"
-#include "nodesinfo/treeleftsideinfofactory.h"
-#include "nodesinfo/treeleftsideinfo.h"
+#include "serialization/nodesinfo/treerightsidevalues.h"
+#include "serialization/nodesinfo/treeleftsideinfofactory.h"
+#include "serialization/nodesinfo/treeleftsideinfo.h"
 #include "propertytreeviewer.h"
 #include "projectcalculation.h"
 #include "finalcalculationdialog.h"

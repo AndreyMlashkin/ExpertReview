@@ -8,10 +8,10 @@
 #include "treepropertywidget.h"
 
 #include "projectapi.h"
-#include "nodesinfo/treeleftsideinfo.h"
-#include "nodesinfo/treerightsidevalues.h"
-#include "nodesinfo/treeleftsideinfofactory.h"
-#include "nodesinfo/propertynode.h"
+#include "serialization/nodesinfo/treeleftsideinfo.h"
+#include "serialization/nodesinfo/treerightsidevalues.h"
+#include "serialization/nodesinfo/treeleftsideinfofactory.h"
+#include "serialization/nodesinfo/propertynode.h"
 
 TreePropertyWidget::TreePropertyWidget(TreeLeftSideInfo* _info, QWidget *_parent)
     : QtTreePropertyBrowser(_parent),
