@@ -8,6 +8,7 @@
 #include "serialization/nodesinfo/treerightsidevalues.h"
 #include "serialization/nodesinfo/treeleftsideinfofactory.h"
 #include "serialization/nodesinfo/treeleftsideinfo.h"
+#include "serialization/projectsloader.h"
 #include "propertytreeviewer.h"
 #include "projectcalculation.h"
 #include "finalcalculationdialog.h"
@@ -34,10 +35,11 @@ struct ModeChooser::ModeChooserPrivate
     QPointer <PropertyTreeViewer> calculation;
 };
 
-ModeChooser::ModeChooser(QWidget *parent) :
+ModeChooser::ModeChooser(const std::shared_ptr<ProjectsLoader> &_loader, QWidget *parent) :
     QWidget(parent),
     m_ui(new Ui::ModeChooser),
-    p(new ModeChooserPrivate)
+    p(new ModeChooserPrivate),
+    m_loader(_loader)
 {
     m_ui->setupUi(this);
 
