@@ -19,6 +19,19 @@ ProjectsLoader::~ProjectsLoader()
     unload();
 }
 
+QStringList ProjectsLoader::avaliableLeftSides() const
+{
+    return m_loadedStructure.keys();
+}
+
+TreeLeftSideInfo *ProjectsLoader::getLeftSideInfo(const QString &_treeName)
+{
+    if(avaliableLeftSides().contains(_treeName))
+        return m_factory.getLeftSideInfo(_treeName);
+    else
+        return nullptr;
+}
+
 bool ProjectsLoader::load(const QFileInfo &fileInfo)
 {
     qDebug() << Q_FUNC_INFO;

@@ -3,14 +3,19 @@
 
 #include <QObject>
 #include <QFileInfo>
+#include "serialization/nodesinfo/treeleftsideinfofactory.h"
 
 class QJsonObject;
+class TreeLeftSideInfo;
 
 class ProjectsLoader : public QObject
 {
 public:
-    ProjectsLoader();
+     ProjectsLoader();
     ~ProjectsLoader();
+
+     QStringList avaliableLeftSides() const;
+     TreeLeftSideInfo* getLeftSideInfo(const QString& _treeName);
 
 public slots:
     //! \brief load loads all left and right sides from project file, specified in fileInfo
@@ -27,6 +32,8 @@ private:
     QFileInfo m_opendProject;
     //! Maps left side file names to it's right sides
     QMap<QString, QStringList> m_loadedStructure;
+
+    TreeLeftSideInfoFactory m_factory;
 };
 
 #endif // PROJECTSLOADER_H
