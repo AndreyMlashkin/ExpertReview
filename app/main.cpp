@@ -1,8 +1,12 @@
-#include "modechooser.h"
-#include <QApplication>
+#include "memory"
 
+#include <QApplication>
 #include <QFile>
 #include <QTextStream>
+
+#include "serialization/projectsloader.h"
+#include "modechooser.h"
+#include "projectchoosedialog.h"
 
 void myMessageOutput(QtMsgType, const QMessageLogContext&, const QString &msg)
 {
@@ -23,8 +27,14 @@ int main(int argc, char *argv[])
 #endif
     QApplication a(argc, argv);
 
-    ModeChooser chooser;
-    chooser.show();
+    std::shared_ptr<ProjectsLoader> loader = std::make_shared<ProjectsLoader>();
+
+    ProjectChooseDialog projectChoose(loader);
+    projectChoose.show();
+
+    ModeChooser chooser(loader);
+
+    QObject::connect(&projectChoose, &ProjectChooseDialog::projectChoosen, &chooser, &QWidget::show);
 
     return a.exec();
 }

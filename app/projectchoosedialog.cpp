@@ -71,6 +71,7 @@ void ProjectChooseDialog::projectClicked()
     const auto& project = m_projectsBind[button];
     qDebug() << "choosen " << project.absoluteFilePath();
     emit projectChoosen(project);
+    hide();
 }
 
 void ProjectChooseDialog::clearGui()
