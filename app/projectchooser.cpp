@@ -1,26 +1,26 @@
 #include <QDebug>
 #include <QDir>
 
-#include "projectchoosedialog.h"
-#include "ui_projectchoosedialog.h"
+#include "projectchooser.h"
+#include "ui_projectchooser.h"
 #include "serialization/projectsloader.h"
 
-ProjectChooseDialog::ProjectChooseDialog(const ProjectsLoaderPtr& _loader, QWidget *parent) :
+ProjectChooser::ProjectChooser(const ProjectsLoaderPtr& _loader, QWidget *parent) :
     QWidget(parent),
-    m_ui(new Ui::ProjectChooseDialog)
+    m_ui(new Ui::ProjectChooser)
 {
     m_ui->setupUi(this);
     updateProjectList();
 
-    connect(this, &ProjectChooseDialog::projectChoosen, _loader.data(), &ProjectsLoader::load);
+    connect(this, &ProjectChooser::projectChoosen, _loader.data(), &ProjectsLoader::load);
 }
 
-ProjectChooseDialog::~ProjectChooseDialog()
+ProjectChooser::~ProjectChooser()
 {
     delete m_ui;
 }
 
-void ProjectChooseDialog::updateProjectList()
+void ProjectChooser::updateProjectList()
 {
     QDir projectDirecotry = QDir::current();
     auto directories = projectDirecotry.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
@@ -40,7 +40,7 @@ void ProjectChooseDialog::updateProjectList()
     updateProjectListGui();
 }
 
-void ProjectChooseDialog::updateProjectListGui()
+void ProjectChooser::updateProjectListGui()
 {
     clearGui();
 
@@ -55,11 +55,11 @@ void ProjectChooseDialog::updateProjectListGui()
         m_ui->projectButtonslayout->addWidget(projectButton);
         m_projectsBind[projectButton] = project;
 
-        connect(projectButton, &QPushButton::clicked, this, &ProjectChooseDialog::projectClicked);
+        connect(projectButton, &QPushButton::clicked, this, &ProjectChooser::projectClicked);
     }
 }
 
-void ProjectChooseDialog::projectClicked()
+void ProjectChooser::projectClicked()
 {
     QPushButton* button = qobject_cast<QPushButton*>(sender());
     if(!button || !m_projectsBind.contains(button))
@@ -74,7 +74,7 @@ void ProjectChooseDialog::projectClicked()
     hide();
 }
 
-void ProjectChooseDialog::clearGui()
+void ProjectChooser::clearGui()
 {
     for(QPushButton* button : m_projectsBind.keys())
     {

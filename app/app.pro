@@ -34,8 +34,8 @@ SOURCES += main.cpp\
     serialization/jsonserialiser/treerightsidevaluesjson.cpp \
     fulltreetablemodel.cpp \
     finalreportviewdelegate.cpp \
-    projectchoosedialog.cpp \
-    serialization/projectsloader.cpp
+    serialization/projectsloader.cpp \
+    projectchooser.cpp
 
 HEADERS  += \
     treepropertywidget.h \
@@ -52,14 +52,14 @@ HEADERS  += \
     serialization/jsonserialiser/treerightsidevaluesjson.h \
     fulltreetablemodel.h \
     finalreportviewdelegate.h \
-    projectchoosedialog.h \
-    serialization/projectsloader.h
+    serialization/projectsloader.h \
+    projectchooser.h
 
 FORMS    += \
     propertytreeviewer.ui \
     modechooser.ui \
     finalcalculationdialog.ui \
-    projectchoosedialog.ui
+    projectchooser.ui
 
 LIBS += -L$$PWD/../bin \
         -lqtpropertybrowser \

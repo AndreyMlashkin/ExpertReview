@@ -3,9 +3,11 @@
 #include <QApplication>
 #include <QFile>
 #include <QTextStream>
+#include <QShortcut>
+#include <QDebug>
 
 #include "serialization/projectsloader.h"
-#include "projectchoosedialog.h"
+#include "projectchooser.h"
 #include "modechooser.h"
 
 // TODO delete
@@ -34,11 +36,11 @@ int main(int argc, char *argv[])
 
     ProjectsLoader loader;
 
-    ProjectChooseDialog projectChoose(loader.getSelf());
+    ProjectChooser projectChoose(loader.getSelf());
     projectChoose.show();
 
     ModeChooser chooser(loader.getSelf());
-    QObject::connect(&projectChoose, &ProjectChooseDialog::projectChoosen, &chooser, &QWidget::show);
+    QObject::connect(&projectChoose, &ProjectChooser::projectChoosen, &chooser, &QWidget::show);
 
     // Test code:
 //    QTableView view;
@@ -50,6 +52,14 @@ int main(int argc, char *argv[])
 //                     &model,         &FullTreeTableModel::update);
 
     // Test code end
+
+    auto printLoadedStructure = [&loader]()
+    {
+        qDebug() << loader.loadedStructure();
+    };
+
+    QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+P"), &chooser);
+    QObject::connect(shortcut, &QShortcut::activated, printLoadedStructure);
 
     return a.exec();
 }

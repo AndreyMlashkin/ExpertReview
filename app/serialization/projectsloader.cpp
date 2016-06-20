@@ -86,7 +86,7 @@ TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
     Q_ASSERT(!rSide->values().isEmpty());
     m_rightSides.insert(key, rSide);
 
-    m_loadedStructure[_leftSideId].push_back(_rightSideId);
+    m_loadedStructure[_leftSideId].insert(_rightSideId);
     return rSide;
 }
 
@@ -189,7 +189,6 @@ void ProjectsLoader::read(const QJsonObject &_json)
         QString leftSideName = iter.key();
         QJsonArray rightSides = iter.value().toArray();
 
-        m_loadedStructure[leftSideName] = QStringList();
         for(const auto& rightSide : rightSides)
             m_loadedStructure[leftSideName] << rightSide.toString();
         ++iter;
@@ -200,12 +199,12 @@ void ProjectsLoader::read(const QJsonObject &_json)
 void ProjectsLoader::write(QJsonObject &_json) const
 {
     QJsonObject leftSides;
-    QMapIterator<QString, QStringList> iter(m_loadedStructure);
+    auto iter = m_loadedStructure.begin();
 
-    while(iter.hasNext())
+    while(iter != m_loadedStructure.end())
     {
-        iter.next();
-        leftSides[iter.key()] = QJsonArray::fromStringList(iter.value());
+        ++iter;
+        leftSides[iter.key()] = QJsonArray::fromStringList(iter.value().values());
     }
     _json["leftSides"] = leftSides;
 }
@@ -228,12 +227,12 @@ void ProjectsLoader::tryCompatibilityFillStructure()
         {
             QString rightSideName = name;
             rightSideName = rightSideName.remove(rightSideName.size() - 1, 1);
-            m_loadedStructure[rightSideName].append(name);
+            m_loadedStructure[rightSideName].insert(name);
         }
         else
         {
             if(!m_loadedStructure.contains(name))
-                m_loadedStructure[name] = QStringList();
+                m_loadedStructure[name] = QSet<QString>();
         }
     }
 }

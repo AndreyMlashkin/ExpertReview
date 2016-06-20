@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QFileInfo>
 #include <QMap>
+#include <QSet>
 #include <QCache>
 
 class QJsonObject;
@@ -21,6 +22,8 @@ public:
      QString projectDir() const;
 
      QStringList avaliableLeftSides() const;
+     QMap<QString, QSet<QString>> loadedStructure() { return m_loadedStructure; } // TODO hide it
+
      TreeLeftSideInfo* getLeftSideInfo(const QString& _leftSideId);
 
      QStringList avaliableRightSides(const QString _leftSideId) const;
@@ -61,7 +64,7 @@ private:
 
     QFileInfo m_opendProject;
     //! Maps left side file names to it's right sides
-    QMap<QString, QStringList> m_loadedStructure;
+    QMap<QString, QSet<QString>> m_loadedStructure;
 
     QCache<QString, TreeLeftSideInfo> m_leftSides;
     QCache<QPair<QString, QString>, TreeRightSideValues> m_rightSides; // maps a pair of right side + left side to Right side object

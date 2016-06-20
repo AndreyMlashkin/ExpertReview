@@ -1,5 +1,5 @@
-#ifndef PROJECTCHOOSEDIALOG_H
-#define PROJECTCHOOSEDIALOG_H
+#ifndef PROJECTCHOOSER_H
+#define PROJECTCHOOSER_H
 
 #include <QWidget>
 #include <QMap>
@@ -9,19 +9,19 @@
 #include "serialization/projectsloader.h"
 
 namespace Ui {
-class ProjectChooseDialog;
+class ProjectChooser;
 }
 
 class QPushButton;
 class ProjectsLoader;
 
-class ProjectChooseDialog : public QWidget
+class ProjectChooser : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit ProjectChooseDialog(const ProjectsLoaderPtr& _loader, QWidget *parent = 0);
-    ~ProjectChooseDialog();
+    explicit ProjectChooser(const ProjectsLoaderPtr& _loader, QWidget *parent = 0);
+    ~ProjectChooser();
 
     void updateProjectList();
     void updateProjectListGui();
@@ -36,10 +36,10 @@ private:
     void clearGui();
 
 private:
-    Ui::ProjectChooseDialog *m_ui;
+    Ui::ProjectChooser *m_ui;
 
     QFileInfoList m_foundProjects;
     QMap<QPushButton*, QFileInfo> m_projectsBind;
 };
 
-#endif // PROJECTCHOOSEDIALOG_H
+#endif // PROJECTCHOOSER_H
