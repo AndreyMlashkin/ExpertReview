@@ -2,7 +2,7 @@
 #define PROPERTYNODEJSON_H
 
 #include <QJsonObject>
-#include "nodesinfo/propertynode.h"
+#include "serialization/nodesinfo/propertynode.h"
 
 class PropertyNodeJson : public PropertyNode
 {

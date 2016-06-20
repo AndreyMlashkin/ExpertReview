@@ -18,7 +18,8 @@ public:
     ~TreePropertyWidget();
 
     void setValues(TreeRightSideValues* _values);
-    TreeRightSideValues* getValues() const;
+    // TODO refactor this
+    TreeRightSideValues* updateRightSideFromUi(TreeRightSideValues *_rightSide) const;
 
     void clear();
     void setEditable(bool _set);

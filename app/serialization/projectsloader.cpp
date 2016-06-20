@@ -1,6 +1,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
+#include <QFile>
 
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -8,11 +9,12 @@
 
 #include "projectsloader.h"
 #include "projectapi.h"
+#include "serialization/jsonserialiser/treeleftsideinfojson.h"
+#include "serialization/jsonserialiser/treerightsidevaluesjson.h"
 
 ProjectsLoader::ProjectsLoader()
-{
-
-}
+    : m_self(this)
+{}
 
 ProjectsLoader::~ProjectsLoader()
 {
@@ -24,17 +26,85 @@ QStringList ProjectsLoader::avaliableLeftSides() const
     return m_loadedStructure.keys();
 }
 
-TreeLeftSideInfo *ProjectsLoader::getLeftSideInfo(const QString &_treeName)
+TreeLeftSideInfo *ProjectsLoader::getLeftSideInfo(const QString &_leftSideId)
 {
-    if(avaliableLeftSides().contains(_treeName))
-        return m_factory.getLeftSideInfo(_treeName);
+    qDebug() << Q_FUNC_INFO << " " << _leftSideId << "\n"
+             << m_loadedStructure.keys();
+    if(avaliableLeftSides().contains(_leftSideId))
+    {
+        if(!m_leftSides.contains(_leftSideId))
+            createLeftSide(_leftSideId);
+
+        return m_leftSides[_leftSideId];
+    }
     else
         return nullptr;
 }
 
+QStringList ProjectsLoader::avaliableRightSides(const QString _leftSideId) const
+{
+    auto rightSideInternalNames = m_loadedStructure[_leftSideId];
+    QStringList res;
+    for(const QString internalName : rightSideInternalNames)
+    {
+        res << internalName;
+    }
+    return res;
+}
+
+TreeRightSideValues *ProjectsLoader::getRightSide(const QString &_leftSideId,
+                                                  const QString &_rightSideId) const
+{
+    QPair<QString, QString> key(_rightSideId, _leftSideId);
+    qDebug() << Q_FUNC_INFO << " " << m_rightSides.size();
+    if(m_rightSides.contains(key))
+        return m_rightSides[key];
+    return nullptr;
+}
+
+TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId, bool isTemp)
+{
+    QString rightSideName = generateRightSideName(_leftSideId);
+    return createRightSide(_leftSideId, rightSideName, isTemp);
+}
+
+TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId, const QString &_rightSideId, bool isTemp)
+{
+    QPair<QString, QString> key(_rightSideId, _leftSideId);
+    auto leftSide = getLeftSideInfo(_leftSideId);
+    TreeRightSideValues* rSide = leftSide->createRightSide();
+    rSide->setId(_rightSideId);
+    rSide->setTemp(isTemp);
+
+    // TODO AM
+    if(!rSide->isTemp())
+    {
+        QString path = projectDir() + _rightSideId;
+        rSide->readValues(path);
+    }
+
+    Q_ASSERT(!rSide->values().isEmpty());
+    m_rightSides.insert(key, rSide);
+
+    m_loadedStructure[_leftSideId].push_back(_rightSideId);
+    return rSide;
+}
+
+TreeRightSideValues *ProjectsLoader::getOrCreateRightSide(const QString &_leftSideId,
+                                                          const QString &_rightSideId,
+                                                          bool isTemp)
+{
+    TreeRightSideValues* result = getRightSide(_leftSideId, _rightSideId);
+    if(result)
+        return result;
+
+    result = createRightSide(_leftSideId, _rightSideId, isTemp);
+    return result;
+}
+
 bool ProjectsLoader::load(const QFileInfo &fileInfo)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << " loading " << fileInfo.absoluteFilePath();
     if(m_opendProject.exists() && !m_loadedStructure.isEmpty())
         unload();
 
@@ -45,12 +115,18 @@ bool ProjectsLoader::load(const QFileInfo &fileInfo)
         return false;
     }
     QByteArray saveData = loadFile.readAll();
-    QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
-    read(loadDoc.object());
+    QJsonParseError error;
+    QJsonDocument loadDoc(QJsonDocument::fromJson(saveData, &error));
+
+    if(loadDoc.isObject())
+        read(loadDoc.object());
+    else
+        qDebug() << Q_FUNC_INFO << " smth went wrong. " << error.errorString() << "at " << error.offset;
+
     m_opendProject = fileInfo;
 
     //TODO remove it
-    tryCompatibilityFillStructure();
+//    tryCompatibilityFillStructure();
 
     return true;
 }
@@ -58,6 +134,15 @@ bool ProjectsLoader::load(const QFileInfo &fileInfo)
 bool ProjectsLoader::unload() const
 {
     qDebug() << Q_FUNC_INFO;
+    bool success = unloadProjectStructure();
+    Q_ASSERT(success);
+    success = unloadRightSides();
+    Q_ASSERT(success);
+    return true;
+}
+
+bool ProjectsLoader::unloadProjectStructure() const
+{
     QFile saveFile(m_opendProject.absoluteFilePath());
     if (!saveFile.open(QIODevice::WriteOnly))
     {
@@ -73,30 +158,56 @@ bool ProjectsLoader::unload() const
     return true;
 }
 
+bool ProjectsLoader::unloadRightSides() const
+{
+    QStringList leftSides = avaliableLeftSides();
+    for(const QString& leftSideName : leftSides)
+    {
+        QStringList rSides = avaliableRightSides(leftSideName);
+        for(const QString& rSide : rSides)
+        {
+            TreeRightSideValues* rSideObj = getRightSide(leftSideName, rSide);
+            if(!rSideObj->isTemp())
+            {
+                // TODO id can be not unique
+                QString path = projectDir() + rSideObj->id();
+                rSideObj->writeValues(path);
+            }
+        }
+    }
+    return true;
+}
+
 void ProjectsLoader::read(const QJsonObject &_json)
 {
     m_loadedStructure.clear();
-    QJsonArray nodes = _json["leftSides"].toArray();
-    for (int i = 0; i < nodes.size(); ++i)
-    {
-        QJsonObject leftSide = nodes[i].toObject();
-        QString leftSideName = leftSide["name"].toString();
-        QVariantList varRightSideNames = leftSide["rightSides"].toArray().toVariantList();
-        QStringList rightSideNames = toStringList(varRightSideNames);
+    QJsonObject leftSides = _json["leftSides"].toObject();
+    auto iter = leftSides.begin();
 
-        m_loadedStructure[leftSideName] = rightSideNames;
+    while(iter != leftSides.end())
+    {
+        QString leftSideName = iter.key();
+        QJsonArray rightSides = iter.value().toArray();
+
+        m_loadedStructure[leftSideName] = QStringList();
+        for(const auto& rightSide : rightSides)
+            m_loadedStructure[leftSideName] << rightSide.toString();
+        ++iter;
     }
+    qDebug() << Q_FUNC_INFO << "loaded " << m_loadedStructure;
 }
 
 void ProjectsLoader::write(QJsonObject &_json) const
 {
+    QJsonObject leftSides;
     QMapIterator<QString, QStringList> iter(m_loadedStructure);
 
     while(iter.hasNext())
     {
         iter.next();
-        _json[iter.key()] = QJsonArray::fromStringList(iter.value());
+        leftSides[iter.key()] = QJsonArray::fromStringList(iter.value());
     }
+    _json["leftSides"] = leftSides;
 }
 
 void ProjectsLoader::tryCompatibilityFillStructure()
@@ -125,4 +236,31 @@ void ProjectsLoader::tryCompatibilityFillStructure()
                 m_loadedStructure[name] = QStringList();
         }
     }
+}
+
+void ProjectsLoader::createLeftSide(const QString &_treeName)
+{
+    TreeLeftSideInfoJson* leftSide = new TreeLeftSideInfoJson(_treeName, m_self);
+    m_leftSides.insert(_treeName, leftSide);
+}
+
+QString ProjectsLoader::generateRightSideName(const QString &_leftSide) const
+{
+    QStringList rightSides = avaliableRightSides(_leftSide);
+    QString rightSideName;
+    int suffix = rightSides.size();
+    while(true)
+    {
+        rightSideName = _leftSide + QString::number(suffix);
+        if(rightSides.contains(rightSideName))
+            ++suffix;
+        else
+            break;
+    }
+    return rightSideName;
+}
+
+QString ProjectsLoader::projectDir() const
+{
+    return QDir::fromNativeSeparators(m_opendProject.absolutePath() + QDir::separator());
 }

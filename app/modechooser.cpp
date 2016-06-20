@@ -35,11 +35,11 @@ struct ModeChooser::ModeChooserPrivate
     QPointer <PropertyTreeViewer> calculation;
 };
 
-ModeChooser::ModeChooser(const std::shared_ptr<ProjectsLoader> &_loader, QWidget *parent) :
+ModeChooser::ModeChooser(const ProjectsLoaderPtr& _loader, QWidget *parent) :
     QWidget(parent),
     m_ui(new Ui::ModeChooser),
-    p(new ModeChooserPrivate),
-    m_loader(_loader)
+    m_loader(_loader),
+    p(new ModeChooserPrivate)
 {
     m_ui->setupUi(this);
 
@@ -60,7 +60,7 @@ void ModeChooser::callMetodicJudges()
 {
     delete p->metodicJudges;
     p->metodicJudges.clear();
-    p->metodicJudges = new PropertyTreeViewer("metodicJudges");
+    p->metodicJudges = new PropertyTreeViewer(m_loader, "metodicJudges");
     p->metodicJudges->show();
 }
 
@@ -68,14 +68,14 @@ void ModeChooser::callSectionJudges()
 {
     delete p->sectionJudges;
     p->sectionJudges.clear();
-    p->sectionJudges = new PropertyTreeViewer("sections");
+    p->sectionJudges = new PropertyTreeViewer(m_loader, "sections");
     p->sectionJudges->show();
 }
 
 void ModeChooser::callSourceData()
 {
     delete p->sourceData;
-    p->sourceData = new PropertyTreeViewer("constants", PropertyTreeViewer::SaveRegularOnExit);
+    p->sourceData = new PropertyTreeViewer(m_loader, "constants", PropertyTreeViewer::SaveRegularOnExit);
     p->sourceData->setPrecision(4);
     p->sourceData->show();
 }
@@ -102,7 +102,7 @@ void createResulSectionstLeftSideFile()
 
 void ModeChooser::callSectionCalculation()
 {
-    createResulSectionstLeftSideFile();
+/*    createResulSectionstLeftSideFile();
     updateResult();
 
     TreeLeftSideInfoFactory* factory = new TreeLeftSideInfoFactory();
@@ -115,9 +115,10 @@ void ModeChooser::callSectionCalculation()
     ProjectCalculator calc(methodicJudges, methodicJudgesAverage, sectionsAverage);
     calc.calculateSections(calculatedFactors, sectionsResult);
 
-    PropertyTreeViewer* sectionResult = new PropertyTreeViewer("sectionsResult", PropertyTreeViewer::SaveRegularOnExit);
+    PropertyTreeViewer* sectionResult = new PropertyTreeViewer(m_loader, "sectionsResult", PropertyTreeViewer::SaveRegularOnExit);
     sectionResult->setPrecision(6);
     sectionResult->show();
+    */
 }
 
 void createResultLeftSideFile()
@@ -127,10 +128,11 @@ void createResultLeftSideFile()
 
 void ModeChooser::callCalculation()
 {
-    updateResult();
+    // TODO restore
+    /*    updateResult();
 
     delete p->calculation;
-    p->calculation = new PropertyTreeViewer("result", PropertyTreeViewer::Minimal);
+    p->calculation = new PropertyTreeViewer(m_loader, "result", PropertyTreeViewer::Minimal);
     p->calculation->setPrecision(6);
     p->calculation->show();
 
@@ -147,15 +149,19 @@ void ModeChooser::callCalculation()
     double firstFinalCriterium  = calculateFinalCriterium(firstResult);
     double secondFinalCriterium = calculateFinalCriterium(secondResult);
 
-    FinalCalculationDialog dialog(firstFinalCriterium, secondFinalCriterium, "sectionsResult", this);
+    FinalCalculationDialog dialog(m_loader,
+                                  firstFinalCriterium,
+                                  secondFinalCriterium,
+                                  "sectionsResult", this);
     dialog.exec();
 
     delete factory;
+    */
 }
 
 void ModeChooser::updateResult()
 {
-    createResultLeftSideFile();
+/*    createResultLeftSideFile();
 
     TreeLeftSideInfoFactory* factory = new TreeLeftSideInfoFactory();
     TreeRightSideValues* methodicJudgesAverage = getAverage(factory, "metodicJudges");
@@ -169,6 +175,7 @@ void ModeChooser::updateResult()
     calc.calculate(constants, result);
 
     delete factory;
+    */
 }
 
 void ModeChooser::closeEvent(QCloseEvent *event)

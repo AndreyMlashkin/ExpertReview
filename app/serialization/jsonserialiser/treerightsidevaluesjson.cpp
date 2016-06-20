@@ -9,10 +9,24 @@
 TreeRightSideValuesJson::TreeRightSideValuesJson(const QJsonObject &_leftSide)
     : TreeRightSideValues(),
       m_json(_leftSide)
-{}
+{
+    qDebug() << Q_FUNC_INFO; // TODO remove
+}
+
+TreeRightSideValuesJson::~TreeRightSideValuesJson()
+{
+    qDebug() << Q_FUNC_INFO << id(); // TODO remove
+}
 
 QMap<QString, double> TreeRightSideValuesJson::values() const
 {
+    if(m_values.isEmpty())
+    {
+        TreeRightSideValuesJson* nonConstThis = const_cast<TreeRightSideValuesJson*>(this);
+        nonConstThis->m_values = nonConstThis->extractValues(m_json); // init all values with 0.
+        Q_ASSERT(m_values.size() != 0);
+    }
+
     return m_values;
 }
 
@@ -21,16 +35,15 @@ void TreeRightSideValuesJson::setValues(const QMap<QString, double> &_values)
     m_values = _values;
 }
 
-//! _treeName should contain extention
-void TreeRightSideValuesJson::readValues(const QString &_treeName)
+void TreeRightSideValuesJson::readValues(const QString &_id)
 {
-    m_openedFile = _treeName;
+    m_openedFile = _id;
     m_values.clear();
 
-    QFile loadFile(_treeName);
+    QFile loadFile(_id);
     if (!loadFile.open(QIODevice::ReadOnly))
     {
-        qDebug() << "Couldn't open" << _treeName;
+        qDebug() << "Couldn't open" << _id;
         return;
     }
     QByteArray saveData = loadFile.readAll();
@@ -40,9 +53,9 @@ void TreeRightSideValuesJson::readValues(const QString &_treeName)
     m_values = extractValues(obj);
 }
 
-void TreeRightSideValuesJson::writeValues(const QString &_treeName)
-{
-    QFile saveFile(_treeName + extension());
+void TreeRightSideValuesJson::writeValues(const QString &_id)
+{    
+    QFile saveFile(_id);
     if (!saveFile.open(QIODevice::WriteOnly))
         qDebug() << Q_FUNC_INFO << "Couldn't open save file.";
 
@@ -80,10 +93,13 @@ QJsonObject TreeRightSideValuesJson::addValues(QJsonObject _obj)
 QMap<QString, double> TreeRightSideValuesJson::extractValues(const QJsonObject &_jObject) const
 {
     QMap<QString, double> ans;
-    if(_jObject.contains("value"))
+    if(_jObject.contains("key"))
     {
         QString key = _jObject["key"].toString();
-        double  val = _jObject["value"].toDouble();
+        double  val = _jObject.contains("value") ?
+                    _jObject["value"].toDouble()
+                    : 0;
+
         if(key.isEmpty())
             qDebug() << Q_FUNC_INFO << "ERROR IN SOURSE DATA: key is empty in " + m_openedFile;
         else
@@ -99,9 +115,4 @@ QMap<QString, double> TreeRightSideValuesJson::extractValues(const QJsonObject &
         }
     }
     return ans;
-}
-
-QString TreeRightSideValuesJson::extension()
-{
-    return ".json";
 }

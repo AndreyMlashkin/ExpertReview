@@ -29,7 +29,6 @@ SOURCES += main.cpp\
     projectcalculation.cpp \
     finalcalculationdialog.cpp \
     serialization/nodesinfo/treeleftsideinfo.cpp \
-    serialization/nodesinfo/treeleftsideinfofactory.cpp \
     serialization/jsonserialiser/treeleftsideinfojson.cpp \
     serialization/jsonserialiser/propertynodejson.cpp \
     serialization/jsonserialiser/treerightsidevaluesjson.cpp \
@@ -48,7 +47,6 @@ HEADERS  += \
     projectcalculation.h \
     finalcalculationdialog.h \
     projectapi.h \
-    serialization/nodesinfo/treeleftsideinfofactory.h \
     serialization/jsonserialiser/treeleftsideinfojson.h \
     serialization/jsonserialiser/propertynodejson.h \
     serialization/jsonserialiser/treerightsidevaluesjson.h \

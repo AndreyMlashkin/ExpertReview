@@ -2,14 +2,16 @@
 #define TREELEFTSIDEINFO_H
 
 #include <QStringList>
+#include "serialization/projectsloader.h"
 
 class PropertyNode;
 class TreeRightSideValues;
+class ProjectsLoader;
 
 class TreeLeftSideInfo
 {
 public:
-    TreeLeftSideInfo() {}
+    TreeLeftSideInfo(const ProjectsLoaderPtr& _loader);
     virtual ~TreeLeftSideInfo() {}
     virtual void clear() {} // !!! todo abstract
 
@@ -36,6 +38,9 @@ public:
 
 private:
     void fillTitlesAndLeafs();
+
+protected:
+    ProjectsLoaderPtr m_loader;
 
 private:
     mutable QStringList m_titles;

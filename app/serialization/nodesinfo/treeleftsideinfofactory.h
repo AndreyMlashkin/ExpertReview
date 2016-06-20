@@ -6,6 +6,7 @@
 
 class TreeLeftSideInfo;
 
+// TODO illiminate this class.
 class TreeLeftSideInfoFactory
 {
 public:

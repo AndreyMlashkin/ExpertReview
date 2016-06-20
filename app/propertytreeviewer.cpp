@@ -3,13 +3,14 @@
 #include "propertytreeviewer.h"
 #include "ui_propertytreeviewer.h"
 #include "treepropertywidget.h"
-#include "nodesinfo/treeleftsideinfofactory.h"
-#include "nodesinfo/treerightsidevalues.h"
-#include "nodesinfo/treeleftsideinfo.h"
+#include "serialization/nodesinfo/treeleftsideinfofactory.h"
+#include "serialization/nodesinfo/treerightsidevalues.h"
+#include "serialization/nodesinfo/treeleftsideinfo.h"
 
-PropertyTreeViewer::PropertyTreeViewer(const QString &_leftSideTreeId, int _mode, QWidget *parent)
+PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const QString &_leftSideTreeId, int _mode, QWidget *parent)
    : QWidget(parent),
      m_ui(new Ui::PropertyTreeViewer),
+     m_loader(_loader),
      m_mode(_mode),
      m_serviceTabsCount(0),
 
@@ -52,8 +53,13 @@ PropertyTreeViewer::PropertyTreeViewer(const QString &_leftSideTreeId, int _mode
 
 PropertyTreeViewer::~PropertyTreeViewer()
 {
-    if(m_mode & SaveRegularOnExit)
-        writeRightSideVals();
+    // TODO
+//    if(m_mode & SaveRegularOnExit)
+//        writeRightSideVals();
+
+    if(!isNormalised())
+        saveValuesFromUi();
+
     delete m_ui;
 }
 
@@ -127,10 +133,11 @@ void PropertyTreeViewer::normalise(bool _toggled)
     if(_toggled)
     {
         saveValuesFromUi();
-        TreeRightSideValues* oldVals = NULL;
+        TreeRightSideValues* oldVals = m_loader->createRightSide(m_leftSideTreeId,
+                                                                 "tmp", true);
 
         if(isServiceTab(m_currentTab))
-            oldVals = m_treePropertyWidget->getValues();
+            oldVals = m_treePropertyWidget->updateRightSideFromUi(oldVals);
         else
             oldVals = m_values[m_currentTab];
         Q_ASSERT(oldVals);
@@ -149,8 +156,7 @@ void PropertyTreeViewer::normalise(bool _toggled)
 
 void PropertyTreeViewer::init()
 {
-    m_factory = new TreeLeftSideInfoFactory();
-    m_leftInfo = m_factory->getLeftSideInfo(m_leftSideTreeId);
+    m_leftInfo = m_loader->getLeftSideInfo(m_leftSideTreeId);
     m_treePropertyWidget = new TreePropertyWidget(m_leftInfo);
 
     m_average = m_ui->average;
@@ -194,7 +200,9 @@ void PropertyTreeViewer::addTab()
     if(m_values.size() <= insertPos)
     {
         m_values.resize(insertPos + 1); // 1 - index to size;
-        m_values[insertPos] = m_leftInfo->createRightSide();
+
+        QString leftId = m_leftInfo->treeName();
+        m_values[insertPos] = m_loader->createRightSide(leftId);
     }
     m_ui->tabWidget->setCurrentWidget(newWidget);
 }
@@ -277,9 +285,8 @@ void PropertyTreeViewer::saveValuesFromUi()
 {
     if(!isServiceTab(m_currentTab))
     {
-        TreeRightSideValues* previousVals = m_treePropertyWidget->getValues();
-        delete m_values[m_currentTab];
-        m_values[m_currentTab] = previousVals;
+        TreeRightSideValues* currentRValues = m_values[m_currentTab];
+        m_treePropertyWidget->updateRightSideFromUi(currentRValues);
     }
 }
 
@@ -299,7 +306,7 @@ void PropertyTreeViewer::setActiveTab(QWidget *_tab)
     _tab->layout()->addWidget(m_treePropertyWidget);
     m_ui->tabWidget->setCurrentWidget(_tab);
 }
-
+/*
 void PropertyTreeViewer::writeRightSideVals()
 {
     if(!isNormalised())
@@ -315,7 +322,7 @@ void PropertyTreeViewer::writeRightSideVals()
     TreeRightSideValues* arMean = arithmeticalMean();
     arMean = normalise(arMean);
     arMean->writeValues(m_leftSideTreeId + "_average");
-}
+}*/
 
 void PropertyTreeViewer::readRightSideVals()
 {

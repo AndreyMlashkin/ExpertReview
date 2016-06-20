@@ -2,6 +2,7 @@
 #define FINALCALCULATIONDIALOG_H
 
 #include <QDialog>
+#include "serialization/projectsloader.h"
 
 namespace Ui
 {
@@ -15,7 +16,10 @@ class FinalCalculationDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit FinalCalculationDialog(double _firstProjValue, double _secondProjValue, const QString& _treeName, QWidget *parent = 0);
+    explicit FinalCalculationDialog(const ProjectsLoaderPtr& _loader,
+                                    double _firstProjValue,
+                                    double _secondProjValue,
+                                    const QString& _treeName, QWidget *parent = 0);
     ~FinalCalculationDialog();
 
 private:
@@ -24,6 +28,7 @@ private:
 
 private:
     Ui::FinalCalculationDialog *m_ui;
+    ProjectsLoaderPtr m_loader;
     FullTreeTableModel* m_model;
 };
 

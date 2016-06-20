@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QWidget>
+#include "serialization/projectsloader.h"
 
 namespace Ui
 {
@@ -27,7 +28,9 @@ public:
                 All = 0xFFFFFFF
               };
 
-    explicit PropertyTreeViewer(const QString& _leftSideTreeId, int _mode = All, QWidget *parent = 0);
+    explicit PropertyTreeViewer(const ProjectsLoaderPtr& _loader,
+                                const QString& _leftSideTreeId,
+                                int _mode = All, QWidget *parent = 0);
     ~PropertyTreeViewer();
 
     void setDefaultTabName(const QString& _name);
@@ -57,11 +60,13 @@ private:
     void setActiveTab(int _tabNum);
     void setActiveTab(QWidget* _tab);
 
-    void writeRightSideVals();
+//    void writeRightSideVals();
     void readRightSideVals();
 
 private:
     Ui::PropertyTreeViewer *m_ui;
+    ProjectsLoaderPtr m_loader;
+
     int m_mode;
     QWidget* m_average;
     QWidget* m_add;

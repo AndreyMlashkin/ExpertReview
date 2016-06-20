@@ -2,18 +2,14 @@
 #define FULLTREETABLEMODEL_H
 
 #include <QAbstractTableModel>
-
+#include "serialization/projectsloader.h"
 
 // TODO find better name
 class FullTreeTableModel : public QAbstractTableModel
 {
 public:
-    FullTreeTableModel();
-    FullTreeTableModel(const QString& _treeName);
-
-    void setTreeName(const QString& _treeName);
-    void update();
-    void clear();
+    FullTreeTableModel(const ProjectsLoaderPtr _loader);
+    FullTreeTableModel(const QString& _treeName, const ProjectsLoaderPtr _loader);
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
 
@@ -28,11 +24,17 @@ public:
 
     QString report() const;
 
+public slots:
+    void setTreeName(const QString& _treeName);
+    void update();
+    void clear();
+
 private:
     typedef QVector< double> Line;
     void normaliseLine(Line& _line);
 
 private:
+    ProjectsLoaderPtr m_loader;
     QString m_treeName;
 
     QStringList m_linesNames;

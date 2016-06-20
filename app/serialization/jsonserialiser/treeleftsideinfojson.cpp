@@ -7,13 +7,14 @@
 #include "treeleftsideinfojson.h"
 #include "treerightsidevaluesjson.h"
 
-TreeLeftSideInfoJson::TreeLeftSideInfoJson()
-    : TreeLeftSideInfo(),
+TreeLeftSideInfoJson::TreeLeftSideInfoJson(const ProjectsLoaderPtr &_loader)
+    : TreeLeftSideInfo(_loader),
       m_isActual(false)
 {}
 
-TreeLeftSideInfoJson::TreeLeftSideInfoJson(const QString &_treeName)
-    : TreeLeftSideInfo(),
+TreeLeftSideInfoJson::TreeLeftSideInfoJson(const QString &_treeName, const ProjectsLoaderPtr &_loader)
+    : TreeLeftSideInfo(_loader),
+      m_treeName(_treeName),
       m_isActual(false)
 {
     open(_treeName);
@@ -33,12 +34,11 @@ void TreeLeftSideInfoJson::clear()
 void TreeLeftSideInfoJson::open(const QString &_treeName)
 {
     m_isActual = false;
-    m_treeName = _treeName;
 
-    QFile loadFile(_treeName + extension());
+    QFile loadFile(getPath());
     if (!loadFile.open(QIODevice::ReadOnly))
     {
-        qDebug() << "Couldn't open" << _treeName + extension() << "at" << Q_FUNC_INFO;
+        qDebug() << "Couldn't open " << getPath() << "at" << Q_FUNC_INFO;
         return;
     }
     QByteArray saveData = loadFile.readAll();
@@ -48,7 +48,8 @@ void TreeLeftSideInfoJson::open(const QString &_treeName)
 
 bool TreeLeftSideInfoJson::save() const
 {
-    QFile saveFile(treeName() + extension());
+    qDebug() << Q_FUNC_INFO; // TODO remove
+    QFile saveFile(getPath());
 
     if (!saveFile.open(QIODevice::WriteOnly))
     {
@@ -74,9 +75,14 @@ QString TreeLeftSideInfoJson::treeName() const
 
 QString TreeLeftSideInfoJson::name() const
 {
-    if(m_name.isEmpty())
+    if(m_guiName.isEmpty())
         return TreeLeftSideInfo::name();
-    return m_name;
+    return m_guiName;
+}
+
+QString TreeLeftSideInfoJson::getPath() const
+{
+    return m_loader->projectDir() + treeName();
 }
 
 const QList<PropertyNode *> TreeLeftSideInfoJson::nodes()
@@ -96,16 +102,7 @@ QStringList TreeLeftSideInfoJson::planeKeys() const
 
 int TreeLeftSideInfoJson::savedRightSidesCount() const
 {
-    int count = 0;
-    forever
-    {
-        QString path = rightSidePath(count);
-        QFileInfo info(path);
-        if(info.exists())
-            ++count;
-        else
-            return count;
-    }
+    return m_loader->avaliableRightSides(m_treeName).size();
 }
 
 QString TreeLeftSideInfoJson::defaultRightSideTreeName() const
@@ -115,25 +112,12 @@ QString TreeLeftSideInfoJson::defaultRightSideTreeName() const
 
 QStringList TreeLeftSideInfoJson::savedRightSidesTreeNames() const
 {
-    QStringList ans;
-    int count = 0;
-    forever
-    {
-        QString path = rightSidePath(count);
-        QFileInfo info(path);
-        if(info.exists())
-        {
-            ++count;
-            ans << path;
-        }
-        else
-            return ans;
-    }
+    return m_loader->avaliableRightSides(m_treeName);
 }
 
 QString TreeLeftSideInfoJson::savedAverageRightSideTreeName() const
 {
-    return m_treeName + "_average" + extension();
+    return m_treeName + "_average";
 }
 
 TreeRightSideValues *TreeLeftSideInfoJson::createRightSide() const
@@ -176,23 +160,14 @@ QStringList TreeLeftSideInfoJson::getPlaneListOfProperties(const QJsonObject &_j
     return ans;
 }
 
-QString TreeLeftSideInfoJson::extension()
-{
-    return QStringLiteral(".json");
-}
-
-QString TreeLeftSideInfoJson::rightSidePath(int _numer) const
-{
-    return m_treeName + QString::number(_numer) + extension();
-}
-
 void TreeLeftSideInfoJson::read(const QJsonObject &_json)
 {
     m_isActual = false;
 
     clear(); // !!!
 
-    m_name = _json["name"].toString();
+    m_guiName = _json["name"].toString();
+    m_treeName = _json["internalName"].toString();
     m_defaultRightSideTreeName = _json["defaultRightSideName"].toString();
 
     QJsonArray nodes = _json["nodes"].toArray();
@@ -207,7 +182,7 @@ void TreeLeftSideInfoJson::read(const QJsonObject &_json)
 
 void TreeLeftSideInfoJson::write(QJsonObject &json) const
 {
-    json["name"] = m_treeName;
+    json["name"] = m_guiName;
 
     QJsonArray nodesArray;
     foreach (PropertyNodeJson* node, m_nodes)

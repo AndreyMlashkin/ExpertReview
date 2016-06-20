@@ -7,8 +7,8 @@
 class TreeLeftSideInfoJson : public TreeLeftSideInfo
 {
 public:
-    TreeLeftSideInfoJson();
-    TreeLeftSideInfoJson(const QString& _treeName);
+    TreeLeftSideInfoJson(const ProjectsLoaderPtr& _loader);
+    TreeLeftSideInfoJson(const QString& _treeName, const ProjectsLoaderPtr& _loader);
     ~TreeLeftSideInfoJson();
     void clear() override;
 
@@ -16,6 +16,7 @@ public:
     bool save() const;
     QString treeName() const override;
     QString name() const override;
+    QString getPath() const;
 
     const QList<PropertyNode*> nodes() override;
     QStringList planeDescriptions() const override;
@@ -32,7 +33,6 @@ public:
 private:
     static QStringList getPlaneListOfProperties(const QJsonObject& _json, const QString& _prop);
 
-    static QString extension();
     QString rightSidePath(int _numer) const;
 
     void read(const QJsonObject &_json);
@@ -40,7 +40,7 @@ private:
     QJsonObject& actualJson() const;
 
 private:
-    QString m_name;
+    QString m_guiName;
     QString m_treeName;
     QString m_defaultRightSideTreeName;
     mutable bool m_isActual;
@@ -49,7 +49,6 @@ private:
     QList<PropertyNodeJson*> m_nodes;
     QStringList m_planeDescriptions;
     QStringList m_planeKeys;
-
 };
 
 #endif // TREELEFTSIDEINFOJSON_H

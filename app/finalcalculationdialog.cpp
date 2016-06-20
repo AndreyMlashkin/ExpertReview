@@ -5,10 +5,11 @@
 #include "ui_finalcalculationdialog.h"
 #include "fulltreetablemodel.h"
 
-FinalCalculationDialog::FinalCalculationDialog(double _firstProjValue, double _secondProjValue, const QString& _treeName, QWidget *parent)
+FinalCalculationDialog::FinalCalculationDialog(const ProjectsLoaderPtr &_loader, double _firstProjValue, double _secondProjValue, const QString& _treeName, QWidget *parent)
     : QDialog(parent),
       m_ui(new Ui::FinalCalculationDialog),
-      m_model(new FullTreeTableModel(_treeName))
+      m_loader(_loader),
+      m_model(new FullTreeTableModel(_treeName, _loader))
 {
     m_ui->setupUi(this);
     QString report = m_ui->label->text();

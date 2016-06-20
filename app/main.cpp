@@ -5,8 +5,13 @@
 #include <QTextStream>
 
 #include "serialization/projectsloader.h"
-#include "modechooser.h"
 #include "projectchoosedialog.h"
+#include "modechooser.h"
+
+// TODO delete
+#include <QTableView>
+#include "fulltreetablemodel.h"
+// TODO delete
 
 void myMessageOutput(QtMsgType, const QMessageLogContext&, const QString &msg)
 {
@@ -27,14 +32,24 @@ int main(int argc, char *argv[])
 #endif
     QApplication a(argc, argv);
 
-    std::shared_ptr<ProjectsLoader> loader = std::make_shared<ProjectsLoader>();
+    ProjectsLoader loader;
 
-    ProjectChooseDialog projectChoose(loader);
+    ProjectChooseDialog projectChoose(loader.getSelf());
     projectChoose.show();
 
-    ModeChooser chooser(loader);
-
+    ModeChooser chooser(loader.getSelf());
     QObject::connect(&projectChoose, &ProjectChooseDialog::projectChoosen, &chooser, &QWidget::show);
+
+    // Test code:
+//    QTableView view;
+//    FullTreeTableModel model(loader.getSelf());
+//    view.setModel(&model);
+//    model.setTreeName("metodicJudges");
+//    view.show();
+//    QObject::connect(&projectChoose, &ProjectChooseDialog::projectChoosen,
+//                     &model,         &FullTreeTableModel::update);
+
+    // Test code end
 
     return a.exec();
 }

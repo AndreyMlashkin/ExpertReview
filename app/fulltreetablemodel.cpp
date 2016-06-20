@@ -1,16 +1,18 @@
-#include "nodesinfo/treeleftsideinfofactory.h"
-#include "nodesinfo/treeleftsideinfo.h"
-#include "nodesinfo/treerightsidevalues.h"
+#include "serialization/nodesinfo/treeleftsideinfofactory.h"
+#include "serialization/nodesinfo/treeleftsideinfo.h"
+#include "serialization/nodesinfo/treerightsidevalues.h"
 
 #include "fulltreetablemodel.h"
 
-FullTreeTableModel::FullTreeTableModel()
-    : QAbstractTableModel()
+FullTreeTableModel::FullTreeTableModel(const ProjectsLoaderPtr _loader)
+    : QAbstractTableModel(),
+      m_loader(_loader)
 {}
 
-FullTreeTableModel::FullTreeTableModel(const QString &_treeName)
+FullTreeTableModel::FullTreeTableModel(const QString &_treeName, const ProjectsLoaderPtr _loader)
     : QAbstractTableModel(),
-    m_treeName(_treeName)
+      m_loader(_loader),
+      m_treeName(_treeName)
 {
     setTreeName(_treeName);
 }
@@ -22,8 +24,12 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
     clear();
 
     m_treeName = _treeName;
-    TreeLeftSideInfoFactory* factory = new TreeLeftSideInfoFactory();
-    TreeLeftSideInfo* leftSide = factory->getLeftSideInfo(_treeName);
+    TreeLeftSideInfo* leftSide = m_loader->getLeftSideInfo(_treeName);
+    if(!leftSide)
+    {
+        clear();
+        return;
+    }
 
     m_columnsNames = leftSide->savedRightSidesTreeNames();
     m_linesNames   = leftSide->planeDescriptions();
@@ -47,7 +53,6 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
             m_values[i] << lineValue;
         }
     }
-    delete factory;
     endResetModel();
 }
 
@@ -58,7 +63,7 @@ void FullTreeTableModel::update()
 
 void FullTreeTableModel::clear()
 {
-    m_treeName = QString::null;
+//    m_treeName = QString::null;
     m_linesNames = QStringList();
     m_values.resize(0);
 }

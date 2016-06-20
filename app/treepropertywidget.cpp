@@ -64,7 +64,7 @@ void TreePropertyWidget::setValues(TreeRightSideValues *_values)
     }
 }
 
-TreeRightSideValues *TreePropertyWidget::getValues() const
+TreeRightSideValues *TreePropertyWidget::updateRightSideFromUi(TreeRightSideValues* _rightSide) const
 {
     QMap<QString, double> values;
 
@@ -78,10 +78,8 @@ TreeRightSideValues *TreePropertyWidget::getValues() const
         QString key = iter.key();
         values[key] = value;
     }
-
-    TreeRightSideValues* rightSide = m_leftSide->createRightSide();
-    rightSide->setValues(values);
-    return rightSide;
+    _rightSide->setValues(values);
+    return _rightSide;
 }
 
 void TreePropertyWidget::clear()

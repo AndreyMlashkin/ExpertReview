@@ -1,8 +1,8 @@
 #ifndef MODECHOOSER_H
 #define MODECHOOSER_H
 
-#include "memory"
 #include <QWidget>
+#include "serialization/projectsloader.h"
 
 namespace Ui {
 class ModeChooser;
@@ -15,7 +15,7 @@ class ModeChooser : public QWidget
     Q_OBJECT
 
 public:
-    explicit ModeChooser(const std::shared_ptr<ProjectsLoader>& _loader, QWidget *parent = 0);
+    explicit ModeChooser(const ProjectsLoaderPtr &_loader, QWidget *parent = 0);
     ~ModeChooser();
 
 private slots:
@@ -33,10 +33,10 @@ private:
     Q_DISABLE_COPY(ModeChooser);
 
     Ui::ModeChooser *m_ui;
+    ProjectsLoaderPtr m_loader;
     struct ModeChooserPrivate;
     ModeChooserPrivate* p;
 
-    std::shared_ptr<ProjectsLoader> m_loader;
 };
 
 #endif // MODECHOOSER_H

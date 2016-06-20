@@ -1,12 +1,12 @@
 #ifndef PROJECTCHOOSEDIALOG_H
 #define PROJECTCHOOSEDIALOG_H
 
-#include "memory"
-
 #include <QWidget>
 #include <QMap>
 #include <QFileInfo>
 #include <QFileInfo>
+
+#include "serialization/projectsloader.h"
 
 namespace Ui {
 class ProjectChooseDialog;
@@ -20,7 +20,7 @@ class ProjectChooseDialog : public QWidget
     Q_OBJECT
 
 public:
-    explicit ProjectChooseDialog(const std::shared_ptr<ProjectsLoader>& loader, QWidget *parent = 0);
+    explicit ProjectChooseDialog(const ProjectsLoaderPtr& _loader, QWidget *parent = 0);
     ~ProjectChooseDialog();
 
     void updateProjectList();

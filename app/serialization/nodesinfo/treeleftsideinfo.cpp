@@ -12,6 +12,10 @@ void operator <<(QStack<PropertyNode*>& _stack, const QList<PropertyNode*>& _lis
         _stack.append(node);
 }
 
+TreeLeftSideInfo::TreeLeftSideInfo(const ProjectsLoaderPtr &_loader)
+    : m_loader(_loader)
+{}
+
 QStringList TreeLeftSideInfo::titles() const
 {
     if(m_titles.isEmpty())
@@ -31,11 +35,8 @@ QStringList TreeLeftSideInfo::leafs() const
 TreeRightSideValues *TreeLeftSideInfo::openRightSide(int _num)
 {
     Q_ASSERT(_num < savedRightSidesCount());
-    TreeRightSideValues* values = createRightSide();
     QString saved = savedRightSidesTreeNames().at(_num);
-    values->readValues(saved);
-    return values;
-
+    return m_loader->getOrCreateRightSide(treeName(), saved);
 }
 
 bool TreeLeftSideInfo::import(TreeLeftSideInfo *, ImportPolicy)

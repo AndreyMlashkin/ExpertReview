@@ -1,39 +1,70 @@
 #ifndef PROJECTSLOADER_H
 #define PROJECTSLOADER_H
 
+#include <QPointer>
 #include <QObject>
 #include <QFileInfo>
-#include "serialization/nodesinfo/treeleftsideinfofactory.h"
+#include <QMap>
+#include <QCache>
 
 class QJsonObject;
 class TreeLeftSideInfo;
+class TreeRightSideValues;
+class ProjectsLoader;
+typedef QPointer<ProjectsLoader> ProjectsLoaderPtr;
 
 class ProjectsLoader : public QObject
 {
 public:
      ProjectsLoader();
     ~ProjectsLoader();
+     QString projectDir() const;
 
      QStringList avaliableLeftSides() const;
-     TreeLeftSideInfo* getLeftSideInfo(const QString& _treeName);
+     TreeLeftSideInfo* getLeftSideInfo(const QString& _leftSideId);
+
+     QStringList avaliableRightSides(const QString _leftSideId) const;
+
+     TreeRightSideValues* getRightSide(const QString& _leftSideId,
+                                       const QString& _rightSideId) const;
+
+     TreeRightSideValues* createRightSide(const QString& _leftSideId,
+                                          bool isTemp = false);
+     TreeRightSideValues* createRightSide(const QString& _leftSideId,
+                                          const QString& _rightSideId,
+                                          bool isTemp = false);
+
+     TreeRightSideValues* getOrCreateRightSide(const QString& _leftSideId,
+                                               const QString& _rightSideId,
+                                               bool isTemp = false);
+
+     inline ProjectsLoaderPtr getSelf() const { return m_self; }
 
 public slots:
     //! \brief load loads all left and right sides from project file, specified in fileInfo
     bool load(const QFileInfo& fileInfo);
     bool unload() const;
+    bool unloadProjectStructure() const;
+    bool unloadRightSides() const;
 
 private:
     void read(const QJsonObject &_json);
     void write(QJsonObject &_json) const;
 
     void tryCompatibilityFillStructure();
+    void createLeftSide(const QString& _treeName);
+
+    QString generateRightSideName(const QString& _leftSide) const;
 
 private:
+    ProjectsLoaderPtr m_self;
+
     QFileInfo m_opendProject;
     //! Maps left side file names to it's right sides
     QMap<QString, QStringList> m_loadedStructure;
 
-    TreeLeftSideInfoFactory m_factory;
+    QCache<QString, TreeLeftSideInfo> m_leftSides;
+    QCache<QPair<QString, QString>, TreeRightSideValues> m_rightSides; // maps a pair of right side + left side to Right side object
 };
 
 #endif // PROJECTSLOADER_H

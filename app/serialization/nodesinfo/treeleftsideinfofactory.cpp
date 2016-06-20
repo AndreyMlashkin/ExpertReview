@@ -1,7 +1,7 @@
 #include <QCache>
 
-#include "treeleftsideinfofactory.h"
-#include "jsonserialiser/treeleftsideinfojson.h"
+#include "serialization/nodesinfo/treeleftsideinfofactory.h"
+#include "serialization/jsonserialiser/treeleftsideinfojson.h"
 
 class TreeLeftSideInfoFactory::TreeLeftSideInfoFactoryPrivate
 {
