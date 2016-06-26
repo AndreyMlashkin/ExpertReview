@@ -90,6 +90,7 @@ void TreePropertyWidget::clear()
 
 void TreePropertyWidget::fillLeftSide()
 {
+    Q_ASSERT(m_leftSide);
     const QList<PropertyNode *> nodes = m_leftSide->nodes();
     foreach(PropertyNode* node, nodes)
         addProperty(toProperty(node));

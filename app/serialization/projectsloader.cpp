@@ -53,6 +53,12 @@ QStringList ProjectsLoader::avaliableRightSides(const QString _leftSideId) const
     return res;
 }
 
+//!
+//! \brief ProjectsLoader::getRightSide
+//! \param _leftSideId
+//! \param _rightSideId
+//! \return can return null as result.
+//!
 TreeRightSideValues *ProjectsLoader::getRightSide(const QString &_leftSideId,
                                                   const QString &_rightSideId) const
 {
@@ -172,7 +178,7 @@ bool ProjectsLoader::unloadRightSides() const
         for(const QString& rSide : rSides)
         {
             TreeRightSideValues* rSideObj = getRightSide(leftSideName, rSide);
-            if(!rSideObj->isTemp())
+            if(rSideObj && !rSideObj->isTemp()) // rSideObj can be null, due to lazy initialisation.
             {
                 // TODO id can be not unique
                 QString path = projectDir() + rSideObj->id();
