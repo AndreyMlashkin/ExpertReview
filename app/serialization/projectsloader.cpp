@@ -137,7 +137,7 @@ bool ProjectsLoader::load(const QFileInfo &fileInfo)
     m_opendProject = fileInfo;
 
     //TODO remove it
-//    tryCompatibilityFillStructure();
+    tryCompatibilityFillStructure();
 
     return true;
 }
@@ -146,9 +146,9 @@ bool ProjectsLoader::unload() const
 {
     qDebug() << Q_FUNC_INFO;
     bool success = unloadProjectStructure();
-    Q_ASSERT(success);
+//    Q_ASSERT(success);
     success = unloadRightSides();
-    Q_ASSERT(success);    
+//    Q_ASSERT(success);
     return true;
 }
 
@@ -242,6 +242,9 @@ void ProjectsLoader::tryCompatibilityFillStructure()
     for(const QFileInfo& info : allFiles)
     {
         QString name = info.baseName();
+        if(name.contains("average"))
+            continue;
+
         QChar lastChar = name.at(name.size() - 1);
         bool isRightSide = lastChar.isDigit();
         if(isRightSide)
