@@ -19,6 +19,7 @@ ProjectsLoader::ProjectsLoader()
 ProjectsLoader::~ProjectsLoader()
 {
     unload();
+    clear();
 }
 
 QStringList ProjectsLoader::avaliableLeftSides() const
@@ -80,7 +81,7 @@ TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
     if(!rSide->isTemp())
     {
         QString path = projectDir() + _rightSideId;
-        rSide->readValues(path);
+        rSide->readValues(path);        
     }
 
     Q_ASSERT(!rSide->values().isEmpty());
@@ -107,6 +108,7 @@ bool ProjectsLoader::load(const QFileInfo &fileInfo)
     qDebug() << Q_FUNC_INFO << " loading " << fileInfo.absoluteFilePath();
     if(m_opendProject.exists() && !m_loadedStructure.isEmpty())
         unload();
+    clear();
 
     QFile loadFile(fileInfo.absoluteFilePath());
     if (!loadFile.open(QIODevice::ReadOnly))
@@ -137,7 +139,7 @@ bool ProjectsLoader::unload() const
     bool success = unloadProjectStructure();
     Q_ASSERT(success);
     success = unloadRightSides();
-    Q_ASSERT(success);
+    Q_ASSERT(success);    
     return true;
 }
 
@@ -178,9 +180,18 @@ bool ProjectsLoader::unloadRightSides() const
     return true;
 }
 
-void ProjectsLoader::read(const QJsonObject &_json)
+void ProjectsLoader::clear()
 {
     m_loadedStructure.clear();
+    m_opendProject = QFileInfo();
+    m_loadedStructure.clear();
+    m_leftSides.clear();
+    m_rightSides.clear();
+}
+
+void ProjectsLoader::read(const QJsonObject &_json)
+{
+    Q_ASSERT(m_loadedStructure.size() == 0);
     QJsonObject leftSides = _json["leftSides"].toObject();
     auto iter = leftSides.begin();
 
@@ -203,8 +214,8 @@ void ProjectsLoader::write(QJsonObject &_json) const
 
     while(iter != m_loadedStructure.end())
     {
-        ++iter;
         leftSides[iter.key()] = QJsonArray::fromStringList(iter.value().values());
+        ++iter;
     }
     _json["leftSides"] = leftSides;
 }

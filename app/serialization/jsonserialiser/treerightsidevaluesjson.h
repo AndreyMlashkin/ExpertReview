@@ -18,6 +18,9 @@ public:
     void readValues(const QString& _id) override;
     void writeValues(const QString& _id) override;
 
+    QString guiName() const;
+    void setGuiName(const QString &_guiName);
+
 private:
     QJsonObject addValues(QJsonObject _obj);
     QMap<QString, double> extractValues(const QJsonObject& _jObject) const;
@@ -27,6 +30,7 @@ private:
     QString m_openedFile;
 
     QMap<QString, double> m_values;
+    QString m_guiName;
 };
 
 #endif // TREERIGHTSIDEVALUESJSON_H

@@ -13,6 +13,9 @@ public:
     QString id() const { return m_id; }
     void setId(const QString& _id) { m_id = _id; }
 
+    virtual QString guiName() const = 0;
+    virtual void setGuiName(const QString& _guiName) = 0;
+
     bool isTemp() const { return m_isTemp; }
     void setTemp(bool temp = true) { m_isTemp = temp; }
 

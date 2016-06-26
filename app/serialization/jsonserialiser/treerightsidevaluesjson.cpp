@@ -51,6 +51,9 @@ void TreeRightSideValuesJson::readValues(const QString &_id)
 
     QJsonObject obj = loadDoc.object();
     m_values = extractValues(obj);
+
+    if(obj.contains("guiName"))
+        setGuiName(obj["guiName"].toString());
 }
 
 void TreeRightSideValuesJson::writeValues(const QString &_id)
@@ -60,9 +63,22 @@ void TreeRightSideValuesJson::writeValues(const QString &_id)
         qDebug() << Q_FUNC_INFO << "Couldn't open save file.";
 
     m_json = addValues(m_json);
+    m_json["guiName"] = m_guiName;
 
     QJsonDocument saveDoc(m_json);
     saveFile.write(saveDoc.toJson());
+}
+
+QString TreeRightSideValuesJson::guiName() const
+{
+    return m_guiName;
+//    return m_json["guiName"].toString();
+}
+
+void TreeRightSideValuesJson::setGuiName(const QString &_guiName)
+{
+    m_guiName = _guiName;
+//    m_json["guiName"] = _guiName;
 }
 
 //! joins m_values and m_json
@@ -90,7 +106,7 @@ QJsonObject TreeRightSideValuesJson::addValues(QJsonObject _obj)
     return _obj;
 }
 
-QMap<QString, double> TreeRightSideValuesJson::extractValues(const QJsonObject &_jObject) const
+QMap<QString, double> extractValuesFromJObject(const QJsonObject &_jObject)
 {
     QMap<QString, double> ans;
     if(_jObject.contains("key"))
@@ -101,7 +117,7 @@ QMap<QString, double> TreeRightSideValuesJson::extractValues(const QJsonObject &
                     : 0;
 
         if(key.isEmpty())
-            qDebug() << Q_FUNC_INFO << "ERROR IN SOURSE DATA: key is empty in " + m_openedFile;
+            qDebug() << Q_FUNC_INFO << " ERROR IN SOURSE DATA: key is empty";
         else
             ans[key] = val;
     }
@@ -111,8 +127,15 @@ QMap<QString, double> TreeRightSideValuesJson::extractValues(const QJsonObject &
         QJsonArray arr = _jObject["nodes"].toArray();
         for(int i = 0; i < arr.size(); ++i)
         {
-            ans.unite(extractValues(arr.at(i).toObject()));
+            ans.unite(extractValuesFromJObject(arr.at(i).toObject()));
         }
     }
     return ans;
+}
+
+
+QMap<QString, double> TreeRightSideValuesJson::extractValues(const QJsonObject &_jObject) const
+{
+    QMap<QString, double> ans;
+    return extractValuesFromJObject(_jObject);
 }

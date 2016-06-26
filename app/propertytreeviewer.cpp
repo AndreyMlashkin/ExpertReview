@@ -83,7 +83,10 @@ void PropertyTreeViewer::setDefaultTabName(const QString &_name)
     int tabsCount = m_ui->tabWidget->count();
 
     for(int i = 0; i < tabsCount - m_serviceTabsCount; ++i)
-        m_ui->tabWidget->setTabText(i, generateTabName(i));
+    {
+        QString guiName = m_leftInfo->openRightSide(i)->guiName();
+        m_ui->tabWidget->setTabText(i, guiName);
+    }
 }
 
 QString PropertyTreeViewer::defaultTabName() const
@@ -191,19 +194,24 @@ void PropertyTreeViewer::setMode(int _mode)
 void PropertyTreeViewer::addTab()
 {
     QWidget* newWidget = new QWidget();
-//    int tabsCount = m_ui->tabWidget->indexOf(m_ui->add);
     int tabsCount = m_ui->tabWidget->count();
     int insertPos = tabsCount - m_serviceTabsCount;
 
-    m_ui->tabWidget->insertTab(insertPos, newWidget, generateTabName(insertPos));
-
+    QString tabName = generateTabName(insertPos);
     if(m_values.size() <= insertPos)
     {
         m_values.resize(insertPos + 1); // 1 - index to size;
 
         QString leftId = m_leftInfo->treeName();
-        m_values[insertPos] = m_loader->createRightSide(leftId);
+        TreeRightSideValues *rightSide = m_loader->createRightSide(leftId);
+        m_values[insertPos] = rightSide;
+        QString guiName = rightSide->guiName();
+        if(guiName.isEmpty())
+            rightSide->setGuiName(tabName);
+        else
+            tabName = guiName;
     }
+    m_ui->tabWidget->insertTab(insertPos, newWidget, tabName);
     m_ui->tabWidget->setCurrentWidget(newWidget);
 }
 
@@ -330,6 +338,9 @@ void PropertyTreeViewer::readRightSideVals()
     for(int i = 0; i < count; ++i)
     {
         TreeRightSideValues* rightSide = m_leftInfo->openRightSide(i);
+        if(rightSide->isTemp())
+            continue;
+
         m_values << rightSide;
         addTab();
     }

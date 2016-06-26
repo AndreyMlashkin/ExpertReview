@@ -7,12 +7,11 @@
 
 ProjectChooser::ProjectChooser(const ProjectsLoaderPtr& _loader, QWidget *parent) :
     QWidget(parent),
-    m_ui(new Ui::ProjectChooser)
+    m_ui(new Ui::ProjectChooser),
+    m_loader(_loader)
 {
     m_ui->setupUi(this);
     updateProjectList();
-
-    connect(this, &ProjectChooser::projectChoosen, _loader.data(), &ProjectsLoader::load);
 }
 
 ProjectChooser::~ProjectChooser()
@@ -70,7 +69,10 @@ void ProjectChooser::projectClicked()
 
     const auto& project = m_projectsBind[button];
     qDebug() << "choosen " << project.absoluteFilePath();
-    emit projectChoosen(project);
+
+    m_loader->load(project);
+
+    emit projectChoosen();
     hide();
 }
 

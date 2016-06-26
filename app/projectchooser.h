@@ -27,7 +27,7 @@ public:
     void updateProjectListGui();
 
 signals:
-    void projectChoosen(QFileInfo project);
+    void projectChoosen();
 
 private slots:
     void projectClicked();
@@ -37,6 +37,7 @@ private:
 
 private:
     Ui::ProjectChooser *m_ui;
+    ProjectsLoaderPtr m_loader;
 
     QFileInfoList m_foundProjects;
     QMap<QPushButton*, QFileInfo> m_projectsBind;

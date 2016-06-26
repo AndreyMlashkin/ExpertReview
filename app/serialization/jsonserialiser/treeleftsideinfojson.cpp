@@ -168,7 +168,7 @@ void TreeLeftSideInfoJson::read(const QJsonObject &_json)
 
     m_guiName = _json["name"].toString();
     m_treeName = _json["internalName"].toString();
-    m_defaultRightSideTreeName = _json["defaultRightSideName"].toString();
+    m_defaultRightSideTreeName = _json["defaultRightSideGuiName"].toString();
 
     QJsonArray nodes = _json["nodes"].toArray();
     for (int i = 0; i < nodes.size(); ++i)

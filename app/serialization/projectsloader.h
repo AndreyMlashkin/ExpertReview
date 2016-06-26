@@ -53,6 +53,7 @@ public slots:
 private:
     void read(const QJsonObject &_json);
     void write(QJsonObject &_json) const;
+    void clear();
 
     void tryCompatibilityFillStructure();
     void createLeftSide(const QString& _treeName);
