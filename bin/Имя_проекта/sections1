@@ -1,0 +1,55 @@
+{
+    "guiName": "",
+    "nodes": [
+        {
+            "description": "Бюджетные",
+            "key": "budget",
+            "value": 5
+        },
+        {
+            "description": "Экономические факторы",
+            "key": "ekonomicheskie",
+            "value": 4
+        },
+        {
+            "description": "Риски",
+            "key": "riski",
+            "value": 3
+        },
+        {
+            "description": "Технологический",
+            "key": "technologicheskie",
+            "value": 2
+        },
+        {
+            "description": "Организационный",
+            "key": "organisationnij",
+            "value": 1
+        },
+        {
+            "description": "Социальные  факторы",
+            "key": "socialnie",
+            "value": 0
+        },
+        {
+            "description": "Потребительские  факторы",
+            "key": "potrebitelskie",
+            "value": 0
+        },
+        {
+            "description": "Условия для перевозчиков",
+            "key": "perevozchiki",
+            "value": 0
+        },
+        {
+            "description": "Экологические факторы",
+            "key": "ekologicheskie",
+            "value": 0
+        },
+        {
+            "description": "Относительные показатели (3 модуль)",
+            "key": "Otnosit",
+            "value": 0
+        }
+    ]
+}

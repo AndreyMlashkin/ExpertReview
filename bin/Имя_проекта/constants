@@ -1,0 +1,907 @@
+{
+	"defaultRightSideName" : "Проект",
+    "name": "Исходные данные проектов",
+	"internalName": "constants",
+    "nodes": [
+        {
+            "description": "НДС_пр",
+            "key": "NDS_pr"
+        },
+        {
+            "description": "НДС_тек",
+            "key": "NDS_tek"
+        },
+        {
+            "description": "НП_пр",
+            "key": "NP_pr"
+        },
+        {
+            "description": "НП_тек",
+            "key": "NP_tek"
+        },
+        {
+            "description": "НИ_пр",
+            "key": "NI_pr"
+        },
+        {
+            "description": "НИ_тек",
+            "key": "NI_tek"
+        },
+        {
+            "description": "ПФ_пр",
+            "key": "PF_pr"
+        },
+        {
+            "description": "ФСС_пр",
+            "key": "FSS_pr"
+        },
+        {
+            "description": "ОМС_пр",
+            "key": "OMS_pr"
+        },
+        {
+            "description": "ПФ_тек",
+            "key": "PF_tek"
+        },
+        {
+            "description": "ФСС_тек",
+            "key": "FSS_tek"
+        },
+        {
+            "description": "ОМС_тек",
+            "key": "OMS_tek"
+        },
+        {
+            "description": "НДС_(пр(Э))",
+            "key": "NDS_pr_E"
+        },
+        {
+            "description": "НДС_(тек (Э))",
+            "key": "NDS_tek_E"
+        },
+        {
+            "description": "НП_(пр(Э))",
+            "key": "NP_pr_E"
+        },
+        {
+            "description": "НП_(тек(Э))",
+            "key": "NP_tek_E"
+        },
+        {
+            "description": "НИ_(пр(Э))",
+            "key": "NI_pr_E"
+        },
+        {
+            "description": "НИ_(тек(Э))",
+            "key": "NI_tek_E"
+        },
+        {
+            "description": "ПФ_(пр(Э))",
+            "key": "PF_pr_E"
+        },
+        {
+            "description": "ФСС_(пр(Э))",
+            "key": "FSS_pr_E"
+        },
+        {
+            "description": "ОМС_(пр(Э))",
+            "key": "OMS_pr_E"
+        },
+        {
+            "description": "ПФ_(тек(Э))",
+            "key": "PF_tek_E"
+        },
+        {
+            "description": "ФСС_(тек(Э))",
+            "key": "FSS_tek_E"
+        },
+        {
+            "description": "ОМС_(тек(Э))",
+            "key": "OMS_tek_E"
+        },
+        {
+            "description": "НДФЛ_(пр(ТрЭ))",
+            "key": "NDFL_pr_TrE"
+        },
+        {
+            "description": "НДФЛ_(тек(ТрЭ))",
+            "key": "NDFL_tek_TrE"
+        },
+        {
+            "description": "НДФЛ_(пр(КЭ))",
+            "key": "NDFL_pr_KE"
+        },
+        {
+            "description": "НДФЛ_(тек(КЭ))",
+            "key": "NDFL_tek_KE"
+        },
+        {
+            "description": "НЗ_(пр(Э))",
+            "key": "NZ_pr_E"
+        },
+        {
+            "description": "НЗ_(тек(Э))",
+            "key": "NZ_tek_E"
+        },
+        {
+            "description": "ТСП_пр",
+            "key": "TSP_pr"
+        },
+        {
+            "description": "ТСП_тек",
+            "key": "TSP_tek"
+        },
+        {
+            "description": "ППд",
+            "key": "PPd"
+        },
+        {
+            "description": "ПП",
+            "key": "PP"
+        },
+        {
+            "description": "НП_(пр(СЭ))",
+            "key": "NP_pr_SE"
+        },
+        {
+            "description": "НП_(тек(СЭ))",
+            "key": "NP_tek_SE"
+        },
+        {
+            "description": "Нед_пр",
+            "key": "Ned_pr"
+        },
+        {
+            "description": "Нед_тек",
+            "key": "Ned_tek"
+        },
+        {
+            "description": "РМт_пр",
+            "key": "PMt_pr"
+        },
+        {
+            "description": "РМт_тек",
+            "key": "PMt_tek"
+        },
+        {
+            "description": "И_пр",
+            "key": "_I_pr"
+        },
+        {
+            "description": "d_пр",
+            "key": "_d_pr"
+        },
+        {
+            "description": "C_пр",
+            "key": "_S_pr"
+        },
+        {
+            "description": "И_тек",
+            "key": "_I_tek"
+        },
+        {
+            "description": "d_тек",
+            "key": "_d_tek"
+        },
+        {
+            "description": "C_тек",
+            "key": "_S_tek"
+        },
+        {
+            "description": "См",
+            "key": "_Sm"
+        },
+        {
+            "description": "Стр",
+            "key": "Str"
+        },
+        {
+            "description": "Ссмр",
+            "key": "Scmr"
+        },
+        {
+            "description": "Тр(им)",
+            "key": "Tr_im"
+        },
+        {
+            "description": "Тр(потр)",
+            "key": "Tr_potr"
+        },
+        {
+            "description": "ПОпрр_пр",
+            "key": "POprr_pr"
+        },
+        {
+            "description": "ПОпра_пр",
+            "key": "POpra_pr"
+        },
+        {
+            "description": "ПОпрб_пр",
+            "key": "POprb_pr"
+        },
+        {
+            "description": "ПОпрр_тек",
+            "key": "POprr_tek"
+        },
+        {
+            "description": "ПОпра_тек",
+            "key": "POpra_tek"
+        },
+        {
+            "description": "ПОпрб_тек",
+            "key": "POprb_tek"
+        },
+        {
+            "description": "Пт_пр",
+            "key": "Pt_pr"
+        },
+        {
+            "description": "По_пр",
+            "key": "Po_pr"
+        },
+        {
+            "description": "Пн_пр",
+            "key": "Pn_pr"
+        },
+        {
+            "description": "Ч_пр",
+            "key": "Chislenn_pr"
+        },
+        {
+            "description": "Пт_тек",
+            "key": "Pt_tek"
+        },
+        {
+            "description": "По_тек",
+            "key": "Po_tek"
+        },
+        {
+            "description": "Пн_тек",
+            "key": "Pn_tek"
+        },
+        {
+            "description": "Ч_тек",
+            "key": "Chislenn_tek"
+        },
+        {
+            "description": "ИЗспс_пр",
+            "key": "IZsps_pr"
+        },
+        {
+            "description": "ИЗси_пр",
+            "key": "IZsi_pr"
+        },
+        {
+            "description": "ИЗэпс_пр",
+            "key": "IZeps_pr"
+        },
+        {
+            "description": "ИЗэи_пр",
+            "key": "IZei_pr"
+        },
+        {
+            "description": "ИЗспс_тек",
+            "key": "IZsps_tek"
+        },
+        {
+            "description": "ИЗси_тек",
+            "key": "IZsi_tek"
+        },
+        {
+            "description": "ИЗэпс_тек",
+            "key": "IZeps_tek"
+        },
+        {
+            "description": "ИЗэи_тек",
+            "key": "IZei_tek"
+        },
+        {
+            "description": "Ттр",
+            "key": "Ttr"
+        },
+        {
+            "description": "Сп",
+            "key": "Sp"
+        },
+        {
+            "description": "Кнп",
+            "key": "Knp"
+        },
+        {
+            "description": "Зем_пр",
+            "key": "Zem_pr"
+        },
+        {
+            "description": "Зем_тек",
+            "key": "Zem_tek"
+        },
+        {
+            "description": "ТСП_пр_э",
+            "key": "TSP_pr_e"
+        },
+        {
+            "description": "ТСП_тек_э",
+            "key": "TSP_tek_e"
+        },
+        {
+            "description": "НПд",
+            "key": "NPd"
+        },
+        {
+            "description": "НП",
+            "key": "Np"
+        },
+        {
+            "description": "ИПспс_пр",
+            "key": "IPsps_pr"
+        },
+        {
+            "description": "ИПси_пр",
+            "key": "IPsi_pr"
+        },
+        {
+            "description": "ИПэпс_пр",
+            "key": "IPeps_pr"
+        },
+        {
+            "description": "ИПэи_пр",
+            "key": "IPei_pr"
+        },
+        {
+            "description": "ИПспс_тек",
+            "key": "IPsps_tek"
+        },
+        {
+            "description": "ИПси_тек",
+            "key": "IPsi_tek"
+        },
+        {
+            "description": "ИПэпс_тек",
+            "key": "IPeps_tek"
+        },
+        {
+            "description": "ИПэи_тек",
+            "key": "IPei_tek"
+        },
+        {
+            "description": "Срс",
+            "key": "Srs"
+        },
+        {
+            "description": "Спк",
+            "key": "Spk"
+        },
+        {
+            "description": "Соб",
+            "key": "Sob"
+        },
+        {
+            "description": "T_pr - для автодороги = 1",
+            "key": "T_pr"
+        },
+        {
+            "description": "k_pr - для автодороги = 0",
+            "key": "k_pr"
+        },
+        {
+            "description": "T_tek - для автодороги = 1",
+            "key": "T_tek"
+        },
+        {
+            "description": "k_tek - для автодороги = 0",
+            "key": "k_tek"
+        },
+        {
+            "description": "lt - для ЖД = 0",
+            "key": "lt"
+        },
+        {
+            "description": "lp",
+            "key": "lp"
+        },
+        {
+            "description": "la",
+            "key": "la"
+        },
+        {
+            "description": "U - для ЖД = 1, а для авто-скорость машин",
+            "key": "U"
+        },
+        {
+            "description": "ПОчп_пр",
+            "key": "POchp_pr"
+        },
+        {
+            "description": "ПОпр_пр",
+            "key": "POpr_pr"
+        },
+        {
+            "description": "ПОчп_тек",
+            "key": "POchp_tek"
+        },
+        {
+            "description": "ПОпр_тек",
+            "key": "POpr_tek"
+        },
+        {
+            "description": "Современность конструкций, технологической базы",
+            "key": "sovrConstrBall"
+        },
+        {
+            "description": "Сложность ремонта",
+            "key": "sloznRemBall"
+        },
+        {
+            "description": "Уровень информатизации периода эксплуатации",
+            "key": "urovenInformExplBall"
+        },
+        {
+            "description": "З_пр",
+            "key": "Z_pr"
+        },
+        {
+            "description": "пасс-км_пр",
+            "key": "pass_km_pr"
+        },
+        {
+            "description": "З_тек",
+            "key": "Z_tek"
+        },
+        {
+            "description": "пасс-км_тек",
+            "key": "pass_km_tek"
+        },
+        {
+            "description": "Сб_пр",
+            "key": "Sb_pr"
+        },
+        {
+            "description": "Зсрм_пр",
+            "key": "Zsrm_pr"
+        },
+        {
+            "description": "Сб_тек",
+            "key": "Sb_tek"
+        },
+        {
+            "description": "Зсрм_тек",
+            "key": "Zsrm_tek"
+        },
+        {
+            "description": "Наличие соц. и произв. объектов",
+            "key": "SocialObjBall"
+        },
+        {
+            "description": "L_пр",
+            "key": "L_pr"
+        },
+        {
+            "description": "S_пр",
+            "key": "S_pr"
+        },
+        {
+            "description": "Тактность расписания в часы пиковой нагрузки",
+            "key": "takt"
+        },
+        {
+            "description": "L_tek",
+            "key": "L_tek"
+        },
+        {
+            "description": "S_tek",
+            "key": "S_tek"
+        },
+        {
+            "description": "Точность соблюдения расписания",
+            "key": "tochnRaspBall"
+        },
+        {
+            "description": "Безопасность",
+            "key": "bezopBall"
+        },
+        {
+            "description": "Личная безопасность",
+            "key": "lichnBezopBall"
+        },
+        {
+            "description": "Изменение природного и урбанистического ландшафта",
+            "key": "izmLandBall"
+        },
+        {
+            "description": "Дпрр_пр",
+            "key": "Dprr_pr"
+        },
+        {
+            "description": "Дпра_пр",
+            "key": "Dpra_pr"
+        },
+        {
+            "description": "Дпрч_пр",
+            "key": "Dprch_pr"
+        },
+        {
+            "description": "Дпрб_пр",
+            "key": "Dprb_pr"
+        },
+        {
+            "description": "Дпрр_тек",
+            "key": "Dprr_tek"
+        },
+        {
+            "description": "Дпра_тек",
+            "key": "Dpra_tek"
+        },
+        {
+            "description": "Дпрч_тек",
+            "key": "Dprch_tek"
+        },
+        {
+            "description": "Дпрб_тек",
+            "key": "Dprb_tek"
+        },
+        {
+            "description": "Тто_пр",
+            "key": "Tto_pr"
+        },
+        {
+            "description": "Тпв_пр",
+            "key": "Tpv_pr"
+        },
+        {
+            "description": "Тдв_пр",
+            "key": "Tdv_pr"
+        },
+        {
+            "description": "Тто_тек",
+            "key": "Tto_tek"
+        },
+        {
+            "description": "Тпв_тек",
+            "key": "Tpv_tek"
+        },
+        {
+            "description": "Тдв_тек",
+            "key": "Tdv_tek"
+        },
+        {
+            "description": "Q сут - если известна максимальная мощность пассажиропотока в час пик, то Q сут = 0, Uрд = 1. Иначе Qmax = 0, и q вм = 1._пр",
+            "key": "Qsut_pr"
+        },
+        {
+            "description": "U рд_пр",
+            "key": "Urd_pr"
+        },
+        {
+            "description": "Q сут - если известна максимальная мощность пассажиропотока в час пик, то Q сут = 0, Uрд = 1. Иначе Qmax = 0, и q вм = 1._тек",
+            "key": "Qsut_tek"
+        },
+        {
+            "description": "U рд_тек",
+            "key": "Urd_tek"
+        },
+        {
+            "description": "Q mах",
+            "key": "Qmax"
+        },
+        {
+            "description": "Т об",
+            "key": "Tob"
+        },
+        {
+            "description": "q вм",
+            "key": "qvm"
+        },
+        {
+            "description": "Пкм_пр",
+            "key": "Pkm_pr"
+        },
+        {
+            "description": "Вкм_пр",
+            "key": "Vkm_pr"
+        },
+        {
+            "description": "Пкм_тек",
+            "key": "Pkm_tek"
+        },
+        {
+            "description": "Вкм_тек",
+            "key": "Vkm_tek"
+        },
+        {
+            "description": "Интеграция со смежными видами транспорта",
+            "key": "integrPerevBall"
+        },
+        {
+            "description": "Увеличение доходов от услуг по неосновной деят",
+            "key": "uvelDohodNeosnDejatBall"
+        },
+        {
+            "description": "Риски техногенного и природного характера",
+            "key": "rTehnPrir"
+        },
+        {
+            "description": "Риск национального экономического кризиса",
+            "key": "rNacCrizis"
+        },
+        {
+            "description": "Риск снижения темпов роста ВВП",
+            "key": "rVVP"
+        },
+        {
+            "description": "Риск высокой инфляции",
+            "key": "rInfl"
+        },
+        {
+            "description": "Риск высокой безработицы",
+            "key": "rBezrab"
+        },
+        {
+            "description": "Риск негативного изменения налогообложения",
+            "key": "rNalog"
+        },
+        {
+            "description": "Риск конкурентоспособности услуги",
+            "key": "rKonkur"
+        },
+        {
+            "description": "Риск изменения предпочтений потребителей",
+            "key": "rIzmPredp"
+        },
+        {
+            "description": "Риск задержки отведения земельных участков под строительство трассы",
+            "key": "rZaderzh"
+        },
+        {
+            "description": "Риск превышения стоимости строительства и задержки ввода в эксплуатацию",
+            "key": "rStoim_Zaderzh"
+        },
+        {
+            "description": "Риск прекращения или отсрочки финансирования проекта",
+            "key": "rFinans"
+        },
+        {
+            "description": "Риски срыва поставок",
+            "key": "rPostavok"
+        },
+        {
+            "description": "Риск негативных экологических последствий",
+            "key": "rEcologii"
+        },
+        {
+            "description": "Риск ЧП при строительстве",
+            "key": "rChPStroit"
+        },
+        {
+            "description": "Риск несоответствия строительным и др. нормам",
+            "key": "rStroitNorm"
+        },
+        {
+            "description": "Риск форс-мажора",
+            "key": "rForceMajor"
+        },
+        {
+            "description": "Уровень шума",
+            "key": "rShum"
+        },
+        {
+            "description": "Уровень вибрации",
+            "key": "rVibro"
+        },
+        {
+            "description": "Уровень излучения",
+            "key": "rIzluch"
+        },
+        {
+            "description": "Загрязнение воды",
+            "key": "rZagrVoda"
+        },
+        {
+            "description": "Динамика выбросов загрязняющих веществ в атмосферный воздух",
+            "key": "rZagrVozd"
+        },
+        {
+            "description": "Уборка мусора и отходов",
+            "key": "rMusor"
+        },
+        {
+            "description": "Объем затрачиваемых экологических ресурсов на 1 км.путей сообщения",
+            "key": "rZatrEcoRes"
+        },
+        {
+            "description": "Влияние на изменение естественной миграции животных",
+            "key": "rMigrZhiv"
+        },
+        {
+            "description": "Пропускная способность строящегося железнодорожного участка по ограничивающему перегону, пар поездов/сутки (Njpr)",
+            "key": "Njpr"
+        },
+        {
+            "description": "Пропускная способность имеющегося  железнодорожного участка по ограничивающему перегону, пар поездов/сутки (Njtek)",
+            "key": "Njtek"
+        },
+        {
+            "description": "Протяженность главных путей имеющегося  железнодорожного участка, км (Ltek)",
+            "key": "Ltek"
+        },
+        {
+            "description": "Протяженность главных путей строящегося железнодорожного участка, км (Lpr)",
+            "key": "Lpr"
+        },
+        {
+            "description": "Размеры движения на железнодорожном участке в настоящее время, пар поездов/сутки (Ntek)",
+            "key": "Ntek"
+        },
+        {
+            "description": "Размеры движения на примыкающих железнодорожных участках в настоящее время, пар поездов/сутки (NtekPrim)",
+            "key": "NtekPrim"
+        },
+        {
+            "description": "Пропускная способность примыкающих ж.д. участков по ограничивающему перегону, пар поездов/сутки (NjtekPrim)",
+            "key": "NjtekPrim"
+        },
+        {
+            "description": "PpoTr",
+            "key": "PpoTr"
+        },
+        {
+            "description": "PpoPr",
+            "key": "PpoPr"
+        },
+        {
+            "description": "PpoG",
+            "key": "PpoG"
+        },
+        {
+            "description": "PpoM",
+            "key": "PpoM"
+        },
+        {
+            "description": "PpoC",
+            "key": "PpoC"
+        },
+        {
+            "description": "Sg2",
+            "key": "Sg2"
+        },
+        {
+            "description": "Sg5",
+            "key": "Sg5"
+        },
+        {
+            "description": "Sg10",
+            "key": "Sg10"
+        },
+        {
+            "description": "Sg15",
+            "key": "Sg15"
+        },
+        {
+            "description": "Spr2",
+            "key": "Spr2"
+        },
+        {
+            "description": "Spr5",
+            "key": "Spr5"
+        },
+        {
+            "description": "Spr10",
+            "key": "Spr10"
+        },
+        {
+            "description": "Spr15",
+            "key": "Spr15"
+        },
+        {
+            "description": "Zs3",
+            "key": "Zs3"
+        },
+        {
+            "description": "passKm3",
+            "key": "passKm3"
+        },
+        {
+            "description": "Ze3",
+            "key": "Ze3"
+        },
+        {
+            "description": "PdPass",
+            "key": "PdPass"
+        },
+        {
+            "description": "PdGrPr",
+            "key": "PdGrPr"
+        },
+        {
+            "description": "PdGrTer",
+            "key": "PdGrTer"
+        },
+        {
+            "description": "Ifb",
+            "key": "Ifb"
+        },
+        {
+            "description": "Irb",
+            "key": "Irb"
+        },
+        {
+            "description": "Irgd",
+            "key": "Irgd"
+        },
+        {
+            "description": "Ich",
+            "key": "Ich"
+        },
+        {
+            "description": "Ogr",
+            "key": "Ogr"
+        },
+        {
+            "description": "Opds",
+            "key": "Opds"
+        },
+        {
+            "description": "Oppgt",
+            "key": "Oppgt"
+        },
+        {
+            "description": "Fotpr",
+            "key": "Fotpr"
+        },
+        {
+            "description": "Fnazn",
+            "key": "Fnazn"
+        },
+        {
+            "description": "Ftr",
+            "key": "Ftr"
+        },
+        {
+            "description": "Iprgd",
+            "key": "Iprgd"
+        },
+        {
+            "description": "Kotpr",
+            "key": "Kotpr"
+        },
+        {
+            "description": "Knazn",
+            "key": "Knazn"
+        },
+        {
+            "description": "Ktr",
+            "key": "Ktr"
+        },
+        {
+            "description": "Vsl",
+            "key": "Vsl"
+        },
+        {
+            "description": "Vpk",
+            "key": "Vpk"
+        },
+        {
+            "description": "SumDef",
+            "key": "SumDef"
+        },
+        {
+            "description": "Rtz3",
+            "key": "Rtz3"
+        },
+        {
+            "description": "Rtp3",
+            "key": "Rtp3"
+        },
+        {
+            "description": "Rb3",
+            "key": "Rb3"
+        },
+        {
+            "description": "Rti3",
+            "key": "Rti3"
+        },
+        {
+            "description": "Rtv3",
+            "key": "Rtv3"
+        }
+    ]
+}

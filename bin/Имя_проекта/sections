@@ -1,0 +1,47 @@
+{
+	"defaultRightSideName" : "Эксперт",
+    "name": "Эксперты разделов",
+	"internalName": "sections",
+    "nodes": [
+        {
+            "description": "Бюджетные",
+            "key": "budget"
+        },
+        {
+            "description": "Экономические факторы",
+            "key": "ekonomicheskie"
+        },
+        {
+            "description": "Риски",
+            "key": "riski"
+        },
+        {
+            "description": "Технологический",
+            "key": "technologicheskie"
+        },
+        {
+            "description": "Организационный",
+            "key": "organisationnij"
+        },
+        {
+            "description": "Социальные  факторы",
+            "key": "socialnie"
+        },
+        {
+            "description": "Потребительские  факторы",
+            "key": "potrebitelskie"
+        },
+        {
+            "description": "Условия для перевозчиков",
+            "key": "perevozchiki"
+        },
+        {
+            "description": "Экологические факторы",
+            "key": "ekologicheskie"
+        },
+        {
+            "description": "Относительные показатели (3 модуль)",
+            "key": "Otnosit"
+        }
+    ]
+}
