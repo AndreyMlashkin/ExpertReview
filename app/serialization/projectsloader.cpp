@@ -69,13 +69,15 @@ TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
     return createRightSide(_leftSideId, rightSideName, isTemp);
 }
 
-TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId, const QString &_rightSideId, bool isTemp)
+TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
+                                                     const QString &_rightSideId,
+                                                     bool _isTemp)
 {
     QPair<QString, QString> key(_rightSideId, _leftSideId);
     auto leftSide = getLeftSideInfo(_leftSideId);
     TreeRightSideValues* rSide = leftSide->createRightSide();
     rSide->setId(_rightSideId);
-    rSide->setTemp(isTemp);
+    rSide->setTemp(_isTemp);
 
     // TODO AM
     if(!rSide->isTemp())
@@ -87,7 +89,8 @@ TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
     Q_ASSERT(!rSide->values().isEmpty());
     m_rightSides.insert(key, rSide);
 
-    m_loadedStructure[_leftSideId].insert(_rightSideId);
+    if(!_isTemp && !m_loadedStructure[_leftSideId].contains(_rightSideId))
+        m_loadedStructure[_leftSideId] << _rightSideId;
     return rSide;
 }
 
@@ -200,7 +203,7 @@ void ProjectsLoader::read(const QJsonObject &_json)
         QString leftSideName = iter.key();
         QJsonArray rightSides = iter.value().toArray();
 
-        for(const auto& rightSide : rightSides)
+        for(const auto& rightSide : rightSides) // TODO is duplicate check neded?
             m_loadedStructure[leftSideName] << rightSide.toString();
         ++iter;
     }
@@ -214,7 +217,8 @@ void ProjectsLoader::write(QJsonObject &_json) const
 
     while(iter != m_loadedStructure.end())
     {
-        leftSides[iter.key()] = QJsonArray::fromStringList(iter.value().values());
+        Q_ASSERT(iter.key() != "tmp");
+        leftSides[iter.key()] = QJsonArray::fromStringList(iter.value());
         ++iter;
     }
     _json["leftSides"] = leftSides;
@@ -238,12 +242,12 @@ void ProjectsLoader::tryCompatibilityFillStructure()
         {
             QString rightSideName = name;
             rightSideName = rightSideName.remove(rightSideName.size() - 1, 1);
-            m_loadedStructure[rightSideName].insert(name);
+            m_loadedStructure[rightSideName] << name; // TODO need check duplicate?
         }
         else
         {
             if(!m_loadedStructure.contains(name))
-                m_loadedStructure[name] = QSet<QString>();
+                m_loadedStructure[name] = QStringList();
         }
     }
 }

@@ -72,13 +72,11 @@ void TreeRightSideValuesJson::writeValues(const QString &_id)
 QString TreeRightSideValuesJson::guiName() const
 {
     return m_guiName;
-//    return m_json["guiName"].toString();
 }
 
 void TreeRightSideValuesJson::setGuiName(const QString &_guiName)
 {
     m_guiName = _guiName;
-//    m_json["guiName"] = _guiName;
 }
 
 //! joins m_values and m_json

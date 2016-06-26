@@ -22,7 +22,7 @@ public:
      QString projectDir() const;
 
      QStringList avaliableLeftSides() const;
-     QMap<QString, QSet<QString>> loadedStructure() { return m_loadedStructure; } // TODO hide it
+     QMap<QString, QStringList> loadedStructure() { return m_loadedStructure; } // TODO hide it
 
      TreeLeftSideInfo* getLeftSideInfo(const QString& _leftSideId);
 
@@ -35,7 +35,7 @@ public:
                                           bool isTemp = false);
      TreeRightSideValues* createRightSide(const QString& _leftSideId,
                                           const QString& _rightSideId,
-                                          bool isTemp = false);
+                                          bool _isTemp = false);
 
      TreeRightSideValues* getOrCreateRightSide(const QString& _leftSideId,
                                                const QString& _rightSideId,
@@ -65,7 +65,7 @@ private:
 
     QFileInfo m_opendProject;
     //! Maps left side file names to it's right sides
-    QMap<QString, QSet<QString>> m_loadedStructure;
+    QMap<QString, QStringList> m_loadedStructure;
 
     QCache<QString, TreeLeftSideInfo> m_leftSides;
     QCache<QPair<QString, QString>, TreeRightSideValues> m_rightSides; // maps a pair of right side + left side to Right side object
