@@ -1,6 +1,6 @@
 {
 	"defaultRightSideName" : "Проект",
-    "name": "Исходные данные проектов",
+	"guiName": "Исходные данные",
 	"internalName": "constants",
     "nodes": [
         {

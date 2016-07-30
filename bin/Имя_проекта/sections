@@ -1,6 +1,7 @@
 {
 	"defaultRightSideName" : "Эксперт",
     "name": "Эксперты разделов",
+	"guiName": "Эксперты разделов",
 	"internalName": "sections",
     "nodes": [
         {

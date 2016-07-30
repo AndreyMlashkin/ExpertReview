@@ -1,6 +1,8 @@
 {
 	"defaultRightSideName" : "Проект",
-    "name": "Расчёт проектов",
+    "guiName": "Расчёт проектов",
+	"internalName": "result",
+
     "nodes": [
         {
             "description": "Бюджетные",

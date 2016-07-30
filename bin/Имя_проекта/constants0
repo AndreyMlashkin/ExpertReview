@@ -4,27 +4,27 @@
         {
             "description": "НДС_пр",
             "key": "NDS_pr",
-            "value": 0.85999999999999999
+            "value": 0.86
         },
         {
             "description": "НДС_тек",
             "key": "NDS_tek",
-            "value": 0.68000000000000005
+            "value": 0.68
         },
         {
             "description": "НП_пр",
             "key": "NP_pr",
-            "value": 0.070000000000000007
+            "value": 0.07
         },
         {
             "description": "НП_тек",
             "key": "NP_tek",
-            "value": 0.053999999999999999
+            "value": 0.054
         },
         {
             "description": "НИ_пр",
             "key": "NI_pr",
-            "value": 0.10299999999999999
+            "value": 0.103
         },
         {
             "description": "НИ_тек",
@@ -34,7 +34,7 @@
         {
             "description": "ПФ_пр",
             "key": "PF_pr",
-            "value": 2.8199999999999998
+            "value": 2.82
         },
         {
             "description": "ФСС_пр",
@@ -49,7 +49,7 @@
         {
             "description": "ПФ_тек",
             "key": "PF_tek",
-            "value": 2.2599999999999998
+            "value": 2.26
         },
         {
             "description": "ФСС_тек",
@@ -74,17 +74,17 @@
         {
             "description": "НП_(пр(Э))",
             "key": "NP_pr_E",
-            "value": 1.1100000000000001
+            "value": 1.11
         },
         {
             "description": "НП_(тек(Э))",
             "key": "NP_tek_E",
-            "value": 0.80000000000000004
+            "value": 0.8
         },
         {
             "description": "НИ_(пр(Э))",
             "key": "NI_pr_E",
-            "value": 0.28999999999999998
+            "value": 0.29
         },
         {
             "description": "НИ_(тек(Э))",
@@ -94,7 +94,7 @@
         {
             "description": "ПФ_(пр(Э))",
             "key": "PF_pr_E",
-            "value": 2.3199999999999998
+            "value": 2.32
         },
         {
             "description": "ФСС_(пр(Э))",
@@ -109,7 +109,7 @@
         {
             "description": "ПФ_(тек(Э))",
             "key": "PF_tek_E",
-            "value": 2.0099999999999998
+            "value": 2.01
         },
         {
             "description": "ФСС_(тек(Э))",
@@ -124,7 +124,7 @@
         {
             "description": "НДФЛ_(пр(ТрЭ))",
             "key": "NDFL_pr_TrE",
-            "value": 2.0800000000000001
+            "value": 2.08
         },
         {
             "description": "НДФЛ_(тек(ТрЭ))",
@@ -134,12 +134,12 @@
         {
             "description": "НДФЛ_(пр(КЭ))",
             "key": "NDFL_pr_KE",
-            "value": 5.7000000000000002
+            "value": 5.7
         },
         {
             "description": "НДФЛ_(тек(КЭ))",
             "key": "NDFL_tek_KE",
-            "value": 5.6900000000000004
+            "value": 5.69
         },
         {
             "description": "НЗ_(пр(Э))",
@@ -174,22 +174,22 @@
         {
             "description": "НП_(пр(СЭ))",
             "key": "NP_pr_SE",
-            "value": 4.5099999999999998
+            "value": 4.51
         },
         {
             "description": "НП_(тек(СЭ))",
             "key": "NP_tek_SE",
-            "value": 4.0300000000000002
+            "value": 4.03
         },
         {
             "description": "Нед_пр",
             "key": "Ned_pr",
-            "value": 6.2000000000000002
+            "value": 6.2
         },
         {
             "description": "Нед_тек",
             "key": "Ned_tek",
-            "value": 6.2000000000000002
+            "value": 6.2
         },
         {
             "description": "РМт_пр",
@@ -234,7 +234,7 @@
         {
             "description": "См",
             "key": "_Sm",
-            "value": 23.850000000000001
+            "value": 23.85
         },
         {
             "description": "Стр",
@@ -259,7 +259,7 @@
         {
             "description": "ПОпрр_пр",
             "key": "POprr_pr",
-            "value": 79.599999999999994
+            "value": 79.6
         },
         {
             "description": "ПОпра_пр",
@@ -274,7 +274,7 @@
         {
             "description": "ПОпрр_тек",
             "key": "POprr_tek",
-            "value": 78.799999999999997
+            "value": 78.8
         },
         {
             "description": "ПОпра_тек",
@@ -289,7 +289,7 @@
         {
             "description": "Пт_пр",
             "key": "Pt_pr",
-            "value": 79.599999999999994
+            "value": 79.6
         },
         {
             "description": "По_пр",
@@ -309,7 +309,7 @@
         {
             "description": "Пт_тек",
             "key": "Pt_tek",
-            "value": 78.799999999999997
+            "value": 78.8
         },
         {
             "description": "По_тек",
@@ -369,7 +369,7 @@
         {
             "description": "Ттр",
             "key": "Ttr",
-            "value": 0.97999999999999998
+            "value": 0.98
         },
         {
             "description": "Сп",
@@ -454,7 +454,7 @@
         {
             "description": "Срс",
             "key": "Srs",
-            "value": 58.700000000000003
+            "value": 58.7
         },
         {
             "description": "Спк",
@@ -509,22 +509,22 @@
         {
             "description": "ПОчп_пр",
             "key": "POchp_pr",
-            "value": 501.48000000000002
+            "value": 501.48
         },
         {
             "description": "ПОпр_пр",
             "key": "POpr_pr",
-            "value": 405.80000000000001
+            "value": 405.8
         },
         {
             "description": "ПОчп_тек",
             "key": "POchp_tek",
-            "value": 496.39999999999998
+            "value": 496.4
         },
         {
             "description": "ПОпр_тек",
             "key": "POpr_tek",
-            "value": 405.80000000000001
+            "value": 405.8
         },
         {
             "description": "Современность конструкций, технологической базы",
@@ -544,7 +544,7 @@
         {
             "description": "З_пр",
             "key": "Z_pr",
-            "value": 4.6799999999999997
+            "value": 4.68
         },
         {
             "description": "пасс-км_пр",
@@ -604,7 +604,7 @@
         {
             "description": "L_tek",
             "key": "L_tek",
-            "value": 79.760000000000005
+            "value": 79.76
         },
         {
             "description": "S_tek",
@@ -634,7 +634,7 @@
         {
             "description": "Дпрр_пр",
             "key": "Dprr_pr",
-            "value": 1512.4000000000001
+            "value": 1512.4
         },
         {
             "description": "Дпра_пр",
@@ -674,7 +674,7 @@
         {
             "description": "Тто_пр",
             "key": "Tto_pr",
-            "value": 52.399999999999999
+            "value": 52.4
         },
         {
             "description": "Тпв_пр",
@@ -899,12 +899,12 @@
         {
             "description": "Протяженность главных путей имеющегося  железнодорожного участка, км (Ltek)",
             "key": "Ltek",
-            "value": 85.200000000000003
+            "value": 85.2
         },
         {
             "description": "Протяженность главных путей строящегося железнодорожного участка, км (Lpr)",
             "key": "Lpr",
-            "value": 42.600000000000001
+            "value": 42.6
         },
         {
             "description": "Размеры движения на железнодорожном участке в настоящее время, пар поездов/сутки (Ntek)",
@@ -989,7 +989,7 @@
         {
             "description": "Zs3",
             "key": "Zs3",
-            "value": 47.799999999999997
+            "value": 47.8
         },
         {
             "description": "passKm3",
@@ -999,7 +999,7 @@
         {
             "description": "Ze3",
             "key": "Ze3",
-            "value": 4.6799999999999997
+            "value": 4.68
         },
         {
             "description": "PdPass",
