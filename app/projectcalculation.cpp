@@ -26,14 +26,66 @@ ProjectCalculator::~ProjectCalculator()
     delete m_adaptor;
 }
 
+TreeRightSideValues *ProjectCalculator::getAverageRightSide(ProjectsLoaderPtr &_loader,
+                                                            const QString &_leftSide)
+{
+    TreeLeftSideInfo* leftSide = _loader->getLeftSideInfo(_leftSide);
+    Q_ASSERT(leftSide);
+
+    QList<TreeRightSideValues *> leftSides = leftSide->getLeftSides();
+    QMap<QString, double> averageValues;
+    for(TreeRightSideValues* leftSide : leftSides)
+    {
+        QMap<QString, double> values = leftSide->values();
+        QMapIterator<QString, double> iter(values);
+        while (iter.hasNext())
+        {
+            iter.next();
+            averageValues[iter.key()] += iter.value();
+        }
+    }
+
+    QMapIterator<QString, double> iter(averageValues);
+    while (iter.hasNext())
+    {
+        iter.next();
+        averageValues[iter.key()] /= leftSides.count();
+    }
+
+    TreeRightSideValues* average = _loader->getOrCreateRightSide(leftSide->treeName(), "average", true);
+    average->setValues(averageValues);
+    return average;
+}
+
+TreeRightSideValues *ProjectCalculator::normalise(ProjectsLoaderPtr &_loader, TreeRightSideValues *_values)
+{
+    QMap<QString, double> values = _values->values();
+
+    double summ = 0;
+    foreach(double d, values)
+        summ += d;
+
+    QMapIterator<QString, double> iter(values);
+    while (iter.hasNext())
+    {
+        iter.next();
+        double val = iter.value();
+        values[iter.key()] = val / summ;
+    }
+
+    TreeRightSideValues* newVals = _loader->getOrCreateRightSide(_values->leftSideId(), "tmp", true);
+    newVals->setValues(values);
+    return newVals;
+}
+
 void ProjectCalculator::calculate(TreeLeftSideInfo *_source, TreeLeftSideInfo *_result)
 {
     Q_ASSERT_X(_source->savedRightSidesCount() == 2, Q_FUNC_INFO, "it should be 2 constants values files"); // Пока так
     TreeRightSideValues* values0 = _source->openRightSide(0);
     TreeRightSideValues* values1 = _source->openRightSide(1);
 
-    TreeRightSideValues* result0 = _result->createRightSide();
-    TreeRightSideValues* result1 = _result->createRightSide();
+    TreeRightSideValues* result0 = _result->openRightSide(0);
+    TreeRightSideValues* result1 = _result->openRightSide(1);
 
     calculate(values0, values1, result0, result1);
 }
@@ -81,7 +133,7 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
     _result0->writeValues("result0");
     _result1->writeValues("result1");
 }
-
+/*
 void ProjectCalculator::calculateSections(TreeLeftSideInfo *_calculatedFactors, TreeLeftSideInfo *_sectionsResult)
 {
     TreeRightSideValues* calculatedValues1 = _calculatedFactors->openRightSide(0);
@@ -115,7 +167,7 @@ void ProjectCalculator::calculateSections(TreeLeftSideInfo *_calculatedFactors, 
     TreeRightSideValues* groupSums2 = _sectionsResult->createRightSide();
     groupSums2->setValues(groupSumsVals2);
     groupSums2->writeValues("sectionsResult1");
-}
+}*/
 
 void ProjectCalculator::normalise(double &_one, double &_other)
 {

@@ -6,16 +6,23 @@
 #include "treerightsidevaluesjson.h"
 #include "propertynodejson.h"
 
-TreeRightSideValuesJson::TreeRightSideValuesJson(const QJsonObject &_leftSide)
+TreeRightSideValuesJson::TreeRightSideValuesJson(const QString &_treeName, const QJsonObject &_leftSide)
     : TreeRightSideValues(),
+      m_treeName(_treeName),
       m_json(_leftSide)
 {
+    Q_ASSERT_X(!m_treeName.isEmpty(), "internalName should be filled also for right sides", "");
     qDebug() << Q_FUNC_INFO; // TODO remove
 }
 
 TreeRightSideValuesJson::~TreeRightSideValuesJson()
 {
     qDebug() << Q_FUNC_INFO << id(); // TODO remove
+}
+
+QString TreeRightSideValuesJson::leftSideId() const
+{
+    return m_treeName;
 }
 
 QMap<QString, double> TreeRightSideValuesJson::values() const
@@ -54,6 +61,8 @@ void TreeRightSideValuesJson::readValues(const QString &_id)
 
     if(obj.contains("guiName"))
         setGuiName(obj["guiName"].toString());
+    else
+        setGuiName(m_treeName);
 }
 
 void TreeRightSideValuesJson::writeValues(const QString &_id)

@@ -81,6 +81,8 @@ TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
 {
     QPair<QString, QString> key(_rightSideId, _leftSideId);
     auto leftSide = getLeftSideInfo(_leftSideId);
+    Q_ASSERT_X(leftSide, QString("left side with the name %1 does not exist!")
+               .arg(_leftSideId).toLatin1(), "");
     TreeRightSideValues* rSide = leftSide->createRightSide();
     rSide->setId(_rightSideId);
     rSide->setTemp(_isTemp);

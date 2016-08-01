@@ -122,7 +122,7 @@ QString TreeLeftSideInfoJson::savedAverageRightSideTreeName() const
 
 TreeRightSideValues *TreeLeftSideInfoJson::createRightSide() const
 {
-    TreeRightSideValuesJson* rightSideValues = new TreeRightSideValuesJson(actualJson());
+    TreeRightSideValuesJson* rightSideValues = new TreeRightSideValuesJson(m_treeName, actualJson());
     return rightSideValues;
 }
 

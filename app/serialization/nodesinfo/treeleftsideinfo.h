@@ -10,6 +10,7 @@ class ProjectsLoader;
 
 class TreeLeftSideInfo
 {
+    friend class ProjectsLoader;
 public:
     TreeLeftSideInfo(const ProjectsLoaderPtr& _loader);
     virtual ~TreeLeftSideInfo() {}
@@ -30,13 +31,13 @@ public:
     virtual QString defaultRightSideTreeName() const = 0;
     virtual QStringList savedRightSidesTreeNames() const = 0;
     virtual QString savedAverageRightSideTreeName() const = 0;
-    virtual TreeRightSideValues* createRightSide() const = 0;
     TreeRightSideValues* openRightSide(int _num);
     QList<TreeRightSideValues*> getLeftSides() const;
 
     enum ImportPolicy { AddData, ResetOldData };
     virtual bool import(TreeLeftSideInfo* _otherInfo, ImportPolicy _policy = ResetOldData);
 
+    virtual TreeRightSideValues* createRightSide() const = 0;
 private:
     void fillTitlesAndLeafs();
 

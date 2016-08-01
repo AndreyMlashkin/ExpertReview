@@ -10,6 +10,8 @@ public:
     TreeRightSideValues() {}
     virtual ~TreeRightSideValues() {}
 
+    virtual QString leftSideId() const = 0;
+
     QString id() const { return m_id; }
     void setId(const QString& _id) { m_id = _id; }
 

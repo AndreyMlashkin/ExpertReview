@@ -9,8 +9,10 @@ class PropertyNodeJson;
 class TreeRightSideValuesJson : public TreeRightSideValues
 {
 public:
-    TreeRightSideValuesJson(const QJsonObject &_leftSide);
+    TreeRightSideValuesJson(const QString& _treeName, const QJsonObject &_leftSide);
     ~TreeRightSideValuesJson();
+
+    QString leftSideId() const override;
 
     QMap<QString, double> values() const override; // key - value
     void setValues(const QMap<QString, double>& _values) override;
@@ -30,6 +32,7 @@ private:
     QString m_openedFile;
 
     QMap<QString, double> m_values;
+    QString m_treeName;
     QString m_guiName;
 };
 

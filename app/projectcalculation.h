@@ -3,9 +3,11 @@
 
 #include <QString>
 #include <QMap>
+#include "serialization/projectsloader.h"
 
 class TreeRightSideValues;
 class TreeLeftSideInfo;
+
 namespace parser
 {
     class ParserAdaptor;
@@ -18,12 +20,17 @@ public:
     ProjectCalculator(TreeLeftSideInfo* _methodicJudges, TreeRightSideValues* _metodicJudgesAverage, TreeRightSideValues* _sectionsAverage);
     ~ProjectCalculator();
 
+    static TreeRightSideValues* getAverageRightSide(ProjectsLoaderPtr& _loader,
+                                           const QString& _leftSide);
+
+    static TreeRightSideValues* normalise(ProjectsLoaderPtr &_loader, TreeRightSideValues *_values);
+
     void calculate(TreeLeftSideInfo* _source, TreeLeftSideInfo* _result);
 
     void calculate(TreeRightSideValues* _oneProject, TreeRightSideValues* _otherProject,
                    TreeRightSideValues* _result1,    TreeRightSideValues* _result2);
 
-    void calculateSections(TreeLeftSideInfo* _calculatedFactors,  TreeLeftSideInfo* _sectionsResult);
+  //  void calculateSections(TreeLeftSideInfo* _calculatedFactors,  TreeLeftSideInfo* _sectionsResult);
 
     static void normalise(double& _one, double& _other);// !!! make universal
 

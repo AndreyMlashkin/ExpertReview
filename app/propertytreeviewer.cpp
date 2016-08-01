@@ -1,6 +1,7 @@
 #include <QFileInfo>
 
 #include "propertytreeviewer.h"
+#include "projectcalculation.h"
 #include "ui_propertytreeviewer.h"
 #include "treepropertywidget.h"
 #include "serialization/nodesinfo/treeleftsideinfofactory.h"
@@ -49,6 +50,7 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
     connect(m_ui->normalise, SIGNAL(clicked(bool)),       SLOT(normalise(bool)));
 
     setDefaultTabName(m_leftInfo->defaultRightSideTreeName());
+    setPrecision(6);
 }
 
 PropertyTreeViewer::~PropertyTreeViewer()
@@ -222,54 +224,12 @@ bool PropertyTreeViewer::isNormalised() const
 
 TreeRightSideValues* PropertyTreeViewer::normalise(TreeRightSideValues *_values)
 {
-    QMap<QString, double> savedValues = _values->values();
-
-    double summ = 0;
-    foreach(double d, savedValues)
-        summ += d;
-
-    QMapIterator<QString, double> iter(savedValues);
-    while (iter.hasNext())
-    {
-        iter.next();
-        double val = iter.value();
-        savedValues[iter.key()] = val / summ;
-    }
-
-    TreeRightSideValues* newVals = m_leftInfo->createRightSide();
-    newVals->setValues(savedValues);
-    return newVals;
+    return ProjectCalculator::normalise(m_loader, _values);
 }
 
 TreeRightSideValues *PropertyTreeViewer::arithmeticalMean()
 {
-    QMap<QString, double> arMean;
-
-    foreach (TreeRightSideValues* vals, m_values)
-    {
-        if(!vals)
-            continue;
-
-        QMapIterator<QString, double> iter(vals->values());
-        while (iter.hasNext())
-        {
-            iter.next();
-            QString key = iter.key();
-            arMean[key] += iter.value();
-        }
-    }
-
-    QMapIterator<QString, double> iter(arMean);
-    while (iter.hasNext())
-    {
-        iter.next();
-        QString key = iter.key();
-        arMean[key] = iter.value() / m_values.size();
-    }
-
-    TreeRightSideValues* values = m_leftInfo->createRightSide();
-    values->setValues(arMean);
-    return values;
+    return ProjectCalculator::getAverageRightSide(m_loader, m_leftInfo->treeName());
 }
 
 void PropertyTreeViewer::displayValuesForArithmeticalMean()
