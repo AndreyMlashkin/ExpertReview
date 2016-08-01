@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "serialization/nodesinfo/treeleftsideinfofactory.h"
 #include "serialization/nodesinfo/treeleftsideinfo.h"
 #include "serialization/nodesinfo/treerightsidevalues.h"
@@ -27,9 +29,11 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
     TreeLeftSideInfo* leftSide = m_loader->getLeftSideInfo(_treeName);
     if(!leftSide)
     {
+        qWarning() << Q_FUNC_INFO << " No left side with name " << _treeName;
         clear();
         return;
     }
+    Q_ASSERT(_treeName == leftSide->treeName());
 
     m_columnsNames = leftSide->savedRightSidesTreeNames();
     m_linesNames   = leftSide->planeDescriptions();
@@ -39,10 +43,11 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
     int rowCount    = m_linesNames.count();
 
     m_values.resize(rowCount);
+    int i = 0;
     foreach(QString rightSideName, m_columnsNames)
     {
-        TreeRightSideValues* rightSide = leftSide->createRightSide();
-        rightSide->readValues(rightSideName);
+        TreeRightSideValues* rightSide = m_loader->getRightSide(_treeName, rightSideName);
+        ++i;
 
         QMap<QString, double> values = rightSide->values();
 

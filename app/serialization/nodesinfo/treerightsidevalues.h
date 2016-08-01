@@ -6,6 +6,8 @@
 
 class TreeRightSideValues
 {
+    friend class ProjectsLoader;
+
 public:
     TreeRightSideValues() {}
     virtual ~TreeRightSideValues() {}
@@ -24,6 +26,7 @@ public:
     virtual QMap<QString, double> values() const = 0; // key - value
     virtual void setValues(const QMap<QString, double>& _values) = 0;
 
+private:
     virtual void readValues(const QString& _id) = 0;
     virtual void writeValues(const QString& _id) = 0;
 

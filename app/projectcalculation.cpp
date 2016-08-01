@@ -130,8 +130,8 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
     _result1->setValues(otherProjectCalculation);
 
     //!!!
-    _result0->writeValues("result0");
-    _result1->writeValues("result1");
+//    _result0->writeValues("result0");
+//    _result1->writeValues("result1");
 }
 /*
 void ProjectCalculator::calculateSections(TreeLeftSideInfo *_calculatedFactors, TreeLeftSideInfo *_sectionsResult)
