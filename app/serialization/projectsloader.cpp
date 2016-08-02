@@ -139,7 +139,7 @@ bool ProjectsLoader::load(const QFileInfo &fileInfo)
     m_opendProject = fileInfo;
 
     //TODO remove it
-    tryCompatibilityFillStructure();
+    //tryCompatibilityFillStructure();
 
     return true;
 }

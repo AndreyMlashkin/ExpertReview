@@ -46,7 +46,8 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
     int i = 0;
     foreach(QString rightSideName, m_columnsNames)
     {
-        TreeRightSideValues* rightSide = m_loader->getRightSide(_treeName, rightSideName);
+        TreeRightSideValues* rightSide = m_loader->getOrCreateRightSide(_treeName, rightSideName);
+        Q_ASSERT(rightSide);
         ++i;
 
         QMap<QString, double> values = rightSide->values();
@@ -102,9 +103,9 @@ QVariant FullTreeTableModel::headerData(int section, Qt::Orientation orientation
     if(role != Qt::DisplayRole)
         return QVariant();
 
-    if(orientation == Qt::Vertical)
+    if(orientation == Qt::Vertical   && m_linesNames.size() > section)
         return m_linesNames.at(section);
-    if(orientation == Qt::Horizontal)
+    if(orientation == Qt::Horizontal && m_columnsNames.size() > section)
         return m_columnsNames.at(section);
     return QVariant();
 }
