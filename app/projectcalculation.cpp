@@ -32,7 +32,7 @@ TreeRightSideValues *ProjectCalculator::getAverageRightSide(ProjectsLoaderPtr &_
     TreeLeftSideInfo* leftSide = _loader->getLeftSideInfo(_leftSide);
     Q_ASSERT(leftSide);
 
-    QList<TreeRightSideValues *> leftSides = leftSide->getLeftSides();
+    QList<TreeRightSideValues *> leftSides = leftSide->getRightSides();
     QMap<QString, double> averageValues;
     for(TreeRightSideValues* leftSide : leftSides)
     {
@@ -133,7 +133,7 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
 //    _result0->writeValues("result0");
 //    _result1->writeValues("result1");
 }
-/*
+
 void ProjectCalculator::calculateSections(TreeLeftSideInfo *_calculatedFactors, TreeLeftSideInfo *_sectionsResult)
 {
     TreeRightSideValues* calculatedValues1 = _calculatedFactors->openRightSide(0);
@@ -160,14 +160,54 @@ void ProjectCalculator::calculateSections(TreeLeftSideInfo *_calculatedFactors, 
     QMap<QString, double> groupSumsVals1 = calculateSections(calculatedValues1->values());
     QMap<QString, double> groupSumsVals2 = calculateSections(calculatedValues2->values());
 
-    TreeRightSideValues* groupSums1 = _sectionsResult->createRightSide();
+    TreeRightSideValues* groupSums1 = _sectionsResult->openRightSide(0);// createRightSide();
     groupSums1->setValues(groupSumsVals1);
-    groupSums1->writeValues("sectionsResult0");
+    //groupSums1->writeValues("sectionsResult0");
 
-    TreeRightSideValues* groupSums2 = _sectionsResult->createRightSide();
+    TreeRightSideValues* groupSums2 = _sectionsResult->openRightSide(1);
     groupSums2->setValues(groupSumsVals2);
-    groupSums2->writeValues("sectionsResult1");
-}*/
+    //groupSums2->writeValues("sectionsResult1");
+}
+
+void ProjectCalculator::updateSectionCalculation(ProjectsLoaderPtr &_loader)
+{
+    auto calculateSections = [&_loader](const QMap<QString, double>& _calculatedVals)
+    {
+        QMap<QString, double> ans;
+        TreeLeftSideInfo* methodicJudges = _loader->getLeftSideInfo("metodicJudges");
+
+        foreach (PropertyNode* node, methodicJudges->nodes())
+        {
+            QString groupKey = node->key();
+            ans[groupKey] = 0;
+            foreach (PropertyNode* subNode, node->children())
+            {
+                QString subNodeKey = subNode->key();
+                double subNodeValue = _calculatedVals[subNodeKey];
+                ans[groupKey] += subNodeValue;
+            }
+        }
+        return ans;
+    };
+
+    TreeLeftSideInfo *resultLeftSide = _loader->getLeftSideInfo("result");
+    TreeLeftSideInfo *resultSectionsLeftSide = _loader->getLeftSideInfo("sectionsResult");
+
+    auto resultRightSides = resultLeftSide->getRightSides();
+    auto resultSectionsRightSides = resultSectionsLeftSide->getRightSides();
+
+    Q_ASSERT(resultRightSides.size() == resultSectionsRightSides.size());
+    int size = resultRightSides.size();
+
+    for(int i = 0; i < size; ++i)
+    {
+        TreeRightSideValues* items = resultRightSides.at(i);
+        TreeRightSideValues* sections = resultSectionsRightSides.at(i);
+
+        auto values = calculateSections(items->values());
+        sections->setValues(values);
+    }
+}
 
 void ProjectCalculator::normalise(double &_one, double &_other)
 {

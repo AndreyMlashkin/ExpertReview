@@ -33,6 +33,7 @@ struct ModeChooser::ModeChooserPrivate
     QPointer <PropertyTreeViewer> sectionJudges;
     QPointer <PropertyTreeViewer> sourceData;
     QPointer <PropertyTreeViewer> calculation;
+    QPointer <PropertyTreeViewer> sectionCalculation;
 };
 
 ModeChooser::ModeChooser(const ProjectsLoaderPtr& _loader, QWidget *parent) :
@@ -80,6 +81,7 @@ void ModeChooser::callSourceData()
     p->sourceData->show();
 }
 
+// TODO move to calculator
 inline double calculateFinalCriterium(QList<double>& _projectKoeffs)
 {
     double ans = 0;
@@ -88,60 +90,52 @@ inline double calculateFinalCriterium(QList<double>& _projectKoeffs)
     return ans;
 }
 
-inline TreeRightSideValues* getAverage(TreeLeftSideInfoFactory* _factory, const QString& _name)
-{
-    TreeLeftSideInfo* leftSide = _factory->getLeftSideInfo(_name);
-    TreeRightSideValues* rightAverage = leftSide->createRightSide();
-    rightAverage->readValues(leftSide->savedAverageRightSideTreeName());
-    return rightAverage;
-}
-void createResulSectionstLeftSideFile()
-{
-    QFile::copy("sections", "sectionsResult");
-}
 
 void ModeChooser::callSectionCalculation()
 {
-/*    createResulSectionstLeftSideFile();
-    updateResult();
+    delete p->sectionCalculation;
+    p->sectionCalculation = new PropertyTreeViewer(m_loader, "sectionsResult", PropertyTreeViewer::Minimal);
+    p->sectionCalculation->setPrecision(6);
+    p->sectionCalculation->show();
 
-    TreeLeftSideInfoFactory* factory = new TreeLeftSideInfoFactory();
-    TreeRightSideValues* methodicJudgesAverage = getAverage(factory, "metodicJudges");
-    TreeRightSideValues* sectionsAverage = getAverage(factory, "sections");
+    ProjectCalculator::updateSectionCalculation(m_loader);
 
-    TreeLeftSideInfo* sectionsResult    = factory->getLeftSideInfo("sectionsResult");
-    TreeLeftSideInfo* methodicJudges    = factory->getLeftSideInfo("metodicJudges");
-    TreeLeftSideInfo* calculatedFactors = factory->getLeftSideInfo("result");
-    ProjectCalculator calc(methodicJudges, methodicJudgesAverage, sectionsAverage);
-    calc.calculateSections(calculatedFactors, sectionsResult);
+    TreeLeftSideInfo* sectionsResult = m_loader->getLeftSideInfo("sectionsResult");
+    Q_ASSERT(sectionsResult);
+    Q_ASSERT(sectionsResult->getRightSides().count() == 2);
 
-    PropertyTreeViewer* sectionResult = new PropertyTreeViewer(m_loader, "sectionsResult", PropertyTreeViewer::SaveRegularOnExit);
-    sectionResult->setPrecision(6);
-    sectionResult->show();
-    */
-}
 
-void createResultLeftSideFile()
-{
-    QFile::copy("metodicJudges", "result");
+    auto sectionsRSides = sectionsResult->getRightSides();
+    QList<double> firstResult  = sectionsRSides.at(0)->values().values();
+    QList<double> secondResult = sectionsRSides.at(1)->values().values();
+
+    double firstFinalCriterium  = calculateFinalCriterium(firstResult);
+    double secondFinalCriterium = calculateFinalCriterium(secondResult);
+
+    FinalCalculationDialog dialog(m_loader,
+                                  firstFinalCriterium,
+                                  secondFinalCriterium,
+                                  "sectionsResult", this);
+    dialog.exec();
 }
 
 void ModeChooser::callCalculation()
 {
-    // TODO restore
-    /*    updateResult();
+    updateResult();
 
     delete p->calculation;
     p->calculation = new PropertyTreeViewer(m_loader, "result", PropertyTreeViewer::Minimal);
     p->calculation->setPrecision(6);
     p->calculation->show();
 
-    TreeLeftSideInfoFactory* factory = new TreeLeftSideInfoFactory();
-    TreeLeftSideInfo* leftSide = factory->getLeftSideInfo("result");
-    TreeRightSideValues* proj1Result = leftSide->createRightSide();
-    TreeRightSideValues* proj2Result = leftSide->createRightSide();
-    proj1Result->readValues(leftSide->savedRightSidesTreeNames().at(0));
-    proj2Result->readValues(leftSide->savedRightSidesTreeNames().at(1));
+    TreeLeftSideInfo* leftSide = m_loader->getLeftSideInfo("result");
+    Q_ASSERT(leftSide);
+
+    TreeRightSideValues* proj1Result =
+            m_loader->getOrCreateRightSide("result", "result0", true);
+    TreeRightSideValues* proj2Result =
+            m_loader->getOrCreateRightSide("result", "result1", true);
+    Q_ASSERT(proj1Result && proj2Result);
 
     QList<double> firstResult  = proj1Result->values().values();
     QList<double> secondResult = proj2Result->values().values();
@@ -152,30 +146,29 @@ void ModeChooser::callCalculation()
     FinalCalculationDialog dialog(m_loader,
                                   firstFinalCriterium,
                                   secondFinalCriterium,
-                                  "sectionsResult", this);
+                                  "result", this);
     dialog.exec();
-
-    delete factory;
-    */
 }
 
 void ModeChooser::updateResult()
 {
-/*    createResultLeftSideFile();
+    TreeRightSideValues* methodicJudgesAverage =
+            ProjectCalculator::getAverageRightSide(m_loader, "metodicJudges");
+    TreeRightSideValues* sectionsAverage =
+            ProjectCalculator::getAverageRightSide(m_loader, "sections");
 
-    TreeLeftSideInfoFactory* factory = new TreeLeftSideInfoFactory();
-    TreeRightSideValues* methodicJudgesAverage = getAverage(factory, "metodicJudges");
-    TreeRightSideValues* sectionsAverage = getAverage(factory, "sections");
+    TreeLeftSideInfo* constants = m_loader->getLeftSideInfo("constants");
+    TreeLeftSideInfo* result    = m_loader->getLeftSideInfo("result");
 
-    TreeLeftSideInfo* constants = factory->getLeftSideInfo("constants");
-    TreeLeftSideInfo* result    = factory->getLeftSideInfo("result");
-
-    TreeLeftSideInfo* methodicJudges = factory->getLeftSideInfo("metodicJudges");
+    TreeLeftSideInfo* methodicJudges = m_loader->getLeftSideInfo("metodicJudges");
     ProjectCalculator calc(methodicJudges, methodicJudgesAverage, sectionsAverage);
     calc.calculate(constants, result);
 
-    delete factory;
-    */
+    // section calculation:
+    TreeLeftSideInfo* sectionsResult    = m_loader->getLeftSideInfo("sectionsResult");
+//    TreeLeftSideInfo* methodicJudges    = m_loader->getLeftSideInfo("metodicJudges");
+    TreeLeftSideInfo* calculatedFactors = m_loader->getLeftSideInfo("result");
+    calc.calculateSections(calculatedFactors, sectionsResult);
 }
 
 void ModeChooser::closeEvent(QCloseEvent *event)

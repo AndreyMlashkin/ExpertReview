@@ -30,7 +30,8 @@ public:
     void calculate(TreeRightSideValues* _oneProject, TreeRightSideValues* _otherProject,
                    TreeRightSideValues* _result1,    TreeRightSideValues* _result2);
 
-  //  void calculateSections(TreeLeftSideInfo* _calculatedFactors,  TreeLeftSideInfo* _sectionsResult);
+    void calculateSections(TreeLeftSideInfo* _calculatedFactors,  TreeLeftSideInfo* _sectionsResult);
+    static void updateSectionCalculation(ProjectsLoaderPtr& _loader);
 
     static void normalise(double& _one, double& _other);// !!! make universal
 

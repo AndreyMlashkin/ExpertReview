@@ -14,7 +14,7 @@ public:
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
 
     int rowCount(const QModelIndex&) const;
-    int columnCount(const QModelIndex &) const;
+    int columnCount(const QModelIndex &ind = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;

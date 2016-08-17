@@ -32,7 +32,7 @@ public:
     virtual QStringList savedRightSidesTreeNames() const = 0;
     virtual QString savedAverageRightSideTreeName() const = 0;
     TreeRightSideValues* openRightSide(int _num);
-    QList<TreeRightSideValues*> getLeftSides() const;
+    QList<TreeRightSideValues*> getRightSides() const;
 
     enum ImportPolicy { AddData, ResetOldData };
     virtual bool import(TreeLeftSideInfo* _otherInfo, ImportPolicy _policy = ResetOldData);

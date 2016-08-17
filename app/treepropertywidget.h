@@ -8,7 +8,6 @@ class QtVariantPropertyManager;
 class PropertyNode;
 class TreeLeftSideInfo;
 class TreeRightSideValues;
-class TreeLeftSideInfoFactory;
 
 class TreePropertyWidget : public QtTreePropertyBrowser
 {
