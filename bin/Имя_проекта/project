@@ -15,6 +15,10 @@
         "sections": [
             "sections0",
             "sections1"
+        ],
+        "sectionsResult": [
+            "sectionsResult0",
+            "sectionsResult1"
         ]
     }
 }

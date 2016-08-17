@@ -1,5 +1,8 @@
 {
-    "guiName": "Расчёт проект 1",
+	"defaultRightSideName" : "Проект",
+    "guiName": "Расчёт секций проектов",
+	"internalName": "sectionsResult",
+
     "nodes": [
         {
             "description": "Бюджетные",
@@ -7,111 +10,89 @@
             "nodes": [
                 {
                     "description": "Динамика отчислений по налогу на добавленную стоимость (НДС) (предпроект) абс",
-                    "key": "dinNDSpredAbs",
-                    "value": 22.5
+                    "key": "dinNDSpredAbs"
                 },
                 {
                     "description": "Динамика отчислений по налогу на добавленную стоимость (НДС) (предпроект) отн",
-                    "key": "dinNDSpredRel",
-                    "value": 22.5
+                    "key": "dinNDSpredRel"
                 },
                 {
                     "description": "Динамика отчислений по налогу на прибыль (предпроект) абс",
-                    "key": "dinNPpredAbs",
-                    "value": 20
+                    "key": "dinNPpredAbs"
                 },
                 {
                     "description": "Динамика отчислений по налогу на прибыль (предпроект) отн",
-                    "key": "dinNPpredRel",
-                    "value": 20
+                    "key": "dinNPpredRel"
                 },
                 {
                     "description": "Динамика отчислений по налогу на имущество (предпроект) абс",
-                    "key": "dinNIpredAbs",
-                    "value": 15
+                    "key": "dinNIpredAbs"
                 },
                 {
                     "description": "Динамика отчислений по налогу на имущество (предпроект) отн",
-                    "key": "dinNIpredRel",
-                    "value": 14.452495
+                    "key": "dinNIpredRel"
                 },
                 {
                     "description": "Динамика взносов в государственные внебюджетные фонды (предпроект) абс",
-                    "key": "dinVneBUDpredAbs",
-                    "value": 15
+                    "key": "dinVneBUDpredAbs"
                 },
                 {
                     "description": "Динамика взносов в государственные внебюджетные фонды (предпроект) отн",
-                    "key": "dinVneBUDpredRel",
-                    "value": 15
+                    "key": "dinVneBUDpredRel"
                 },
                 {
                     "description": "Динамика отчислений по налогу на добавленную стоимость (НДС)",
-                    "key": "dinNDS",
-                    "value": 25
+                    "key": "dinNDS"
                 },
                 {
                     "description": "Динамика отчислений по налогу на прибыль абс",
-                    "key": "dinNPAbs",
-                    "value": 22.5
+                    "key": "dinNPAbs"
                 },
                 {
                     "description": "Динамика отчислений по налогу на прибыль отн",
-                    "key": "dinNPRel",
-                    "value": 22.5
+                    "key": "dinNPRel"
                 },
                 {
                     "description": "Динамика отчислений по налогу на имущество абс",
-                    "key": "dinNIAbs",
-                    "value": 3.346154
+                    "key": "dinNIAbs"
                 },
                 {
                     "description": "Динамика отчислений по налогу на имущество отн",
-                    "key": "dinNIRel",
-                    "value": 13.688834
+                    "key": "dinNIRel"
                 },
                 {
                     "description": "Динамика взносов в государственные внебюджетные фонды абс",
-                    "key": "dinVneBUDAbs",
-                    "value": 15
+                    "key": "dinVneBUDAbs"
                 },
                 {
                     "description": "Динамика взносов в государственные внебюджетные фонды отн",
-                    "key": "dinVneBUDRel",
-                    "value": 14.404827
+                    "key": "dinVneBUDRel"
                 },
                 {
                     "description": "Динамика отчислений по налогу на доходы физических лиц транспортных организаций (НДФЛ)",
-                    "key": "dinNDFLtransp",
-                    "value": 15
+                    "key": "dinNDFLtransp"
                 },
                 {
                     "description": "Динамика косвенных отчислений по налогу на доходы физических лиц (НДФЛ) абс",
-                    "key": "dinNDFLkosvAbs",
-                    "value": 17.5
+                    "key": "dinNDFLkosvAbs"
                 },
                 {
                     "description": "Динамика косвенных отчислений по налогу на доходы физических лиц (НДФЛ) отн",
-                    "key": "dinNDFLkosvRel",
-                    "value": 16.946485
+                    "key": "dinNDFLkosvRel"
                 },
                 {
                     "description": "Динамика отчислений по земельному налогу(НЗ)",
-                    "key": "dinZemN",
-                    "value": 12.5
+                    "key": "dinZemN"
                 },
                 {
                     "description": "Динамика поступлений по таможенным сборам и платежам абс",
-                    "key": "dinTSPAbs",
-                    "value": 0
+                    "key": "dinTSPAbs"
                 },
                 {
                     "description": "Динамика поступлений по таможенным сборам и платежам отн",
-                    "key": "dinTSPRel",
-                    "value": 0
+                    "key": "dinTSPRel"
                 }
-            ],
-            "value": 0
+            ]
         },
         {
             "description": "Экономические факторы",
@@ -119,136 +100,109 @@
             "nodes": [
                 {
                     "description": "Доля предприятий, получающих прямой доступ к магистральной инфраструктуре (железнодорожным путям общего пользования, федеральным автомобильным дорогам) от общего числа предприятий в сегменте транспортного рынка",
-                    "key": "doljaPredpr",
-                    "value": 0
+                    "key": "doljaPredpr"
                 },
                 {
                     "description": "Увеличение объема оказания сопутствующих услуг, объема торговли потребительскими товарами абс",
-                    "key": "uslugiTovarAbs",
-                    "value": 15.75
+                    "key": "uslugiTovarAbs"
                 },
                 {
                     "description": "Увеличение объема оказания сопутствующих услуг, объема торговли потребительскими товарами отн",
-                    "key": "uslugiTovarRel",
-                    "value": 15.75
+                    "key": "uslugiTovarRel"
                 },
                 {
                     "description": "Изменение стоимости 1 кв.м. жилья и нежилых помещений абс",
-                    "key": "stoim.1kv.mAbs",
-                    "value": 15.75
+                    "key": "stoim.1kv.mAbs"
                 },
                 {
                     "description": "Изменение стоимости 1 кв.м. жилья и нежилых помещений отн",
-                    "key": "stoim.1kv.mRel",
-                    "value": 15.75
+                    "key": "stoim.1kv.mRel"
                 },
                 {
                     "description": "Количество создаваемых (сохраняемых) рабочих мест  в транспортной отрасли абс",
-                    "key": "rabMestTrAbs",
-                    "value": 7.111717
+                    "key": "rabMestTrAbs"
                 },
                 {
                     "description": "Количество создаваемых (сохраняемых) рабочих мест  в транспортной отрасли отн",
-                    "key": "rabMestTrRel",
-                    "value": 17.36092
+                    "key": "rabMestTrRel"
                 },
                 {
                     "description": "Количество создаваемых (сохраняемых) рабочих мест  в смежных отраслях абс",
-                    "key": "rabMestSmAbs",
-                    "value": 7.15942
+                    "key": "rabMestSmAbs"
                 },
                 {
                     "description": "Количество создаваемых (сохраняемых) рабочих мест  в смежных отраслях отн",
-                    "key": "rabMestSmRel",
-                    "value": 16.336559
+                    "key": "rabMestSmRel"
                 },
                 {
                     "description": "Стоимость материальных ресурсов для проекта",
-                    "key": "stoimRes",
-                    "value": 18
+                    "key": "stoimRes"
                 },
                 {
                     "description": "Наличие трудовых ресурсов соответствующей квалификации",
-                    "key": "trudRes",
-                    "value": 0
+                    "key": "trudRes"
                 },
                 {
                     "description": "Увеличение пассажирооборота абс",
-                    "key": "passPotokAbs",
-                    "value": 18
+                    "key": "passPotokAbs"
                 },
                 {
                     "description": "Увеличение пассажирооборота отн",
-                    "key": "passPotokRel",
-                    "value": 17.295773
+                    "key": "passPotokRel"
                 },
                 {
                     "description": "Увеличение подвижности населения (изменение доли граждан, пользующихся услугами транспорта в рамках географических границ региона или сегмента транспортного рынка) абс",
-                    "key": "podvizhnNaselAbs",
-                    "value": 13.5
+                    "key": "podvizhnNaselAbs"
                 },
                 {
                     "description": "Увеличение подвижности населения (изменение доли граждан, пользующихся услугами транспорта в рамках географических границ региона или сегмента транспортного рынка) отн",
-                    "key": "podvizhnNaselRel",
-                    "value": 13.5
+                    "key": "podvizhnNaselRel"
                 },
                 {
                     "description": "Доля использования отечественных продукции и технологий (импортозамещение) абс",
-                    "key": "otechProdAbs",
-                    "value": 20.25
+                    "key": "otechProdAbs"
                 },
                 {
                     "description": "Доля использования отечественных продукции и технологий (импортозамещение) отн",
-                    "key": "otechProdRel",
-                    "value": 20.25
+                    "key": "otechProdRel"
                 },
                 {
                     "description": "Сокращение времени пребывания пассажиров в пути (увеличение агломерационного радиуса)",
-                    "key": "vremjaPuti",
-                    "value": 22.5
+                    "key": "vremjaPuti"
                 },
                 {
                     "description": "Изменение стоимости использования земельных ресурсов абс",
-                    "key": "stoimZemliAbs",
-                    "value": 13.5
+                    "key": "stoimZemliAbs"
                 },
                 {
                     "description": "Изменение стоимости использования земельных ресурсов отн",
-                    "key": "stoimZemliRel",
-                    "value": 9.668063
+                    "key": "stoimZemliRel"
                 },
                 {
                     "description": "Увеличение доли населенных пунктов, связанных с сетью путей сообщения общего пользования",
-                    "key": "naselPunkt",
-                    "value": 13.199997
+                    "key": "naselPunkt"
                 },
                 {
                     "description": "Доля использования инновационной продукции при строительстве и эксплуатации объекта абс",
-                    "key": "innovProdAbs",
-                    "value": 18
+                    "key": "innovProdAbs"
                 },
                 {
                     "description": "Доля использования инновационной продукции при строительстве и эксплуатации объекта отн",
-                    "key": "innovProdRel",
-                    "value": 18
+                    "key": "innovProdRel"
                 },
                 {
                     "description": "Наличие землеотводов",
-                    "key": "zemleotvod",
-                    "value": 13.5
+                    "key": "zemleotvod"
                 },
                 {
                     "description": "Увеличение пропускной способности путей сообщения абс",
-                    "key": "propuskSposAbs",
-                    "value": 22.5
+                    "key": "propuskSposAbs"
                 },
                 {
                     "description": "Увеличение пропускной способности путей сообщения отн",
-                    "key": "propuskSposRel",
-                    "value": 22.5
+                    "key": "propuskSposRel"
                 }
-            ],
-            "value": 0
+            ]
         },
         {
             "description": "Технологический",
@@ -256,31 +210,25 @@
             "nodes": [
                 {
                     "description": "Динамика коэфициента использования инфраструктуры путей сообщений (разгрузка или дополнительная загрузка существующей инфраструктуры)абс",
-                    "key": "dinKoefInfrAbs",
-                    "value": 6.890682
+                    "key": "dinKoefInfrAbs"
                 },
                 {
                     "description": "Динамика коэфициента использования инфраструктуры путей сообщений (разгрузка или дополнительная загрузка существующей инфраструктуры)отн",
-                    "key": "dinKoefInfrRel",
-                    "value": 15
+                    "key": "dinKoefInfrRel"
                 },
                 {
                     "description": "Современность конструкций, технологической базы и компонентов",
-                    "key": "sovrConstr",
-                    "value": 10.5
+                    "key": "sovrConstr"
                 },
                 {
                     "description": "Сложность ремонта",
-                    "key": "sloznRem",
-                    "value": 12
+                    "key": "sloznRem"
                 },
                 {
                     "description": "Уровень информатизации периода эксплуатации",
-                    "key": "urovenInformExpl",
-                    "value": 6
+                    "key": "urovenInformExpl"
                 }
-            ],
-            "value": 0
+            ]
         },
         {
             "description": "Социальные  факторы",
@@ -288,31 +236,25 @@
             "nodes": [
                 {
                     "description": "Обеспечение доступности путей сообщения, в т.ч. для малообеспеченных граждан (себестоимость 1 пассажирокилометра) абс",
-                    "key": "dinDostupAbs",
-                    "value": 10
+                    "key": "dinDostupAbs"
                 },
                 {
                     "description": "Обеспечение доступности путей сообщения, в т.ч. для малообеспеченных граждан (себестоимость 1 пассажирокилометра) отн",
-                    "key": "dinDostupRel",
-                    "value": 10
+                    "key": "dinDostupRel"
                 },
                 {
                     "description": "Платежная способность населения в регионе абс",
-                    "key": "platezhesposAbs",
-                    "value": 10
+                    "key": "platezhesposAbs"
                 },
                 {
                     "description": "Платежная способность населения в регионе отн",
-                    "key": "platezhesposRel",
-                    "value": 10
+                    "key": "platezhesposRel"
                 },
                 {
                     "description": "Наличие существующих социальных и производственных объектов (на территории проекта)",
-                    "key": "SocialObj",
-                    "value": 6
+                    "key": "SocialObj"
                 }
-            ],
-            "value": 0
+            ]
         },
         {
             "description": "Потребительские  факторы",
@@ -320,41 +262,33 @@
             "nodes": [
                 {
                     "description": "Изменение стандартов качества транспортных услуг. Густота сети. абс",
-                    "key": "kachestvoUslugAbs",
-                    "value": 8
+                    "key": "kachestvoUslugAbs"
                 },
                 {
                     "description": "Изменение стандартов качества транспортных услуг. Густота сети. отн",
-                    "key": "kachestvoUslugRel",
-                    "value": 8
+                    "key": "kachestvoUslugRel"
                 },
                 {
                     "description": "Тактность расписания в часы пиковой нагрузки",
-                    "key": "takt_pr",
-                    "value": 8
+                    "key": "takt_pr"
                 },
                 {
                     "description": "Точность соблюдения расписания",
-                    "key": "tochnRasp",
-                    "value": 2
+                    "key": "tochnRasp"
                 },
                 {
                     "description": "Безопасность",
-                    "key": "bezop",
-                    "value": 2
+                    "key": "bezop"
                 },
                 {
                     "description": "Личная безопасность",
-                    "key": "lichnBezop",
-                    "value": 2
+                    "key": "lichnBezop"
                 },
                 {
                     "description": "Изменение природного и урбанистического ландшафта, сохранность исторических объектов",
-                    "key": "izmLand",
-                    "value": 8
+                    "key": "izmLand"
                 }
-            ],
-            "value": 0
+            ]
         },
         {
             "description": "Условия для перевозчиков",
@@ -362,56 +296,45 @@
             "nodes": [
                 {
                     "description": "Увеличение доходов от перевозок  абс",
-                    "key": "dohodPerevAbs",
-                    "value": 2.588618
+                    "key": "dohodPerevAbs"
                 },
                 {
                     "description": "Увеличение доходов от перевозок  отн",
-                    "key": "dohodPerevRel",
-                    "value": 5.823644
+                    "key": "dohodPerevRel"
                 },
                 {
                     "description": "Изменение времени оборота транспортных средств  абс",
-                    "key": "tOborotaAbs",
-                    "value": 6
+                    "key": "tOborotaAbs"
                 },
                 {
                     "description": "Изменение времени оборота транспортных средств  отн",
-                    "key": "tOborotaRel",
-                    "value": 5.96509
+                    "key": "tOborotaRel"
                 },
                 {
                     "description": "Изменение потребного количества подвижного состава для перевозки 1000 человек абс",
-                    "key": "podvSostavAbs",
-                    "value": 2.753422
+                    "key": "podvSostavAbs"
                 },
                 {
                     "description": "Изменение потребного количества подвижного состава для перевозки 1000 человек отн",
-                    "key": "podvSostavRel",
-                    "value": 5.543595
+                    "key": "podvSostavRel"
                 },
                 {
                     "description": "Изменение населенности подвижного состава абс",
-                    "key": "naselPodvSostavAbs",
-                    "value": 6
+                    "key": "naselPodvSostavAbs"
                 },
                 {
                     "description": "Изменение населенности подвижного состава отн",
-                    "key": "naselPodvSostavRel",
-                    "value": 6
+                    "key": "naselPodvSostavRel"
                 },
                 {
                     "description": "Интеграция со смежными видами транспорта",
-                    "key": "integrPerev",
-                    "value": 6
+                    "key": "integrPerev"
                 },
                 {
                     "description": "Увеличение доходов от оказания услуг по неосновной деятельности",
-                    "key": "uvelDohodNeosnDejat",
-                    "value": 4.5
+                    "key": "uvelDohodNeosnDejat"
                 }
-            ],
-            "value": 0
+            ]
         },
         {
             "description": "Риски",
@@ -419,91 +342,73 @@
             "nodes": [
                 {
                     "description": "Риски техногенного и природного характера",
-                    "key": "riskTehnPrir",
-                    "value": 12.25
+                    "key": "riskTehnPrir"
                 },
                 {
                     "description": "Риск национального экономического кризиса",
-                    "key": "riskNacCrizis",
-                    "value": 10.5
+                    "key": "riskNacCrizis"
                 },
                 {
                     "description": "Риск снижения темпов роста ВВП",
-                    "key": "riskVVP",
-                    "value": 14
+                    "key": "riskVVP"
                 },
                 {
                     "description": "Риск высокой инфляции",
-                    "key": "riskInfl",
-                    "value": 10.5
+                    "key": "riskInfl"
                 },
                 {
                     "description": "Риск высокой безработицы",
-                    "key": "riskBezrab",
-                    "value": 7
+                    "key": "riskBezrab"
                 },
                 {
                     "description": "Риск негативного изменения налогообложения",
-                    "key": "riskNalog",
-                    "value": 14
+                    "key": "riskNalog"
                 },
                 {
                     "description": "Риск конкурентоспособности услуги",
-                    "key": "riskKonkur",
-                    "value": 9.333333
+                    "key": "riskKonkur"
                 },
                 {
                     "description": "Риск изменения предпочтений потребителей",
-                    "key": "riskIzmPredp",
-                    "value": 9.333333
+                    "key": "riskIzmPredp"
                 },
                 {
                     "description": "Риск задержки отведения земельных участков под строительство трассы",
-                    "key": "riskZaderzh",
-                    "value": 9.333333
+                    "key": "riskZaderzh"
                 },
                 {
                     "description": "Операционные риски",
-                    "key": "riskOperac",
-                    "value": 0
+                    "key": "riskOperac"
                 },
                 {
                     "description": "Риск превышения стоимости строительства и задержки ввода в эксплуатацию",
-                    "key": "riskStoim_Zaderzh",
-                    "value": 9.333333
+                    "key": "riskStoim_Zaderzh"
                 },
                 {
                     "description": "Риск прекращения или отсрочки финансирования проекта",
-                    "key": "riskFinans",
-                    "value": 14
+                    "key": "riskFinans"
                 },
                 {
                     "description": "Риски срыва поставок",
-                    "key": "riskPostavok",
-                    "value": 8.75
+                    "key": "riskPostavok"
                 },
                 {
                     "description": "Риск негативных экологических последствий",
-                    "key": "riskEcologii",
-                    "value": 14
+                    "key": "riskEcologii"
                 },
                 {
                     "description": "Риск ЧП при строительстве",
-                    "key": "riskChPStroit",
-                    "value": 14
+                    "key": "riskChPStroit"
                 },
                 {
                     "description": "Риск несоответствия строительным и др. нормам",
-                    "key": "riskStroitNorm",
-                    "value": 10.5
+                    "key": "riskStroitNorm"
                 },
                 {
                     "description": "Риск форс-мажора",
-                    "key": "riskForceMajor",
-                    "value": 10.5
+                    "key": "riskForceMajor"
                 }
-            ],
-            "value": 0
+            ]
         },
         {
             "description": "Экологические факторы",
@@ -511,46 +416,37 @@
             "nodes": [
                 {
                     "description": "Уровень шума",
-                    "key": "riskShum",
-                    "value": 4.5
+                    "key": "riskShum"
                 },
                 {
                     "description": "Уровень вибрации",
-                    "key": "riskVibro",
-                    "value": 4.5
+                    "key": "riskVibro"
                 },
                 {
                     "description": "Уровень излучения",
-                    "key": "riskIzluch",
-                    "value": 4.5
+                    "key": "riskIzluch"
                 },
                 {
                     "description": "Загрязнение воды",
-                    "key": "riskZagrVoda",
-                    "value": 6
+                    "key": "riskZagrVoda"
                 },
                 {
                     "description": "Динамика выбросов загрязняющих веществ в атмосферный воздух",
-                    "key": "riskZagrVozd",
-                    "value": 6
+                    "key": "riskZagrVozd"
                 },
                 {
                     "description": "Уборка мусора и отходов",
-                    "key": "riskMusor",
-                    "value": 3.75
+                    "key": "riskMusor"
                 },
                 {
                     "description": "Объем затрачиваемых экологических ресурсов на 1 км.путей сообщения",
-                    "key": "riskZatrEcoRes",
-                    "value": 6
+                    "key": "riskZatrEcoRes"
                 },
                 {
                     "description": "Влияние на изменение естественной миграции животных",
-                    "key": "riskMigrZhiv",
-                    "value": 0
+                    "key": "riskMigrZhiv"
                 }
-            ],
-            "value": 0
+            ]
         },
         {
             "description": "Относительные показатели (3 модуль)",
@@ -558,101 +454,81 @@
             "nodes": [
                 {
                     "description": "Соотношение имеющихся и предусмотренных проектом основных средств (пропускная способность)",
-                    "key": "KNj",
-                    "value": 1.240118
+                    "key": "KNj"
                 },
                 {
                     "description": "Соотношение имеющихся и предусмотренных проектом основных средств (протяженность)",
-                    "key": "Kl",
-                    "value": 5
+                    "key": "Kl"
                 },
                 {
                     "description": "Коэффициент использования пропускной способности линий и станций в зоне тяготения",
-                    "key": "DNj",
-                    "value": 3.785444
+                    "key": "DNj"
                 },
                 {
                     "description": "Коэффициент использования  пропускной способности примыкающих элементов инфраструктуры",
-                    "key": "DNjPrim",
-                    "value": 5.819692
+                    "key": "DNjPrim"
                 },
                 {
                     "description": "Наличие альтернативных способов переориентации пассажиропотоков",
-                    "key": "PPo",
-                    "value": 4.772727
+                    "key": "PPo"
                 },
                 {
                     "description": "Темпы строительства и сдачи жилья в эксплуатацию",
-                    "key": "Sg",
-                    "value": 7.5
+                    "key": "Sg"
                 },
                 {
                     "description": "Темпы строительства и сдачи производственных и административных объектов",
-                    "key": "Spr",
-                    "value": 7.5
+                    "key": "Spr"
                 },
                 {
                     "description": "Стоимость строительства, отнесенная на 1 пассажирокилометр",
-                    "key": "SS3",
-                    "value": 4.137618
+                    "key": "SS3"
                 },
                 {
                     "description": "Стоимость эксплуатации, отнесенная на 1 пассажирокилометр",
-                    "key": "Se3",
-                    "value": 7.5
+                    "key": "Se3"
                 },
                 {
                     "description": "Наличие инвестиционных проектов в сопредельных регионах",
-                    "key": "Pd3",
-                    "value": 7.5
+                    "key": "Pd3"
                 },
                 {
                     "description": "Наличие возможности привлечения средств",
-                    "key": "I3",
-                    "value": 7.5
+                    "key": "I3"
                 },
                 {
                     "description": "Учет объемов перевозок пассажиров в дальнем следовании",
-                    "key": "O3",
-                    "value": 7.5
+                    "key": "O3"
                 },
                 {
                     "description": "Готовность субъектов Российской Федерации финансировать потери в доходах",
-                    "key": "F3",
-                    "value": 7.5
+                    "key": "F3"
                 },
                 {
                     "description": "Наличие средств в инвестиционной программе ОАО «РЖД»",
-                    "key": "Iprgd3",
-                    "value": 7.5
+                    "key": "Iprgd3"
                 },
                 {
                     "description": "Наличие согласованных объемов транспортной работы",
-                    "key": "K3",
-                    "value": 7.5
+                    "key": "K3"
                 },
                 {
                     "description": "Тип и принадлежность подвижного состава",
-                    "key": "V",
-                    "value": 1.875
+                    "key": "V"
                 },
                 {
                     "description": "Оценка состояния транспортных потоков",
-                    "key": "To3",
-                    "value": 4.939024
+                    "key": "To3"
                 },
                 {
                     "description": "Моделирование направления дополнительного пассажиропотока на различные ТПУ",
-                    "key": "SumDef3",
-                    "value": 7.5
+                    "key": "SumDef3"
                 },
                 {
                     "description": "Сравнительная оценка рисков по: наличию транспортного заказа, тарифной политики региона и т.д.",
-                    "key": "R3",
-                    "value": 7.5
+                    "key": "R3"
                 }
-            ],
-            "value": 0
+            ]
         }
     ]
 }
