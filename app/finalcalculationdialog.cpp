@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QFile>
 #include <QTextStream>
 
@@ -12,13 +13,12 @@ FinalCalculationDialog::FinalCalculationDialog(const ProjectsLoaderPtr &_loader,
       m_model(new FullTreeTableModel(_treeName, _loader))
 {
     m_ui->setupUi(this);
+    m_ui->table->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     QString report = m_ui->label->text();
     report = report.arg(QString::number(_firstProjValue),
                         QString::number(_secondProjValue));
 
     m_ui->label->setText(report);
-
-    connect(m_ui->okButton, SIGNAL(clicked()), SLOT(accept()));
 
     m_model->normaliseRows();
     m_model->setBaseName("Проект");
@@ -32,13 +32,18 @@ FinalCalculationDialog::~FinalCalculationDialog()
     delete m_ui;
 }
 
-void FinalCalculationDialog::resizeEvent(QResizeEvent*)
+void FinalCalculationDialog::resizeEvent(QResizeEvent* _ev)
 {
-    int totalWidth = m_ui->table->width();
-    totalWidth = totalWidth - m_ui->table->verticalHeader()->width() - 10; // !!!
+    QDialog::resizeEvent(_ev);
+    int columnCount = m_model->columnCount();
+    int allColunsWidth = 0;
+    for(int i = 0; i < columnCount; ++i)
+    {
+        allColunsWidth += m_ui->table->columnWidth(i);
+    }
 
-    m_ui->table->setColumnWidth(0, totalWidth / 2);
-    m_ui->table->setColumnWidth(1, totalWidth / 2);
+    int fullWidth = m_ui->table->width() - allColunsWidth;
+    m_ui->table->verticalHeader()->setMaximumWidth(fullWidth - 19);
 }
 
 void FinalCalculationDialog::writeReport() const

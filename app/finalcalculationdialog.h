@@ -23,7 +23,7 @@ public:
     ~FinalCalculationDialog();
 
 private:
-    void resizeEvent(QResizeEvent *);
+    void resizeEvent(QResizeEvent *_ev);
     void writeReport() const;
 
 private:
