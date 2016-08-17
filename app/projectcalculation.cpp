@@ -26,6 +26,14 @@ ProjectCalculator::~ProjectCalculator()
     delete m_adaptor;
 }
 
+double ProjectCalculator::sumAll(QList<double> &_values)
+{
+    double ans = 0;
+    foreach(double val, _values)
+        ans += val;
+    return ans;
+}
+
 TreeRightSideValues *ProjectCalculator::getAverageRightSide(ProjectsLoaderPtr &_loader,
                                                             const QString &_leftSide)
 {
@@ -132,41 +140,6 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
     //!!!
 //    _result0->writeValues("result0");
 //    _result1->writeValues("result1");
-}
-
-void ProjectCalculator::calculateSections(TreeLeftSideInfo *_calculatedFactors, TreeLeftSideInfo *_sectionsResult)
-{
-    TreeRightSideValues* calculatedValues1 = _calculatedFactors->openRightSide(0);
-    TreeRightSideValues* calculatedValues2 = _calculatedFactors->openRightSide(1);
-
-    auto calculateSections = [this](const QMap<QString, double>& _calculatedVals)
-    {
-        QMap<QString, double> ans;
-
-        foreach (PropertyNode* node, m_methodicJudges->nodes())
-        {
-            QString groupKey = node->key();
-            ans[groupKey] = 0;
-            foreach (PropertyNode* subNode, node->children())
-            {
-                QString subNodeKey = subNode->key();
-                double subNodeValue = _calculatedVals[subNodeKey];
-                ans[groupKey] += subNodeValue;
-            }
-        }
-        return ans;
-    };
-
-    QMap<QString, double> groupSumsVals1 = calculateSections(calculatedValues1->values());
-    QMap<QString, double> groupSumsVals2 = calculateSections(calculatedValues2->values());
-
-    TreeRightSideValues* groupSums1 = _sectionsResult->openRightSide(0);// createRightSide();
-    groupSums1->setValues(groupSumsVals1);
-    //groupSums1->writeValues("sectionsResult0");
-
-    TreeRightSideValues* groupSums2 = _sectionsResult->openRightSide(1);
-    groupSums2->setValues(groupSumsVals2);
-    //groupSums2->writeValues("sectionsResult1");
 }
 
 void ProjectCalculator::updateSectionCalculation(ProjectsLoaderPtr &_loader)

@@ -81,16 +81,6 @@ void ModeChooser::callSourceData()
     p->sourceData->show();
 }
 
-// TODO move to calculator
-inline double calculateFinalCriterium(QList<double>& _projectKoeffs)
-{
-    double ans = 0;
-    foreach(double val, _projectKoeffs)
-        ans += val;
-    return ans;
-}
-
-
 void ModeChooser::callSectionCalculation()
 {
     delete p->sectionCalculation;
@@ -109,8 +99,8 @@ void ModeChooser::callSectionCalculation()
     QList<double> firstResult  = sectionsRSides.at(0)->values().values();
     QList<double> secondResult = sectionsRSides.at(1)->values().values();
 
-    double firstFinalCriterium  = calculateFinalCriterium(firstResult);
-    double secondFinalCriterium = calculateFinalCriterium(secondResult);
+    double firstFinalCriterium  = ProjectCalculator::sumAll(firstResult);
+    double secondFinalCriterium = ProjectCalculator::sumAll(secondResult);
 
     FinalCalculationDialog dialog(m_loader,
                                   firstFinalCriterium,
@@ -140,8 +130,8 @@ void ModeChooser::callCalculation()
     QList<double> firstResult  = proj1Result->values().values();
     QList<double> secondResult = proj2Result->values().values();
 
-    double firstFinalCriterium  = calculateFinalCriterium(firstResult);
-    double secondFinalCriterium = calculateFinalCriterium(secondResult);
+    double firstFinalCriterium  = ProjectCalculator::sumAll(firstResult);
+    double secondFinalCriterium = ProjectCalculator::sumAll(secondResult);
 
     FinalCalculationDialog dialog(m_loader,
                                   firstFinalCriterium,
@@ -163,12 +153,6 @@ void ModeChooser::updateResult()
     TreeLeftSideInfo* methodicJudges = m_loader->getLeftSideInfo("metodicJudges");
     ProjectCalculator calc(methodicJudges, methodicJudgesAverage, sectionsAverage);
     calc.calculate(constants, result);
-
-    // section calculation:
-    TreeLeftSideInfo* sectionsResult    = m_loader->getLeftSideInfo("sectionsResult");
-//    TreeLeftSideInfo* methodicJudges    = m_loader->getLeftSideInfo("metodicJudges");
-    TreeLeftSideInfo* calculatedFactors = m_loader->getLeftSideInfo("result");
-    calc.calculateSections(calculatedFactors, sectionsResult);
 }
 
 void ModeChooser::closeEvent(QCloseEvent *event)

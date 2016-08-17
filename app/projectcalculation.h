@@ -20,6 +20,8 @@ public:
     ProjectCalculator(TreeLeftSideInfo* _methodicJudges, TreeRightSideValues* _metodicJudgesAverage, TreeRightSideValues* _sectionsAverage);
     ~ProjectCalculator();
 
+    static double sumAll(QList<double>& _values);
+
     static TreeRightSideValues* getAverageRightSide(ProjectsLoaderPtr& _loader,
                                            const QString& _leftSide);
 
@@ -30,7 +32,6 @@ public:
     void calculate(TreeRightSideValues* _oneProject, TreeRightSideValues* _otherProject,
                    TreeRightSideValues* _result1,    TreeRightSideValues* _result2);
 
-    void calculateSections(TreeLeftSideInfo* _calculatedFactors,  TreeLeftSideInfo* _sectionsResult);
     static void updateSectionCalculation(ProjectsLoaderPtr& _loader);
 
     static void normalise(double& _one, double& _other);// !!! make universal
