@@ -1,7 +1,7 @@
 #ifndef STATISTICSWIDGET_H
 #define STATISTICSWIDGET_H
 
-#include "export.h"
+#include "../statisticsview/export.h"
 
 #include <QWidget>
 #include <QVector>

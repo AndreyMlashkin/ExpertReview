@@ -1,7 +1,7 @@
 #ifndef STATISTIC_H
 #define STATISTIC_H
 
-#include "export.h"
+#include "../statisticsview/export.h"
 #include <QString>
 
 namespace statistics

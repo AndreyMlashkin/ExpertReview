@@ -2,7 +2,7 @@
 #define PARSERADAPTOR_H
 
 #include <QString>
-#include "export.h"
+#include "../expressioncalculator/export.h"
 
 namespace parser
 {
