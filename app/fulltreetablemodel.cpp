@@ -141,20 +141,21 @@ void FullTreeTableModel::normaliseRows()
 
 QString FullTreeTableModel::report() const
 {
-    QString ans;
+    QString delimetr(";");
+    QString ans("Название фактора" + delimetr);
 
     foreach(QString line, m_columnsNames)
-        ans += line + "\t";
-    ans += "\r\n";
+        ans += line + delimetr;
+    ans += "\n";
 
     for(int i = 0; i < m_linesNames.size(); ++i)
     {
-        ans += m_linesNames.at(i) + "\t";
+        ans += m_linesNames.at(i) + delimetr;
         foreach (double val, m_values.at(i))
         {
-            ans += QString::number(val) + "\t";
+            ans += QString::number(val) + delimetr;
         }
-        ans += "\r\n";
+        ans += "\n";
     }
     return ans;
 }

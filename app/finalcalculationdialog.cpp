@@ -48,7 +48,7 @@ void FinalCalculationDialog::resizeEvent(QResizeEvent* _ev)
 
 void FinalCalculationDialog::writeReport() const
 {
-    QFile file("report.txt");
+    QFile file("report.csv");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
