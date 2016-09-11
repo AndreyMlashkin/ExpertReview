@@ -12,13 +12,17 @@
 #include "propertytreeviewer.h"
 #include "projectcalculation.h"
 #include "finalcalculationdialog.h"
+#include "rightsidediagrammview.h"
 
 struct ModeChooser::ModeChooserPrivate
 {
     ModeChooserPrivate()
-        : metodicJudges(NULL),
-          sectionJudges(NULL),
-          sourceData(NULL)
+        : metodicJudges(nullptr),
+          sectionJudges(nullptr),
+          sourceData(nullptr),
+          calculation(nullptr),
+          sectionCalculation(nullptr),
+          rightSideDiagrammView(nullptr)
     {}
 
     ~ModeChooserPrivate()
@@ -27,6 +31,8 @@ struct ModeChooser::ModeChooserPrivate
         delete sectionJudges;
         delete sourceData;
         delete calculation;
+        delete sectionCalculation;
+        delete rightSideDiagrammView;
     }
 
     QPointer <PropertyTreeViewer> metodicJudges;
@@ -34,6 +40,7 @@ struct ModeChooser::ModeChooserPrivate
     QPointer <PropertyTreeViewer> sourceData;
     QPointer <PropertyTreeViewer> calculation;
     QPointer <PropertyTreeViewer> sectionCalculation;
+    QPointer <RightSideDiagrammView> rightSideDiagrammView;
 };
 
 ModeChooser::ModeChooser(const ProjectsLoaderPtr& _loader, QWidget *parent) :
@@ -76,7 +83,7 @@ void ModeChooser::callSectionJudges()
 void ModeChooser::callSourceData()
 {
     delete p->sourceData;
-    p->sourceData = new PropertyTreeViewer(m_loader, "constants", PropertyTreeViewer::SaveRegularOnExit);
+    p->sourceData = new PropertyTreeViewer(m_loader, "constants", PropertyTreeViewer::Minimal);
     p->sourceData->setPrecision(4);
     p->sourceData->show();
 }
@@ -107,6 +114,10 @@ void ModeChooser::callSectionCalculation()
                                   secondFinalCriterium,
                                   "sectionsResult", this);
     dialog.exec();
+
+    delete p->rightSideDiagrammView.data();
+    p->rightSideDiagrammView = new RightSideDiagrammView(sectionsResult);
+    p->rightSideDiagrammView->show();
 }
 
 void ModeChooser::callCalculation()
@@ -137,7 +148,7 @@ void ModeChooser::callCalculation()
                                   firstFinalCriterium,
                                   secondFinalCriterium,
                                   "result", this);
-    dialog.exec();
+    dialog.exec();    
 }
 
 void ModeChooser::updateResult()

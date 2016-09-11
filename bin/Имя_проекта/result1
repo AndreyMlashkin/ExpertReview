@@ -110,7 +110,8 @@
                     "key": "dinTSPRel",
                     "value": 12.5
                 }
-            ]
+            ],
+            "value": 0
         },
         {
             "description": "Экономические факторы",
@@ -246,7 +247,8 @@
                     "key": "propuskSposRel",
                     "value": 17.744039040272416
                 }
-            ]
+            ],
+            "value": 0
         },
         {
             "description": "Технологический",
@@ -277,7 +279,8 @@
                     "key": "urovenInformExpl",
                     "value": 6
                 }
-            ]
+            ],
+            "value": 0
         },
         {
             "description": "Социальные  факторы",
@@ -308,7 +311,8 @@
                     "key": "SocialObj",
                     "value": 6
                 }
-            ]
+            ],
+            "value": 0
         },
         {
             "description": "Потребительские  факторы",
@@ -349,7 +353,8 @@
                     "key": "izmLand",
                     "value": 8
                 }
-            ]
+            ],
+            "value": 0
         },
         {
             "description": "Условия для перевозчиков",
@@ -405,7 +410,8 @@
                     "key": "uvelDohodNeosnDejat",
                     "value": 4.5
                 }
-            ]
+            ],
+            "value": 0
         },
         {
             "description": "Риски",
@@ -496,7 +502,8 @@
                     "key": "riskForceMajor",
                     "value": 10.5
                 }
-            ]
+            ],
+            "value": 0
         },
         {
             "description": "Экологические факторы",
@@ -542,7 +549,8 @@
                     "key": "riskMigrZhiv",
                     "value": 0
                 }
-            ]
+            ],
+            "value": 0
         },
         {
             "description": "Относительные показатели (3 модуль)",
@@ -643,7 +651,8 @@
                     "key": "R3",
                     "value": 0
                 }
-            ]
+            ],
+            "value": 0
         }
     ]
 }

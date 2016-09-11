@@ -2,7 +2,7 @@
 #include <QStringList>
 #include <QFile>
 
-#include <include/expressioncalculator/parseradaptor.h>
+#include <parseradaptor.h>
 #include "projectapi.h"
 #include "projectcalculation.h"
 #include "serialization/nodesinfo/treeleftsideinfo.h"
@@ -81,7 +81,7 @@ TreeRightSideValues *ProjectCalculator::normalise(ProjectsLoaderPtr &_loader, Tr
         values[iter.key()] = val / summ;
     }
 
-    TreeRightSideValues* newVals = _loader->getOrCreateRightSide(_values->leftSideId(), "tmp", true);
+    TreeRightSideValues* newVals = _loader->getOrCreateRightSide(_values->leftSideId(), "normalised", true);
     newVals->setValues(values);
     return newVals;
 }

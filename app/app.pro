@@ -13,7 +13,9 @@ TEMPLATE = app
 QMAKE_CXXFLAGS += -std=c++11
 
 INCLUDEPATH += .. \
-               /nodesinfo
+               nodesinfo \
+               ../expressioncalculator \
+               ../statisticsview
 
 DESTDIR = $$PWD/../bin
 OBJECTS_DIR = ./tmp/obj
@@ -35,7 +37,9 @@ SOURCES += main.cpp\
     fulltreetablemodel.cpp \
     finalreportviewdelegate.cpp \
     serialization/projectsloader.cpp \
-    projectchooser.cpp
+    projectchooser.cpp \
+    rightsidediagrammview.cpp \
+    simplystatistic.cpp
 
 HEADERS  += \
     treepropertywidget.h \
@@ -53,7 +57,9 @@ HEADERS  += \
     fulltreetablemodel.h \
     finalreportviewdelegate.h \
     serialization/projectsloader.h \
-    projectchooser.h
+    projectchooser.h \
+    rightsidediagrammview.h \
+    simplystatistic.h
 
 FORMS    += \
     propertytreeviewer.ui \
@@ -61,8 +67,9 @@ FORMS    += \
     finalcalculationdialog.ui \
     projectchooser.ui
 
-LIBS += -L$$PWD/../bin \
-        -lqtpropertybrowser \
+LIBS += -L$$PWD/../bin         \
+        -lqtpropertybrowser    \
+        -lstatisticsview       \
         -lexpressioncalculator
 
 RESOURCES += \

@@ -8,8 +8,10 @@
 
 TreeRightSideValuesJson::TreeRightSideValuesJson(const QString &_treeName, const QJsonObject &_leftSide)
     : TreeRightSideValues(),
+      m_json(_leftSide),
+      m_values(),
       m_treeName(_treeName),
-      m_json(_leftSide)
+      m_guiName()
 {
     Q_ASSERT_X(!m_treeName.isEmpty(), "internalName should be filled also for right sides", "");
     qDebug() << Q_FUNC_INFO; // TODO remove

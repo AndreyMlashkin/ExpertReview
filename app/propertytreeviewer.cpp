@@ -55,10 +55,6 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
 
 PropertyTreeViewer::~PropertyTreeViewer()
 {
-    // TODO
-//    if(m_mode & SaveRegularOnExit)
-//        writeRightSideVals();
-
     if(!isNormalised())
         saveValuesFromUi();
 

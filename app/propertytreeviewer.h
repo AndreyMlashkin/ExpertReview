@@ -22,9 +22,6 @@ public:
                 AverageTab = 0x2,
                 NormalizeButton = 0x4,
 
-                SaveRegularOnExit = 0x8,
-                SaveAverageNormalOnExit = 0x10,
-
                 All = 0xFFFFFFF
               };
 

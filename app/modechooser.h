@@ -8,8 +8,6 @@ namespace Ui {
 class ModeChooser;
 }
 
-class ProjectsLoader;
-
 class ModeChooser : public QWidget
 {
     Q_OBJECT
