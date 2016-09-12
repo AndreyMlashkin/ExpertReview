@@ -1,5 +1,5 @@
-#ifndef EXPORT_H
-#define EXPORT_H
+#ifndef STATISTICS_VIEW_EXPORT_H
+#define STATISTICS_VIEW_EXPORT_H
 
 #include <QtCore/QtGlobal>
 
@@ -9,4 +9,4 @@
 #  define STATISTIC_VIEW_EXPORT Q_DECL_IMPORT
 #endif
 
-#endif // EXPORT_H
+#endif // STATISTICS_VIEW_EXPORT_H

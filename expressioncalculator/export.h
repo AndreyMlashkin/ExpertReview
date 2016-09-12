@@ -1,5 +1,5 @@
-#ifndef EXPORT_H
-#define EXPORT_H
+#ifndef EXPRESSION_CALCULATOR_EXPORT_H
+#define EXPRESSION_CALCULATOR_EXPORT_H
 
 #include <QtCore/QtGlobal>
 
@@ -9,4 +9,4 @@
 #  define EXPRESSIONCALCULATOR_EXPORT Q_DECL_IMPORT
 #endif
 
-#endif // EXPORT_H
+#endif // EXPRESSION_CALCULATOR_EXPORT_H
