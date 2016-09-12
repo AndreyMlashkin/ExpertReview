@@ -4,24 +4,19 @@
 #
 #-------------------------------------------------
 
+include(../common.pri)
+
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ExpertReview
 TEMPLATE = app
-QMAKE_CXXFLAGS += -std=c++11
 
 INCLUDEPATH += .. \
                nodesinfo \
                ../expressioncalculator \
                ../statisticsview
-
-DESTDIR = $$PWD/../bin
-OBJECTS_DIR = ./tmp/obj
-UI_DIR = ./tmp/ui
-MOC_DIR = ./tmp/moc
-RCC_DIR = ./tmp/rcc
 
 SOURCES += main.cpp\
     treepropertywidget.cpp \
