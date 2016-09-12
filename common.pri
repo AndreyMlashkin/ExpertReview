@@ -1,6 +1,6 @@
 QMAKE_CXXFLAGS += -std=c++11
 
-DESTDIR = $$PWD/../bin
+DESTDIR = $$PWD/bin
 
 OBJECTS_DIR = ./tmp/obj
 UI_DIR = ./tmp/ui
