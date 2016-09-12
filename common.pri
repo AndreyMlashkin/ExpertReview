@@ -1,8 +1,18 @@
 QMAKE_CXXFLAGS += -std=c++11
 
-DESTDIR = $$PWD/bin
 
-OBJECTS_DIR = ./tmp/obj
-UI_DIR = ./tmp/ui
-MOC_DIR = ./tmp/moc
-RCC_DIR = ./tmp/rcc
+debug {
+    DESTDIR     = $$PWD/bin
+    OBJECTS_DIR = $$PWD/build/debug/obj
+    UI_DIR      = $$PWD/build/debug/ui
+    MOC_DIR     = $$PWD/build/debug/moc
+    RCC_DIR     = $$PWD/build/debug/rcc
+}
+else {
+    DESTDIR     = $$PWD/bin
+    OBJECTS_DIR = $$PWD/build/release/obj
+    UI_DIR      = $$PWD/build/release/ui
+    MOC_DIR     = $$PWD/build/release/moc
+    RCC_DIR     = $$PWD/build/release/rcc
+}
+
