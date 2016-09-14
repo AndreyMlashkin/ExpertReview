@@ -1,6 +1,8 @@
 #ifndef PROJECTAPI_H
 #define PROJECTAPI_H
 
+#include "export.h"
+
 #include <QVariantList>
 #include <QLocale>
 

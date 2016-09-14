@@ -7,6 +7,7 @@
 #include <QMap>
 #include <QSet>
 #include <QCache>
+#include "../expertreviewlib/export.h"
 
 class QJsonObject;
 class TreeLeftSideInfo;
@@ -14,7 +15,7 @@ class TreeRightSideValues;
 class ProjectsLoader;
 typedef QPointer<ProjectsLoader> ProjectsLoaderPtr;
 
-class ProjectsLoader : public QObject
+class EXPERTREVIEW_EXPORT ProjectsLoader : public QObject
 {
 public:
      ProjectsLoader();

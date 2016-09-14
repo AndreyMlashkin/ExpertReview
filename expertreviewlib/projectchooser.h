@@ -15,7 +15,7 @@ class ProjectChooser;
 class QPushButton;
 class ProjectsLoader;
 
-class ProjectChooser : public QWidget
+class EXPERTREVIEW_EXPORT ProjectChooser : public QWidget
 {
     Q_OBJECT
 

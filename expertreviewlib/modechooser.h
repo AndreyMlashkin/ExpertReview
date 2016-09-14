@@ -8,7 +8,7 @@ namespace Ui {
 class ModeChooser;
 }
 
-class ModeChooser : public QWidget
+class EXPERTREVIEW_EXPORT ModeChooser : public QWidget
 {
     Q_OBJECT
 

@@ -10,15 +10,16 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ExpertReview
-TEMPLATE = app
+TARGET = expertreview
+TEMPLATE = lib
+DEFINES += EXPERTREVIEW_LIBRARY
 
 INCLUDEPATH += .. \
                nodesinfo \
                ../expressioncalculator \
                ../statisticsview
 
-SOURCES += main.cpp\
+SOURCES += \
     treepropertywidget.cpp \
     propertytreeviewer.cpp \
     modechooser.cpp \
@@ -36,7 +37,7 @@ SOURCES += main.cpp\
     rightsidediagrammview.cpp \
     simplystatistic.cpp
 
-HEADERS  += \
+HEADERS  += export.h \
     treepropertywidget.h \
     propertytreeviewer.h \
     modechooser.h \

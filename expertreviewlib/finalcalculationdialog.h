@@ -1,6 +1,7 @@
 #ifndef FINALCALCULATIONDIALOG_H
 #define FINALCALCULATIONDIALOG_H
 
+#include "../expertreviewlib/export.h"
 #include <QDialog>
 #include "serialization/projectsloader.h"
 
@@ -11,7 +12,7 @@ class FinalCalculationDialog;
 
 class FullTreeTableModel;
 
-class FinalCalculationDialog : public QDialog
+class EXPERTREVIEW_EXPORT FinalCalculationDialog : public QDialog
 {
     Q_OBJECT
 

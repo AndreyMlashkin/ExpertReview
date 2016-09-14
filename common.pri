@@ -1,6 +1,5 @@
 QMAKE_CXXFLAGS += -std=c++11
 
-
 debug {
     DESTDIR     = $$PWD/bin
     OBJECTS_DIR = $$PWD/build/debug/obj
