@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 
+MODULENAME = expertreviewlib
 include(../common.pri)
 
 QT       += core gui

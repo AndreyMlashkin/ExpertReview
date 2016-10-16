@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 
+MODULENAME = fullstatisticsviewer
 include(../common.pri)
 
 QT       += core gui

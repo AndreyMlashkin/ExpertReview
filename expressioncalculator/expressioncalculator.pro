@@ -1,3 +1,4 @@
+MODULENAME = expressioncalculator
 include(../common.pri)
 
 TARGET = expressioncalculator

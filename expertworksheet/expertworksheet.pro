@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 
+MODULENAME = expertworksheet
 include(../common.pri)
 
 QT       += core gui

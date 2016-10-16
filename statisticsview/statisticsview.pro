@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 
+MODULENAME = statisticsview
 include(../common.pri)
 
 TARGET = statisticsview
