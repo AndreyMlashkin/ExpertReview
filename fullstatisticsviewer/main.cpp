@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
     ProjectsLoader loader;
 
     ProjectChooser projectChoose(loader.getSelf());
+    projectChoose.hideAddButton();
     projectChoose.show();
 
     ModeChooser chooser(loader.getSelf());

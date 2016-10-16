@@ -37,9 +37,11 @@ int main(int argc, char *argv[])
     ProjectsLoader loader;
 
     ProjectChooser projectChoose(loader.getSelf());
+    projectChoose.hideAddButton();
     projectChoose.show();
 
     ModeChooser chooser(loader.getSelf());
+    chooser.setWindowTitle("Опросник эксперта");
     bool connected = QObject::connect(&projectChoose, &ProjectChooser::projectChoosen, &chooser, &QWidget::show);
     Q_ASSERT(connected);
 /*
