@@ -13,7 +13,7 @@ class TreeLeftSideInfoFactory;
 class TreeRightSideValues;
 class TreeLeftSideInfo;
 
-class PropertyTreeViewer : public QWidget
+class EXPERTREVIEW_EXPORT PropertyTreeViewer : public QWidget
 {
     Q_OBJECT
 public:

@@ -21,6 +21,7 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
      m_factory(NULL),
      m_leftInfo(NULL)
 {
+    Q_ASSERT(!_loader.isNull());
     setAttribute(Qt::WA_DeleteOnClose);
     m_ui->setupUi(this);
     init();
@@ -32,6 +33,7 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
     if(m_ui->tabWidget->count() == m_serviceTabsCount)
         addTab();
 //  ----------------------
+    Q_ASSERT(m_values.size() > 0);
     m_treePropertyWidget->setValues(m_values[0]);
     m_currentTab = 0;
     setActiveTab(0);
@@ -191,6 +193,8 @@ void PropertyTreeViewer::setMode(int _mode)
 
 void PropertyTreeViewer::addTab()
 {
+	Q_ASSERT(m_leftInfo);
+
     QWidget* newWidget = new QWidget();
     int tabsCount = m_ui->tabWidget->count();
     int insertPos = tabsCount - m_serviceTabsCount;
