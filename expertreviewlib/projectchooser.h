@@ -20,27 +20,33 @@ class EXPERTREVIEW_EXPORT ProjectChooser : public QWidget
     Q_OBJECT
 
 public:
-    explicit ProjectChooser(const ProjectsLoaderPtr& _loader, QWidget *parent = 0);
+    explicit ProjectChooser(const ProjectsLoaderPtr& _loader, bool _inputExpertName = false, QWidget *parent = 0);
     ~ProjectChooser();
 
     void updateProjectList();
     void updateProjectListGui();
+    void hideAddButton();
+    void inputExpertName();
 
 signals:
     void projectChoosen();
 
-private slots:
+protected slots:
     void projectClicked();
 
-private:
+protected:
     void clearGui();
+    void enableAllProjects(bool enable = true);
+    bool eventFilter(QObject *obj, QEvent *event);
 
-private:
+protected:
     Ui::ProjectChooser *m_ui;
     ProjectsLoaderPtr m_loader;
 
     QFileInfoList m_foundProjects;
     QMap<QPushButton*, QFileInfo> m_projectsBind;
+
+    bool m_initialExpertNameTextSet;
 };
 
 #endif // PROJECTCHOOSER_H

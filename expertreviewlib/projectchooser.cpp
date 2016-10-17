@@ -5,13 +5,21 @@
 #include "ui_projectchooser.h"
 #include "serialization/projectsloader.h"
 
-ProjectChooser::ProjectChooser(const ProjectsLoaderPtr& _loader, QWidget *parent) :
+ProjectChooser::ProjectChooser(const ProjectsLoaderPtr& _loader, bool _inputExpertName, QWidget *parent) :
     QWidget(parent),
     m_ui(new Ui::ProjectChooser),
-    m_loader(_loader)
+    m_loader(_loader),
+    m_initialExpertNameTextSet(true)
 {
     m_ui->setupUi(this);
     updateProjectList();
+
+    if(_inputExpertName)
+        inputExpertName();
+    else
+    {
+        m_ui->expertNameInput->hide();
+    }
 }
 
 ProjectChooser::~ProjectChooser()
@@ -55,7 +63,18 @@ void ProjectChooser::updateProjectListGui()
         m_projectsBind[projectButton] = project;
 
         connect(projectButton, &QPushButton::clicked, this, &ProjectChooser::projectClicked);
-    }
+    }    
+}
+
+void ProjectChooser::hideAddButton()
+{
+    m_ui->addNewProject->hide();
+}
+
+void ProjectChooser::inputExpertName()
+{
+    m_ui->expertNameInput->installEventFilter(this);
+    enableAllProjects(false);
 }
 
 void ProjectChooser::projectClicked()
@@ -85,3 +104,36 @@ void ProjectChooser::clearGui()
     m_projectsBind.clear();
 }
 
+void ProjectChooser::enableAllProjects(bool enable)
+{
+    for(QPushButton* project : m_projectsBind.keys())
+        project->setEnabled(enable);
+}
+
+bool ProjectChooser::eventFilter(QObject *obj, QEvent *event)
+{
+    if(obj == m_ui->expertNameInput &&
+            (event->type() == QEvent::KeyPress ||
+             event->type() == QEvent::MouseButtonPress))
+    {
+        if(m_initialExpertNameTextSet)
+        {
+            // strikes once
+            m_ui->expertNameInput->setText("");
+            QFont font = m_ui->expertNameInput->font();
+            font.setItalic(false);
+            m_ui->expertNameInput->setFont(font);
+            m_initialExpertNameTextSet = false;
+        }
+        else if(m_ui->expertNameInput->text().size() > 6 &&
+                m_ui->expertNameInput->text().contains(" "))
+        {
+            enableAllProjects(true);
+        }
+        else
+        {
+            enableAllProjects(false);
+        }
+    }
+    return false;
+}
