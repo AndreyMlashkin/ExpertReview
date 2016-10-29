@@ -28,6 +28,8 @@ public:
     void hideAddButton();
     void inputExpertName();
 
+    QString getExpertName() const;
+
 signals:
     void projectChoosen();
 

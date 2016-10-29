@@ -52,7 +52,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Введите имя эксперта...</string>
+        <string>Введите ФИО...</string>
        </property>
       </widget>
      </item>

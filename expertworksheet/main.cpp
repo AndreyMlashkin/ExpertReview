@@ -7,8 +7,11 @@
 #include <QDebug>
 
 #include "serialization/projectsloader.h"
+#include "serialization/nodesinfo/treerightsidevalues.h"
 #include "propertytreeviewer.h"
 #include "projectchooser.h"
+
+QString leftSideName("metodicJudges");
 
 void myMessageOutput(QtMsgType, const QMessageLogContext&, const QString &msg)
 {
@@ -22,11 +25,24 @@ void myMessageOutput(QtMsgType, const QMessageLogContext&, const QString &msg)
     out << msg << endl;
 }
 
-void showCreateViewer(const ProjectsLoader& _loader)
+void showTreeViewer(ProjectsLoader& _loader, const QString& _expertName)
 {
-    static std::shared_ptr<PropertyTreeViewer> viewer = std::make_shared<PropertyTreeViewer>
-            (_loader.getSelf(), "metodicJudges");
-    viewer->setWindowTitle("Опросник эксперта");
+    Q_ASSERT(_loader.avaliableLeftSides().contains(leftSideName));
+
+    QStringList rSides = _loader.avaliableRightSides(leftSideName);
+    for(const QString& rSide : rSides)
+    {
+        if(rSide != _expertName)
+        {
+            _loader.removeRightSide(rSide);
+        }
+    }
+    TreeRightSideValues* rSide =
+            _loader.getOrCreateRightSide(leftSideName, _expertName);
+    rSide->setGuiName(_expertName);
+
+    new PropertyTreeViewer(_loader.getSelf(), QString(leftSideName),
+                           PropertyTreeViewer::Minimal);
 }
 
 int main(int argc, char *argv[])
@@ -36,14 +52,19 @@ int main(int argc, char *argv[])
 #endif
     QApplication a(argc, argv);
 
+    if(argc > 1)
+    {
+        leftSideName = QString(argv[1]);
+    }
+
     ProjectsLoader loader;
 
-    ProjectChooser projectChoose(loader.getSelf(), true);
-    projectChoose.hideAddButton();
-    projectChoose.show();
+    ProjectChooser projectChooser(loader.getSelf(), true);
+    projectChooser.hideAddButton();
+    projectChooser.show();
 
-    bool connected = QObject::connect(&projectChoose, &ProjectChooser::projectChoosen, [&]() {
-        showCreateViewer(loader);
+    bool connected = QObject::connect(&projectChooser, &ProjectChooser::projectChoosen, [&]() {
+        showTreeViewer(loader, projectChooser.getExpertName());
     } );
 
     Q_ASSERT(connected);

@@ -88,7 +88,7 @@ TreeRightSideValues *ProjectsLoader::getRightSide(const QString &_leftSideId,
 
 TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId, bool isTemp)
 {
-    QString rightSideName = generateRightSideName(_leftSideId);
+    QString rightSideName = generateRightSideInternalName(_leftSideId);
     return createRightSide(_leftSideId, rightSideName, isTemp);
 }
 
@@ -136,6 +136,24 @@ TreeRightSideValues *ProjectsLoader::getOrCreateRightSide(const QString &_leftSi
 
     result = createRightSide(_leftSideId, _rightSideId, isTemp);
     return result;
+}
+
+void ProjectsLoader::removeRightSide(const QString &_rightSideId)
+{
+    for(auto iter = m_loadedStructure.begin(); iter != m_loadedStructure.end(); ++iter)
+    {
+        QStringList& rSides = iter.value();
+        for(const QString& rSide : rSides)
+        {
+            if(rSide == _rightSideId)
+            {
+                rSides.removeOne(rSide);
+                QString leftSideId = iter.key();
+                QPair<QString, QString> key(rSide, leftSideId);
+                m_rightSides.remove(key);
+            }
+        }
+    }
 }
 
 bool ProjectsLoader::load(const QFileInfo &fileInfo)
@@ -293,7 +311,7 @@ void ProjectsLoader::createLeftSide(const QString &_treeName)
     m_leftSides.insert(_treeName, leftSide);
 }
 
-QString ProjectsLoader::generateRightSideName(const QString &_leftSide) const
+QString ProjectsLoader::generateRightSideInternalName(const QString &_leftSide) const
 {
     QStringList rightSides = avaliableRightSides(_leftSide);
     QString rightSideName;

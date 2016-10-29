@@ -77,6 +77,11 @@ void ProjectChooser::inputExpertName()
     enableAllProjects(false);
 }
 
+QString ProjectChooser::getExpertName() const
+{
+    return m_ui->expertNameInput->text();
+}
+
 void ProjectChooser::projectClicked()
 {
     QPushButton* button = qobject_cast<QPushButton*>(sender());

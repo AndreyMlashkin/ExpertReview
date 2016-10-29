@@ -44,6 +44,8 @@ public:
                                                const QString& _rightSideId,
                                                bool isTemp = false);
 
+     void removeRightSide(const QString& _rightSideId);
+
      inline ProjectsLoaderPtr getSelf() const { return m_self; }
 
 public slots:
@@ -61,7 +63,7 @@ private:
     void tryCompatibilityFillStructure();
     void createLeftSide(const QString& _treeName);
 
-    QString generateRightSideName(const QString& _leftSide) const;
+    QString generateRightSideInternalName(const QString& _leftSide) const;
 
 private:
     ProjectsLoaderPtr m_self;
