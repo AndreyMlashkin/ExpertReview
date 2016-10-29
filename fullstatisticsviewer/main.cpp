@@ -10,11 +10,6 @@
 #include "projectchooser.h"
 #include "modechooser.h"
 
-// TODO delete
-//#include <QTableView>
-//#include "fulltreetablemodel.h"
-// TODO delete
-
 void myMessageOutput(QtMsgType, const QMessageLogContext&, const QString &msg)
 {
     static QTextStream out;
@@ -43,32 +38,12 @@ int main(int argc, char *argv[])
     ModeChooser chooser(loader.getSelf());
     bool connected = QObject::connect(&projectChoose, &ProjectChooser::projectChoosen, &chooser, &QWidget::show);
     Q_ASSERT(connected);
-/*
-    // Test code:
-    QTableView view;
-    FullTreeTableModel model(loader.getSelf());
-    view.setModel(&model);
-    view.show();
-//    QObject::connect(&projectChoose, &ProjectChooser::projectChoosen,
-//                     &model,         &FullTreeTableModel::update);
 
-    // Test code end
-
-    auto printLoadedStructure = [&loader]()
+    QObject::connect(&projectChoose, &ProjectChooser::projectChoosen,
+    [&]()
     {
-        qDebug() << loader.loadedStructure();
-    };
+        loader.loadAll();
+    }  );
 
-    QShortcut *shortcutPrintStructure = new QShortcut(QKeySequence("Ctrl+P"), &chooser);
-    QObject::connect(shortcutPrintStructure, &QShortcut::activated, printLoadedStructure);
-
-    auto updateView = [&]()
-    {
-        qDebug() << Q_FUNC_INFO;
-        model.setTreeName("test");
-    };
-    QShortcut *shortcutUpdateView = new QShortcut(QKeySequence("Ctrl+U"), &chooser);
-    QObject::connect(shortcutUpdateView, &QShortcut::activated, updateView);
-*/
     return a.exec();
 }
