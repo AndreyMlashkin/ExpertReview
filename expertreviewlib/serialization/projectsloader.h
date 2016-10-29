@@ -23,7 +23,9 @@ public:
      QString projectDir() const;
 
      QStringList avaliableLeftSides() const;
-     QMap<QString, QStringList> loadedStructure() { return m_loadedStructure; } // TODO hide it
+     QMap<QString, QStringList> loadedStructure() { return m_loadedStructure; } // TODO hide it     
+     void loadAll();
+     void loadAllRightSides(const QString& _leftSideId);
 
      TreeLeftSideInfo* getLeftSideInfo(const QString& _leftSideId);
 

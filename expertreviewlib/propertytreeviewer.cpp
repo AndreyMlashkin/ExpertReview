@@ -294,14 +294,10 @@ void PropertyTreeViewer::writeRightSideVals()
 
 void PropertyTreeViewer::readRightSideVals()
 {
-    int count = m_leftInfo->savedRightSidesCount();
-    for(int i = 0; i < count; ++i)
+    for(const QString& rSideName : m_loader->avaliableRightSides(m_leftSideTreeId))
     {
-        TreeRightSideValues* rightSide = m_leftInfo->openRightSide(i);
-        if(rightSide->isTemp())
-            continue;
-
-        m_values << rightSide;
+        TreeRightSideValues* rSide = m_loader->getOrCreateRightSide(m_leftSideTreeId, rSideName);
+        m_values << rSide;
         addTab();
     }
 }

@@ -27,6 +27,23 @@ QStringList ProjectsLoader::avaliableLeftSides() const
     return m_loadedStructure.keys();
 }
 
+void ProjectsLoader::loadAll()
+{
+    for(const QString& leftSide : m_loadedStructure.keys())
+    {
+        loadAllRightSides(leftSide);
+    }
+}
+
+void ProjectsLoader::loadAllRightSides(const QString &_leftSideId)
+{
+    QStringList avaliableRightSides = m_loadedStructure[_leftSideId];
+    for(const QString& rightSideName : avaliableRightSides)
+    {
+        createRightSide(_leftSideId, rightSideName);
+    }
+}
+
 TreeLeftSideInfo *ProjectsLoader::getLeftSideInfo(const QString &_leftSideId)
 {
     qDebug() << Q_FUNC_INFO << " " << _leftSideId << "\n"
@@ -99,6 +116,13 @@ TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
 
     if(!_isTemp && !m_loadedStructure[_leftSideId].contains(_rightSideId))
         m_loadedStructure[_leftSideId] << _rightSideId;
+
+    if(rSide->guiName().isEmpty())
+    {
+        QString guiName = leftSide->name() + QString::number(leftSide->getRightSides().count());
+        rSide->setGuiName(guiName);
+    }
+
     return rSide;
 }
 
