@@ -20,7 +20,10 @@ class EXPERTREVIEW_EXPORT ProjectChooser : public QWidget
     Q_OBJECT
 
 public:
-    explicit ProjectChooser(const ProjectsLoaderPtr& _loader, bool _inputExpertName = false, QWidget *parent = 0);
+    explicit ProjectChooser(const ProjectsLoaderPtr& _loader,
+                            bool _inputExpertName = false,
+                            const QString& _projectFileName = "project",
+                            QWidget *parent = 0);
     ~ProjectChooser();
 
     void updateProjectList();
@@ -45,6 +48,7 @@ protected:
     Ui::ProjectChooser *m_ui;
     ProjectsLoaderPtr m_loader;
 
+    const QString m_projectFileName;
     QFileInfoList m_foundProjects;
     QMap<QPushButton*, QFileInfo> m_projectsBind;
 

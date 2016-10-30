@@ -253,6 +253,7 @@ void ProjectsLoader::read(const QJsonObject &_json)
         QString leftSideName = iter.key();
         QJsonArray rightSides = iter.value().toArray();
 
+        m_loadedStructure[leftSideName] = QStringList();
         for(const auto& rightSide : rightSides) // TODO is duplicate check neded?
             m_loadedStructure[leftSideName] << rightSide.toString();
         ++iter;

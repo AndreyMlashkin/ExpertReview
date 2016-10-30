@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 
     ProjectsLoader loader;
 
-    ProjectChooser projectChooser(loader.getSelf(), true);
+    ProjectChooser projectChooser(loader.getSelf(), true, "experts_project");
     projectChooser.hideAddButton();
     projectChooser.show();
 

@@ -5,10 +5,11 @@
 #include "ui_projectchooser.h"
 #include "serialization/projectsloader.h"
 
-ProjectChooser::ProjectChooser(const ProjectsLoaderPtr& _loader, bool _inputExpertName, QWidget *parent) :
+ProjectChooser::ProjectChooser(const ProjectsLoaderPtr& _loader, bool _inputExpertName, const QString &_projectFileName, QWidget *parent) :
     QWidget(parent),
     m_ui(new Ui::ProjectChooser),
     m_loader(_loader),
+    m_projectFileName(_projectFileName),
     m_initialExpertNameTextSet(true)
 {
     m_ui->setupUi(this);
@@ -37,7 +38,7 @@ void ProjectChooser::updateProjectList()
         auto files = subDir.entryInfoList(QDir::Files);
         for(const auto& file : files)
         {
-            if(file.baseName() == "project")
+            if(file.baseName() == m_projectFileName)
             {
                 m_foundProjects << QFileInfo(file.absoluteFilePath());
                 break;
