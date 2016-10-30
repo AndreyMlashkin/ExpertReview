@@ -269,6 +269,8 @@ void PropertyTreeViewer::setActiveTab(QWidget *_tab)
     if(!_tab->layout())
     {
         QHBoxLayout* l = new QHBoxLayout();
+        l->setMargin(0);
+        l->setSpacing(0);
         _tab->setLayout(l);
     }
     _tab->layout()->addWidget(m_treePropertyWidget);
