@@ -128,11 +128,10 @@ void TreePropertyWidget::setEditable(bool _set)
 void TreePropertyWidget::setPrecision(int _newPrecision)
 {
     m_precision = _newPrecision;
-    foreach(QtProperty* prop, m_variantManager->properties())
+    for(QtProperty* prop : m_variantManager->properties())
     {
         m_variantManager->setAttribute(prop, "decimals", QVariant(_newPrecision));
-        m_variantManager->setValue(prop, toDouble(prop->valueText()));
+        emit m_variantManager->propertyChanged(prop);
     }
-
     update();
 }

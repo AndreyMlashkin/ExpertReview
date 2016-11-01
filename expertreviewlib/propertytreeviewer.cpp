@@ -52,7 +52,6 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
     connect(m_ui->normalise, SIGNAL(clicked(bool)),       SLOT(normalise(bool)));
 
     setDefaultTabName(m_leftInfo->defaultRightSideTreeName());
-    setPrecision(6);
 }
 
 PropertyTreeViewer::~PropertyTreeViewer()
@@ -147,6 +146,8 @@ void PropertyTreeViewer::normalise(bool _toggled)
 
         TreeRightSideValues* newVals = normalise(oldVals);
         m_treePropertyWidget->setValues(newVals);
+
+        setPrecision(6);
     }
     else
     {
@@ -154,6 +155,8 @@ void PropertyTreeViewer::normalise(bool _toggled)
             displayValuesForArithmeticalMean();
         else
             m_treePropertyWidget->setValues(m_values[m_currentTab]);
+
+        setPrecision(2);
     }
 }
 
