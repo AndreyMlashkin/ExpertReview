@@ -36,7 +36,8 @@ SOURCES += \
     serialization/projectsloader.cpp \
     projectchooser.cpp \
     rightsidediagrammview.cpp \
-    simplystatistic.cpp
+    simplystatistic.cpp \
+    helpapi.cpp
 
 HEADERS  += export.h \
     treepropertywidget.h \
@@ -56,7 +57,8 @@ HEADERS  += export.h \
     serialization/projectsloader.h \
     projectchooser.h \
     rightsidediagrammview.h \
-    simplystatistic.h
+    simplystatistic.h \
+    helpapi.h
 
 FORMS    += \
     propertytreeviewer.ui \

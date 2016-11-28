@@ -39,6 +39,7 @@ signals:
 
 protected slots:
     void projectClicked();
+    void helpCalled();
 
 protected:
     void clearGui();

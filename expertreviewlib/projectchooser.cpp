@@ -4,6 +4,7 @@
 #include "projectchooser.h"
 #include "ui_projectchooser.h"
 #include "serialization/projectsloader.h"
+#include "helpapi.h"
 
 ProjectChooser::ProjectChooser(const ProjectsLoaderPtr& _loader, bool _inputExpertName, const QString &_projectFileName, QWidget *parent) :
     QWidget(parent),
@@ -22,6 +23,7 @@ ProjectChooser::ProjectChooser(const ProjectsLoaderPtr& _loader, bool _inputExpe
         m_ui->expertNameInput->hide();
     }
     connect(m_ui->help, SIGNAL(clicked(bool)), SIGNAL(helpClicked()));
+    connect(m_ui->help, SIGNAL(clicked(bool)), SLOT(helpCalled()));
 }
 
 ProjectChooser::~ProjectChooser()
@@ -143,4 +145,11 @@ bool ProjectChooser::eventFilter(QObject *obj, QEvent *event)
         }
     }
     return false;
+}
+
+void ProjectChooser::helpCalled()
+{
+    QString text = "1. Введите имя и фамилию через пробел.\n"
+                   "2. Выберите один из доступных проектов";
+    callHelp(text);
 }
