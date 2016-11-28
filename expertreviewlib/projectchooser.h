@@ -35,6 +35,7 @@ public:
 
 signals:
     void projectChoosen();
+    void helpClicked();
 
 protected slots:
     void projectClicked();

@@ -21,6 +21,7 @@ ProjectChooser::ProjectChooser(const ProjectsLoaderPtr& _loader, bool _inputExpe
     {
         m_ui->expertNameInput->hide();
     }
+    connect(m_ui->help, SIGNAL(clicked(bool)), SIGNAL(helpClicked()));
 }
 
 ProjectChooser::~ProjectChooser()
