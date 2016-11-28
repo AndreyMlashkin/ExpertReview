@@ -50,6 +50,15 @@
          </property>
         </layout>
        </widget>
+       <widget class="QWidget" name="import">
+        <attribute name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/pics/pics/import.png</normaloff>:/pics/pics/import.png</iconset>
+        </attribute>
+        <attribute name="title">
+         <string/>
+        </attribute>
+       </widget>
        <widget class="QWidget" name="average">
         <attribute name="title">
          <string>Приведённая оценка</string>

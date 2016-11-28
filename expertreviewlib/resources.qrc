@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/pics">
         <file>pics/plus.png</file>
+        <file>pics/import.png</file>
     </qresource>
 </RCC>

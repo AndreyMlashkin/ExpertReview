@@ -1,4 +1,5 @@
 #include <QFileInfo>
+#include <QFileDialog>
 
 #include "propertytreeviewer.h"
 #include "projectcalculation.h"
@@ -13,6 +14,10 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
      m_ui(new Ui::PropertyTreeViewer),
      m_loader(_loader),
      m_mode(_mode),
+     m_average(nullptr),
+     m_add(nullptr),
+     m_import(nullptr),
+
      m_serviceTabsCount(0),
 
      m_leftSideTreeId(_leftSideTreeId),
@@ -117,7 +122,12 @@ void PropertyTreeViewer::tabChanged(int _newNum)
     {
         addTab();
         return;
-    }    
+    }
+    else if(w == m_ui->import)
+    {
+        import();
+        return;
+    }
     else
     {
         m_treePropertyWidget->setValues(m_values[_newNum]);
@@ -166,7 +176,8 @@ void PropertyTreeViewer::init()
     m_treePropertyWidget = new TreePropertyWidget(m_leftInfo);
 
     m_average = m_ui->average;
-    m_add = m_ui->add;
+    m_add     = m_ui->add;
+    m_import  = m_ui->import;
 
     QWidget::setWindowTitle(m_leftInfo->name());
 }
@@ -192,9 +203,17 @@ void PropertyTreeViewer::setMode(int _mode)
         int averageWgtIndex = m_ui->tabWidget->indexOf(m_average);
         m_ui->tabWidget->removeTab(averageWgtIndex);
     }
+
+    if(_mode & Import)
+        ++m_serviceTabsCount;
+    else
+    {
+        int importWgtIndex = m_ui->tabWidget->indexOf(m_import);
+        m_ui->tabWidget->removeTab(importWgtIndex);
+    }
 }
 
-void PropertyTreeViewer::addTab()
+void PropertyTreeViewer::addTab(const QString &_guiName)
 {
 	Q_ASSERT(m_leftInfo);
 
@@ -202,7 +221,12 @@ void PropertyTreeViewer::addTab()
     int tabsCount = m_ui->tabWidget->count();
     int insertPos = tabsCount - m_serviceTabsCount;
 
-    QString tabName = generateTabName(insertPos);
+    QString tabName;
+    if(_guiName.isEmpty())
+        tabName = generateTabName(insertPos);
+    else
+        tabName = _guiName;
+
     if(m_values.size() <= insertPos)
     {
         m_values.resize(insertPos + 1); // 1 - index to size;
@@ -301,9 +325,33 @@ void PropertyTreeViewer::readRightSideVals()
 {
     for(const QString& rSideName : m_loader->avaliableRightSides(m_leftSideTreeId))
     {
-        TreeRightSideValues* rSide = m_loader->getOrCreateRightSide(m_leftSideTreeId, rSideName);
-        m_values << rSide;
-        addTab();
+        addOneRSide(rSideName);
     }
+}
+
+void PropertyTreeViewer::addOneRSide(const QString &_rSideId)
+{
+    TreeRightSideValues* rSide = m_loader->getOrCreateRightSide(m_leftSideTreeId, _rSideId);
+    m_values << rSide;
+    addTab(rSide->guiName());
+}
+
+void PropertyTreeViewer::import()
+{
+    QString filePath = QFileDialog::getOpenFileName();
+    QFileInfo fileInfo(filePath);
+    if(!fileInfo.exists())
+        return;
+
+    QString fileName = fileInfo.fileName();
+    QString newLocation(m_loader->projectDir() + "/" + fileName);
+    if(QFileInfo(newLocation).exists())
+    {
+        // TODO AM add check. Some dialog or smth like that.
+    }
+
+    QFile::copy(filePath, newLocation);
+    auto rSide = m_loader->getOrCreateRightSide(m_leftSideTreeId, fileName);
+    addOneRSide(rSide->id());
 }
 

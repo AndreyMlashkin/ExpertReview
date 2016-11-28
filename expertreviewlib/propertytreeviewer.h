@@ -17,10 +17,11 @@ class EXPERTREVIEW_EXPORT PropertyTreeViewer : public QWidget
 {
     Q_OBJECT
 public:
-    enum Mode { Minimal = 0,
-                AddTabs = 0x1,
-                AverageTab = 0x2,
-                NormalizeButton = 0x4,
+    enum Mode { Minimal         = 0,
+                AddTabs         = 0x1,
+                Import          = 0x2,
+                AverageTab      = 0x4,
+                NormalizeButton = 0x8,
 
                 All = 0xFFFFFFF
               };
@@ -43,7 +44,7 @@ private:
     void init();
     void setMode(int _mode);
 
-    void addTab();
+    void addTab(const QString& _guiName = "");
     bool isNormalised() const;
     TreeRightSideValues *normalise(TreeRightSideValues* _values);
 
@@ -59,6 +60,9 @@ private:
 
 //    void writeRightSideVals();
     void readRightSideVals();
+    void addOneRSide(const QString& _rSideId);
+
+    void import();
 
 private:
     Ui::PropertyTreeViewer *m_ui;
@@ -67,6 +71,7 @@ private:
     int m_mode;
     QWidget* m_average;
     QWidget* m_add;
+    QWidget* m_import;
     int m_serviceTabsCount;
 
     QString m_defaultTabName;
