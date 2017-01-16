@@ -13,6 +13,7 @@
 #include "projectcalculation.h"
 #include "finalcalculationdialog.h"
 #include "rightsidediagrammview.h"
+#include "helpapi.h"
 
 struct ModeChooser::ModeChooserPrivate
 {
@@ -56,6 +57,7 @@ ModeChooser::ModeChooser(const ProjectsLoaderPtr& _loader, QWidget *parent) :
     connect(m_ui->sourceData,    SIGNAL(clicked()), SLOT(callSourceData()));
     connect(m_ui->calculation,   SIGNAL(clicked()), SLOT(callCalculation()));
     connect(m_ui->sectionsCalculation,   SIGNAL(clicked()), SLOT(callSectionCalculation()));
+    connect(m_ui->help,                  SIGNAL(clicked()), SLOT(callHelp()));
 }
 
 ModeChooser::~ModeChooser()
@@ -148,7 +150,17 @@ void ModeChooser::callCalculation()
                                   firstFinalCriterium,
                                   secondFinalCriterium,
                                   "result", this);
-    dialog.exec();    
+    dialog.exec();
+}
+
+void ModeChooser::callHelp()
+{
+    QString text = "1. Выберите в этом окне тип экспертов для работы.\n"
+                   "2. В следующем окне, заполните данные, используя "
+                   "импорт подготовленных экспертами файлов или добавьте "
+                   "новых экспертов и заполните данные вручную\n"
+                   "3. Расчётные вкладки будут обновлены автоматически";
+    ::callHelp(text);
 }
 
 void ModeChooser::updateResult()

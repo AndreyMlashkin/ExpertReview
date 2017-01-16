@@ -22,6 +22,7 @@ private slots:
     void callSourceData();
     void callSectionCalculation();
     void callCalculation();
+    void callHelp();
 
 private:
     void updateResult();
