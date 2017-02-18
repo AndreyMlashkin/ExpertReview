@@ -128,7 +128,7 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
 
     qDebug() << "\nAFTER NORMALISATION:\n" << oneProjectCalculation << "\n--------\n" << otherProjectCalculation;
 
-    oneProjectCalculation   = multiply(oneProjectCalculation,   m_metodicJudgesAverage->values());
+    oneProjectCalculation   = multiply(oneProjectCalculation,   m_metodicJudgesAverage->values()); // умножаем на среднее по весам критериев по экспертам
     otherProjectCalculation = multiply(otherProjectCalculation, m_metodicJudgesAverage->values());
 
     oneProjectCalculation   = multiplyWithSection(oneProjectCalculation,   m_sectionsAverage->values(), m_methodicJudges->nodes());
@@ -292,7 +292,6 @@ QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, 
     }
     return ans;
 }
-
 
 void removeNan(QMap<QString, double>& _values)
 {

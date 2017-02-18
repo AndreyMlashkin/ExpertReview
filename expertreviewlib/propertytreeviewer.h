@@ -13,6 +13,11 @@ class TreeLeftSideInfoFactory;
 class TreeRightSideValues;
 class TreeLeftSideInfo;
 
+//!
+//! \brief The PropertyTreeViewer class класс графического интерфейса, позволяющий пользователю
+//! работать с проектом, а также добавлять и импортировать значения проектов, нормализировать значения и
+//! просматривать усреднённое значение по всем проектам.
+//!
 class EXPERTREVIEW_EXPORT PropertyTreeViewer : public QWidget
 {
     Q_OBJECT

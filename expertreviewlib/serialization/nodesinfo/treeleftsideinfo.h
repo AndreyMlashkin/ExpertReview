@@ -8,6 +8,9 @@ class PropertyNode;
 class TreeRightSideValues;
 class ProjectsLoader;
 
+//!
+//! \brief The TreeLeftSideInfo class абстрактный класс для описания метаинформации проектов.
+//!
 class TreeLeftSideInfo
 {
     friend class ProjectsLoader;

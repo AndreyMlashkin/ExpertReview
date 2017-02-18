@@ -5,7 +5,10 @@
 
 class TreeLeftSideInfo;
 
-//TODO rename!
+//!
+//! \brief The RightSideDiagrammView class класс графического интерфейса,
+//! отображающий круговую диаграмму для вектора значений одного проекта.
+//!
 class RightSideDiagrammView : public statistics::StatisticsWidget
 {
     Q_OBJECT

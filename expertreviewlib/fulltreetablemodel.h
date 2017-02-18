@@ -4,7 +4,10 @@
 #include <QAbstractTableModel>
 #include "serialization/projectsloader.h"
 
-// TODO find better name
+//!
+//! \brief The FullTreeTableModel class класс для просмотра всех векторов значений одного проекта
+//! в табличном виде
+//!
 class FullTreeTableModel : public QAbstractTableModel
 {
 public:

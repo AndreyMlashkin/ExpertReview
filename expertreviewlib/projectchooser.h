@@ -15,6 +15,9 @@ class ProjectChooser;
 class QPushButton;
 class ProjectsLoader;
 
+//!
+//! \brief The ProjectChooser class класс графического интерфейса, позволяющий пользователю выбрать проект.
+//!
 class EXPERTREVIEW_EXPORT ProjectChooser : public QWidget
 {
     Q_OBJECT
@@ -26,6 +29,7 @@ public:
                             QWidget *parent = 0);
     ~ProjectChooser();
 
+    //! \brief updateProjectList обновить список доступных проектов.
     void updateProjectList();
     void updateProjectListGui();
     void hideAddButton();

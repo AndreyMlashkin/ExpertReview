@@ -4,6 +4,10 @@
 #include "propertynodejson.h"
 #include "../nodesinfo/treeleftsideinfo.h"
 
+//!
+//! \brief The TreeLeftSideInfoJson class класс для описания метаинформации проектов
+//! в реализации json
+//!
 class TreeLeftSideInfoJson : public TreeLeftSideInfo
 {
 public:

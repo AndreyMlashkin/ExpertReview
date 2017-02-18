@@ -8,6 +8,9 @@ namespace Ui {
 class ModeChooser;
 }
 
+//!
+//! \brief The ModeChooser class класс графического интерфейса, позволяющий пользователю
+//! выбрать режим работы с программой
 class EXPERTREVIEW_EXPORT ModeChooser : public QWidget
 {
     Q_OBJECT

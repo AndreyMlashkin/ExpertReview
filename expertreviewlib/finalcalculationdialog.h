@@ -12,6 +12,10 @@ class FinalCalculationDialog;
 
 class FullTreeTableModel;
 
+//!
+//! \brief The FinalCalculationDialog class класс графического интерфейса для отображения
+//! результатов расчёта
+//!
 class EXPERTREVIEW_EXPORT FinalCalculationDialog : public QDialog
 {
     Q_OBJECT

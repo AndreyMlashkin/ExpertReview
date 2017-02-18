@@ -15,6 +15,10 @@ class TreeRightSideValues;
 class ProjectsLoader;
 typedef QPointer<ProjectsLoader> ProjectsLoaderPtr;
 
+//!
+//! \brief The ProjectsLoader class класс программного интерфейса для загрузки и сохранения
+//! векторов значений проектов и метаописания проектов.
+//!
 class EXPERTREVIEW_EXPORT ProjectsLoader : public QObject
 {
 public:

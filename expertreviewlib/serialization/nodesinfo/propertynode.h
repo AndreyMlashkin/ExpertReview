@@ -4,6 +4,9 @@
 #include <QString>
 #include <QList>
 
+//!
+//! \brief The PropertyNode class абстрактный элемент древовидной структуры проекта.
+//!
 class PropertyNode
 {
 public:

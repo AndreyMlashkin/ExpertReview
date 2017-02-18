@@ -9,6 +9,10 @@
 namespace statistics
 {
 
+//!
+//! \brief The SimplyStatistic class класс графического интерфейса, позволяющий просматривать
+//! круговые диаграммы
+//!
 class SimplyStatistic : public statistics::Statistic
 {
 public:

@@ -4,6 +4,10 @@
 #include <QJsonObject>
 #include "serialization/nodesinfo/propertynode.h"
 
+//!
+//! \brief The PropertyNodeJson class элемент реализации древовидной структуры проекта
+//! в формате json
+//!
 class PropertyNodeJson : public PropertyNode
 {
 public:

@@ -9,6 +9,10 @@ class PropertyNode;
 class TreeLeftSideInfo;
 class TreeRightSideValues;
 
+//!
+//! \brief The TreePropertyWidget class Класс графического интерфейса, отображающий значения
+//! одного проекта.
+//!
 class TreePropertyWidget : public QtTreePropertyBrowser
 {
     Q_OBJECT
@@ -16,13 +20,19 @@ public:
     TreePropertyWidget(TreeLeftSideInfo *_info, QWidget *_parent = 0);
     ~TreePropertyWidget();
 
+    //! \brief setValues присваивает значения проекта
     void setValues(TreeRightSideValues* _values);
-    // TODO refactor this
+
+    //! \brief updateRightSideFromUi возвращает заполненные значения одного проекта
+    //! из графического интерфейса.
     TreeRightSideValues* updateRightSideFromUi(TreeRightSideValues *_rightSide) const;
 
+    //! \brief clear сбрасывает все значения в 0
     void clear();
+    //! \brief setEditable сделать виджет редактируемым.
     void setEditable(bool _set);
 
+    //! \brief setPrecision установить новую точность отображения знаков после запятой.
     void setPrecision(int _newPrecision);
 
 private:

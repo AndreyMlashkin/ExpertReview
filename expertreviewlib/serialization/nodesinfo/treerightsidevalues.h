@@ -4,6 +4,9 @@
 #include <QStringList>
 #include <QVariant>
 
+//!
+//! \brief The TreeRightSideValues class абстрактный класс векторов значений проектов
+//!
 class TreeRightSideValues
 {
     friend class ProjectsLoader;

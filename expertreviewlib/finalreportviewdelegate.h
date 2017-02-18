@@ -3,6 +3,10 @@
 
 #include <QStyledItemDelegate>
 
+//!
+//! \brief The FinalReportViewDelegate class вспомогательный класс графического интерфейса,
+//! для изменения цвета ячеек в табличном отображени проектов.
+//!
 class FinalReportViewDelegate : public QStyledItemDelegate
 {
 public:

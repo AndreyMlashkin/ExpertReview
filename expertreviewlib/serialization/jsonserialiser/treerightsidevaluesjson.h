@@ -6,6 +6,10 @@
 
 class PropertyNodeJson;
 
+//!
+//! \brief The TreeRightSideValuesJson class класс реализации векторов значений проектов
+//! в реализации json
+//!
 class TreeRightSideValuesJson : public TreeRightSideValues
 {
 public:
