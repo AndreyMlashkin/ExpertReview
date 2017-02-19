@@ -42,7 +42,7 @@ namespace parser
 Parser::Parser()
 {
     expr[0] = '\0';
-    e = NULL;
+    e = nullptr;
 
     token[0] = '\0';
     token_type = NOTHING;
@@ -295,7 +295,7 @@ void Parser::getToken()
 
         // check if this is a variable or a function.
         // a function has a parentesis '(' open after the name
-        char* e2 = NULL;
+        char* e2 = nullptr;
         e2 = e;
 
         // skip whitespaces
@@ -573,7 +573,7 @@ double ans = 0;
     {
         case NUMBER:
             // this is a number
-            ans = strtod(token, NULL);
+            ans = strtod(token, nullptr);
             getToken();
             break;
 

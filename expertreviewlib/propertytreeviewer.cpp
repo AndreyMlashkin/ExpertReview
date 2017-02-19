@@ -21,10 +21,10 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
      m_serviceTabsCount(0),
 
      m_leftSideTreeId(_leftSideTreeId),
-     m_treePropertyWidget(NULL),
+     m_treePropertyWidget(nullptr),
      m_currentTab(0),
-     m_factory(NULL),
-     m_leftInfo(NULL)
+     m_factory(nullptr),
+     m_leftInfo(nullptr)
 {
     Q_ASSERT(!_loader.isNull());
     setAttribute(Qt::WA_DeleteOnClose);
