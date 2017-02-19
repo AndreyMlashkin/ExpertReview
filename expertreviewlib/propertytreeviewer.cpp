@@ -180,6 +180,18 @@ void PropertyTreeViewer::init()
     m_import  = m_ui->import;
 
     QWidget::setWindowTitle(m_leftInfo->name());
+    hideCloseButtonFromServiceTabs();
+}
+
+void PropertyTreeViewer::hideCloseButtonFromServiceTabs()
+{
+    QWidgetList serviceTabs { m_add, m_import, m_average };
+    for(QWidget* serviceTab : serviceTabs)
+    {
+        int index_of_average = m_ui->tabWidget->indexOf(serviceTab);
+        QWidget* closeButton = m_ui->tabWidget->tabBar()->tabButton(index_of_average, QTabBar::RightSide);
+        closeButton->hide();
+    }
 }
 
 void PropertyTreeViewer::setMode(int _mode)

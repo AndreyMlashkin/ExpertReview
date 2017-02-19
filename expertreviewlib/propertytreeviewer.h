@@ -47,6 +47,7 @@ private slots:
 
 private:
     void init();
+    void hideCloseButtonFromServiceTabs();
     void setMode(int _mode);
 
     void addTab(const QString& _guiName = "");
