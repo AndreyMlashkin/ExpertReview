@@ -1,5 +1,6 @@
 #include <QFileInfo>
 #include <QFileDialog>
+#include <QMessageBox>
 
 #include "propertytreeviewer.h"
 #include "projectcalculation.h"
@@ -53,8 +54,9 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
     m_treePropertyWidget->setFont(font);
     m_treePropertyWidget->setSplitterPosition(double(width()) / 0.5);
 
-    connect(m_ui->tabWidget, SIGNAL(currentChanged(int)), SLOT(tabChanged(int)));
-    connect(m_ui->normalise, SIGNAL(clicked(bool)),       SLOT(normalise(bool)));
+    connect(m_ui->tabWidget, SIGNAL(currentChanged(int)),   SLOT(tabChanged(int)));
+    connect(m_ui->normalise, SIGNAL(clicked(bool)),         SLOT(normalise(bool)));
+    connect(m_ui->tabWidget, SIGNAL(tabCloseRequested(int)),SLOT(removeExpert(int)));
 
     setDefaultTabName(m_leftInfo->defaultRightSideTreeName());
 }
@@ -168,6 +170,19 @@ void PropertyTreeViewer::normalise(bool _toggled)
 
         setPrecision(2);
     }
+}
+
+void PropertyTreeViewer::removeExpert(int _tabIndex)
+{
+    QString tabText = m_ui->tabWidget->tabText(_tabIndex);
+
+    QMessageBox confirmation(this);
+    confirmation.setWindowTitle("Удаление");
+    confirmation.setText(QString("Вы действительно хотите удалить эксперта %1?").arg(tabText));
+
+    int mode = QMessageBox::Yes | QMessageBox::No;
+    confirmation.setStandardButtons(QMessageBox::StandardButton(mode));
+    confirmation.exec();
 }
 
 void PropertyTreeViewer::init()

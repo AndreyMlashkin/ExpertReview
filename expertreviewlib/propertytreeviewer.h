@@ -44,6 +44,7 @@ public:
 private slots:
     void tabChanged(int _newNum);
     void normalise(bool _toggle);
+    void removeExpert(int _tabIndex);
 
 private:
     void init();
