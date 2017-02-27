@@ -7,5 +7,6 @@ SUBDIRS = \
         statisticsview/statisticsview.pro \
         \
         expertreviewlib/expertreviewlib.pro \
-#        fullstatisticsviewer/fullstatisticsviewer.pro
+        \
+        fullstatisticsviewer/fullstatisticsviewer.pro \
         expertworksheet/expertworksheet.pro
