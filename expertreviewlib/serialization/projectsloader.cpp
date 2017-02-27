@@ -86,15 +86,15 @@ TreeRightSideValues *ProjectsLoader::getRightSide(const QString &_leftSideId,
     return nullptr;
 }
 
-TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId, bool isTemp)
+TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId, bool _isTemp, bool _readOldValues)
 {
     QString rightSideName = generateRightSideInternalName(_leftSideId);
-    return createRightSide(_leftSideId, rightSideName, isTemp);
+    return createRightSide(_leftSideId, rightSideName, _isTemp, _readOldValues);
 }
 
 TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
                                                      const QString &_rightSideId,
-                                                     bool _isTemp)
+                                                     bool _isTemp, bool _readOldValues)
 {
     QPair<QString, QString> key(_rightSideId, _leftSideId);
     auto leftSide = getLeftSideInfo(_leftSideId);
@@ -104,8 +104,7 @@ TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
     rSide->setId(_rightSideId);
     rSide->setTemp(_isTemp);
 
-    // TODO AM
-    if(!rSide->isTemp())
+    if(_readOldValues)
     {
         QString path = projectDir() + _rightSideId;
         rSide->readValues(path);        

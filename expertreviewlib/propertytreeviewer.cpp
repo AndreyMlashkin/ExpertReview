@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -10,7 +11,8 @@
 #include "serialization/nodesinfo/treerightsidevalues.h"
 #include "serialization/nodesinfo/treeleftsideinfo.h"
 
-PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const QString &_leftSideTreeId, int _mode, QWidget *parent)
+PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const QString &_leftSideTreeId,
+                                       int _mode, QWidget *parent)
    : QWidget(parent),
      m_ui(new Ui::PropertyTreeViewer),
      m_loader(_loader),
@@ -56,7 +58,7 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
 
     connect(m_ui->tabWidget, SIGNAL(currentChanged(int)),   SLOT(tabChanged(int)));
     connect(m_ui->normalise, SIGNAL(clicked(bool)),         SLOT(normalise(bool)));
-    connect(m_ui->tabWidget, SIGNAL(tabCloseRequested(int)),SLOT(removeExpert(int)));
+    connect(m_ui->tabWidget, SIGNAL(tabCloseRequested(int)),SLOT(removeExpertRequest(int)));
 
     setDefaultTabName(m_leftInfo->defaultRightSideTreeName());
 }
@@ -107,11 +109,18 @@ void PropertyTreeViewer::setPrecision(int _newPrecision)
 
 void PropertyTreeViewer::tabChanged(int _newNum)
 {
+    bool saveValuesFromUi = !isServiceTab(m_currentTab) && !isNormalised();
+    tabChanged(_newNum, saveValuesFromUi);
+}
+
+void PropertyTreeViewer::tabChanged(int _newNum, bool _saveValuesFromUi)
+{
+    qDebug() << Q_FUNC_INFO << " new num = " << _newNum;
     QWidget* w = m_ui->tabWidget->widget(_newNum);
     if(!w)
         return;
 
-    if(!isServiceTab(m_currentTab) && !isNormalised())
+    if(_saveValuesFromUi)
         saveValuesFromUi();
 
     if(w == m_ui->average)
@@ -132,6 +141,8 @@ void PropertyTreeViewer::tabChanged(int _newNum)
     }
     else
     {
+        qDebug() << m_values[_newNum]->guiName() << "\t"
+                 << m_values[_newNum]->values();
         m_treePropertyWidget->setValues(m_values[_newNum]);
         m_currentTab = _newNum;
     }
@@ -172,17 +183,23 @@ void PropertyTreeViewer::normalise(bool _toggled)
     }
 }
 
-void PropertyTreeViewer::removeExpert(int _tabIndex)
+void PropertyTreeViewer::removeExpertRequest(int _tabIndex)
 {
     QString tabText = m_ui->tabWidget->tabText(_tabIndex);
 
     QMessageBox confirmation(this);
     confirmation.setWindowTitle("Удаление");
-    confirmation.setText(QString("Вы действительно хотите удалить эксперта %1?").arg(tabText));
+    confirmation.setText(QString("Вы действительно хотите удалить данные эксперта %1?").arg(tabText));
+
 
     int mode = QMessageBox::Yes | QMessageBox::No;
     confirmation.setStandardButtons(QMessageBox::StandardButton(mode));
-    confirmation.exec();
+    int buttonCode = confirmation.exec();
+
+    qDebug() << Q_FUNC_INFO << " " << buttonCode;
+
+    if(buttonCode == QMessageBox::Yes)
+        removeTab(_tabIndex);
 }
 
 void PropertyTreeViewer::init()
@@ -238,6 +255,8 @@ void PropertyTreeViewer::setMode(int _mode)
         int importWgtIndex = m_ui->tabWidget->indexOf(m_import);
         m_ui->tabWidget->removeTab(importWgtIndex);
     }
+
+    m_ui->tabWidget->setTabsClosable(_mode & TabsClosable);
 }
 
 void PropertyTreeViewer::addTab(const QString &_guiName)
@@ -249,7 +268,8 @@ void PropertyTreeViewer::addTab(const QString &_guiName)
     int insertPos = tabsCount - m_serviceTabsCount;
 
     QString tabName;
-    if(_guiName.isEmpty())
+    bool tabNameGenerated = _guiName.isEmpty();
+    if(tabNameGenerated)
         tabName = generateTabName(insertPos);
     else
         tabName = _guiName;
@@ -259,7 +279,7 @@ void PropertyTreeViewer::addTab(const QString &_guiName)
         m_values.resize(insertPos + 1); // 1 - index to size;
 
         QString leftId = m_leftInfo->treeName();
-        TreeRightSideValues *rightSide = m_loader->createRightSide(leftId);
+        TreeRightSideValues *rightSide = m_loader->createRightSide(leftId, false, !tabNameGenerated);
         m_values[insertPos] = rightSide;
         QString guiName = rightSide->guiName();
         if(guiName.isEmpty())
@@ -269,6 +289,28 @@ void PropertyTreeViewer::addTab(const QString &_guiName)
     }
     m_ui->tabWidget->insertTab(insertPos, newWidget, tabName);
     m_ui->tabWidget->setCurrentWidget(newWidget);
+}
+
+void PropertyTreeViewer::removeTab(int _tabIndex)
+{
+    m_ui->tabWidget->blockSignals(true);
+
+    QString tabText = m_ui->tabWidget->tabText(_tabIndex);
+    TreeRightSideValues* rSide = m_leftInfo->getRightSides().at(_tabIndex);
+    Q_ASSERT(rSide->guiName() == tabText);
+
+    m_values.remove(_tabIndex);
+    m_ui->tabWidget->removeTab(_tabIndex);
+    m_loader->removeRightSide(rSide->id());
+
+    if(_tabIndex == m_currentTab)
+    {
+        m_currentTab = m_currentTab?
+                    m_currentTab-1 : m_currentTab;
+        tabChanged(m_currentTab, false);
+    }
+
+    m_ui->tabWidget->blockSignals(false);
 }
 
 bool PropertyTreeViewer::isNormalised() const
@@ -305,7 +347,9 @@ bool PropertyTreeViewer::isServiceTab(int _num) const
 
 void PropertyTreeViewer::saveValuesFromUi()
 {
-    if(!isServiceTab(m_currentTab))
+    qDebug() << Q_FUNC_INFO;
+    if(!isServiceTab(m_currentTab) &&
+            m_currentTab > 0 && m_currentTab < m_values.size())
     {
         TreeRightSideValues* currentRValues = m_values[m_currentTab];
         m_treePropertyWidget->updateRightSideFromUi(currentRValues);
@@ -381,4 +425,3 @@ void PropertyTreeViewer::import()
     auto rSide = m_loader->getOrCreateRightSide(m_leftSideTreeId, fileName);
     addOneRSide(rSide->id());
 }
-

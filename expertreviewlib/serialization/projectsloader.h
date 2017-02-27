@@ -39,10 +39,12 @@ public:
                                        const QString& _rightSideId) const;
 
      TreeRightSideValues* createRightSide(const QString& _leftSideId,
-                                          bool isTemp = false);
+                                          bool _isTemp = false,
+                                          bool _readOldValues = true);
      TreeRightSideValues* createRightSide(const QString& _leftSideId,
                                           const QString& _rightSideId,
-                                          bool _isTemp = false);
+                                          bool _isTemp = false,
+                                          bool _readOldValues = true);
 
      TreeRightSideValues* getOrCreateRightSide(const QString& _leftSideId,
                                                const QString& _rightSideId,

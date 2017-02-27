@@ -27,6 +27,7 @@ public:
                 Import          = 0x2,
                 AverageTab      = 0x4,
                 NormalizeButton = 0x8,
+                TabsClosable    = 0x10,
 
                 All = 0xFFFFFFF
               };
@@ -43,8 +44,10 @@ public:
 
 private slots:
     void tabChanged(int _newNum);
+    void tabChanged(int _newNum, bool _saveValuesFromUi);
+
     void normalise(bool _toggle);
-    void removeExpert(int _tabIndex);
+    void removeExpertRequest(int _tabIndex);
 
 private:
     void init();
@@ -52,6 +55,8 @@ private:
     void setMode(int _mode);
 
     void addTab(const QString& _guiName = "");
+    void removeTab(int _tabIndex);
+
     bool isNormalised() const;
     TreeRightSideValues *normalise(TreeRightSideValues* _values);
 
