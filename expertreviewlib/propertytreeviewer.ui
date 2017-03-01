@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Экспертная оценка</string>
   </property>
+  <property name="toolTip">
+   <string>Добавить</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
     <widget class="QMenuBar" name="menuBar"/>
@@ -28,6 +31,12 @@
         <bool>true</bool>
        </property>
        <widget class="QWidget" name="add">
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="toolTipDuration">
+         <number>1</number>
+        </property>
         <attribute name="icon">
          <iconset resource="resources.qrc">
           <normaloff>:/pics/pics/plus.png</normaloff>:/pics/pics/plus.png</iconset>
@@ -54,6 +63,12 @@
         </layout>
        </widget>
        <widget class="QWidget" name="import">
+        <property name="toolTip">
+         <string>Импорт</string>
+        </property>
+        <property name="toolTipDuration">
+         <number>1</number>
+        </property>
         <attribute name="icon">
          <iconset resource="resources.qrc">
           <normaloff>:/pics/pics/import.png</normaloff>:/pics/pics/import.png</iconset>

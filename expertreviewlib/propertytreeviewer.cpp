@@ -211,6 +211,9 @@ void PropertyTreeViewer::init()
     m_add     = m_ui->add;
     m_import  = m_ui->import;
 
+    m_ui->tabWidget->setTabToolTip(m_ui->tabWidget->indexOf(m_add), "Добавить");
+    m_ui->tabWidget->setTabToolTip(m_ui->tabWidget->indexOf(m_import), "Импорт");
+
     QWidget::setWindowTitle(m_leftInfo->name());
     hideCloseButtonFromServiceTabs();
 }
@@ -289,6 +292,7 @@ void PropertyTreeViewer::addTab(const QString &_guiName)
     }
     m_ui->tabWidget->insertTab(insertPos, newWidget, tabName);
     m_ui->tabWidget->setCurrentWidget(newWidget);
+    m_ui->tabWidget->setTabToolTip(insertPos, "");
 }
 
 void PropertyTreeViewer::removeTab(int _tabIndex)
@@ -347,9 +351,8 @@ bool PropertyTreeViewer::isServiceTab(int _num) const
 
 void PropertyTreeViewer::saveValuesFromUi()
 {
-    qDebug() << Q_FUNC_INFO;
     if(!isServiceTab(m_currentTab) &&
-            m_currentTab > 0 && m_currentTab < m_values.size())
+            m_currentTab >= 0 && m_currentTab < m_values.size())
     {
         TreeRightSideValues* currentRValues = m_values[m_currentTab];
         m_treePropertyWidget->updateRightSideFromUi(currentRValues);
