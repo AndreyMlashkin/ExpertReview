@@ -5,6 +5,7 @@
 #include <QTextStream>
 #include <QShortcut>
 #include <QDebug>
+#include <QMessageBox>
 
 #include "serialization/projectsloader.h"
 #include "serialization/nodesinfo/treerightsidevalues.h"
@@ -56,6 +57,15 @@ int main(int argc, char *argv[])
     {
         leftSideName = QString(argv[1]);
     }
+#ifndef QT_DEBUG
+    else
+    {
+        QMessageBox errorDialog;
+        errorDialog.setText("Для выполнения программы запустите файл с расширением *.bat");
+        errorDialog.exec();
+        return 0;
+    }
+#endif
 
     ProjectsLoader loader;
 
