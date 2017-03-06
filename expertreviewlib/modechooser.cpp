@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "modechooser.h"
 #include "ui_modechooser.h"
 
@@ -92,17 +93,16 @@ void ModeChooser::callSourceData()
 
 void ModeChooser::callSectionCalculation()
 {
+    ProjectCalculator::updateSectionCalculation(m_loader);
+
     delete p->sectionCalculation;
     p->sectionCalculation = new PropertyTreeViewer(m_loader, "sectionsResult", PropertyTreeViewer::Minimal);
     p->sectionCalculation->setPrecision(6);
     p->sectionCalculation->show();
 
-    ProjectCalculator::updateSectionCalculation(m_loader);
-
     TreeLeftSideInfo* sectionsResult = m_loader->getLeftSideInfo("sectionsResult");
     Q_ASSERT(sectionsResult);
     Q_ASSERT(sectionsResult->getRightSides().count() == 2);
-
 
     auto sectionsRSides = sectionsResult->getRightSides();
     QList<double> firstResult  = sectionsRSides.at(0)->values().values();
