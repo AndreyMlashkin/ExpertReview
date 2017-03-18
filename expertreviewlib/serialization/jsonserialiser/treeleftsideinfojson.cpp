@@ -45,6 +45,10 @@ void TreeLeftSideInfoJson::open(const QString &_treeName)
     QByteArray saveData = loadFile.readAll();
     QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
     read(loadDoc.object());
+
+    // workawound to backward compatibility
+    if(m_treeName.isEmpty())
+        m_treeName = _treeName;
 }
 
 bool TreeLeftSideInfoJson::save() const
@@ -179,9 +183,8 @@ void TreeLeftSideInfoJson::read(const QJsonObject &_json)
     m_treeName = _json["internalName"].toString();
     m_defaultRightSideTreeName = _json["defaultRightSideGuiName"].toString();
 
-    Q_ASSERT_X(!m_treeName.isEmpty(), qPrintable("TreeLeftSideInfoJson::read"),
-               qPrintable(QString("tree name is empty in ") + getPath()));
-
+    if(m_treeName.isEmpty())
+        qWarning() << Q_FUNC_INFO << QString("tree name is empty in ") + getPath();
     if(m_guiName.isEmpty())
         qWarning() << Q_FUNC_INFO << " gui name is empty in " << getPath();
     if(m_defaultRightSideTreeName.isEmpty())
