@@ -27,6 +27,9 @@ public:
     virtual QStringList planeDescriptions() const = 0;
     virtual QStringList planeKeys() const = 0;
 
+    virtual QList<int> planeMinValues() const = 0;
+    virtual QList<int> planeMaxValues() const = 0;
+
     QStringList titles() const;
     QStringList leafs() const;
 

@@ -23,6 +23,14 @@ inline QList<double> toDoubleList(const QVariantList& _varList)
     return ans;
 }
 
+inline QList<int> toIntList(const QStringList& _strList)
+{
+    QList<int> ans;
+    for(QString v : _strList)
+        ans << v.toInt();
+    return ans;
+}
+
 inline QVariantList toVariantList(const QList<double>& _doubleList)
 {
     QVariantList ans;

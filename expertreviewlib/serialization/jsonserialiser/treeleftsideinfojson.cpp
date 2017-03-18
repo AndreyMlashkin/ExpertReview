@@ -4,6 +4,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 
+#include "projectapi.h"
 #include "treeleftsideinfojson.h"
 #include "treerightsidevaluesjson.h"
 
@@ -100,6 +101,16 @@ QStringList TreeLeftSideInfoJson::planeKeys() const
     return getPlaneListOfProperties(actualJson(), "key");
 }
 
+QList<int> TreeLeftSideInfoJson::planeMinValues() const
+{
+    return toIntList(getPlaneListOfProperties(actualJson(), "minValue"));
+}
+
+QList<int> TreeLeftSideInfoJson::planeMaxValues() const
+{
+    return toIntList(getPlaneListOfProperties(actualJson(), "maxValue"));
+}
+
 int TreeLeftSideInfoJson::savedRightSidesCount() const
 {
     return m_loader->avaliableRightSides(m_treeName).size();
@@ -135,8 +146,6 @@ bool TreeLeftSideInfoJson::import(TreeLeftSideInfo *_otherInfo, ImportPolicy _po
     }
 
     m_nodes << PropertyNodeJson::fromBaseNodesList(_otherInfo->nodes());
-    m_planeDescriptions << _otherInfo->planeDescriptions();
-    m_planeKeys << _otherInfo->planeKeys();
 
     m_isActual = false;
     return true;

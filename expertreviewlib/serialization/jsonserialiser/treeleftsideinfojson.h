@@ -26,6 +26,9 @@ public:
     QStringList planeDescriptions() const override;
     QStringList planeKeys() const override;
 
+    QList<int> planeMinValues() const override;
+    QList<int> planeMaxValues() const override;
+
     int savedRightSidesCount() const override;
     QString defaultRightSideTreeName() const override;
     QStringList savedRightSidesTreeNames() const override;
@@ -41,7 +44,7 @@ private:
 
     void read(const QJsonObject &_json);
     void write(QJsonObject &json) const;
-    QJsonObject& actualJson() const;
+    QJsonObject& actualJson() const;      
 
 private:
     QString m_guiName;
@@ -51,8 +54,6 @@ private:
     mutable QJsonObject m_actualJson;
 
     QList<PropertyNodeJson*> m_nodes;
-    QStringList m_planeDescriptions;
-    QStringList m_planeKeys;
 };
 
 #endif // TREELEFTSIDEINFOJSON_H
