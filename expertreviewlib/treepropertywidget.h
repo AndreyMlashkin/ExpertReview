@@ -35,6 +35,9 @@ public:
     //! \brief setPrecision установить новую точность отображения знаков после запятой.
     void setPrecision(int _newPrecision);
 
+    void setMaxValue (int _max);
+    void setMinValue (int _min);
+
 private:
     void fillLeftSide();
     QtProperty *toProperty(PropertyNode* _node);
@@ -48,7 +51,10 @@ private:
     TreeLeftSideInfo* m_leftSide;
 
     bool m_normalised;
+
     int m_precision;
+    int m_minValue;
+    int m_maxValue;
     QtVariantPropertyManager *m_variantManager;
 };
 

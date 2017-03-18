@@ -135,3 +135,25 @@ void TreePropertyWidget::setPrecision(int _newPrecision)
     }
     update();
 }
+
+void TreePropertyWidget::setMaxValue(int _max)
+{
+    m_maxValue = _max;
+    for(QtProperty* prop : m_variantManager->properties())
+    {
+        m_variantManager->setAttribute(prop, "maximum", QVariant(_max));
+        emit m_variantManager->propertyChanged(prop);
+    }
+    update();
+}
+
+void TreePropertyWidget::setMinValue(int _min)
+{
+    m_minValue = _min;
+    for(QtProperty* prop : m_variantManager->properties())
+    {
+        m_variantManager->setAttribute(prop, "_min", QVariant(_min));
+        emit m_variantManager->propertyChanged(prop);
+    }
+    update();
+}

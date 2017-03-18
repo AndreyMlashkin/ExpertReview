@@ -107,6 +107,16 @@ void PropertyTreeViewer::setPrecision(int _newPrecision)
     m_treePropertyWidget->setPrecision(_newPrecision);
 }
 
+void PropertyTreeViewer::setMaxValue(int _max)
+{
+    m_treePropertyWidget->setMaxValue(_max);
+}
+
+void PropertyTreeViewer::setMinValue(int _min)
+{
+    m_treePropertyWidget->setMaxValue(_min);
+}
+
 void PropertyTreeViewer::tabChanged(int _newNum)
 {
     bool saveValuesFromUi = !isServiceTab(m_currentTab) && !isNormalised();

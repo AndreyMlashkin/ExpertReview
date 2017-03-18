@@ -41,6 +41,8 @@ public:
     QString defaultTabName() const;
 
     void setPrecision(int _newPrecision);
+    void setMaxValue (int _max);
+    void setMinValue (int _min);
 
 private slots:
     void tabChanged(int _newNum);
