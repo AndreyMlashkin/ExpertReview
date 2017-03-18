@@ -23,7 +23,7 @@ public:
     ~ProjectCalculator();
 
     //! \brief sumAll возвращает сумму всех значений вектора
-    static double sumAll(QList<double>& _values);
+    static double sumAll(const QList<double> &_values);
 
     //!
     //! \brief getAverageRightSide получить среднее значение проекта

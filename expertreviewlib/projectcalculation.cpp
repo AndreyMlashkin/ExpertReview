@@ -26,10 +26,10 @@ ProjectCalculator::~ProjectCalculator()
     delete m_adaptor;
 }
 
-double ProjectCalculator::sumAll(QList<double> &_values)
+double ProjectCalculator::sumAll(const QList<double> &_values)
 {
     double ans = 0;
-    foreach(double val, _values)
+    for(double val : _values)
         ans += val;
     return ans;
 }
@@ -70,15 +70,12 @@ TreeRightSideValues *ProjectCalculator::normalise(ProjectsLoaderPtr &_loader, Tr
     QMap<QString, double> values = _values->values();
 
     double summ = 0;
-    foreach(double d, values)
+    for(double d : values)
         summ += d;
 
-    QMapIterator<QString, double> iter(values);
-    while (iter.hasNext())
+    for(double& val : values)
     {
-        iter.next();
-        double val = iter.value();
-        values[iter.key()] = val / summ;
+        val /= summ;
     }
 
     TreeRightSideValues* newVals = _loader->getOrCreateRightSide(_values->leftSideId(), "normalised", true);

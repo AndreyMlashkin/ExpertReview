@@ -18,7 +18,7 @@ inline QStringList toStringList(const QVariantList& _varList)
 inline QList<double> toDoubleList(const QVariantList& _varList)
 {
     QList<double> ans;
-    foreach(QVariant v, _varList)
+    for(const QVariant& v : _varList)
         ans << v.toDouble();
     return ans;
 }
@@ -26,7 +26,7 @@ inline QList<double> toDoubleList(const QVariantList& _varList)
 inline QVariantList toVariantList(const QList<double>& _doubleList)
 {
     QVariantList ans;
-    foreach(double d, _doubleList)
+    for(double d : _doubleList)
         ans << QVariant(d);
     return ans;
 }

@@ -81,7 +81,7 @@ void PropertyNodeJson::write(QJsonObject &json) const
 QList<PropertyNode *> PropertyNodeJson::toBaseNodesList(QList<PropertyNodeJson *> _jList)
 {
     QList<PropertyNode *> ans;
-    foreach (PropertyNodeJson* jNode, _jList)
+    for (PropertyNodeJson* jNode : _jList)
         ans << jNode;
     return ans;
 }
