@@ -178,6 +178,11 @@ bool ProjectsLoader::load(const QFileInfo &fileInfo)
         qDebug() << Q_FUNC_INFO << " smth went wrong. " << error.errorString() << "at " << error.offset;
 
     m_opendProject = fileInfo;
+    if(!QFileInfo(formulsPath()).exists())
+    {
+        Q_ASSERT_X(false, "No formuls.txt file!", qPrintable(formulsPath()));
+        return 0;
+    }
 
     //TODO remove it
     //tryCompatibilityFillStructure();
@@ -329,4 +334,9 @@ QString ProjectsLoader::generateRightSideInternalName(const QString &_leftSide) 
 QString ProjectsLoader::projectDir() const
 {
     return QDir::fromNativeSeparators(m_opendProject.absolutePath() + QDir::separator());
+}
+
+QString ProjectsLoader::formulsPath() const
+{
+    return m_opendProject.absolutePath() + "/formuls.txt";
 }

@@ -44,7 +44,7 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
 
     m_values.resize(rowCount);
     int i = 0;
-    foreach(QString rightSideName, m_columnsNames)
+    for(const QString& rightSideName : m_columnsNames)
     {
         TreeRightSideValues* rightSide = m_loader->getOrCreateRightSide(_treeName, rightSideName);
         Q_ASSERT(rightSide);

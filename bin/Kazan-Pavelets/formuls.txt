@@ -7,7 +7,8 @@ dinNIpredRel     = NI_pr  / NI_tek
 dinVneBUDpredAbs = PF_pr  + FSS_pr  + OMS_pr
 dinVneBUDpredRel = (PF_pr  + FSS_pr  + OMS_pr) / (PF_tek + FSS_tek + OMS_tek)
 
-dinNDS        = NDS_pr_E
+dinNDSAbs        = NDS_pr_E
+dinNDSRel        = NDS_pr_E/NDS_tek_E
 
 dinNPAbs         = NP_pr_E
 dinNPRel         = NP_pr_E  / NP_tek_E
@@ -15,10 +16,14 @@ dinNIAbs         = NI_pr_E
 dinNIRel         = NI_pr_E  / NI_tek_E
 dinVneBUDAbs     = PF_pr_E  + FSS_pr_E  + OMS_pr_E
 dinVneBUDRel     = (PF_pr_E  + FSS_pr_E  + OMS_pr_E) / (PF_tek_E + FSS_tek_E + OMS_tek_E)
-dinNDFLtransp = NDFL_pr_TrE + NDFL_tek_TrE
+
+dinNDFLtranspAbs = NDFL_pr_TrE
+dinNDFLtranspRel = NDFL_pr_TrE / NDFL_tek_TrE
+
 dinNDFLkosvAbs   = NDFL_pr_KE
 dinNDFLkosvRel   = NDFL_pr_KE / NDFL_tek_KE
-dinZemN       = NZ_pr_E
+dinZemNAbs       = NZ_pr_E
+dinZemNRel       = NZ_pr_E / NZ_tek_E
 dinTSPAbs        = TSP_pr
 dinTSPRel        = TSP_pr / TSP_tek
 

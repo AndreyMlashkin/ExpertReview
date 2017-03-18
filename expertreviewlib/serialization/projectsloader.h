@@ -25,6 +25,7 @@ public:
      ProjectsLoader();
     ~ProjectsLoader();
      QString projectDir() const;
+     QString formulsPath() const;
 
      QStringList avaliableLeftSides() const;
      QMap<QString, QStringList> loadedStructure() { return m_loadedStructure; } // TODO hide it     

@@ -175,7 +175,7 @@ void ModeChooser::updateResult()
 
     TreeLeftSideInfo* methodicJudges = m_loader->getLeftSideInfo("metodicJudges");
     ProjectCalculator calc(methodicJudges, methodicJudgesAverage, sectionsAverage);
-    calc.calculate(constants, result);
+    calc.calculate(constants, result, m_loader->formulsPath());
 }
 
 void ModeChooser::closeEvent(QCloseEvent *event)

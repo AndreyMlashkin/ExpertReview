@@ -38,7 +38,7 @@ public:
     //! \brief calculate произвести расчёт одного проекта и записать в _result
     //! \param _source проект, который будет расчитан
     //! \param _result возвращаемое значение
-    void calculate(TreeLeftSideInfo* _source, TreeLeftSideInfo* _result);
+    void calculate(TreeLeftSideInfo* _source, TreeLeftSideInfo* _result, const QString &_formulsPath);
 
     //!
     //! \brief calculate произвести расчёт обоих проектов
@@ -47,7 +47,8 @@ public:
     //! \param _result1 вектор значений результата первого проекта
     //! \param _result2 вектор значений результата второго проекта
     void calculate(TreeRightSideValues* _oneProject, TreeRightSideValues* _otherProject,
-                   TreeRightSideValues* _result1,    TreeRightSideValues* _result2);
+                   TreeRightSideValues* _result1,    TreeRightSideValues* _result2,
+                   const QString& _formulsPath);
 
     //!
     //! \brief updateSectionCalculation производит перерасчёт секций и записывает в _loader
@@ -59,7 +60,8 @@ public:
     static void normalise(double& _one, double& _other);// !!! make universal
 
 private:
-    QMap<QString, double> calculateProject(const QMap<QString, double>& _source);
+    QMap<QString, double> calculateProject(const QMap<QString, double>& _source,
+                                           const QString& _formulsFilename);
     static QString substitute(const QString& _expression, const QMap<QString, double>& _source);
 
 private:

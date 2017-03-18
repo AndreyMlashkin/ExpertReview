@@ -83,7 +83,8 @@ TreeRightSideValues *ProjectCalculator::normalise(ProjectsLoaderPtr &_loader, Tr
     return newVals;
 }
 
-void ProjectCalculator::calculate(TreeLeftSideInfo *_source, TreeLeftSideInfo *_result)
+void ProjectCalculator::calculate(TreeLeftSideInfo *_source, TreeLeftSideInfo *_result,
+                                  const QString& _formulsPath)
 {
     Q_ASSERT_X(_source->savedRightSidesCount() == 2, Q_FUNC_INFO, "it should be 2 constants values files"); // Пока так
     TreeRightSideValues* values0 = _source->openRightSide(0);
@@ -92,16 +93,18 @@ void ProjectCalculator::calculate(TreeLeftSideInfo *_source, TreeLeftSideInfo *_
     TreeRightSideValues* result0 = _result->openRightSide(0);
     TreeRightSideValues* result1 = _result->openRightSide(1);
 
-    calculate(values0, values1, result0, result1);
+    calculate(values0, values1, result0, result1, _formulsPath);
 }
 
-void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSideValues *_otherProject, TreeRightSideValues *_result0, TreeRightSideValues *_result1)
+void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSideValues *_otherProject,
+                                  TreeRightSideValues *_result0,    TreeRightSideValues *_result1,
+                                  const QString &_formulsPath)
 {
     QMap<QString, double> oneProjConstants   = _oneProject->values();
     QMap<QString, double> otherProjConstants = _otherProject->values();
 
-    QMap<QString, double> oneProjectCalculation   = calculateProject(oneProjConstants);
-    QMap<QString, double> otherProjectCalculation = calculateProject(otherProjConstants);
+    QMap<QString, double> oneProjectCalculation   = calculateProject(oneProjConstants,   _formulsPath);
+    QMap<QString, double> otherProjectCalculation = calculateProject(otherProjConstants, _formulsPath);
 
     qDebug() << "AFTER CALCULATION:\n" ;//<< oneProjectCalculation << "\n------\n" << otherProjectCalculation;
     QMapIterator<QString, double> k(oneProjectCalculation);
@@ -192,13 +195,13 @@ void ProjectCalculator::normalise(double &_one, double &_other)
     _other /= max;
 }
 
-QMap<QString, double> ProjectCalculator::calculateProject(const QMap<QString, double> &_source)
+QMap<QString, double> ProjectCalculator::calculateProject(const QMap<QString, double> &_source, const QString &_formulsFilename)
 {
     QMap<QString, double> ans;
-    QFile file("formuls.txt");
+    QFile file(_formulsFilename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        qDebug() << "no file formuls.txt";
+        qDebug() << "no file " << _formulsFilename;
         return ans;
     }
 
