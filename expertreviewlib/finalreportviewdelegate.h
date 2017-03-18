@@ -11,6 +11,7 @@ class FinalReportViewDelegate : public QStyledItemDelegate
 {
 public:
     FinalReportViewDelegate();
+    QString displayText(const QVariant &value, const QLocale &locale) const override;
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 

@@ -189,7 +189,6 @@ bool ProjectsLoader::unload() const
 {
     qDebug() << Q_FUNC_INFO;
     bool success = unloadProjectStructure();
-    Q_ASSERT(success);
     success = unloadRightSides();
     Q_ASSERT(success);
     return true;

@@ -5,6 +5,7 @@
 #include "finalcalculationdialog.h"
 #include "ui_finalcalculationdialog.h"
 #include "fulltreetablemodel.h"
+#include "finalreportviewdelegate.h"
 
 FinalCalculationDialog::FinalCalculationDialog(const ProjectsLoaderPtr &_loader, double _firstProjValue, double _secondProjValue, const QString& _treeName, QWidget *parent)
     : QDialog(parent),
@@ -25,6 +26,7 @@ FinalCalculationDialog::FinalCalculationDialog(const ProjectsLoaderPtr &_loader,
     writeReport();
 
     m_ui->table->setModel(m_model);
+    m_ui->table->setItemDelegate(new FinalReportViewDelegate());
 }
 
 FinalCalculationDialog::~FinalCalculationDialog()
