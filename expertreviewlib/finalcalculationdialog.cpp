@@ -27,10 +27,13 @@ FinalCalculationDialog::FinalCalculationDialog(const ProjectsLoaderPtr &_loader,
 
     m_ui->table->setModel(m_model);
     m_ui->table->setItemDelegate(new FinalReportViewDelegate());
+
+    connect(m_ui->okButton, SIGNAL(clicked(bool)), SLOT(accept()));
 }
 
 FinalCalculationDialog::~FinalCalculationDialog()
 {
+    delete m_model;
     delete m_ui;
 }
 
