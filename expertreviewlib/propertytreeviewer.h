@@ -41,6 +41,8 @@ public:
     QString defaultTabName() const;
 
     void setPrecision(int _newPrecision);
+    void setNormalizedTabPrecision(int _newPrecision);
+
     void setMaxValue (int _max);
     void setMinValue (int _min);
 
@@ -83,6 +85,9 @@ private:
     ProjectsLoaderPtr m_loader;
 
     int m_mode;
+    int m_precision;
+    int m_normalisedTabPrecision;
+
     QWidget* m_average;
     QWidget* m_add;
     QWidget* m_import;

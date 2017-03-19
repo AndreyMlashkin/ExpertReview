@@ -17,6 +17,8 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
      m_ui(new Ui::PropertyTreeViewer),
      m_loader(_loader),
      m_mode(_mode),
+     m_precision(2),
+     m_normalisedTabPrecision(6),
      m_average(nullptr),
      m_add(nullptr),
      m_import(nullptr),
@@ -104,6 +106,13 @@ QString PropertyTreeViewer::defaultTabName() const
 
 void PropertyTreeViewer::setPrecision(int _newPrecision)
 {
+    m_precision = _newPrecision;
+    m_treePropertyWidget->setPrecision(_newPrecision);
+}
+
+void PropertyTreeViewer::setNormalizedTabPrecision(int _newPrecision)
+{
+    m_normalisedTabPrecision = _newPrecision;
     m_treePropertyWidget->setPrecision(_newPrecision);
 }
 
@@ -180,7 +189,7 @@ void PropertyTreeViewer::normalise(bool _toggled)
         TreeRightSideValues* newVals = normalise(oldVals);
         m_treePropertyWidget->setValues(newVals);
 
-        setPrecision(6);
+        setNormalizedTabPrecision(m_normalisedTabPrecision);
     }
     else
     {
@@ -189,7 +198,7 @@ void PropertyTreeViewer::normalise(bool _toggled)
         else
             m_treePropertyWidget->setValues(m_values[m_currentTab]);
 
-        setPrecision(2);
+        setPrecision(m_precision);
     }
 }
 
