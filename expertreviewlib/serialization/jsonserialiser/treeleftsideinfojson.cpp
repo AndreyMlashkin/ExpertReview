@@ -48,7 +48,10 @@ void TreeLeftSideInfoJson::open(const QString &_treeName)
 
     // workawound to backward compatibility
     if(m_treeName.isEmpty())
+    {
+        qWarning() << "tree name param param was empty! Use " << _treeName;
         m_treeName = _treeName;
+    }
 }
 
 bool TreeLeftSideInfoJson::save() const
@@ -162,6 +165,10 @@ QStringList TreeLeftSideInfoJson::getPlaneListOfProperties(const QJsonObject &_j
     {
         QString desc = _json[_prop].toString();
         ans << desc;
+    }
+    else
+    {
+        ans << QString(); // add a placeholder.
     }
 
     if(_json.contains("nodes"))
