@@ -149,11 +149,11 @@ void ProjectCalculator::updateSectionCalculation(ProjectsLoaderPtr &_loader)
         QMap<QString, double> ans;
         TreeLeftSideInfo* methodicJudges = _loader->getLeftSideInfo("metodicJudges");
 
-        foreach (PropertyNode* node, methodicJudges->nodes())
+        for (PropertyNode* node : methodicJudges->nodes())
         {
             QString groupKey = node->key();
             ans[groupKey] = 0;
-            foreach (PropertyNode* subNode, node->children())
+            for (PropertyNode* subNode : node->children())
             {
                 QString subNodeKey = subNode->key();
                 double subNodeValue = _calculatedVals[subNodeKey];
@@ -284,7 +284,7 @@ QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, 
         QString titleKey = titleNode->key();
         double groupKoef = _sections[titleKey];
 
-        foreach(PropertyNode* node, titleNode->children())
+        for(PropertyNode* node : titleNode->children())
         {
             QString key = node->key();
             ans[key] = _values[key] * groupKoef;

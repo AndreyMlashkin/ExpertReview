@@ -20,7 +20,7 @@ public:
     void clearChilds() override;
 
     void read(const QJsonObject &_json);
-    void write(QJsonObject &json) const;
+    void write(QJsonObject &_json) const;
 
     static QList<PropertyNode*>     toBaseNodesList  (QList<PropertyNodeJson*> _jList);
     static QList<PropertyNodeJson*> fromBaseNodesList(QList<PropertyNode *> _jList);

@@ -8,7 +8,7 @@
 
 void operator <<(QStack<PropertyNode*>& _stack, const QList<PropertyNode*>& _list)
 {
-    foreach (PropertyNode* node, _list)
+    for (PropertyNode* node : _list)
         _stack.append(node);
 }
 

@@ -28,7 +28,7 @@ void PropertyNode::addChild(PropertyNode *_node)
 
 void PropertyNode::clearChilds()
 {
-    foreach (PropertyNode* node, m_children)
+    for (PropertyNode* node : m_children)
         delete node;
     m_children = QList<PropertyNode*>();
 }

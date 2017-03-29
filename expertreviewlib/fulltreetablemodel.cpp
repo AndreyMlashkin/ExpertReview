@@ -120,7 +120,7 @@ void FullTreeTableModel::setBaseName(const QString &_baseName)
 inline double sum(const QVector<double> vals)
 {
     double res = 0;
-    foreach(const double v, vals)
+    for(const double v : vals)
         res += v;
     return res;
 }
@@ -144,14 +144,14 @@ QString FullTreeTableModel::report() const
     QString delimetr(";");
     QString ans("Название фактора" + delimetr);
 
-    foreach(QString line, m_columnsNames)
+    for(QString line : m_columnsNames)
         ans += line + delimetr;
     ans += "\n";
 
     for(int i = 0; i < m_linesNames.size(); ++i)
     {
         ans += m_linesNames.at(i) + delimetr;
-        foreach (double val, m_values.at(i))
+        for (double val : m_values.at(i))
         {
             ans += QString::number(val) + delimetr;
         }
@@ -163,7 +163,7 @@ QString FullTreeTableModel::report() const
 void FullTreeTableModel::normaliseLine(FullTreeTableModel::Line &_line)
 {
     double maxVal = -1;
-    foreach(double val, _line)
+    for(double val : _line)
         maxVal = qMax(maxVal, val);
 
     if(maxVal == 0)

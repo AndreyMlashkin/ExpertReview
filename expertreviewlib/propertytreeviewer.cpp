@@ -403,7 +403,7 @@ void PropertyTreeViewer::writeRightSideVals()
         saveValuesFromUi();
     //!!!
     int count = 0;
-    foreach(TreeRightSideValues* rSide, m_values)
+    for(TreeRightSideValues* rSide : m_values)
     {
         QString path = m_leftSideTreeId + QString::number(count++);
         rSide->writeValues(path);
