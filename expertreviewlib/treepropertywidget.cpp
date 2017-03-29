@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QMap>
 #include <QLocale>
 
@@ -35,7 +36,7 @@ TreePropertyWidget::~TreePropertyWidget()
 
 inline QtProperty* findPropery(QtVariantPropertyManager* _mananger, const QString& _key)
 {
-    foreach(QtProperty* prop, _mananger->properties())
+    for(QtProperty* prop : _mananger->properties())
     {
         if(prop->propertyName() == _key)
             return prop;
@@ -54,14 +55,26 @@ void TreePropertyWidget::setValues(TreeRightSideValues *_values)
     }
 
     QStringList orderedKeys = m_leftSide->planeKeys();
+    QList<int> minValues = m_leftSide->planeMinValues();
+    QList<int> maxValues = m_leftSide->planeMaxValues();
     QMap<QString, double> values = _values->values();
-    foreach(QString key, orderedKeys)
+
+    Q_ASSERT(maxValues.size() == minValues.size()&&
+             maxValues.size() == orderedKeys.size());
+
+    for(int i = 0; i < orderedKeys.size(); ++i)
     {
-        double newValue = values[key];
-        QtProperty* properyToChange = m_planeProperties[key];
+        const QString& key = orderedKeys.at(i);
+        QtProperty* prop = m_planeProperties[key];
+        int newMaxValue = maxValues[i];
+        newMaxValue = newMaxValue? newMaxValue : INT32_MAX;
+        m_variantManager->setAttribute(prop , "maximum", QVariant(newMaxValue));
+        m_variantManager->setAttribute(prop , "minimum", QVariant(minValues[i]));
 //        m_variantManager->setAttribute(prop, "decimals", QVariant(m_precision));
-        m_variantManager->setValue(properyToChange, newValue);
+        double newValue = values[key];
+        m_variantManager->setValue(prop , newValue);
     }
+    setPrecision(m_precision);
 }
 
 TreeRightSideValues *TreePropertyWidget::updateRightSideFromUi(TreeRightSideValues* _rightSide) const
@@ -84,7 +97,7 @@ TreeRightSideValues *TreePropertyWidget::updateRightSideFromUi(TreeRightSideValu
 
 void TreePropertyWidget::clear()
 {
-    foreach (QtProperty* prop, m_variantManager->properties())
+    for (QtProperty* prop : m_variantManager->properties())
         m_variantManager->setValue(prop, QVariant(0.0d));
 }
 
@@ -92,7 +105,7 @@ void TreePropertyWidget::fillLeftSide()
 {
     Q_ASSERT(m_leftSide);
     const QList<PropertyNode *> nodes = m_leftSide->nodes();
-    foreach(PropertyNode* node, nodes)
+    for(PropertyNode* node : nodes)
         addProperty(toProperty(node));
 }
 
@@ -101,7 +114,7 @@ QtProperty* TreePropertyWidget::toProperty(PropertyNode *_node)
     QtProperty *property = m_variantManager->addProperty(nodeType(_node), _node->description());
     m_planeProperties[_node->key()] = property;
 
-    foreach(PropertyNode* node, _node->children())
+    for(PropertyNode* node : _node->children())
     {
         QtProperty* subProperty = toProperty(node);
         property->addSubProperty(subProperty);
@@ -121,7 +134,7 @@ int TreePropertyWidget::nodeType(const PropertyNode *_node) const
 
 void TreePropertyWidget::setEditable(bool _set)
 {
-    foreach(QtProperty* prop, m_variantManager->properties())
+    for(QtProperty* prop : m_variantManager->properties())
         prop->setEnabled(_set);
 }
 

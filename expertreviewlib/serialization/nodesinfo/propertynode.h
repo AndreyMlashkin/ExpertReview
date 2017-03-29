@@ -20,16 +20,22 @@ public:
 
     QString description() const;
     QString key() const;
+    int minValue() const   { return m_minValue; }
+    int maxValue() const   { return m_maxValue; }
 
 protected:
     PropertyNode() {}
     void setKey(const QString& _key);
     void setDescription(const QString& _description);
+    void setMax(int _newValue) { m_maxValue = _newValue; }
+    void setMin(int _newValue) { m_minValue = _newValue; }
 
 private:
     QList<PropertyNode*> m_children;
     QString m_description;
     QString m_key;
+    int m_minValue;
+    int m_maxValue;
 };
 
 #endif // PROPERYNODE_H

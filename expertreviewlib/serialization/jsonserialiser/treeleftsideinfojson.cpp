@@ -110,12 +110,12 @@ QStringList TreeLeftSideInfoJson::planeKeys() const
 
 QList<int> TreeLeftSideInfoJson::planeMinValues() const
 {
-    return toIntList(getPlaneListOfProperties(actualJson(), "minValue"));
+    return toIntList(getPlaneListOfProperties(actualJson(), "minimum"));
 }
 
 QList<int> TreeLeftSideInfoJson::planeMaxValues() const
 {
-    return toIntList(getPlaneListOfProperties(actualJson(), "maxValue"));
+    return toIntList(getPlaneListOfProperties(actualJson(), "maximum"));
 }
 
 int TreeLeftSideInfoJson::savedRightSidesCount() const
@@ -160,11 +160,11 @@ bool TreeLeftSideInfoJson::import(TreeLeftSideInfo *_otherInfo, ImportPolicy _po
 
 QStringList TreeLeftSideInfoJson::getPlaneListOfProperties(const QJsonObject &_json, const QString &_prop)
 {
+    qDebug() << Q_FUNC_INFO << "\n" << _json;
     QStringList ans;
     if(_json.contains(_prop))
     {
-        QString desc = _json[_prop].toString();
-        ans << desc;
+        ans << _json[_prop].toVariant().toString();
     }
     else
     {
@@ -212,7 +212,7 @@ void TreeLeftSideInfoJson::write(QJsonObject &json) const
     json["guiName"] = m_guiName;
 
     QJsonArray nodesArray;
-    foreach (PropertyNodeJson* node, m_nodes)
+    for (PropertyNodeJson* node : m_nodes)
     {
         QJsonObject nodeObject;
         node->write(nodeObject);
