@@ -56,7 +56,6 @@ void TreeLeftSideInfoJson::open(const QString &_treeName)
 
 bool TreeLeftSideInfoJson::save() const
 {
-    qDebug() << Q_FUNC_INFO; // TODO remove
     QFile saveFile(getPath());
 
     if (!saveFile.open(QIODevice::WriteOnly))
@@ -160,7 +159,6 @@ bool TreeLeftSideInfoJson::import(TreeLeftSideInfo *_otherInfo, ImportPolicy _po
 
 QStringList TreeLeftSideInfoJson::getPlaneListOfProperties(const QJsonObject &_json, const QString &_prop)
 {
-    qDebug() << Q_FUNC_INFO << "\n" << _json;
     QStringList ans;
     if(_json.contains(_prop))
     {

@@ -1,4 +1,3 @@
-#include <QDebug>
 #include <QFile>
 #include <QTextStream>
 

@@ -134,7 +134,6 @@ void PropertyTreeViewer::tabChanged(int _newNum)
 
 void PropertyTreeViewer::tabChanged(int _newNum, bool _saveValuesFromUi)
 {
-    qDebug() << Q_FUNC_INFO << " new num = " << _newNum;
     QWidget* w = m_ui->tabWidget->widget(_newNum);
     if(!w)
         return;
@@ -160,8 +159,6 @@ void PropertyTreeViewer::tabChanged(int _newNum, bool _saveValuesFromUi)
     }
     else
     {
-        qDebug() << m_values[_newNum]->guiName() << "\t"
-                 << m_values[_newNum]->values();
         m_treePropertyWidget->setValues(m_values[_newNum]);
         m_currentTab = _newNum;
     }
@@ -214,8 +211,6 @@ void PropertyTreeViewer::removeExpertRequest(int _tabIndex)
     int mode = QMessageBox::Yes | QMessageBox::No;
     confirmation.setStandardButtons(QMessageBox::StandardButton(mode));
     int buttonCode = confirmation.exec();
-
-    qDebug() << Q_FUNC_INFO << " " << buttonCode;
 
     if(buttonCode == QMessageBox::Yes)
         removeTab(_tabIndex);

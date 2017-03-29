@@ -45,8 +45,6 @@ void RightSideDiagrammView::updateStatistics(TreeLeftSideInfo *_leftSide)
         statistic->setDescription(planeDescriptions);
         statistic->setValues(values);
 
-        qDebug() << Q_FUNC_INFO << m_stats.size();
         addStatistic(statistic);
     }
-    qDebug() << Q_FUNC_INFO << m_stats.size();
 }

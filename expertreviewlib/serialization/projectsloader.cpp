@@ -46,8 +46,6 @@ void ProjectsLoader::loadAllRightSides(const QString &_leftSideId)
 
 TreeLeftSideInfo *ProjectsLoader::getLeftSideInfo(const QString &_leftSideId)
 {
-    qDebug() << Q_FUNC_INFO << " " << _leftSideId << "\n"
-             << m_loadedStructure.keys();
     if(avaliableLeftSides().contains(_leftSideId))
     {
         if(!m_leftSides.contains(_leftSideId))
@@ -80,7 +78,6 @@ TreeRightSideValues *ProjectsLoader::getRightSide(const QString &_leftSideId,
                                                   const QString &_rightSideId) const
 {
     QPair<QString, QString> key(_rightSideId, _leftSideId);
-    qDebug() << Q_FUNC_INFO << " " << m_rightSides.size();
     if(m_rightSides.contains(key))
         return m_rightSides[key];
     return nullptr;
@@ -280,7 +277,6 @@ void ProjectsLoader::write(QJsonObject &_json) const
 
 void ProjectsLoader::tryCompatibilityFillStructure()
 {
-    qDebug() << Q_FUNC_INFO;
     QDir current = m_opendProject.absoluteDir();
     QStringList filters {"*.json"};
     QFileInfoList allFiles = current.entryInfoList(filters, QDir::NoDotAndDotDot | QDir::Files);
