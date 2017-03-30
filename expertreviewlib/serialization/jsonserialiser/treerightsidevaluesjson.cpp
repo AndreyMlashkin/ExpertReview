@@ -3,6 +3,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 
+#include "json_constants.h"
 #include "treerightsidevaluesjson.h"
 #include "propertynodejson.h"
 
@@ -61,8 +62,8 @@ void TreeRightSideValuesJson::readValues(const QString &_id)
     QJsonObject obj = loadDoc.object();
     m_values = extractValues(obj);
 
-    if(obj.contains("guiName"))
-        setGuiName(obj["guiName"].toString());
+    if(obj.contains(json_constants::guiName))
+        setGuiName(obj[json_constants::guiName].toString());
     else
         setGuiName(m_treeName);
 }
@@ -74,7 +75,7 @@ void TreeRightSideValuesJson::writeValues(const QString &_id)
         qDebug() << Q_FUNC_INFO << "Couldn't open save file.";
 
     m_json = addValues(m_json);
-    m_json["guiName"] = m_guiName;
+    m_json[json_constants::guiName] = m_guiName;
 
     QJsonDocument saveDoc(m_json);
     saveFile.write(saveDoc.toJson());
@@ -93,24 +94,24 @@ void TreeRightSideValuesJson::setGuiName(const QString &_guiName)
 //! joins m_values and m_json
 QJsonObject TreeRightSideValuesJson::addValues(QJsonObject _obj)
 {
-    if(_obj.contains("key"))
+    if(_obj.contains(json_constants::key))
     {
-        QString key = _obj["key"].toString();
+        QString key = _obj[json_constants::key].toString();
         if(m_values.contains(key))
         {
             double value = m_values[key];
-            _obj["value"] = value;
+            _obj[json_constants::value] = value;
         }
     }
 
-    if(_obj.contains("nodes"))
+    if(_obj.contains(json_constants::nodes))
     {
-        QJsonArray arr = _obj["nodes"].toArray();
+        QJsonArray arr = _obj[json_constants::nodes].toArray();
         for(int i = 0; i < arr.size(); ++i)
         {
             arr[i] = addValues(arr.at(i).toObject());
         }
-        _obj["nodes"] = arr;
+        _obj[json_constants::nodes] = arr;
     }
     return _obj;
 }
@@ -118,11 +119,11 @@ QJsonObject TreeRightSideValuesJson::addValues(QJsonObject _obj)
 QMap<QString, double> extractValuesFromJObject(const QJsonObject &_jObject)
 {
     QMap<QString, double> ans;
-    if(_jObject.contains("key"))
+    if(_jObject.contains(json_constants::key))
     {
-        QString key = _jObject["key"].toString();
-        double  val = _jObject.contains("value") ?
-                    _jObject["value"].toDouble()
+        QString key = _jObject[json_constants::key].toString();
+        double  val = _jObject.contains(json_constants::value) ?
+                    _jObject[json_constants::value].toDouble()
                     : 0;
 
         if(key.isEmpty())

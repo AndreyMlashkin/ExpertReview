@@ -5,6 +5,7 @@
 #include <QJsonArray>
 
 #include "projectapi.h"
+#include "json_constants.h"
 #include "treeleftsideinfojson.h"
 #include "treerightsidevaluesjson.h"
 
@@ -99,22 +100,22 @@ const QList<PropertyNode *> TreeLeftSideInfoJson::nodes()
 
 QStringList TreeLeftSideInfoJson::planeDescriptions() const
 {
-    return getPlaneListOfProperties(actualJson(), "description");
+    return getPlaneListOfProperties(actualJson(), json_constants::description);
 }
 
 QStringList TreeLeftSideInfoJson::planeKeys() const
 {
-    return getPlaneListOfProperties(actualJson(), "key");
+    return getPlaneListOfProperties(actualJson(), json_constants::key);
 }
 
 QList<int> TreeLeftSideInfoJson::planeMinValues() const
 {
-    return toIntList(getPlaneListOfProperties(actualJson(), "minimum"));
+    return toIntList(getPlaneListOfProperties(actualJson(), json_constants::minimum));
 }
 
 QList<int> TreeLeftSideInfoJson::planeMaxValues() const
 {
-    return toIntList(getPlaneListOfProperties(actualJson(), "maximum"));
+    return toIntList(getPlaneListOfProperties(actualJson(), json_constants::maximum));
 }
 
 int TreeLeftSideInfoJson::savedRightSidesCount() const
@@ -169,9 +170,9 @@ QStringList TreeLeftSideInfoJson::getPlaneListOfProperties(const QJsonObject &_j
         ans << QString(); // add a placeholder.
     }
 
-    if(_json.contains("nodes"))
+    if(_json.contains(json_constants::nodes))
     {
-        QJsonArray arr = _json["nodes"].toArray();
+        QJsonArray arr = _json[json_constants::nodes].toArray();
         for(int i = 0; i < arr.size(); ++i)
             ans << getPlaneListOfProperties(arr.at(i).toObject(), _prop);
     }
@@ -184,7 +185,7 @@ void TreeLeftSideInfoJson::read(const QJsonObject &_json)
 
     clear(); // !!!
 
-    m_guiName = _json["guiName"].toString();
+    m_guiName = _json[json_constants::guiName].toString();
     m_treeName = _json["internalName"].toString();
     m_defaultRightSideTreeName = _json["defaultRightSideGuiName"].toString();
 
@@ -195,7 +196,7 @@ void TreeLeftSideInfoJson::read(const QJsonObject &_json)
     if(m_defaultRightSideTreeName.isEmpty())
         qInfo() << Q_FUNC_INFO << " defaultRightSideTreeName is empty in " << getPath();
 
-    QJsonArray nodes = _json["nodes"].toArray();
+    QJsonArray nodes = _json[json_constants::nodes].toArray();
     for (int i = 0; i < nodes.size(); ++i)
     {
         QJsonObject node = nodes[i].toObject();
@@ -207,7 +208,7 @@ void TreeLeftSideInfoJson::read(const QJsonObject &_json)
 
 void TreeLeftSideInfoJson::write(QJsonObject &json) const
 {
-    json["guiName"] = m_guiName;
+    json[json_constants::guiName] = m_guiName;
 
     QJsonArray nodesArray;
     for (PropertyNodeJson* node : m_nodes)
@@ -216,7 +217,7 @@ void TreeLeftSideInfoJson::write(QJsonObject &json) const
         node->write(nodeObject);
         nodesArray.append(nodeObject);
     }
-    json["nodes"] = nodesArray;
+    json[json_constants::nodes] = nodesArray;
 }
 
 QJsonObject &TreeLeftSideInfoJson::actualJson() const

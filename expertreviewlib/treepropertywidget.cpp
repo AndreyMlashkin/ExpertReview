@@ -165,7 +165,7 @@ void TreePropertyWidget::setMinValue(int _min)
     m_minValue = _min;
     for(QtProperty* prop : m_variantManager->properties())
     {
-        m_variantManager->setAttribute(prop, "_min", QVariant(_min));
+        m_variantManager->setAttribute(prop, "minimum", QVariant(_min));
         emit m_variantManager->propertyChanged(prop);
     }
     update();

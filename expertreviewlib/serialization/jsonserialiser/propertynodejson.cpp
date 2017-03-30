@@ -1,5 +1,6 @@
 #include <QJsonArray>
 #include "propertynodejson.h"
+#include "json_constants.h"
 
 PropertyNodeJson::PropertyNodeJson()
     : PropertyNode()
@@ -47,15 +48,15 @@ void PropertyNodeJson::read(const QJsonObject &_json)
 {
     clearChilds();
 
-    setKey(_json["key"].toString());
+    setKey(_json[json_constants::key].toString());
     setDescription(_json["description"].toString());
 
-    setMin(_json["minimum"].toString().toInt());
-    int newMaxValue = (_json["maximum"].toString().toInt());
+    setMin(_json[json_constants::minimum].toString().toInt());
+    int newMaxValue = (_json[json_constants::maximum].toString().toInt());
     newMaxValue = newMaxValue? newMaxValue : INT32_MAX;
     setMax(newMaxValue);
 
-    QJsonArray childs = _json["nodes"].toArray();
+    QJsonArray childs = _json[json_constants::nodes].toArray();
     for(int i = 0; i < childs.size(); ++i)
     {
         QJsonObject node = childs.at(i).toObject();
@@ -67,10 +68,10 @@ void PropertyNodeJson::read(const QJsonObject &_json)
 
 void PropertyNodeJson::write(QJsonObject &_json) const
 {
-    _json["key"]         = key();
+    _json[json_constants::key]         = key();
     _json["description"] = description();
-    _json["minimum"]     = minValue();
-    _json["maximum"]     = maxValue();
+    _json[json_constants::minimum]     = minValue();
+    _json[json_constants::maximum]     = maxValue();
 
     if(m_jsonChildren.size())
     {
@@ -81,7 +82,7 @@ void PropertyNodeJson::write(QJsonObject &_json) const
             child->write(obj);
             childs.append(obj);
         }
-        _json["nodes"] = childs;
+        _json[json_constants::nodes] = childs;
     }
 }
 
