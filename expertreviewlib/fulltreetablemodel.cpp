@@ -39,6 +39,16 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
     m_linesNames   = leftSide->planeDescriptions();
     QStringList lineKeys = leftSide->planeKeys();
 
+    for(int i = 0; i < m_linesNames.size(); ++i)
+    {
+        if(m_linesNames.at(i).isEmpty())
+        {
+            m_linesNames.removeAt(i);
+            lineKeys.removeAt(i);
+        }
+    }
+
+
    // int columnCount = m_columnsNames.count();
     int rowCount    = m_linesNames.count();
 
@@ -55,6 +65,7 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
         for(int i = 0; i < m_linesNames.size(); ++i)
         {
             QString lineKey = lineKeys[i];
+            Q_ASSERT(!lineKey.isEmpty());
             double lineValue = values[lineKey];
             m_values[i] << lineValue;
         }
