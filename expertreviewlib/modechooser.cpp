@@ -102,11 +102,16 @@ void ModeChooser::callSectionCalculation()
 
     TreeLeftSideInfo* sectionsResult = m_loader->getLeftSideInfo("sectionsResult");
     Q_ASSERT(sectionsResult);
-    Q_ASSERT(sectionsResult->getRightSides().count() == 2);
 
-    auto sectionsRSides = sectionsResult->getRightSides();
-    QList<double> firstResult  = sectionsRSides.at(0)->values().values();
-    QList<double> secondResult = sectionsRSides.at(1)->values().values();
+    TreeRightSideValues* section1Result =
+            m_loader->getOrCreateRightSide("sectionsResult", "sectionsResult0", false);
+    TreeRightSideValues* section2Result =
+            m_loader->getOrCreateRightSide("sectionsResult", "sectionsResult1", false);
+    Q_ASSERT(section1Result && section2Result);
+    Q_ASSERT(sectionsResult->getRightSides().size() == 2);
+
+    QList<double> firstResult  = section1Result->values().values();
+    QList<double> secondResult = section2Result->values().values();
 
     double firstFinalCriterium  = ProjectCalculator::sumAll(firstResult);
     double secondFinalCriterium = ProjectCalculator::sumAll(secondResult);
@@ -135,9 +140,9 @@ void ModeChooser::callCalculation()
     Q_ASSERT(leftSide);
 
     TreeRightSideValues* proj1Result =
-            m_loader->getOrCreateRightSide("result", "result0", true);
+            m_loader->getOrCreateRightSide("result", "result0", false);
     TreeRightSideValues* proj2Result =
-            m_loader->getOrCreateRightSide("result", "result1", true);
+            m_loader->getOrCreateRightSide("result", "result1", false);
     Q_ASSERT(proj1Result && proj2Result);
 
     QList<double> firstResult  = proj1Result->values().values();
@@ -172,6 +177,8 @@ void ModeChooser::updateResult()
 
     TreeLeftSideInfo* constants = m_loader->getLeftSideInfo("constants");
     TreeLeftSideInfo* result    = m_loader->getLeftSideInfo("result");
+    m_loader->getOrCreateRightSide("result", "result0");
+    m_loader->getOrCreateRightSide("result", "result1");
 
     TreeLeftSideInfo* methodicJudges = m_loader->getLeftSideInfo("metodicJudges");
     ProjectCalculator calc(methodicJudges, methodicJudgesAverage, sectionsAverage);
