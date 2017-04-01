@@ -44,16 +44,23 @@ signals:
 protected slots:
     void projectClicked();
     void helpCalled();
+    void addNewProject();
 
 protected:
     void clearGui();
     void enableAllProjects(bool enable = true);
     bool eventFilter(QObject *obj, QEvent *event);
+    QFileInfoList getProjectPatterns();
+    void setupNewProject(const QString &patternName);
+
+    static QDir projectPatternsDir();
+    static bool copyDir(const QDir &src, const QDir &dest);
 
 protected:
     Ui::ProjectChooser *m_ui;
     ProjectsLoaderPtr m_loader;
 
+    bool m_newClicked;
     const QString m_projectFileName;
     QFileInfoList m_foundProjects;
     QMap<QPushButton*, QFileInfo> m_projectsBind;

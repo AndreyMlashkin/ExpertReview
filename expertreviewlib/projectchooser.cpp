@@ -1,5 +1,6 @@
 #include <QDebug>
 #include <QDir>
+#include <QInputDialog>
 
 #include "projectchooser.h"
 #include "ui_projectchooser.h"
@@ -10,6 +11,7 @@ ProjectChooser::ProjectChooser(const ProjectsLoaderPtr& _loader, bool _inputExpe
     QWidget(parent),
     m_ui(new Ui::ProjectChooser),
     m_loader(_loader),
+    m_newClicked(false),
     m_projectFileName(_projectFileName),
     m_initialExpertNameTextSet(true)
 {
@@ -24,6 +26,7 @@ ProjectChooser::ProjectChooser(const ProjectsLoaderPtr& _loader, bool _inputExpe
     }
     connect(m_ui->help, SIGNAL(clicked(bool)), SIGNAL(helpClicked()));
     connect(m_ui->help, SIGNAL(clicked(bool)), SLOT(helpCalled()));
+    connect(m_ui->addNewProject, SIGNAL(clicked(bool)), SLOT(addNewProject()));
 }
 
 ProjectChooser::~ProjectChooser()
@@ -33,6 +36,9 @@ ProjectChooser::~ProjectChooser()
 
 void ProjectChooser::updateProjectList()
 {
+    clearGui();
+    m_foundProjects.clear();
+
     QDir projectDirecotry = QDir::current();
     auto directories = projectDirecotry.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
     for(const auto& dirName : directories)
@@ -61,7 +67,9 @@ void ProjectChooser::updateProjectListGui()
     {
         QPushButton* projectButton = new QPushButton();
         projectButton->setFont(example->font());
-        projectButton->setText(project.dir().dirName());
+
+        QString textToDisplay = project.isDir()? project.baseName() : project.dir().dirName();
+        projectButton->setText(textToDisplay);
         projectButton->setSizePolicy(example->sizePolicy());
         m_ui->projectButtonslayout->addWidget(projectButton);
         m_projectsBind[projectButton] = project;
@@ -89,6 +97,16 @@ QString ProjectChooser::getExpertName() const
 void ProjectChooser::projectClicked()
 {
     QPushButton* button = qobject_cast<QPushButton*>(sender());
+    Q_ASSERT(button);
+
+    if(m_newClicked)
+    {
+        setupNewProject(button->text());
+        updateProjectList();
+        m_newClicked = false;
+        return;
+    }
+
     if(!button || !m_projectsBind.contains(button))
     {
         qDebug() << Q_FUNC_INFO << " something went wrong";
@@ -147,9 +165,73 @@ bool ProjectChooser::eventFilter(QObject *obj, QEvent *event)
     return false;
 }
 
+QFileInfoList ProjectChooser::getProjectPatterns()
+{
+    QDir projectDirecotry = QDir::current();
+    const QString patternsDirName("project_patterns");
+    QFileInfoList projectPatterns;
+    if(projectDirecotry.cd(patternsDirName))
+    {
+        projectPatterns = projectDirecotry.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
+    }
+    return projectPatterns;
+}
+
+void ProjectChooser::setupNewProject(const QString& patternName)
+{
+    QString newProjectName = QInputDialog::getText(this, "Новый проект", "Введите название проекта");
+    QDir::current().mkdir(newProjectName);
+
+    QDir newProjectPath = QDir::current();
+    newProjectPath.cd(newProjectName);
+
+    QDir choosenPattern = projectPatternsDir();
+    choosenPattern.cd(patternName);
+
+    copyDir(choosenPattern, newProjectPath);
+}
+
+QDir ProjectChooser::projectPatternsDir()
+{
+    QDir current = QDir::current();
+    current.cd("project_patterns");
+    return current;
+}
+
+bool ProjectChooser::copyDir(const QDir &src, const QDir &dest)
+{
+    if(!src.isReadable()) return false;
+    QFileInfoList entries = src.entryInfoList();
+    for(QList<QFileInfo>::iterator it = entries.begin(); it!=entries.end();++it)
+    {
+        QFileInfo &finfo = *it;
+        if(finfo.fileName()=="." || finfo.fileName()=="..") continue;
+        //if(finfo.isDir()){ copyDir(finfo.filePath()); continue; }
+        //if(finfo.isSymLink()) { /* do something here */ continue; }
+        if(finfo.isFile() && finfo.isReadable())
+        {
+            QFile file(finfo.filePath());
+            file.copy(dest.absoluteFilePath(finfo.fileName()));
+        } else return false;
+    }
+    return true;
+}
+
 void ProjectChooser::helpCalled()
 {
     QString text = "1. Введите имя и фамилию через пробел.\n"
                    "2. Выберите один из доступных проектов";
     callHelp(text);
+}
+
+void ProjectChooser::addNewProject()
+{
+    m_newClicked = true;
+    QFileInfoList projectsPatterns = getProjectPatterns();
+    if(projectsPatterns.isEmpty())
+        return;
+
+    m_foundProjects = projectsPatterns;
+    updateProjectListGui();
+    hideAddButton();
 }
