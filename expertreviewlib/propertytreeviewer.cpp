@@ -19,9 +19,10 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
      m_mode(_mode),
      m_precision(2),
      m_normalisedTabPrecision(6),
-     m_average(nullptr),
-     m_add(nullptr),
-     m_import(nullptr),
+     m_average  (nullptr),
+     m_add      (nullptr),
+     m_import   (nullptr),
+     m_finalCast(nullptr),
 
      m_serviceTabsCount(0),
 
@@ -157,6 +158,11 @@ void PropertyTreeViewer::tabChanged(int _newNum, bool _saveValuesFromUi)
         import();
         return;
     }
+    else if(w == m_ui->finalCast)
+    {
+        // import(); TODO
+        return;
+    }
     else
     {
         m_treePropertyWidget->setValues(m_values[_newNum]);
@@ -221,12 +227,12 @@ void PropertyTreeViewer::init()
     m_leftInfo = m_loader->getLeftSideInfo(m_leftSideTreeId);
     m_treePropertyWidget = new TreePropertyWidget(m_leftInfo);
 
-    m_average = m_ui->average;
-    m_add     = m_ui->add;
-    m_import  = m_ui->import;
+    m_average   = m_ui->average;
+    m_add       = m_ui->add;
+    m_import    = m_ui->import;
+    m_finalCast = m_ui->finalCast;
 
-    m_ui->tabWidget->setTabToolTip(m_ui->tabWidget->indexOf(m_add), "Добавить");
-    m_ui->tabWidget->setTabToolTip(m_ui->tabWidget->indexOf(m_import), "Импорт");
+    updateToolTipsIndexes();
 
     QWidget::setWindowTitle(m_leftInfo->name());
     hideCloseButtonFromServiceTabs();
@@ -234,7 +240,7 @@ void PropertyTreeViewer::init()
 
 void PropertyTreeViewer::hideCloseButtonFromServiceTabs()
 {
-    QWidgetList serviceTabs { m_add, m_import, m_average };
+    QWidgetList serviceTabs { m_add, m_import, m_average, m_finalCast };
     for(QWidget* serviceTab : serviceTabs)
     {
         int index_of_average = m_ui->tabWidget->indexOf(serviceTab);
@@ -265,12 +271,20 @@ void PropertyTreeViewer::setMode(int _mode)
         m_ui->tabWidget->removeTab(averageWgtIndex);
     }
 
-    if(_mode & Import)
+    if(_mode & ImportTab)
         ++m_serviceTabsCount;
     else
     {
         int importWgtIndex = m_ui->tabWidget->indexOf(m_import);
         m_ui->tabWidget->removeTab(importWgtIndex);
+    }
+
+    if(_mode & FinalCastTab)
+        ++m_serviceTabsCount;
+    else
+    {
+        int finalCastTabWgtIndex = m_ui->tabWidget->indexOf(m_import);
+        m_ui->tabWidget->removeTab(finalCastTabWgtIndex);
     }
 
     m_ui->tabWidget->setTabsClosable(_mode & TabsClosable);
@@ -441,4 +455,11 @@ void PropertyTreeViewer::import()
     QFile::copy(filePath, newLocation);
     auto rSide = m_loader->getOrCreateRightSide(m_leftSideTreeId, fileName);
     addOneRSide(rSide->id());
+}
+
+void PropertyTreeViewer::updateToolTipsIndexes()
+{
+    m_ui->tabWidget->setTabToolTip(m_ui->tabWidget->indexOf(m_add),       "Добавить");
+    m_ui->tabWidget->setTabToolTip(m_ui->tabWidget->indexOf(m_import),    "Импорт");
+    m_ui->tabWidget->setTabToolTip(m_ui->tabWidget->indexOf(m_finalCast), "Лицо принимающее решение");
 }

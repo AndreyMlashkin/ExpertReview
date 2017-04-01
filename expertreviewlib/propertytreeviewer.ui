@@ -99,6 +99,11 @@
          </property>
         </layout>
        </widget>
+       <widget class="QWidget" name="finalCast">
+        <attribute name="title">
+         <string>ЛПР</string>
+        </attribute>
+       </widget>
       </widget>
      </item>
      <item alignment="Qt::AlignRight">

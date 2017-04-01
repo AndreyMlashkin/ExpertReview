@@ -24,10 +24,11 @@ class EXPERTREVIEW_EXPORT PropertyTreeViewer : public QWidget
 public:
     enum Mode { Minimal         = 0,
                 AddTabs         = 0x1,
-                Import          = 0x2,
+                ImportTab       = 0x2,
                 AverageTab      = 0x4,
                 NormalizeButton = 0x8,
                 TabsClosable    = 0x10,
+                FinalCastTab    = 0x20,
 
                 All = 0xFFFFFFF
               };
@@ -80,6 +81,8 @@ private:
 
     void import();
 
+    void updateToolTipsIndexes();
+
 private:
     Ui::PropertyTreeViewer *m_ui;
     ProjectsLoaderPtr m_loader;
@@ -91,6 +94,7 @@ private:
     QWidget* m_average;
     QWidget* m_add;
     QWidget* m_import;
+    QWidget* m_finalCast;
     int m_serviceTabsCount;
 
     QString m_defaultTabName;
