@@ -59,7 +59,8 @@ HEADERS  += export.h \
     rightsidediagrammview.h \
     simplystatistic.h \
     helpapi.h \
-    serialization/jsonserialiser/json_constants.h
+    serialization/jsonserialiser/json_constants.h \
+    serialization/nodesinfo/leftsidesconstants.h
 
 FORMS    += \
     propertytreeviewer.ui \

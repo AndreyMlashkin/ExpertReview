@@ -2,6 +2,7 @@
 #include <QDir>
 #include <QInputDialog>
 
+#include "projectapi.h"
 #include "projectchooser.h"
 #include "ui_projectchooser.h"
 #include "serialization/projectsloader.h"
@@ -168,7 +169,7 @@ bool ProjectChooser::eventFilter(QObject *obj, QEvent *event)
 QFileInfoList ProjectChooser::getProjectPatterns()
 {
     QDir projectDirecotry = QDir::current();
-    const QString patternsDirName("project_patterns");
+    const QString patternsDirName(fileNames::patternsDir);
     QFileInfoList projectPatterns;
     if(projectDirecotry.cd(patternsDirName))
     {

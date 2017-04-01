@@ -2,6 +2,7 @@
 #include <QFile>
 #include <QTextStream>
 
+#include "projectapi.h"
 #include "finalcalculationdialog.h"
 #include "ui_finalcalculationdialog.h"
 #include "fulltreetablemodel.h"
@@ -53,7 +54,7 @@ void FinalCalculationDialog::resizeEvent(QResizeEvent* _ev)
 
 void FinalCalculationDialog::writeReport() const
 {
-    QFile file(m_loader->projectDir() + "report.csv");
+    QFile file(m_loader->projectDir() + fileNames::report);
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;

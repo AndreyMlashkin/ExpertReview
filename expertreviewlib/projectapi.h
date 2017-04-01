@@ -3,8 +3,18 @@
 
 #include "export.h"
 
+#include <QDebug>
 #include <QVariantList>
 #include <QLocale>
+
+#define declareConstant(constantName) static const QString constantName (QStringLiteral(#constantName))
+
+namespace fileNames
+{
+    static const QString log        (QStringLiteral("log.txt"));
+    static const QString report     (QStringLiteral("report.csv"));
+    static const QString patternsDir(QStringLiteral("project_patterns"));
+}
 
 inline QStringList toStringList(const QVariantList& _varList)
 {

@@ -5,6 +5,7 @@
 #include <parseradaptor.h>
 #include "projectapi.h"
 #include "projectcalculation.h"
+#include "serialization/nodesinfo/leftsidesconstants.h"
 #include "serialization/nodesinfo/treeleftsideinfo.h"
 #include "serialization/nodesinfo/treerightsidevalues.h"
 #include "serialization/nodesinfo/propertynode.h"
@@ -147,7 +148,7 @@ void ProjectCalculator::updateSectionCalculation(ProjectsLoaderPtr &_loader)
     auto calculateSections = [&_loader](const QMap<QString, double>& _calculatedVals)
     {
         QMap<QString, double> ans;
-        TreeLeftSideInfo* methodicJudges = _loader->getLeftSideInfo("metodicJudges");
+        TreeLeftSideInfo* methodicJudges = _loader->getLeftSideInfo(serializeConstants::metodicJudges);
 
         for (PropertyNode* node : methodicJudges->nodes())
         {
@@ -163,8 +164,8 @@ void ProjectCalculator::updateSectionCalculation(ProjectsLoaderPtr &_loader)
         return ans;
     };
 
-    TreeLeftSideInfo *resultLeftSide = _loader->getLeftSideInfo("result");
-    TreeLeftSideInfo *resultSectionsLeftSide = _loader->getLeftSideInfo("sectionsResult");
+    TreeLeftSideInfo *resultLeftSide = _loader->getLeftSideInfo(serializeConstants::result);
+    TreeLeftSideInfo *resultSectionsLeftSide = _loader->getLeftSideInfo(serializeConstants::sectionsResult);
 
     auto resultRightSides = resultLeftSide->getRightSides();
     auto resultSectionsRightSides = resultSectionsLeftSide->getRightSides();

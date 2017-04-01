@@ -7,6 +7,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+#include "nodesinfo/leftsidesconstants.h"
 #include "projectsloader.h"
 #include "projectapi.h"
 #include "serialization/jsonserialiser/treeleftsideinfojson.h"
@@ -245,7 +246,7 @@ void ProjectsLoader::clear()
 void ProjectsLoader::read(const QJsonObject &_json)
 {
     Q_ASSERT(m_loadedStructure.size() == 0);
-    QJsonObject leftSides = _json["leftSides"].toObject();
+    QJsonObject leftSides = _json[serializeConstants::leftSides].toObject();
     auto iter = leftSides.begin();
 
     while(iter != leftSides.end())
@@ -272,7 +273,7 @@ void ProjectsLoader::write(QJsonObject &_json) const
         leftSides[iter.key()] = QJsonArray::fromStringList(iter.value());
         ++iter;
     }
-    _json["leftSides"] = leftSides;
+    _json[serializeConstants::leftSides] = leftSides;
 }
 
 void ProjectsLoader::tryCompatibilityFillStructure()
