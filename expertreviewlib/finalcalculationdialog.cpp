@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QFile>
 #include <QTextStream>
 
@@ -52,7 +53,8 @@ void FinalCalculationDialog::resizeEvent(QResizeEvent* _ev)
 
 void FinalCalculationDialog::writeReport() const
 {
-    QFile file("report.csv");
+    QFile file(m_loader->projectDir() + "report.csv");
+
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
