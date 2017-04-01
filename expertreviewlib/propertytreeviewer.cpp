@@ -320,7 +320,7 @@ void PropertyTreeViewer::addTab(const QString &_guiName)
     }
     m_ui->tabWidget->insertTab(insertPos, newWidget, tabName);
     m_ui->tabWidget->setCurrentWidget(newWidget);
-    m_ui->tabWidget->setTabToolTip(insertPos, "");
+    updateToolTipsIndexes();
 }
 
 void PropertyTreeViewer::removeTab(int _tabIndex)
@@ -343,6 +343,7 @@ void PropertyTreeViewer::removeTab(int _tabIndex)
     }
 
     m_ui->tabWidget->blockSignals(false);
+    updateToolTipsIndexes();
 }
 
 bool PropertyTreeViewer::isNormalised() const
@@ -459,6 +460,11 @@ void PropertyTreeViewer::import()
 
 void PropertyTreeViewer::updateToolTipsIndexes()
 {
+    int tabsCount = m_ui->tabWidget->count();
+    for(int i = 0; i < tabsCount; ++i)
+        m_ui->tabWidget->setTabToolTip(i, "");
+
+    m_ui->tabWidget->setTabToolTip(m_ui->tabWidget->indexOf(m_average),   "Среднее значение");
     m_ui->tabWidget->setTabToolTip(m_ui->tabWidget->indexOf(m_add),       "Добавить");
     m_ui->tabWidget->setTabToolTip(m_ui->tabWidget->indexOf(m_import),    "Импорт");
     m_ui->tabWidget->setTabToolTip(m_ui->tabWidget->indexOf(m_finalCast), "Лицо принимающее решение");
