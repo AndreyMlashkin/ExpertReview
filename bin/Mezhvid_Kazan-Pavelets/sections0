@@ -1,0 +1,55 @@
+{
+    "guiName": "Секции проекта 1",
+    "nodes": [
+        {
+            "description": "Бюджетные факторы",
+            "key": "budget",
+            "value": 5
+        },
+        {
+            "description": "Внешние бюджетные факторы",
+            "key": "vnesnybudget",
+            "value": 3
+        },
+        {
+            "description": "Экономические факторы",
+            "key": "ekonomicheskie",
+            "value": 5
+        },
+        {
+            "description": "Риски",
+            "key": "riski",
+            "value": 4
+        },
+        {
+            "description": "Технологические факторы",
+            "key": "technologicheskie",
+            "value": 4
+        },
+        {
+            "description": "Организационные факторы",
+            "key": "organisationnij",
+            "value": 3
+        },
+        {
+            "description": "Социальные  факторы",
+            "key": "socialnie",
+            "value": 4
+        },
+        {
+            "description": "Потребительские  факторы",
+            "key": "potrebitelskie",
+            "value": 4
+        },
+        {
+            "description": "Условия для перевозчиков",
+            "key": "perevozchiki",
+            "value": 3
+        },
+        {
+            "description": "Экологические факторы",
+            "key": "ekologicheskie",
+            "value": 3
+        }
+    ]
+}

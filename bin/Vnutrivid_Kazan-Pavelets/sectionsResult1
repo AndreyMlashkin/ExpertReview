@@ -1,0 +1,59 @@
+{
+    "guiName": "Секции проекта 2",
+    "nodes": [
+        {
+            "description": "Бюджетные факторы",
+            "key": "budget",
+            "value": 211.018207985151
+        },
+        {
+            "description": "Внешние бюджетные факторы",
+            "key": "vnesnybudget",
+            "value": 8.75
+        },
+        {
+            "description": "Экономические факторы",
+            "key": "ekonomicheskie",
+            "value": 358.6279203312173
+        },
+        {
+            "description": "Риски",
+            "key": "riski",
+            "value": 186.66666666666666
+        },
+        {
+            "description": "Технологические факторы",
+            "key": "technologicheskie",
+            "value": 77.21908937537252
+        },
+        {
+            "description": "Организационные факторы",
+            "key": "organisationnij"
+        },
+        {
+            "description": "Социальные  факторы",
+            "key": "socialnie",
+            "value": 73.49711044263609
+        },
+        {
+            "description": "Потребительские  факторы",
+            "key": "potrebitelskie",
+            "value": 109.479208810275
+        },
+        {
+            "description": "Условия для перевозчиков",
+            "key": "perevozchiki",
+            "value": 105.4088533687267
+        },
+        {
+            "description": "Экологические факторы",
+            "key": "ekologicheskie",
+            "value": 82.25
+        },
+        {
+            "description": "Модуль 2 для внутривидовых инвестиционных проектов",
+            "key": "Otnosit",
+            "value": 221.4719434133254
+        }
+    ]
+}

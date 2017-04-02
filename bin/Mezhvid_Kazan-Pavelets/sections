@@ -1,0 +1,48 @@
+{
+	"defaultRightSideName" : "Эксперт",
+    "name": "Эксперты разделов",
+	"guiName": "Эксперты разделов",
+	"internalName": "sections",
+    "nodes": [
+        {
+            "description": "Бюджетные факторы",
+            "key": "budget"
+		},
+        {
+            "description": "Внешние бюджетные факторы",
+            "key": "vnesnybudget"
+        },
+        {
+            "description": "Экономические факторы",
+            "key": "ekonomicheskie"
+        },
+        {
+            "description": "Риски",
+            "key": "riski"
+        },
+        {
+            "description": "Технологические факторы",
+            "key": "technologicheskie"
+        },
+        {
+            "description": "Организационные факторы",
+            "key": "organisationnij"
+        },
+        {
+            "description": "Социальные  факторы",
+            "key": "socialnie"
+        },
+        {
+            "description": "Потребительские  факторы",
+            "key": "potrebitelskie"
+        },
+        {
+            "description": "Условия для перевозчиков",
+            "key": "perevozchiki"
+        },
+        {
+            "description": "Экологические факторы",
+            "key": "ekologicheskie"
+        }
+    ]
+}

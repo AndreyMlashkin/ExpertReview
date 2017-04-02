@@ -1,0 +1,65 @@
+{
+    "guiName": "Секции проекта 1",
+    "nodes": [
+        {
+            "description": "Бюджетные факторы",
+            "key": "budget",
+            "value": 270.3387957941797
+        },
+        {
+            "description": "Внешние бюджетные факторы",
+            "key": "vnesnybudget",
+            "value": 15
+        },
+        {
+            "description": "Экономические факторы",
+            "key": "ekonomicheskie",
+            "value": 385.1324486714722
+        },
+        {
+            "description": "Риски",
+            "key": "riski",
+            "value": 177.33333333333331
+        },
+        {
+            "description": "Технологические факторы",
+            "key": "technologicheskie",
+            "value": 67.18757663835778
+        },
+        {
+            "description": "Организационные факторы",
+            "key": "organisationnij",
+            "value": 0
+        },
+        {
+            "description": "Социальные  факторы",
+            "key": "socialnie",
+            "value": 92
+        },
+        {
+            "description": "Потребительские  факторы",
+            "key": "potrebitelskie",
+            "value": 76
+        },
+        {
+            "description": "Условия для перевозчиков",
+            "key": "perevozchiki",
+            "value": 102.3487356786514
+        },
+        {
+            "description": "Экологические факторы",
+            "key": "ekologicheskie",
+            "value": 82.25
+        },
+        {
+            "description": "Модуль 2 для внутривидовых инвестиционных проектов",
+            "key": "Otnosit",
+            "value": 228.139248323561
+        },
+        {
+            "description": "Модуль 3 для проектов в рамках крупных городских агломераций",
+            "key": "Aglomerac",
+            "value": 44.09230769230769
+        }
+    ]
+}

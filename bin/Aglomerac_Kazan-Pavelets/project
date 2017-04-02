@@ -1,0 +1,24 @@
+{
+    "leftSides": {
+        "constants": [
+            "constants0",
+            "constants1"
+        ],
+        "metodicJudges": [
+            "metodicJudges0",
+            "metodicJudges1"
+        ],
+        "result": [
+            "result0",
+            "result1"
+        ],
+        "sections": [
+            "sections0",
+            "sections1"
+        ],
+        "sectionsResult": [
+            "sectionsResult0",
+            "sectionsResult1"
+        ]
+    }
+}
