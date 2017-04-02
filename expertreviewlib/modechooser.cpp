@@ -101,6 +101,8 @@ void ModeChooser::callSectionCalculation()
 
     TreeLeftSideInfo* sectionsResult = m_loader->getLeftSideInfo(serializeConstants::sectionsResult);
     Q_ASSERT(sectionsResult);
+    auto existingRSides = sectionsResult->getRightSides();
+    Q_ASSERT(sectionsResult->getRightSides().size() <= 2); // Can also add a check for names
 
     TreeRightSideValues* section1Result =
             m_loader->getOrCreateRightSide(serializeConstants::sectionsResult, "sectionsResult0", false);
