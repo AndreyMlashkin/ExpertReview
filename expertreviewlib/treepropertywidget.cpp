@@ -11,7 +11,6 @@
 #include "projectapi.h"
 #include "serialization/nodesinfo/treeleftsideinfo.h"
 #include "serialization/nodesinfo/treerightsidevalues.h"
-#include "serialization/nodesinfo/treeleftsideinfofactory.h"
 #include "serialization/nodesinfo/propertynode.h"
 
 TreePropertyWidget::TreePropertyWidget(TreeLeftSideInfo* _info, QWidget *_parent)

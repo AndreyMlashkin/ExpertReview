@@ -7,7 +7,6 @@
 #include "serialization/nodesinfo/leftsidesconstants.h"
 #include "projectapi.h"
 #include "serialization/nodesinfo/treerightsidevalues.h"
-#include "serialization/nodesinfo/treeleftsideinfofactory.h"
 #include "serialization/nodesinfo/treeleftsideinfo.h"
 #include "serialization/projectsloader.h"
 #include "propertytreeviewer.h"

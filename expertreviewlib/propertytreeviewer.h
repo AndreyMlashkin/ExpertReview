@@ -9,9 +9,10 @@ namespace Ui
     class PropertyTreeViewer;
 }
 class TreePropertyWidget;
-class TreeLeftSideInfoFactory;
 class TreeRightSideValues;
 class TreeLeftSideInfo;
+class FullTreeTableModel;
+class QTableView;
 
 //!
 //! \brief The PropertyTreeViewer class класс графического интерфейса, позволяющий пользователю
@@ -97,13 +98,15 @@ private:
     QWidget* m_finalCast;
     int m_serviceTabsCount;
 
+    FullTreeTableModel* m_fullModel;
+    QTableView* m_fullView;
+
     QString m_defaultTabName;
     QString m_leftSideTreeId;
 
     TreePropertyWidget* m_treePropertyWidget;
     int m_currentTab;
 
-    TreeLeftSideInfoFactory* m_factory;
     TreeLeftSideInfo* m_leftInfo;
     QVector<TreeRightSideValues*> m_values;
 };
