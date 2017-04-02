@@ -19,11 +19,16 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     void setSourceModel(FullTreeTableModel* sourceModel);
 
-    QAbstractItemModel *sourceModel() const;
+private slots:
+    void updateArMean();
 
 private:
+    QString m_treeName;
     ProjectsLoaderPtr m_loader;
     FullTreeTableModel* m_source;
+    QStringList m_planeKeys;
+
+    TreeRightSideValues* m_average;
 };
 
 #endif // FINALCASTPROXYMODEL_H

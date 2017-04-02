@@ -23,7 +23,6 @@ FinalCalculationDialog::FinalCalculationDialog(const ProjectsLoaderPtr &_loader,
     m_ui->label->setText(report);
 
     m_model->normaliseRows();
-    m_model->setBaseName("Проект");
     writeReport();
 
     m_ui->table->setModel(m_model);

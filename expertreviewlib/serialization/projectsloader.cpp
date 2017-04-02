@@ -116,6 +116,7 @@ TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
 
     if(rSide->guiName().isEmpty())
     {
+        // TODO optimize it:
         QString guiName = leftSide->name() + QString::number(leftSide->getRightSides().count());
         rSide->setGuiName(guiName);
     }
@@ -127,10 +128,11 @@ TreeRightSideValues *ProjectsLoader::getOrCreateRightSide(const QString &_leftSi
                                                           const QString &_rightSideId,
                                                           bool isTemp)
 {
+    //try to get
     TreeRightSideValues* result = getRightSide(_leftSideId, _rightSideId);
     if(result)
         return result;
-
+    // create otherweise
     result = createRightSide(_leftSideId, _rightSideId, isTemp);
     return result;
 }

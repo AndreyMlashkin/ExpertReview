@@ -76,10 +76,9 @@ PropertyTreeViewer::~PropertyTreeViewer()
     if(!isNormalised())
         saveValuesFromUi();
 
-    delete m_finalCastModel;
     delete m_fullView;
-
     delete m_ui;
+    delete m_finalCastModel;
 }
 
 //PropertyTreeViewer::Mode PropertyTreeViewer::mode() const
