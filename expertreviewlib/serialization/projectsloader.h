@@ -51,6 +51,7 @@ public:
                                                const QString& _rightSideId,
                                                bool isTemp = false);
 
+     void removeRightSide(TreeRightSideValues* _rSide);
      void removeRightSide(const QString& _rightSideId);
 
      inline ProjectsLoaderPtr getSelf() const { return m_self; }

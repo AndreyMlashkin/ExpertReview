@@ -135,6 +135,11 @@ TreeRightSideValues *ProjectsLoader::getOrCreateRightSide(const QString &_leftSi
     return result;
 }
 
+void ProjectsLoader::removeRightSide(TreeRightSideValues *_rSide)
+{
+    removeRightSide(_rSide->id());
+}
+
 void ProjectsLoader::removeRightSide(const QString &_rightSideId)
 {
     for(auto iter = m_loadedStructure.begin(); iter != m_loadedStructure.end(); ++iter)
