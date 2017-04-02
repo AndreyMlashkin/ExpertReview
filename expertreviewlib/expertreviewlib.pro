@@ -37,7 +37,8 @@ SOURCES += \
     projectchooser.cpp \
     rightsidediagrammview.cpp \
     simplystatistic.cpp \
-    helpapi.cpp
+    helpapi.cpp \
+    finalcastproxymodel.cpp
 
 HEADERS  += export.h \
     treepropertywidget.h \
@@ -60,7 +61,8 @@ HEADERS  += export.h \
     simplystatistic.h \
     helpapi.h \
     serialization/jsonserialiser/json_constants.h \
-    serialization/nodesinfo/leftsidesconstants.h
+    serialization/nodesinfo/leftsidesconstants.h \
+    finalcastproxymodel.h
 
 FORMS    += \
     propertytreeviewer.ui \

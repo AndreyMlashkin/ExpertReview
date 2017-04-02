@@ -11,7 +11,7 @@ namespace Ui
 class TreePropertyWidget;
 class TreeRightSideValues;
 class TreeLeftSideInfo;
-class FullTreeTableModel;
+class FinalCastProxyModel;
 class QTableView;
 
 //!
@@ -100,7 +100,7 @@ private:
     QWidget* m_finalCast;
     int m_serviceTabsCount;
 
-    FullTreeTableModel* m_fullModel;
+    FinalCastProxyModel* m_finalCastModel;
     QTableView* m_fullView;
 
     QString m_defaultTabName;

@@ -12,7 +12,7 @@
 #include "serialization/nodesinfo/treerightsidevalues.h"
 #include "serialization/nodesinfo/treeleftsideinfo.h"
 
-#include "fulltreetablemodel.h"
+#include "finalcastproxymodel.h"
 
 PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const QString &_leftSideTreeId,
                                        int _mode, QWidget *parent)
@@ -29,7 +29,7 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
 
      m_serviceTabsCount(0),
 
-     m_fullModel(nullptr),
+     m_finalCastModel(nullptr),
      m_fullView(nullptr),
 
      m_leftSideTreeId(_leftSideTreeId),
@@ -76,7 +76,7 @@ PropertyTreeViewer::~PropertyTreeViewer()
     if(!isNormalised())
         saveValuesFromUi();
 
-    delete m_fullModel;
+    delete m_finalCastModel;
     delete m_fullView;
 
     delete m_ui;
@@ -378,12 +378,12 @@ void PropertyTreeViewer::displayValuesForArithmeticalMean()
 
 void PropertyTreeViewer::displayFinalCast()
 {
-    if(!m_fullModel)
-        m_fullModel = new FullTreeTableModel(m_leftSideTreeId, m_loader);
+    if(!m_finalCastModel)
+        m_finalCastModel = new FinalCastProxyModel(m_leftSideTreeId, m_loader);
     if(!m_fullView)
         m_fullView = new QTableView();
 
-    m_fullView->setModel(m_fullModel);
+    m_fullView->setModel(m_finalCastModel);
     m_fullView->setVisible(true);
 
     m_finalCast->layout()->addWidget(m_fullView);
