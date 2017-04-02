@@ -69,6 +69,8 @@ private:
     TreeRightSideValues* arithmeticalMean();
     void displayValuesForArithmeticalMean();
 
+    void displayFinalCast();
+
     QString generateTabName(int _num) const;
     bool isServiceTab(int _num) const;
     void saveValuesFromUi();

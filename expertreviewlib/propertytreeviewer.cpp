@@ -2,14 +2,17 @@
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QTableView>
 
 #include "propertytreeviewer.h"
 #include "projectcalculation.h"
 #include "ui_propertytreeviewer.h"
 #include "treepropertywidget.h"
-#include "serialization/nodesinfo/treeleftsideinfofactory.h"
+#include "serialization/nodesinfo/leftsidesconstants.h"
 #include "serialization/nodesinfo/treerightsidevalues.h"
 #include "serialization/nodesinfo/treeleftsideinfo.h"
+
+#include "fulltreetablemodel.h"
 
 PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const QString &_leftSideTreeId,
                                        int _mode, QWidget *parent)
@@ -26,10 +29,12 @@ PropertyTreeViewer::PropertyTreeViewer(const ProjectsLoaderPtr &_loader, const Q
 
      m_serviceTabsCount(0),
 
+     m_fullModel(nullptr),
+     m_fullView(nullptr),
+
      m_leftSideTreeId(_leftSideTreeId),
      m_treePropertyWidget(nullptr),
      m_currentTab(0),
-     m_factory(nullptr),
      m_leftInfo(nullptr)
 {
     Q_ASSERT(!_loader.isNull());
@@ -70,6 +75,9 @@ PropertyTreeViewer::~PropertyTreeViewer()
 {
     if(!isNormalised())
         saveValuesFromUi();
+
+    delete m_fullModel;
+    delete m_fullView;
 
     delete m_ui;
 }
@@ -160,7 +168,7 @@ void PropertyTreeViewer::tabChanged(int _newNum, bool _saveValuesFromUi)
     }
     else if(w == m_ui->finalCast)
     {
-        // import(); TODO
+        displayFinalCast();
         return;
     }
     else
@@ -283,7 +291,7 @@ void PropertyTreeViewer::setMode(int _mode)
         ++m_serviceTabsCount;
     else
     {
-        int finalCastTabWgtIndex = m_ui->tabWidget->indexOf(m_import);
+        int finalCastTabWgtIndex = m_ui->tabWidget->indexOf(m_finalCast);
         m_ui->tabWidget->removeTab(finalCastTabWgtIndex);
     }
 
@@ -296,6 +304,7 @@ void PropertyTreeViewer::addTab(const QString &_guiName)
 
     QWidget* newWidget = new QWidget();
     int tabsCount = m_ui->tabWidget->count();
+
     int insertPos = tabsCount - m_serviceTabsCount;
 
     QString tabName;
@@ -365,6 +374,19 @@ void PropertyTreeViewer::displayValuesForArithmeticalMean()
 {
     TreeRightSideValues* arMean = arithmeticalMean();
     m_treePropertyWidget->setValues(arMean);
+}
+
+void PropertyTreeViewer::displayFinalCast()
+{
+    if(!m_fullModel)
+        m_fullModel = new FullTreeTableModel(m_leftSideTreeId, m_loader);
+    if(!m_fullView)
+        m_fullView = new QTableView();
+
+    m_fullView->setModel(m_fullModel);
+    m_fullView->setVisible(true);
+
+    m_finalCast->layout()->addWidget(m_fullView);
 }
 
 QString PropertyTreeViewer::generateTabName(int _num) const
