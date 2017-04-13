@@ -15,12 +15,23 @@ QMap<QString, double> multiplyWithSection(const QMap<QString, double>& _values, 
 
 void removeNan(QMap<QString, double>& _values);
 
-ProjectCalculator::ProjectCalculator(TreeLeftSideInfo* _methodicJudges, TreeRightSideValues *_metodicJudgesAverage, TreeRightSideValues *_sectionsAverage)
+ProjectCalculator::ProjectCalculator(const ProjectsLoaderPtr &_loader)
     : m_adaptor(new parser::ParserAdaptor),
-      m_methodicJudges(_methodicJudges),
-      m_metodicJudgesAverage(_metodicJudgesAverage),
-      m_sectionsAverage(_sectionsAverage)
-{}
+      m_loader(_loader)
+{
+    m_metodicJudgesAverage =
+            ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::metodicJudges);
+    m_sectionsFinalCast =
+            ProjectCalculator::getFinalCastRightSide(m_loader, serializeConstants::sections);
+
+    m_loader->getOrCreateRightSide(serializeConstants::result, "result0");
+    m_loader->getOrCreateRightSide(serializeConstants::result, "result1");
+
+    m_methodicJudges = m_loader->getLeftSideInfo(serializeConstants::metodicJudges);
+
+    m_constants = m_loader->getLeftSideInfo("constants");
+    m_result    = m_loader->getLeftSideInfo(serializeConstants::result);
+}
 
 ProjectCalculator::~ProjectCalculator()
 {
@@ -110,28 +121,22 @@ TreeRightSideValues *ProjectCalculator::normalise(ProjectsLoaderPtr &_loader, Tr
     return newVals;
 }
 
-void ProjectCalculator::calculate(TreeLeftSideInfo *_source, TreeLeftSideInfo *_result,
-                                  const QString& _formulsPath)
+void ProjectCalculator::calculate()
 {
-    Q_ASSERT_X(_source->savedRightSidesCount() == 2, Q_FUNC_INFO, "it should be 2 constants values files"); // Пока так
-    TreeRightSideValues* values0 = _source->openRightSide(0);
-    TreeRightSideValues* values1 = _source->openRightSide(1);
+    const QString formulsPath = m_loader->formulsPath();
 
-    TreeRightSideValues* result0 = _result->openRightSide(0);
-    TreeRightSideValues* result1 = _result->openRightSide(1);
+    Q_ASSERT_X(m_constants->savedRightSidesCount() == 2, Q_FUNC_INFO, "it should be 2 constants values files"); // Пока так
+    TreeRightSideValues* constants0 = m_constants->openRightSide(0);
+    TreeRightSideValues* constants1 = m_constants->openRightSide(1);
 
-    calculate(values0, values1, result0, result1, _formulsPath);
-}
+    TreeRightSideValues* result0 = m_result->openRightSide(0);
+    TreeRightSideValues* result1 = m_result->openRightSide(1);
 
-void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSideValues *_otherProject,
-                                  TreeRightSideValues *_result0,    TreeRightSideValues *_result1,
-                                  const QString &_formulsPath)
-{
-    QMap<QString, double> oneProjConstants   = _oneProject->values();
-    QMap<QString, double> otherProjConstants = _otherProject->values();
+    QMap<QString, double> oneProjConstants   = constants0->values();
+    QMap<QString, double> otherProjConstants = constants1->values();
 
-    QMap<QString, double> oneProjectCalculation   = calculateProject(oneProjConstants,   _formulsPath);
-    QMap<QString, double> otherProjectCalculation = calculateProject(otherProjConstants, _formulsPath);
+    QMap<QString, double> oneProjectCalculation   = calculateProject(oneProjConstants,   formulsPath);
+    QMap<QString, double> otherProjectCalculation = calculateProject(otherProjConstants, formulsPath);
 
     qDebug() << "AFTER CALCULATION:\n" ;//<< oneProjectCalculation << "\n------\n" << otherProjectCalculation;
     QMapIterator<QString, double> k(oneProjectCalculation);
@@ -158,15 +163,11 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
     oneProjectCalculation   = multiply(oneProjectCalculation,   m_metodicJudgesAverage->values()); // умножаем на среднее по весам критериев по экспертам
     otherProjectCalculation = multiply(otherProjectCalculation, m_metodicJudgesAverage->values());
 
-    oneProjectCalculation   = multiplyWithSection(oneProjectCalculation,   m_sectionsAverage->values(), m_methodicJudges->nodes());
-    otherProjectCalculation = multiplyWithSection(otherProjectCalculation, m_sectionsAverage->values(), m_methodicJudges->nodes());
+    oneProjectCalculation   = multiplyWithSection(oneProjectCalculation,   m_sectionsFinalCast->values(), m_methodicJudges->nodes());
+    otherProjectCalculation = multiplyWithSection(otherProjectCalculation, m_sectionsFinalCast->values(), m_methodicJudges->nodes());
 
-    _result0->setValues(oneProjectCalculation);
-    _result1->setValues(otherProjectCalculation);
-
-    //!!!
-//    _result0->writeValues("result0");
-//    _result1->writeValues("result1");
+    result0->setValues(oneProjectCalculation);
+    result1->setValues(otherProjectCalculation);
 }
 
 void ProjectCalculator::updateSectionCalculation(ProjectsLoaderPtr &_loader)

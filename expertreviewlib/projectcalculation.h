@@ -19,7 +19,7 @@ namespace parser
 class ProjectCalculator
 {
 public:
-    ProjectCalculator(TreeLeftSideInfo* _methodicJudges, TreeRightSideValues* _metodicJudgesAverage, TreeRightSideValues* _sectionsAverage);
+    ProjectCalculator(const ProjectsLoaderPtr& _loader);
     ~ProjectCalculator();
 
     //! \brief sumAll возвращает сумму всех значений вектора
@@ -41,21 +41,7 @@ public:
     //! \brief normalise нормализует вектор значений одного проекта
     static TreeRightSideValues* normalise(ProjectsLoaderPtr &_loader, TreeRightSideValues *_values);
 
-    //!
-    //! \brief calculate произвести расчёт одного проекта и записать в _result
-    //! \param _source проект, который будет расчитан
-    //! \param _result возвращаемое значение
-    void calculate(TreeLeftSideInfo* _source, TreeLeftSideInfo* _result, const QString &_formulsPath);
-
-    //!
-    //! \brief calculate произвести расчёт обоих проектов
-    //! \param _oneProject вектор значений одного проекта
-    //! \param _otherProject вектор значений другого проекта
-    //! \param _result1 вектор значений результата первого проекта
-    //! \param _result2 вектор значений результата второго проекта
-    void calculate(TreeRightSideValues* _oneProject, TreeRightSideValues* _otherProject,
-                   TreeRightSideValues* _result1,    TreeRightSideValues* _result2,
-                   const QString& _formulsPath);
+    void calculate();
 
     //!
     //! \brief updateSectionCalculation производит перерасчёт секций и записывает в _loader
@@ -73,9 +59,14 @@ private:
 
 private:
     parser::ParserAdaptor* m_adaptor;
+    ProjectsLoaderPtr m_loader;
+
     TreeLeftSideInfo* m_methodicJudges;
     TreeRightSideValues* m_metodicJudgesAverage;
-    TreeRightSideValues* m_sectionsAverage;
+    TreeRightSideValues* m_sectionsFinalCast;
+
+    TreeLeftSideInfo* m_constants;
+    TreeLeftSideInfo* m_result;
 };
 
 #endif // PROJECTCALCULATION_H

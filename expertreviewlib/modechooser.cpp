@@ -174,19 +174,8 @@ void ModeChooser::callHelp()
 
 void ModeChooser::updateResult()
 {
-    TreeRightSideValues* methodicJudgesAverage =
-            ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::metodicJudges);
-    TreeRightSideValues* sectionsFinalCast =
-            ProjectCalculator::getFinalCastRightSide(m_loader, serializeConstants::sections);
-
-    TreeLeftSideInfo* constants = m_loader->getLeftSideInfo("constants");
-    TreeLeftSideInfo* result    = m_loader->getLeftSideInfo(serializeConstants::result);
-    m_loader->getOrCreateRightSide(serializeConstants::result, "result0");
-    m_loader->getOrCreateRightSide(serializeConstants::result, "result1");
-
-    TreeLeftSideInfo* methodicJudges = m_loader->getLeftSideInfo(serializeConstants::metodicJudges);
-    ProjectCalculator calc(methodicJudges, methodicJudgesAverage, sectionsFinalCast);
-    calc.calculate(constants, result, m_loader->formulsPath());
+    ProjectCalculator calc(m_loader);
+    calc.calculate();
 }
 
 void ModeChooser::closeEvent(QCloseEvent *event)
