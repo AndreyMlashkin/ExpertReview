@@ -70,7 +70,9 @@ void ModeChooser::callMetodicJudges()
 {
     delete p->metodicJudges;
     p->metodicJudges.clear();
-    p->metodicJudges = new PropertyTreeViewer(m_loader, serializeConstants::metodicJudges);
+    p->metodicJudges = new PropertyTreeViewer(m_loader, serializeConstants::metodicJudges,
+    PropertyTreeViewer::All ^ PropertyTreeViewer::FinalCastTab);
+
     p->metodicJudges->show();
 }
 
@@ -92,6 +94,7 @@ void ModeChooser::callSourceData()
 
 void ModeChooser::callSectionCalculation()
 {
+    updateResult();
     ProjectCalculator::updateSectionCalculation(m_loader);
 
     delete p->sectionCalculation;
@@ -173,8 +176,8 @@ void ModeChooser::updateResult()
 {
     TreeRightSideValues* methodicJudgesAverage =
             ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::metodicJudges);
-    TreeRightSideValues* sectionsAverage =
-            ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::sections);
+    TreeRightSideValues* sectionsFinalCast =
+            ProjectCalculator::getFinalCastRightSide(m_loader, serializeConstants::sections);
 
     TreeLeftSideInfo* constants = m_loader->getLeftSideInfo("constants");
     TreeLeftSideInfo* result    = m_loader->getLeftSideInfo(serializeConstants::result);
@@ -182,7 +185,7 @@ void ModeChooser::updateResult()
     m_loader->getOrCreateRightSide(serializeConstants::result, "result1");
 
     TreeLeftSideInfo* methodicJudges = m_loader->getLeftSideInfo(serializeConstants::metodicJudges);
-    ProjectCalculator calc(methodicJudges, methodicJudgesAverage, sectionsAverage);
+    ProjectCalculator calc(methodicJudges, methodicJudgesAverage, sectionsFinalCast);
     calc.calculate(constants, result, m_loader->formulsPath());
 }
 

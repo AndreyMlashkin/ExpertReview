@@ -449,6 +449,9 @@ void PropertyTreeViewer::readRightSideVals()
 {
     for(const QString& rSideName : m_loader->avaliableRightSides(m_leftSideTreeId))
     {
+        if(rSideName == "finalCast") // TODO remove this hack
+            continue;
+
         addOneRSide(rSideName);
     }
 }

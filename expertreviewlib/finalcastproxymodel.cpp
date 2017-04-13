@@ -1,6 +1,7 @@
 #include <QDebug>
 #include <QFont>
 
+#include "projectapi.h"
 #include "finalcastproxymodel.h"
 #include "fulltreetablemodel.h"
 #include "projectcalculation.h"
@@ -20,9 +21,8 @@ FinalCastProxyModel::FinalCastProxyModel(const QString &_treeName, const Project
     setSourceModel(m_source);
 
     connect(this, QAbstractItemModel::modelAboutToBeReset, this, FinalCastProxyModel::updateArMean);
-    m_finalCast = m_loader->getOrCreateRightSide(_treeName, "finalCast", true);
-    m_finalCast->setGuiName("ЛПР");
     updateArMean();
+    updateFinalCast();
 
     QString leftSidId = m_average->leftSideId();
     Q_ASSERT(leftSidId == _treeName);
@@ -93,6 +93,24 @@ QVariant FinalCastProxyModel::headerData(int _section, Qt::Orientation _orientat
     return QIdentityProxyModel::headerData(_section, _orientation, _role);
 }
 
+bool FinalCastProxyModel::setData(const QModelIndex &_index, const QVariant &_value, int _role)
+{
+    if(_role == Qt::EditRole)
+    {
+        int baseColumnCount = QIdentityProxyModel::columnCount();
+        if(_index.column() == baseColumnCount + 1)
+        {
+            const QString& key = m_planeKeys.at(_index.row());
+            auto values = m_finalCast->values();
+            values[key] =  toDouble(_value);
+
+            m_finalCast->setValues(values);
+            return true;
+        }
+    }
+    return false;
+}
+
 Qt::ItemFlags FinalCastProxyModel::flags(const QModelIndex &_index) const
 {
     Qt::ItemFlags flags = QIdentityProxyModel::flags(_index);
@@ -118,5 +136,10 @@ void FinalCastProxyModel::setSourceModel(FullTreeTableModel *sourceModel)
 void FinalCastProxyModel::updateArMean()
 {
     m_average = ProjectCalculator::getAverageRightSide(m_loader, m_treeName);
-    m_finalCast->setValues(m_average->values());
+}
+
+void FinalCastProxyModel::updateFinalCast()
+{
+    m_finalCast = ProjectCalculator::getFinalCastRightSide(m_loader, m_treeName);
+    m_finalCast->setGuiName("ЛПР");
 }

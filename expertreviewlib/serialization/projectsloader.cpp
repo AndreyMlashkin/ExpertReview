@@ -131,9 +131,15 @@ TreeRightSideValues *ProjectsLoader::getOrCreateRightSide(const QString &_leftSi
     //try to get
     TreeRightSideValues* result = getRightSide(_leftSideId, _rightSideId);
     if(result)
+    {
+        result->setId(_rightSideId);
+        //result->setLeftSideId();
         return result;
+    }
     // create otherweise
     result = createRightSide(_leftSideId, _rightSideId, isTemp);
+    result->setId(_rightSideId);
+    //result->setLeftSideId();
     return result;
 }
 

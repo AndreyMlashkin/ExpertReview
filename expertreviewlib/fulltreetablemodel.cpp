@@ -39,7 +39,8 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
     QList<TreeRightSideValues *> rSides = leftSide->getRightSides();
     for(TreeRightSideValues* rValue : rSides)
     {
-        m_columnsNames << rValue->guiName();
+        if(rValue->id() != "finalCast")
+            m_columnsNames << rValue->guiName();
     }
     m_linesNames   = leftSide->planeDescriptions();
     QStringList lineKeys = leftSide->planeKeys();
@@ -58,8 +59,12 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
     int rowCount    = m_linesNames.count();
 
     m_values.resize(rowCount);
+
     for(TreeRightSideValues* rightSide : leftSide->getRightSides())
     {
+        if(rightSide->id() == "finalCast") // TODO AM remove this.
+            continue;
+
         QMap<QString, double> values = rightSide->values();
 
         for(int i = 0; i < m_linesNames.size(); ++i)

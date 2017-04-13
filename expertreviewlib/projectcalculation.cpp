@@ -41,10 +41,14 @@ TreeRightSideValues *ProjectCalculator::getAverageRightSide(ProjectsLoaderPtr &_
     TreeLeftSideInfo* leftSide = _loader->getLeftSideInfo(_leftSide);
     Q_ASSERT(leftSide);
 
-    QList<TreeRightSideValues *> leftSides = leftSide->getRightSides();
+    QList<TreeRightSideValues *> rightSides = leftSide->getRightSides();
     QMap<QString, double> averageValues;
-    for(TreeRightSideValues* leftSide : leftSides)
+    int rightSidesCount = 0;
+    for(TreeRightSideValues* leftSide : rightSides)
     {
+        if(leftSide->isTemp() || leftSide->id() == "finalCast")
+            continue;
+
         QMap<QString, double> values = leftSide->values();
         QMapIterator<QString, double> iter(values);
         while (iter.hasNext())
@@ -52,18 +56,40 @@ TreeRightSideValues *ProjectCalculator::getAverageRightSide(ProjectsLoaderPtr &_
             iter.next();
             averageValues[iter.key()] += iter.value();
         }
+        ++rightSidesCount;
     }
 
     QMapIterator<QString, double> iter(averageValues);
     while (iter.hasNext())
     {
         iter.next();
-        averageValues[iter.key()] /= leftSides.count();
+        averageValues[iter.key()] /= rightSidesCount;
     }
 
     TreeRightSideValues* average = _loader->getOrCreateRightSide(leftSide->treeName(), "average", true);
     average->setValues(averageValues);
     return average;
+}
+
+TreeRightSideValues *ProjectCalculator::getFinalCastRightSide(ProjectsLoaderPtr &_loader, const QString &_leftSide)
+{
+    TreeRightSideValues* average = getAverageRightSide(_loader, _leftSide);
+    TreeRightSideValues* finalCast = _loader->getOrCreateRightSide(_leftSide, "finalCast", false);
+
+    QMap<QString, double> finalCastValues = finalCast->values();
+    QMap<QString, double> averageValues = average->values();
+    QMapIterator<QString, double> finalCastIter(finalCastValues);
+    while (finalCastIter.hasNext())
+    {
+        finalCastIter.next();
+        if(finalCastIter.value() == 0)
+        {
+            const QString& key = finalCastIter.key();
+            finalCastValues[key] = averageValues[key];
+        }
+    }
+    finalCast->setValues(finalCastValues);
+    return finalCast;
 }
 
 TreeRightSideValues *ProjectCalculator::normalise(ProjectsLoaderPtr &_loader, TreeRightSideValues *_values)
@@ -145,7 +171,7 @@ void ProjectCalculator::calculate(TreeRightSideValues *_oneProject, TreeRightSid
 
 void ProjectCalculator::updateSectionCalculation(ProjectsLoaderPtr &_loader)
 {
-    auto calculateSections = [&_loader](const QMap<QString, double>& _calculatedVals)
+    auto summorizeFactorsInSections = [&_loader](const QMap<QString, double>& _calculatedVals)
     {
         QMap<QString, double> ans;
         TreeLeftSideInfo* methodicJudges = _loader->getLeftSideInfo(serializeConstants::metodicJudges);
@@ -178,7 +204,7 @@ void ProjectCalculator::updateSectionCalculation(ProjectsLoaderPtr &_loader)
         TreeRightSideValues* items = resultRightSides.at(i);
         TreeRightSideValues* sections = resultSectionsRightSides.at(i);
 
-        auto values = calculateSections(items->values());
+        auto values = summorizeFactorsInSections(items->values());
         sections->setValues(values);
     }
 }

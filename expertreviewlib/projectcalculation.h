@@ -30,6 +30,13 @@ public:
     //! \param _leftSide имя проекта
     static TreeRightSideValues* getAverageRightSide(ProjectsLoaderPtr& _loader,
                                            const QString& _leftSide);
+
+    //!
+    //! \brief getFinalCastRightSide получить значение ЛПР проекта.
+    //! Нулевые значения Final cast будут обновлены средними значениями
+    //! \param _leftSide имя проекта
+    static TreeRightSideValues* getFinalCastRightSide(ProjectsLoaderPtr& _loader,
+                                           const QString& _leftSide);
     //!
     //! \brief normalise нормализует вектор значений одного проекта
     static TreeRightSideValues* normalise(ProjectsLoaderPtr &_loader, TreeRightSideValues *_values);
