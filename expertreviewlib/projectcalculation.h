@@ -57,6 +57,9 @@ private:
                                            const QString& _formulsFilename);
     static QString substitute(const QString& _expression, const QMap<QString, double>& _source);
 
+    void logInColumns(const QMap<QString, double>& _oneProject,
+                      const QMap<QString, double>& _otherProject);
+
 private:
     parser::ParserAdaptor* m_adaptor;
     ProjectsLoaderPtr m_loader;

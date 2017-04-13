@@ -129,9 +129,6 @@ void ProjectCalculator::calculate()
     TreeRightSideValues* constants0 = m_constants->openRightSide(0);
     TreeRightSideValues* constants1 = m_constants->openRightSide(1);
 
-    TreeRightSideValues* result0 = m_result->openRightSide(0);
-    TreeRightSideValues* result1 = m_result->openRightSide(1);
-
     QMap<QString, double> oneProjConstants   = constants0->values();
     QMap<QString, double> otherProjConstants = constants1->values();
 
@@ -139,13 +136,7 @@ void ProjectCalculator::calculate()
     QMap<QString, double> otherProjectCalculation = calculateProject(otherProjConstants, formulsPath);
 
     qDebug() << "AFTER CALCULATION:\n" ;//<< oneProjectCalculation << "\n------\n" << otherProjectCalculation;
-    QMapIterator<QString, double> k(oneProjectCalculation);
-    while (k.hasNext())
-    {
-        k.next();
-        QString key = k.key();
-        qDebug() << key << "\t" << oneProjectCalculation[key] << "\t" << otherProjectCalculation[key];
-    }
+    logInColumns(oneProjectCalculation, otherProjectCalculation);
 
     removeNan(oneProjectCalculation);
     removeNan(otherProjectCalculation);
@@ -158,14 +149,22 @@ void ProjectCalculator::calculate()
         normalise(oneProjectCalculation[key], otherProjectCalculation[key]);
     }
 
-    qDebug() << "\nAFTER NORMALISATION:\n" << oneProjectCalculation << "\n--------\n" << otherProjectCalculation;
+    qDebug() << "\nAFTER NORMALISATION:\n";
+    logInColumns(oneProjectCalculation, otherProjectCalculation);
 
     oneProjectCalculation   = multiply(oneProjectCalculation,   m_metodicJudgesAverage->values()); // умножаем на среднее по весам критериев по экспертам
     otherProjectCalculation = multiply(otherProjectCalculation, m_metodicJudgesAverage->values());
+    qDebug() << "\nAFTER MULTIPLY ON THE WEIGHTS:\n";
+    logInColumns(oneProjectCalculation, otherProjectCalculation);
 
+    qDebug() << "final cast: " << m_sectionsFinalCast->values();
     oneProjectCalculation   = multiplyWithSection(oneProjectCalculation,   m_sectionsFinalCast->values(), m_methodicJudges->nodes());
     otherProjectCalculation = multiplyWithSection(otherProjectCalculation, m_sectionsFinalCast->values(), m_methodicJudges->nodes());
+    qDebug() << "\nAFTER MULTIPLY ON THE SECTIONS FINAL CAST:\n";
+    logInColumns(oneProjectCalculation, otherProjectCalculation);
 
+    TreeRightSideValues* result0 = m_result->openRightSide(0);
+    TreeRightSideValues* result1 = m_result->openRightSide(1);
     result0->setValues(oneProjectCalculation);
     result1->setValues(otherProjectCalculation);
 }
@@ -287,6 +286,18 @@ QString ProjectCalculator::substitute(const QString &_expression, const QMap<QSt
     }
 
     return ans;
+}
+
+void ProjectCalculator::logInColumns(const QMap<QString, double> &_oneProject, const QMap<QString, double> &_otherProject)
+{
+    Q_ASSERT(_oneProject.keys() == _otherProject.keys());
+    QMapIterator<QString, double> k(_oneProject);
+    while (k.hasNext())
+    {
+        k.next();
+        QString key = k.key();
+        qDebug() << key << "\t" << _oneProject[key] << "\t" << _otherProject[key];
+    }
 }
 
 QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QString, double>& _other)
