@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>342</width>
-    <height>255</height>
+    <width>358</width>
+    <height>294</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,6 +35,18 @@
      </property>
      <property name="text">
       <string>Эксперты разделов</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="rangedFactorsJudges">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Эксперты ранжируемых факторов</string>
      </property>
     </widget>
    </item>

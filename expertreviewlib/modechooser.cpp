@@ -20,6 +20,7 @@ struct ModeChooser::ModeChooserPrivate
     ModeChooserPrivate()
         : metodicJudges(nullptr),
           sectionJudges(nullptr),
+          rangedFactorsJudges(nullptr),
           sourceData(nullptr),
           calculation(nullptr),
           sectionCalculation(nullptr),
@@ -30,6 +31,7 @@ struct ModeChooser::ModeChooserPrivate
     {
         delete metodicJudges;
         delete sectionJudges;
+        delete rangedFactorsJudges;
         delete sourceData;
         delete calculation;
         delete sectionCalculation;
@@ -38,6 +40,7 @@ struct ModeChooser::ModeChooserPrivate
 
     QPointer <PropertyTreeViewer> metodicJudges;
     QPointer <PropertyTreeViewer> sectionJudges;
+    QPointer <PropertyTreeViewer> rangedFactorsJudges;
     QPointer <PropertyTreeViewer> sourceData;
     QPointer <PropertyTreeViewer> calculation;
     QPointer <PropertyTreeViewer> sectionCalculation;
@@ -52,12 +55,13 @@ ModeChooser::ModeChooser(const ProjectsLoaderPtr& _loader, QWidget *parent) :
 {
     m_ui->setupUi(this);
 
-    connect(m_ui->metodicJudges, SIGNAL(clicked()), SLOT(callMetodicJudges()));
-    connect(m_ui->sectionJudges, SIGNAL(clicked()), SLOT(callSectionJudges()));
-    connect(m_ui->sourceData,    SIGNAL(clicked()), SLOT(callSourceData()));
-    connect(m_ui->calculation,   SIGNAL(clicked()), SLOT(callCalculation()));
-    connect(m_ui->sectionsCalculation,   SIGNAL(clicked()), SLOT(callSectionCalculation()));
-    connect(m_ui->help,                  SIGNAL(clicked()), SLOT(callHelp()));
+    connect(m_ui->metodicJudges,        SIGNAL(clicked()), SLOT(callMetodicJudges()));
+    connect(m_ui->sectionJudges,        SIGNAL(clicked()), SLOT(callSectionJudges()));
+    connect(m_ui->rangedFactorsJudges,  SIGNAL(clicked()), SLOT(callRangedFactorsJudges()));
+    connect(m_ui->sourceData,           SIGNAL(clicked()), SLOT(callSourceData()));
+    connect(m_ui->calculation,          SIGNAL(clicked()), SLOT(callCalculation()));
+    connect(m_ui->sectionsCalculation,  SIGNAL(clicked()), SLOT(callSectionCalculation()));
+    connect(m_ui->help,                 SIGNAL(clicked()), SLOT(callHelp()));
 }
 
 ModeChooser::~ModeChooser()
@@ -84,6 +88,14 @@ void ModeChooser::callSectionJudges()
     p->sectionJudges->show();
 }
 
+void ModeChooser::callRangedFactorsJudges()
+{
+    delete p->rangedFactorsJudges;
+    p->rangedFactorsJudges.clear();
+    p->rangedFactorsJudges = new PropertyTreeViewer(m_loader, serializeConstants::rangedFactorsJudges);
+    p->rangedFactorsJudges->show();
+}
+
 void ModeChooser::callSourceData()
 {
     delete p->sourceData;
@@ -102,6 +114,7 @@ void ModeChooser::callSectionCalculation()
     p->sectionCalculation->setPrecision(6);
     p->sectionCalculation->show();
 
+    // TODO move to project calculation
     TreeLeftSideInfo* sectionsResult = m_loader->getLeftSideInfo(serializeConstants::sectionsResult);
     Q_ASSERT(sectionsResult);
     auto existingRSides = sectionsResult->getRightSides();
@@ -139,7 +152,7 @@ void ModeChooser::callCalculation()
     p->calculation = new PropertyTreeViewer(m_loader, serializeConstants::result, PropertyTreeViewer::Minimal);
     p->calculation->setPrecision(6);
     p->calculation->show();
-
+    // TODO move to project calculation
     TreeLeftSideInfo* leftSide = m_loader->getLeftSideInfo(serializeConstants::result);
     Q_ASSERT(leftSide);
 
