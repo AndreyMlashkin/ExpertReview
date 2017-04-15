@@ -18,21 +18,7 @@ void removeNan(QMap<QString, double>& _values);
 ProjectCalculator::ProjectCalculator(const ProjectsLoaderPtr &_loader)
     : m_adaptor(new parser::ParserAdaptor),
       m_loader(_loader)
-{
-    m_metodicJudgesAverage =
-            ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::metodicJudges);
-    m_sectionsFinalCast =
-            ProjectCalculator::getFinalCastRightSide(m_loader, serializeConstants::sections);
-
-    m_loader->getOrCreateRightSide(serializeConstants::result, "result0");
-    m_loader->getOrCreateRightSide(serializeConstants::result, "result1");
-
-    m_methodicJudges = m_loader->getLeftSideInfo(serializeConstants::metodicJudges);
-
-    m_rangedFactorsJudges = m_loader->getLeftSideInfo(serializeConstants::rangedFactorsJudges);
-    m_constants           = m_loader->getLeftSideInfo(serializeConstants::constants);
-    m_result              = m_loader->getLeftSideInfo(serializeConstants::result);
-}
+{}
 
 ProjectCalculator::~ProjectCalculator()
 {
@@ -122,8 +108,24 @@ TreeRightSideValues *ProjectCalculator::normalise(ProjectsLoaderPtr &_loader, Tr
     return newVals;
 }
 
+void ProjectCalculator::addRangedFactors(QMap<QString, double> &_values)
+{
+    QMap<QString, double> averageRangedFactors = m_averageRangedFactorsJudges->values();
+
+    QSet<QString> valuesKeys = QSet<QString>::fromList(_values.keys());
+    QSet<QString> rangedKeys = QSet<QString>::fromList(averageRangedFactors.keys());
+
+    QSet<QString> intersection = valuesKeys.intersect(rangedKeys);
+    qDebug() << Q_FUNC_INFO << " Warning! the following constants are ambigos!:\n" <<
+                intersection.toList();
+
+    _values.unite(averageRangedFactors);
+}
+
 void ProjectCalculator::calculate()
 {
+    updateFieldsFromLoader();
+
     const QString formulsPath = m_loader->formulsPath();
 
     Q_ASSERT_X(m_constants->savedRightSidesCount() == 2, Q_FUNC_INFO, "it should be 2 constants values files"); // Пока так
@@ -132,6 +134,12 @@ void ProjectCalculator::calculate()
 
     QMap<QString, double> oneProjConstants   = constants0->values();
     QMap<QString, double> otherProjConstants = constants1->values();
+
+    //add ranged factors:
+    addRangedFactors(oneProjConstants);
+    addRangedFactors(otherProjConstants);
+    qDebug() << "Left sides of calculation:\n";
+    logInColumns(oneProjConstants, otherProjConstants);
 
     QMap<QString, double> oneProjectCalculation   = calculateProject(oneProjConstants,   formulsPath);
     QMap<QString, double> otherProjectCalculation = calculateProject(otherProjConstants, formulsPath);
@@ -146,6 +154,7 @@ void ProjectCalculator::calculate()
     qDebug() << "\nAFTER NORMALISATION:\n";
     logInColumns(oneProjectCalculation, otherProjectCalculation);
 
+    qDebug() << "\nWEIGHTS:\n" << m_metodicJudgesAverage->values();
     oneProjectCalculation   = multiply(oneProjectCalculation,   m_metodicJudgesAverage->values()); // умножаем на среднее по весам критериев по экспертам
     otherProjectCalculation = multiply(otherProjectCalculation, m_metodicJudgesAverage->values());
     qDebug() << "\nAFTER MULTIPLY ON THE WEIGHTS:\n";
@@ -305,6 +314,25 @@ void ProjectCalculator::logInColumns(const QMap<QString, double> &_oneProject, c
     }
 }
 
+void ProjectCalculator::updateFieldsFromLoader()
+{
+    m_metodicJudgesAverage =
+            ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::metodicJudges);
+    m_averageRangedFactorsJudges =
+            ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::rangedFactorsJudges);
+    m_sectionsFinalCast =
+            ProjectCalculator::getFinalCastRightSide(m_loader, serializeConstants::sections);
+
+    m_loader->getOrCreateRightSide(serializeConstants::result, "result0");
+    m_loader->getOrCreateRightSide(serializeConstants::result, "result1");
+
+    m_methodicJudges = m_loader->getLeftSideInfo(serializeConstants::metodicJudges);
+
+    m_rangedFactorsJudges = m_loader->getLeftSideInfo(serializeConstants::rangedFactorsJudges);
+    m_constants           = m_loader->getLeftSideInfo(serializeConstants::constants);
+    m_result              = m_loader->getLeftSideInfo(serializeConstants::result);
+}
+
 QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QString, double>& _other)
 {
     QMap<QString, double> ans;
@@ -313,7 +341,7 @@ QMap<QString, double> multiply(const QMap<QString, double>& _one, const QMap<QSt
     while (i.hasNext())
     {
         i.next();
-        QString key = i.key();
+        const QString& key = i.key();
         ans[key] = _one[key] * _other[key];
     }
     return ans;

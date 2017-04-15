@@ -41,6 +41,7 @@ public:
     //! \brief normalise нормализует вектор значений одного проекта
     static TreeRightSideValues* normalise(ProjectsLoaderPtr &_loader, TreeRightSideValues *_values);
 
+    void addRangedFactors(QMap<QString, double>& _values);
     void calculate();
 
     //!
@@ -61,6 +62,8 @@ private:
     void logInColumns(const QMap<QString, double>& _oneProject,
                       const QMap<QString, double>& _otherProject);
 
+    void updateFieldsFromLoader();
+
 private:
     parser::ParserAdaptor* m_adaptor;
     ProjectsLoaderPtr m_loader;
@@ -69,7 +72,9 @@ private:
     TreeRightSideValues* m_metodicJudgesAverage;
     TreeRightSideValues* m_sectionsFinalCast;
 
+    TreeRightSideValues* m_averageRangedFactorsJudges;
     TreeLeftSideInfo* m_rangedFactorsJudges;
+
     TreeLeftSideInfo* m_constants;
     TreeLeftSideInfo* m_result;
 };

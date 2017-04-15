@@ -92,7 +92,8 @@ void ModeChooser::callRangedFactorsJudges()
 {
     delete p->rangedFactorsJudges;
     p->rangedFactorsJudges.clear();
-    p->rangedFactorsJudges = new PropertyTreeViewer(m_loader, serializeConstants::rangedFactorsJudges);
+    p->rangedFactorsJudges = new PropertyTreeViewer(m_loader, serializeConstants::rangedFactorsJudges,
+        PropertyTreeViewer::All ^ PropertyTreeViewer::FinalCastTab);
     p->rangedFactorsJudges->show();
 }
 
