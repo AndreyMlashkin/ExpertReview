@@ -47,7 +47,8 @@ public:
     //! \brief updateSectionCalculation производит перерасчёт секций и записывает в _loader
     static void updateSectionCalculation(ProjectsLoaderPtr& _loader);
 
-    //!
+    static void normalise(QMap<QString, double> _values1, QMap<QString, double> _values2);
+
     //! \brief normalise нормализовать два вектора значений проектов относительно друг друга,
     //! т.е. в одной строке должно быть 1, в другой приведённое значение.
     static void normalise(double& _one, double& _other);// !!! make universal
@@ -68,6 +69,7 @@ private:
     TreeRightSideValues* m_metodicJudgesAverage;
     TreeRightSideValues* m_sectionsFinalCast;
 
+    TreeLeftSideInfo* m_rangedFactorsJudges;
     TreeLeftSideInfo* m_constants;
     TreeLeftSideInfo* m_result;
 };

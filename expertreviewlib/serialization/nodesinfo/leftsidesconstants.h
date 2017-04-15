@@ -8,6 +8,7 @@ namespace serializeConstants
 declareConstant(leftSides);
 declareConstant(metodicJudges);
 declareConstant(rangedFactorsJudges);
+declareConstant(constants);
 declareConstant(result);
 declareConstant(sections);
 declareConstant(sectionsResult);

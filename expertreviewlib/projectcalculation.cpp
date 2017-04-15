@@ -29,8 +29,9 @@ ProjectCalculator::ProjectCalculator(const ProjectsLoaderPtr &_loader)
 
     m_methodicJudges = m_loader->getLeftSideInfo(serializeConstants::metodicJudges);
 
-    m_constants = m_loader->getLeftSideInfo("constants");
-    m_result    = m_loader->getLeftSideInfo(serializeConstants::result);
+    m_rangedFactorsJudges = m_loader->getLeftSideInfo(serializeConstants::rangedFactorsJudges);
+    m_constants           = m_loader->getLeftSideInfo(serializeConstants::constants);
+    m_result              = m_loader->getLeftSideInfo(serializeConstants::result);
 }
 
 ProjectCalculator::~ProjectCalculator()
@@ -141,14 +142,7 @@ void ProjectCalculator::calculate()
     removeNan(oneProjectCalculation);
     removeNan(otherProjectCalculation);
 
-    QMapIterator<QString, double> i(oneProjectCalculation);
-    while (i.hasNext())
-    {
-        i.next();
-        QString key = i.key();
-        normalise(oneProjectCalculation[key], otherProjectCalculation[key]);
-    }
-
+    normalise(oneProjectCalculation, otherProjectCalculation);
     qDebug() << "\nAFTER NORMALISATION:\n";
     logInColumns(oneProjectCalculation, otherProjectCalculation);
 
@@ -206,6 +200,17 @@ void ProjectCalculator::updateSectionCalculation(ProjectsLoaderPtr &_loader)
 
         auto values = summorizeFactorsInSections(items->values());
         sections->setValues(values);
+    }
+}
+
+void ProjectCalculator::normalise(QMap<QString, double> _values1, QMap<QString, double> _values2)
+{
+    QMapIterator<QString, double> i(_values1);
+    while (i.hasNext())
+    {
+        i.next();
+        QString key = i.key();
+        normalise(_values1[key], _values2[key]);
     }
 }
 
