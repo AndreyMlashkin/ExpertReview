@@ -22,7 +22,7 @@ public:
 private slots:
     void callMetodicJudges();
     void callSectionJudges();
-    void callRangedFactorsJudges();
+    void callRangedConstantsJudges();
     void callSourceData();
     void callSectionCalculation();
     void callCalculation();

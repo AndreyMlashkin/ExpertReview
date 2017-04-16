@@ -41,7 +41,7 @@ public:
     //! \brief normalise нормализует вектор значений одного проекта
     static TreeRightSideValues* normalise(ProjectsLoaderPtr &_loader, TreeRightSideValues *_values);
 
-    void addRangedFactors(QMap<QString, double>& _values);
+    void addRangedConstants(QMap<QString, double>& _values);
     void calculate();
 
     //!
@@ -72,8 +72,8 @@ private:
     TreeRightSideValues* m_metodicJudgesAverage;
     TreeRightSideValues* m_sectionsFinalCast;
 
-    TreeRightSideValues* m_averageRangedFactorsJudges;
-    TreeLeftSideInfo* m_rangedFactorsJudges;
+    TreeRightSideValues* m_averageRangedConstantsJudges;
+    TreeLeftSideInfo* m_RangedConstantsJudges;
 
     TreeLeftSideInfo* m_constants;
     TreeLeftSideInfo* m_result;

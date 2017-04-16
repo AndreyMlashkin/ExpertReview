@@ -7,7 +7,7 @@ namespace serializeConstants
 {
 declareConstant(leftSides);
 declareConstant(metodicJudges);
-declareConstant(rangedFactorsJudges);
+declareConstant(RangedConstantsJudges);
 declareConstant(constants);
 declareConstant(result);
 declareConstant(sections);

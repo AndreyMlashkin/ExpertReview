@@ -39,7 +39,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="rangedFactorsJudges">
+    <widget class="QPushButton" name="RangedConstantsJudges">
      <property name="font">
       <font>
        <pointsize>16</pointsize>

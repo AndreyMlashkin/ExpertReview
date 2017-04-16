@@ -20,7 +20,7 @@ struct ModeChooser::ModeChooserPrivate
     ModeChooserPrivate()
         : metodicJudges(nullptr),
           sectionJudges(nullptr),
-          rangedFactorsJudges(nullptr),
+          RangedConstantsJudges(nullptr),
           sourceData(nullptr),
           calculation(nullptr),
           sectionCalculation(nullptr),
@@ -31,7 +31,7 @@ struct ModeChooser::ModeChooserPrivate
     {
         delete metodicJudges;
         delete sectionJudges;
-        delete rangedFactorsJudges;
+        delete RangedConstantsJudges;
         delete sourceData;
         delete calculation;
         delete sectionCalculation;
@@ -40,7 +40,7 @@ struct ModeChooser::ModeChooserPrivate
 
     QPointer <PropertyTreeViewer> metodicJudges;
     QPointer <PropertyTreeViewer> sectionJudges;
-    QPointer <PropertyTreeViewer> rangedFactorsJudges;
+    QPointer <PropertyTreeViewer> RangedConstantsJudges;
     QPointer <PropertyTreeViewer> sourceData;
     QPointer <PropertyTreeViewer> calculation;
     QPointer <PropertyTreeViewer> sectionCalculation;
@@ -57,7 +57,7 @@ ModeChooser::ModeChooser(const ProjectsLoaderPtr& _loader, QWidget *parent) :
 
     connect(m_ui->metodicJudges,        SIGNAL(clicked()), SLOT(callMetodicJudges()));
     connect(m_ui->sectionJudges,        SIGNAL(clicked()), SLOT(callSectionJudges()));
-    connect(m_ui->rangedFactorsJudges,  SIGNAL(clicked()), SLOT(callRangedFactorsJudges()));
+    connect(m_ui->RangedConstantsJudges,  SIGNAL(clicked()), SLOT(callRangedConstantsJudges()));
     connect(m_ui->sourceData,           SIGNAL(clicked()), SLOT(callSourceData()));
     connect(m_ui->calculation,          SIGNAL(clicked()), SLOT(callCalculation()));
     connect(m_ui->sectionsCalculation,  SIGNAL(clicked()), SLOT(callSectionCalculation()));
@@ -88,19 +88,20 @@ void ModeChooser::callSectionJudges()
     p->sectionJudges->show();
 }
 
-void ModeChooser::callRangedFactorsJudges()
+void ModeChooser::callRangedConstantsJudges()
 {
-    delete p->rangedFactorsJudges;
-    p->rangedFactorsJudges.clear();
-    p->rangedFactorsJudges = new PropertyTreeViewer(m_loader, serializeConstants::rangedFactorsJudges,
+    // should be for every project
+    delete p->RangedConstantsJudges;
+    p->RangedConstantsJudges.clear();
+    p->RangedConstantsJudges = new PropertyTreeViewer(m_loader, serializeConstants::RangedConstantsJudges,
         PropertyTreeViewer::All ^ PropertyTreeViewer::FinalCastTab);
-    p->rangedFactorsJudges->show();
+    p->RangedConstantsJudges->show();
 }
 
 void ModeChooser::callSourceData()
 {
     delete p->sourceData;
-    p->sourceData = new PropertyTreeViewer(m_loader, "constants", PropertyTreeViewer::Minimal);
+    p->sourceData = new PropertyTreeViewer(m_loader, serializeConstants::constants, PropertyTreeViewer::Minimal);
     p->sourceData->setPrecision(4);
     p->sourceData->show();
 }
