@@ -64,7 +64,7 @@ TreeRightSideValues *ProjectCalculator::getAverageRightSide(ProjectsLoaderPtr &_
         averageValues[iter.key()] /= rightSidesCount;
     }
 
-    TreeRightSideValues* average = _loader->getOrCreateRightSide(leftSide->treeName(), "average", true);
+    TreeRightSideValues* average = _loader->getOrCreateRightSide(leftSide->getTreeName(), "average", true);
     average->setValues(averageValues);
     return average;
 }
@@ -319,7 +319,7 @@ void ProjectCalculator::updateFieldsFromLoader()
     m_metodicJudgesAverage =
             ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::metodicJudges);
     m_averageRangedConstantsJudges =
-            ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::RangedConstantsJudges);
+            ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::rangedConstantsJudges);
     m_sectionsFinalCast =
             ProjectCalculator::getFinalCastRightSide(m_loader, serializeConstants::sections);
 
@@ -328,7 +328,7 @@ void ProjectCalculator::updateFieldsFromLoader()
 
     m_methodicJudges = m_loader->getLeftSideInfo(serializeConstants::metodicJudges);
 
-    m_RangedConstantsJudges = m_loader->getLeftSideInfo(serializeConstants::RangedConstantsJudges);
+    m_RangedConstantsJudges = m_loader->getLeftSideInfo(serializeConstants::rangedConstantsJudges);
     m_constants           = m_loader->getLeftSideInfo(serializeConstants::constants);
     m_result              = m_loader->getLeftSideInfo(serializeConstants::result);
 }

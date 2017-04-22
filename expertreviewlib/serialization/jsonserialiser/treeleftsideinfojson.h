@@ -18,8 +18,9 @@ public:
 
     void open(const QString& _treeName) override;
     bool save() const;
-    QString treeName() const override;
-    QString name() const override;
+
+    QString getTreeName() const override;
+    QString getName() const override;
     QString getPath() const;
 
     const QList<PropertyNode*> nodes() override;

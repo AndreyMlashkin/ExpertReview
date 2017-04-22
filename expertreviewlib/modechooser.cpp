@@ -93,7 +93,7 @@ void ModeChooser::callRangedConstantsJudges()
     // should be for every project
     delete p->RangedConstantsJudges;
     p->RangedConstantsJudges.clear();
-    p->RangedConstantsJudges = new PropertyTreeViewer(m_loader, serializeConstants::RangedConstantsJudges,
+    p->RangedConstantsJudges = new PropertyTreeViewer(m_loader, serializeConstants::rangedConstantsJudges,
         PropertyTreeViewer::All ^ PropertyTreeViewer::FinalCastTab);
     p->RangedConstantsJudges->show();
 }

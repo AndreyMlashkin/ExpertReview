@@ -20,8 +20,8 @@ public:
     virtual void clear() {} // !!! todo abstract
 
     virtual void open(const QString& _treeName) = 0;
-    virtual QString treeName() const = 0;
-    virtual QString name() const { return treeName(); }
+    virtual QString getTreeName() const = 0;
+    virtual QString getName() const { return getTreeName(); }
 
     virtual const QList<PropertyNode*> nodes() = 0;
     virtual QStringList planeDescriptions() const = 0;

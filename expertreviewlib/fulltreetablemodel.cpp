@@ -35,7 +35,7 @@ void FullTreeTableModel::setTreeName(const QString &_treeName)
         clear();
         return;
     }
-    Q_ASSERT(_treeName == leftSide->treeName());
+    Q_ASSERT(_treeName == leftSide->getTreeName());
     QList<TreeRightSideValues *> rSides = leftSide->getRightSides();
     for(TreeRightSideValues* rValue : rSides)
     {

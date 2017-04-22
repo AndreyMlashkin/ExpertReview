@@ -37,12 +37,12 @@ TreeRightSideValues *TreeLeftSideInfo::openRightSide(int _num)
 {
     Q_ASSERT(_num < savedRightSidesCount());
     QString saved = savedRightSidesTreeNames().at(_num);
-    return m_loader->getOrCreateRightSide(treeName(), saved);
+    return m_loader->getOrCreateRightSide(getTreeName(), saved);
 }
 
 QList<TreeRightSideValues *> TreeLeftSideInfo::getRightSides() const
 {
-    QString selfName = treeName();
+    QString selfName = getTreeName();
     QStringList rightSides = m_loader->avaliableRightSides(selfName);
     QList<TreeRightSideValues *> result;
 

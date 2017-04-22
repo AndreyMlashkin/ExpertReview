@@ -55,7 +55,10 @@ TreeLeftSideInfo *ProjectsLoader::getLeftSideInfo(const QString &_leftSideId)
         return m_leftSides[_leftSideId];
     }
     else
+    {
+        qWarning() << Q_FUNC_INFO << " no left sied with the name " << _leftSideId;
         return nullptr;
+    }
 }
 
 QStringList ProjectsLoader::avaliableRightSides(const QString _leftSideId) const
@@ -108,7 +111,7 @@ TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
         rSide->readValues(path);        
     }
 
-    Q_ASSERT(!rSide->values().isEmpty());
+    //Q_ASSERT(!rSide->values().isEmpty());
     m_rightSides.insert(key, rSide);
 
     if(!_isTemp && !m_loadedStructure[_leftSideId].contains(_rightSideId))
@@ -117,7 +120,7 @@ TreeRightSideValues *ProjectsLoader::createRightSide(const QString &_leftSideId,
     if(rSide->guiName().isEmpty())
     {
         // TODO optimize it:
-        QString guiName = leftSide->name() + QString::number(leftSide->getRightSides().count());
+        QString guiName = leftSide->getName() + QString::number(leftSide->getRightSides().count());
         rSide->setGuiName(guiName);
     }
 

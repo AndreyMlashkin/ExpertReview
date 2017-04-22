@@ -241,7 +241,7 @@ void PropertyTreeViewer::init()
 
     updateToolTipsIndexes();
 
-    QWidget::setWindowTitle(m_leftInfo->name());
+    QWidget::setWindowTitle(m_leftInfo->getName());
     hideCloseButtonFromServiceTabs();
 }
 
@@ -317,7 +317,7 @@ void PropertyTreeViewer::addTab(const QString &_guiName)
     {
         m_values.resize(insertPos + 1); // 1 - index to size;
 
-        QString leftId = m_leftInfo->treeName();
+        QString leftId = m_leftInfo->getTreeName();
         TreeRightSideValues *rightSide = m_loader->createRightSide(leftId, false, !tabNameGenerated);
         m_values[insertPos] = rightSide;
         QString guiName = rightSide->guiName();
@@ -366,7 +366,7 @@ TreeRightSideValues* PropertyTreeViewer::normalise(TreeRightSideValues *_values)
 
 TreeRightSideValues *PropertyTreeViewer::arithmeticalMean()
 {
-    return ProjectCalculator::getAverageRightSide(m_loader, m_leftInfo->treeName());
+    return ProjectCalculator::getAverageRightSide(m_loader, m_leftInfo->getTreeName());
 }
 
 void PropertyTreeViewer::displayValuesForArithmeticalMean()

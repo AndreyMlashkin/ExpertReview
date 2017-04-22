@@ -47,12 +47,11 @@ void TreeLeftSideInfoJson::open(const QString &_treeName)
     QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
     read(loadDoc.object());
 
-    // workawound to backward compatibility
-    if(m_treeName.isEmpty())
-    {
-        qWarning() << "tree name param param was empty! Use " << _treeName;
-        m_treeName = _treeName;
-    }
+//    Q_ASSERT_X(m_treeName == _treeName, "Left side name is wrong ",
+//               QString("expected %1, got %2").arg(_treeName)
+//               .arg(m_treeName)
+//               .toLocal8Bit());
+    m_treeName = _treeName;
 }
 
 bool TreeLeftSideInfoJson::save() const
@@ -76,21 +75,21 @@ bool TreeLeftSideInfoJson::save() const
     return true;
 }
 
-QString TreeLeftSideInfoJson::treeName() const
+QString TreeLeftSideInfoJson::getTreeName() const
 {
     return m_treeName;
 }
 
-QString TreeLeftSideInfoJson::name() const
+QString TreeLeftSideInfoJson::getName() const
 {
     if(m_guiName.isEmpty())
-        return TreeLeftSideInfo::name();
+        return TreeLeftSideInfo::getName();
     return m_guiName;
 }
 
 QString TreeLeftSideInfoJson::getPath() const
 {
-    return m_loader->projectDir() + treeName();
+    return m_loader->projectDir() + getTreeName();
 }
 
 const QList<PropertyNode *> TreeLeftSideInfoJson::nodes()
@@ -149,7 +148,7 @@ bool TreeLeftSideInfoJson::import(TreeLeftSideInfo *_otherInfo, ImportPolicy _po
     if(_policy == ResetOldData)
     {
         clear();
-        m_treeName = _otherInfo->treeName();
+        m_treeName = _otherInfo->getTreeName();
     }
 
     m_nodes << PropertyNodeJson::fromBaseNodesList(_otherInfo->nodes());
