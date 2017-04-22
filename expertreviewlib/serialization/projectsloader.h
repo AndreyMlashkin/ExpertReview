@@ -26,6 +26,7 @@ public:
     ~ProjectsLoader();
      QString projectDir() const;
      QString formulsPath() const;
+     const QStringList& getProjectNames() const;
 
      QStringList avaliableLeftSides() const;
      QMap<QString, QStringList> loadedStructure() { return m_loadedStructure; } // TODO hide it     
@@ -82,6 +83,7 @@ private:
 
     QCache<QString, TreeLeftSideInfo> m_leftSides;
     QCache<QPair<QString, QString>, TreeRightSideValues> m_rightSides; // maps a pair of right side + left side to Right side object
+    QStringList m_projectNames;
 };
 
 #endif // PROJECTSLOADER_H

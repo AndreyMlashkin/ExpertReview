@@ -5,6 +5,8 @@
 
 namespace serializeConstants
 {
+declareConstant(projectNames);
+
 declareConstant(leftSides);
 declareConstant(metodicJudges);
 declareConstant(rangedConstantsJudges);

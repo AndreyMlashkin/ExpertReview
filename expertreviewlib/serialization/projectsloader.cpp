@@ -257,6 +257,7 @@ void ProjectsLoader::clear()
     m_loadedStructure.clear();
     m_leftSides.clear();
     m_rightSides.clear();
+    m_projectNames.clear();
 }
 
 void ProjectsLoader::read(const QJsonObject &_json)
@@ -264,7 +265,6 @@ void ProjectsLoader::read(const QJsonObject &_json)
     Q_ASSERT(m_loadedStructure.size() == 0);
     QJsonObject leftSides = _json[serializeConstants::leftSides].toObject();
     auto iter = leftSides.begin();
-
     while(iter != leftSides.end())
     {
         QString leftSideName = iter.key();
@@ -275,6 +275,18 @@ void ProjectsLoader::read(const QJsonObject &_json)
             m_loadedStructure[leftSideName] << rightSide.toString();
         ++iter;
     }
+    //-------------
+    Q_ASSERT(m_projectNames.size() == 0);
+    QJsonArray projectNames = _json[serializeConstants::projectNames].toArray();
+    for(const QJsonValue& name : projectNames)
+    {
+        m_projectNames << name.toString();
+    }
+    if(m_projectNames.size() == 0) // for backward compability
+    {
+        m_projectNames << "Проект1" << "Проект2";
+    }
+
     qDebug() << Q_FUNC_INFO << "loaded " << m_loadedStructure;
 }
 
@@ -290,6 +302,13 @@ void ProjectsLoader::write(QJsonObject &_json) const
         ++iter;
     }
     _json[serializeConstants::leftSides] = leftSides;
+    //-------------
+    QJsonArray projectNames;
+    for(const QString& name : m_projectNames)
+    {
+        projectNames.append(QJsonValue(name));
+    }
+    _json[serializeConstants::projectNames] = projectNames;
 }
 
 void ProjectsLoader::tryCompatibilityFillStructure()
@@ -352,4 +371,9 @@ QString ProjectsLoader::projectDir() const
 QString ProjectsLoader::formulsPath() const
 {
     return m_opendProject.absolutePath() + "/formuls.txt";
+}
+
+const QStringList &ProjectsLoader::getProjectNames() const
+{
+    return m_projectNames;
 }
