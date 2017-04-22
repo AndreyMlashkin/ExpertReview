@@ -76,7 +76,7 @@ QVariant FinalCastProxyModel::headerData(int _section, Qt::Orientation _orientat
     {
         int baseColumnCount = QIdentityProxyModel::columnCount();
         if(_section == baseColumnCount)
-            return "Среднее арифметическое";
+            return "Среднее";
         if(_section == baseColumnCount + 1)
             return "ЛПР";
     }

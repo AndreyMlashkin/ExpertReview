@@ -70,6 +70,17 @@ ModeChooser::~ModeChooser()
     delete p;
 }
 
+void ModeChooser::showProjectComparison()
+{
+    const QString textPattern = "Сравнение %1 и %2";
+    const QStringList& projectNames = m_loader->getProjectNames();
+    Q_ASSERT(projectNames.size() == 2);
+    QString project_comparison_text = textPattern
+            .arg(projectNames[0])
+            .arg(projectNames[1]);
+    m_ui->projectComparison->setText(project_comparison_text);
+}
+
 void ModeChooser::callMetodicJudges()
 {
     delete p->metodicJudges;

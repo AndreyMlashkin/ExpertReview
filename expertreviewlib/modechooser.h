@@ -19,6 +19,8 @@ public:
     explicit ModeChooser(const ProjectsLoaderPtr &_loader, QWidget *parent = 0);
     ~ModeChooser();
 
+    void showProjectComparison();
+
 private slots:
     void callMetodicJudges();
     void callSectionJudges();
