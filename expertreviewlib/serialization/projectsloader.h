@@ -66,6 +66,9 @@ public slots:
 
 private:
     void read(const QJsonObject &_json);
+    void readLeftSides(const QJsonObject& _leftSides);
+    void readProjectNames(const QJsonArray& _projectNames);
+
     void write(QJsonObject &_json) const;
     void clear();
 

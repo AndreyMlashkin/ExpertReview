@@ -264,8 +264,19 @@ void ProjectsLoader::read(const QJsonObject &_json)
 {
     Q_ASSERT(m_loadedStructure.size() == 0);
     QJsonObject leftSides = _json[serializeConstants::leftSides].toObject();
-    auto iter = leftSides.begin();
-    while(iter != leftSides.end())
+    readLeftSides(leftSides);
+
+    Q_ASSERT(m_projectNames.size() == 0);
+    QJsonArray projectNames = _json[serializeConstants::projectNames].toArray();
+    readProjectNames(projectNames);
+
+    qDebug() << Q_FUNC_INFO << "loaded " << m_loadedStructure;
+}
+
+void ProjectsLoader::readLeftSides(const QJsonObject &_leftSides)
+{
+    auto iter = _leftSides.begin();
+    while(iter != _leftSides.end())
     {
         QString leftSideName = iter.key();
         QJsonArray rightSides = iter.value().toArray();
@@ -275,10 +286,11 @@ void ProjectsLoader::read(const QJsonObject &_json)
             m_loadedStructure[leftSideName] << rightSide.toString();
         ++iter;
     }
-    //-------------
-    Q_ASSERT(m_projectNames.size() == 0);
-    QJsonArray projectNames = _json[serializeConstants::projectNames].toArray();
-    for(const QJsonValue& name : projectNames)
+}
+
+void ProjectsLoader::readProjectNames(const QJsonArray &_projectNames)
+{
+    for(const QJsonValue& name : _projectNames)
     {
         m_projectNames << name.toString();
     }
@@ -286,8 +298,6 @@ void ProjectsLoader::read(const QJsonObject &_json)
     {
         m_projectNames << "Проект1" << "Проект2";
     }
-
-    qDebug() << Q_FUNC_INFO << "loaded " << m_loadedStructure;
 }
 
 void ProjectsLoader::write(QJsonObject &_json) const
