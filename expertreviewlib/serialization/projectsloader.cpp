@@ -189,13 +189,16 @@ bool ProjectsLoader::load(const QFileInfo &fileInfo)
     if(loadDoc.isObject())
         read(loadDoc.object());
     else
+    {
         qDebug() << Q_FUNC_INFO << " smth went wrong. " << error.errorString() << "at " << error.offset;
+        return false;
+    }
 
     m_opendProject = fileInfo;
     if(!QFileInfo(formulsPath()).exists())
     {
         Q_ASSERT_X(false, "No formuls.txt file!", qPrintable(formulsPath()));
-        return 0;
+        return false;
     }
 
     //TODO remove it

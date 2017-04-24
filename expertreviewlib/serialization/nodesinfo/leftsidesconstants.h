@@ -9,7 +9,8 @@ declareConstant(projectNames);
 
 declareConstant(leftSides);
 declareConstant(metodicJudges);
-declareConstant(rangedConstantsJudges);
+declareConstant(rangedConstantsJudgesProject1);
+declareConstant(rangedConstantsJudgesProject2);
 declareConstant(constants);
 declareConstant(result);
 declareConstant(sections);

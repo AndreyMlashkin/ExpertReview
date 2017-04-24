@@ -3,6 +3,7 @@
 #include <QFileInfo>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QGuiApplication>
 
 #include "projectapi.h"
 #include "json_constants.h"
@@ -44,8 +45,18 @@ void TreeLeftSideInfoJson::open(const QString &_treeName)
         return;
     }
     QByteArray saveData = loadFile.readAll();
-    QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
-    read(loadDoc.object());
+
+    QJsonParseError error;
+    QJsonDocument loadDoc(QJsonDocument::fromJson(saveData, &error));
+
+    if(loadDoc.isObject())
+        read(loadDoc.object());
+    else
+    {
+        qCritical() << "Error reading file "
+                    << error.errorString() << "at " << error.offset;
+        QGuiApplication::exit(-1);
+    }
 
 //    Q_ASSERT_X(m_treeName == _treeName, "Left side name is wrong ",
 //               QString("expected %1, got %2").arg(_treeName)

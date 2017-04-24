@@ -2,6 +2,7 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QGuiApplication>
 
 #include "json_constants.h"
 #include "treerightsidevaluesjson.h"
@@ -57,7 +58,15 @@ void TreeRightSideValuesJson::readValues(const QString &_id)
         return;
     }
     QByteArray saveData = loadFile.readAll();
-    QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
+    QJsonParseError error;
+    QJsonDocument loadDoc(QJsonDocument::fromJson(saveData, &error));
+
+    if(!loadDoc.isObject())
+    {
+        qCritical() << "Error reading file "
+                    << error.errorString() << "at " << error.offset;
+        QGuiApplication::exit(-1);
+    }
 
     QJsonObject obj = loadDoc.object();
     m_values = extractValues(obj);
