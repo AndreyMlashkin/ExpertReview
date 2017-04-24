@@ -21,6 +21,7 @@ INCLUDEPATH += .. \
                ../statisticsview
 
 SOURCES += \
+    norwegianwoodstyle.cpp \
     treepropertywidget.cpp \
     propertytreeviewer.cpp \
     modechooser.cpp \
@@ -41,6 +42,7 @@ SOURCES += \
     finalcastproxymodel.cpp
 
 HEADERS  += export.h \
+    norwegianwoodstyle.h \
     treepropertywidget.h \
     propertytreeviewer.h \
     modechooser.h \

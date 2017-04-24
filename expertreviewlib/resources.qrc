@@ -3,4 +3,8 @@
         <file>pics/plus.png</file>
         <file>pics/import.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>images/woodbackground.png</file>
+        <file>images/woodbutton.png</file>
+    </qresource>
 </RCC>
