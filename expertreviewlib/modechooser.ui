@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>763</width>
-    <height>459</height>
+    <width>918</width>
+    <height>811</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -53,14 +53,26 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="RangedConstantsJudges">
+    <widget class="QPushButton" name="rangedConstantsJudges1">
      <property name="font">
       <font>
        <pointsize>16</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>Эксперты ранжируемых факторов</string>
+      <string>Эксперты ранжируемых факторов первого проета</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="rangedConstantsJudges2">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Эксперты ранжируемых факторов второго проекта</string>
      </property>
     </widget>
    </item>

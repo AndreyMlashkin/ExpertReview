@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QApplication>
 #include <QDir>
 #include <QInputDialog>
 
@@ -117,7 +118,12 @@ void ProjectChooser::projectClicked()
     const auto& project = m_projectsBind[button];
     qDebug() << "choosen " << project.absoluteFilePath();
 
-    m_loader->load(project);
+    bool loaded = m_loader->load(project);
+    if(!loaded)
+    {
+        qCritical() << "Error reading file";
+        QGuiApplication::exit(-1);
+    }
 
     emit projectChoosen();
     hide();

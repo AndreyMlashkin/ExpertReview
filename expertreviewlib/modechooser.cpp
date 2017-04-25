@@ -55,13 +55,14 @@ ModeChooser::ModeChooser(const ProjectsLoaderPtr& _loader, QWidget *parent) :
 {
     m_ui->setupUi(this);
 
-    connect(m_ui->metodicJudges,        SIGNAL(clicked()), SLOT(callMetodicJudges()));
-    connect(m_ui->sectionJudges,        SIGNAL(clicked()), SLOT(callSectionJudges()));
-    connect(m_ui->RangedConstantsJudges,  SIGNAL(clicked()), SLOT(callRangedConstantsJudges()));
-    connect(m_ui->sourceData,           SIGNAL(clicked()), SLOT(callSourceData()));
-    connect(m_ui->calculation,          SIGNAL(clicked()), SLOT(callCalculation()));
-    connect(m_ui->sectionsCalculation,  SIGNAL(clicked()), SLOT(callSectionCalculation()));
-    connect(m_ui->help,                 SIGNAL(clicked()), SLOT(callHelp()));
+    connect(m_ui->metodicJudges,          SIGNAL(clicked()), SLOT(callMetodicJudges()));
+    connect(m_ui->sectionJudges,          SIGNAL(clicked()), SLOT(callSectionJudges()));
+    connect(m_ui->rangedConstantsJudges1, SIGNAL(clicked()), SLOT(callRangedConstantsJudges()));
+    connect(m_ui->rangedConstantsJudges2, SIGNAL(clicked()), SLOT(callRangedConstantsJudges()));
+    connect(m_ui->sourceData,             SIGNAL(clicked()), SLOT(callSourceData()));
+    connect(m_ui->calculation,            SIGNAL(clicked()), SLOT(callCalculation()));
+    connect(m_ui->sectionsCalculation,    SIGNAL(clicked()), SLOT(callSectionCalculation()));
+    connect(m_ui->help,                   SIGNAL(clicked()), SLOT(callHelp()));
 }
 
 ModeChooser::~ModeChooser()
@@ -104,7 +105,12 @@ void ModeChooser::callRangedConstantsJudges()
     // should be for every project
     delete p->RangedConstantsJudges;
     p->RangedConstantsJudges.clear();
-    p->RangedConstantsJudges = new PropertyTreeViewer(m_loader, serializeConstants::rangedConstantsJudges,
+
+    Q_ASSERT(sender());
+    const QString triggeredProjectName = sender() == m_ui->rangedConstantsJudges1 ?
+                serializeConstants::rangedConstantsJudgesProject1 :
+                serializeConstants::rangedConstantsJudgesProject2;
+    p->RangedConstantsJudges = new PropertyTreeViewer(m_loader, triggeredProjectName,
         PropertyTreeViewer::All ^ PropertyTreeViewer::FinalCastTab);
     p->RangedConstantsJudges->show();
 }

@@ -108,18 +108,18 @@ TreeRightSideValues *ProjectCalculator::normalise(ProjectsLoaderPtr &_loader, Tr
     return newVals;
 }
 
-void ProjectCalculator::addRangedConstants(QMap<QString, double> &_values)
+QMap<QString, double> ProjectCalculator::mergeValuesLists(const QMap<QString, double> &_values1, const QMap<QString, double> &_values2)
 {
-    QMap<QString, double> averageRangedConstants = m_averageRangedConstantsJudges->values();
-
-    QSet<QString> valuesKeys = QSet<QString>::fromList(_values.keys());
-    QSet<QString> rangedKeys = QSet<QString>::fromList(averageRangedConstants.keys());
+    QSet<QString> valuesKeys = QSet<QString>::fromList(_values1.keys());
+    QSet<QString> rangedKeys = QSet<QString>::fromList(_values2.keys());
 
     QSet<QString> intersection = valuesKeys.intersect(rangedKeys);
     qDebug() << Q_FUNC_INFO << " Warning! the following constants are ambigos!:\n" <<
                 intersection.toList();
 
-    _values.unite(averageRangedConstants);
+    QMap<QString, double> result = _values1;
+    result.unite(_values2);
+    return result;
 }
 
 void ProjectCalculator::calculate()
@@ -136,8 +136,8 @@ void ProjectCalculator::calculate()
     QMap<QString, double> otherProjConstants = constants1->values();
 
     //add ranged factors:
-    addRangedConstants(oneProjConstants);
-    addRangedConstants(otherProjConstants);
+    mergeValuesLists(oneProjConstants,   m_averageRangedConstantsJudges1->values());
+    mergeValuesLists(otherProjConstants, m_averageRangedConstantsJudges2->values());
     qDebug() << "Left sides of calculation:\n";
     logInColumns(oneProjConstants, otherProjConstants);
 
@@ -318,8 +318,10 @@ void ProjectCalculator::updateFieldsFromLoader()
 {
     m_metodicJudgesAverage =
             ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::metodicJudges);
-    m_averageRangedConstantsJudges =
-            ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::rangedConstantsJudges);
+    m_averageRangedConstantsJudges1 =
+            ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::rangedConstantsJudgesProject1);
+    m_averageRangedConstantsJudges2 =
+            ProjectCalculator::getAverageRightSide(m_loader, serializeConstants::rangedConstantsJudgesProject2);
     m_sectionsFinalCast =
             ProjectCalculator::getFinalCastRightSide(m_loader, serializeConstants::sections);
 
@@ -328,7 +330,7 @@ void ProjectCalculator::updateFieldsFromLoader()
 
     m_methodicJudges = m_loader->getLeftSideInfo(serializeConstants::metodicJudges);
 
-    m_RangedConstantsJudges = m_loader->getLeftSideInfo(serializeConstants::rangedConstantsJudges);
+//    m_rangedConstantsJudges = m_loader->getLeftSideInfo(serializeConstants::rangedConstantsJudges);
     m_constants           = m_loader->getLeftSideInfo(serializeConstants::constants);
     m_result              = m_loader->getLeftSideInfo(serializeConstants::result);
 }
