@@ -60,7 +60,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Эксперты ранжируемых факторов первого проета</string>
+      <string>Эксперты ранжируемых факторов первого проекта</string>
      </property>
     </widget>
    </item>
@@ -131,8 +131,37 @@
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QPushButton" name="exit">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Выход</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>exit</sender>
+   <signal>clicked()</signal>
+   <receiver>ModeChooser</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>458</x>
+     <y>785</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>458</x>
+     <y>405</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
