@@ -14,6 +14,12 @@
    <string>Выбор режима</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>50</number>
+   </property>
+   <property name="rightMargin">
+    <number>50</number>
+   </property>
    <item alignment="Qt::AlignHCenter">
     <widget class="QLabel" name="projectComparison">
      <property name="font">
@@ -29,7 +35,26 @@
     </widget>
    </item>
    <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
     <widget class="QPushButton" name="metodicJudges">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <pointsize>16</pointsize>
@@ -42,6 +67,12 @@
    </item>
    <item>
     <widget class="QPushButton" name="sectionJudges">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <pointsize>16</pointsize>
@@ -54,6 +85,12 @@
    </item>
    <item>
     <widget class="QPushButton" name="rangedConstantsJudges1">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <pointsize>16</pointsize>
@@ -66,6 +103,12 @@
    </item>
    <item>
     <widget class="QPushButton" name="rangedConstantsJudges2">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <pointsize>16</pointsize>
@@ -85,6 +128,12 @@
    </item>
    <item>
     <widget class="QPushButton" name="sourceData">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <pointsize>16</pointsize>
@@ -97,6 +146,12 @@
    </item>
    <item>
     <widget class="QPushButton" name="sectionsCalculation">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <pointsize>16</pointsize>
@@ -109,6 +164,12 @@
    </item>
    <item>
     <widget class="QPushButton" name="calculation">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <pointsize>16</pointsize>
@@ -121,6 +182,12 @@
    </item>
    <item>
     <widget class="QPushButton" name="help">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <pointsize>16</pointsize>
@@ -132,7 +199,26 @@
     </widget>
    </item>
    <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
     <widget class="QPushButton" name="exit">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <pointsize>16</pointsize>

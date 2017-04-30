@@ -73,6 +73,8 @@ void ProjectChooser::updateProjectListGui()
         QString textToDisplay = project.isDir()? project.baseName() : project.dir().dirName();
         projectButton->setText(textToDisplay);
         projectButton->setSizePolicy(example->sizePolicy());
+        projectButton->setMinimumHeight(example->minimumHeight());
+        projectButton->setMinimumWidth(example->minimumWidth());
         m_ui->projectButtonslayout->addWidget(projectButton);
         m_projectsBind[projectButton] = project;
 
