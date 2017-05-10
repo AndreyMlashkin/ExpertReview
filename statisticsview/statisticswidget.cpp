@@ -12,20 +12,14 @@ QColor get_color_for_chart(int _pos)
     static QVector<QColor> colors;
     if(colors.isEmpty())
     {
-        colors  << QString("#99e600")
-                << QString("#99cc00")
-                << QString("#99b300")
-                << QString("#9f991a")
-                << QString("#a48033")
-                << QString("#a9664d")
-                << QString("#ae4d66")
-                << QString("#b33380")
-                << QString("#a64086")
-                << QString("#994d8d")
-                << QString("#8d5a93")
-                << QString("#806699")
-                << QString("#8073a6")
-                << QString("#8080b3");
+        colors  << QString("#0000ff")
+                << QString("#ff0000")
+                << QString("#ff8000")
+                << QString("#00b8d9")
+                << QString("#ffff00")
+                << QString("#00ff00")
+                << QString("#ff00ff")
+                << QString("#008080");
     }
     return colors.at(_pos % colors.size());
 }
