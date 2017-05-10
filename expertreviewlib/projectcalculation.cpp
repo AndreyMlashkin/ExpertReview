@@ -108,14 +108,34 @@ TreeRightSideValues *ProjectCalculator::normalise(ProjectsLoaderPtr &_loader, Tr
     return newVals;
 }
 
-QMap<QString, double> ProjectCalculator::mergeValuesLists(const QMap<QString, double> &_values1, const QMap<QString, double> &_values2)
+QList<QString> ProjectCalculator::findintersection(const QMap<QString, double> &_values1, const QMap<QString, double> &_values2)
 {
     QSet<QString> valuesKeys = QSet<QString>::fromList(_values1.keys());
     QSet<QString> rangedKeys = QSet<QString>::fromList(_values2.keys());
 
     QSet<QString> intersection = valuesKeys.intersect(rangedKeys);
-    qDebug() << Q_FUNC_INFO << " Warning! the following constants are ambigos!:\n" <<
-                intersection.toList();
+    return intersection.toList();
+}
+
+QList<QString> ProjectCalculator::findDiff(const QMap<QString, double> &_values1, const QMap<QString, double> &_values2)
+{
+    const QSet<QString> valuesKeys = QSet<QString>::fromList(_values1.keys());
+    const QSet<QString> rangedKeys = QSet<QString>::fromList(_values2.keys());
+
+    auto tmp1 = QSet<QString>(valuesKeys).subtract(rangedKeys);
+    auto tmp2 = QSet<QString>(rangedKeys).subtract(valuesKeys);
+
+    return tmp1.unite(tmp2).toList();
+}
+
+QMap<QString, double> ProjectCalculator::mergeValuesLists(const QMap<QString, double> &_values1, const QMap<QString, double> &_values2)
+{
+    QList<QString> intersection = findintersection(_values1, _values2);
+    if(intersection.size())
+    {
+        qWarning() << Q_FUNC_INFO << " Warning! the following constants are ambigos!:\n" <<
+                    intersection;
+    }
 
     QMap<QString, double> result = _values1;
     result.unite(_values2);
@@ -134,10 +154,16 @@ void ProjectCalculator::calculate()
 
     QMap<QString, double> oneProjConstants   = constants0->values();
     QMap<QString, double> otherProjConstants = constants1->values();
+    qDebug() << "project constants:\n";
+    logInColumns(oneProjConstants, otherProjConstants);
+
+    qDebug() << "ranged factors:\n";
+    logInColumns(m_averageRangedConstantsJudges1->values(),
+                 m_averageRangedConstantsJudges2->values());
 
     //add ranged factors:
-    mergeValuesLists(oneProjConstants,   m_averageRangedConstantsJudges1->values());
-    mergeValuesLists(otherProjConstants, m_averageRangedConstantsJudges2->values());
+    oneProjConstants   = mergeValuesLists(oneProjConstants,   m_averageRangedConstantsJudges1->values());
+    otherProjConstants = mergeValuesLists(otherProjConstants, m_averageRangedConstantsJudges2->values());
     qDebug() << "Left sides of calculation:\n";
     logInColumns(oneProjConstants, otherProjConstants);
 
@@ -304,7 +330,13 @@ QString ProjectCalculator::substitute(const QString &_expression, const QMap<QSt
 
 void ProjectCalculator::logInColumns(const QMap<QString, double> &_oneProject, const QMap<QString, double> &_otherProject)
 {
+    auto diff = findDiff(_oneProject, _otherProject);
+    if(diff.size())
+    {
+        qWarning() << "Project's keys are not the same! diff: " << diff ;
+    }
     Q_ASSERT(_oneProject.keys() == _otherProject.keys());
+
     QMapIterator<QString, double> k(_oneProject);
     while (k.hasNext())
     {
