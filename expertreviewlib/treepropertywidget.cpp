@@ -80,16 +80,20 @@ TreeRightSideValues *TreePropertyWidget::updateRightSideFromUi(TreeRightSideValu
 {
     QMap<QString, double> values;
 
-    QMapIterator<QString, QtProperty*> iter = m_planeProperties;
-    while(iter.hasNext())
+    auto iter = m_planeProperties.begin();
+    while(iter != m_planeProperties.end())
     {
-        iter.next();
         QtProperty* prop = iter.value();
-        QVariant varValue = m_variantManager->value(prop);
-        double value = toDouble(varValue);
-        QString key = iter.key();
-        values[key] = value;
+        if(prop)
+        {
+            QVariant varValue = m_variantManager->value(prop);
+            double value = toDouble(varValue);
+            const QString& key = iter.key();
+            values[key] = value;
+        }
+        ++iter;
     }
+
     _rightSide->setValues(values);
     return _rightSide;
 }

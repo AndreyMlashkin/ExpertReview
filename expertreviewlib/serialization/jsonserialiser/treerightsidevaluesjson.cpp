@@ -43,6 +43,7 @@ QMap<QString, double> TreeRightSideValuesJson::values() const
 
 void TreeRightSideValuesJson::setValues(const QMap<QString, double> &_values)
 {
+    Q_ASSERT(!_values.contains(""));
     m_values = _values;
 }
 

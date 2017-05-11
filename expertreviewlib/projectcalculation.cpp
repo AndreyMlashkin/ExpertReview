@@ -164,7 +164,7 @@ void ProjectCalculator::calculate()
     //add ranged factors:
     oneProjConstants   = mergeValuesLists(oneProjConstants,   m_averageRangedConstantsJudges1->values());
     otherProjConstants = mergeValuesLists(otherProjConstants, m_averageRangedConstantsJudges2->values());
-    qDebug() << "Left sides of calculation:\n";
+    qDebug() << "Right sides of calculation (ranged constants and constants):\n";
     logInColumns(oneProjConstants, otherProjConstants);
 
     QMap<QString, double> oneProjectCalculation   = calculateProject(oneProjConstants,   formulsPath);
@@ -238,13 +238,13 @@ void ProjectCalculator::updateSectionCalculation(ProjectsLoaderPtr &_loader)
     }
 }
 
-void ProjectCalculator::normalise(QMap<QString, double> _values1, QMap<QString, double> _values2)
+void ProjectCalculator::normalise(QMap<QString, double>& _values1, QMap<QString, double>& _values2)
 {
     QMapIterator<QString, double> i(_values1);
     while (i.hasNext())
     {
         i.next();
-        QString key = i.key();
+        const QString& key = i.key();
         normalise(_values1[key], _values2[key]);
     }
 }
@@ -331,7 +331,7 @@ QString ProjectCalculator::substitute(const QString &_expression, const QMap<QSt
 void ProjectCalculator::logInColumns(const QMap<QString, double> &_oneProject, const QMap<QString, double> &_otherProject)
 {
     auto diff = findDiff(_oneProject, _otherProject);
-    if(diff.size())
+    if(diff.size() != 0)
     {
         qWarning() << "Project's keys are not the same! diff: " << diff ;
     }
@@ -344,6 +344,7 @@ void ProjectCalculator::logInColumns(const QMap<QString, double> &_oneProject, c
         QString key = k.key();
         qDebug() << key << "\t" << _oneProject[key] << "\t" << _otherProject[key];
     }
+    qDebug() << "\n";
 }
 
 void ProjectCalculator::updateFieldsFromLoader()
