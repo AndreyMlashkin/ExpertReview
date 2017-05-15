@@ -10,6 +10,8 @@
 #include "projectchooser.h"
 #include "modechooser.h"
 
+#include "norwegianwoodstyle.h"
+
 void myMessageOutput(QtMsgType, const QMessageLogContext&, const QString &msg)
 {
     static QTextStream out;
@@ -32,11 +34,11 @@ int main(int argc, char *argv[])
     ProjectsLoader loader;
 
     ProjectChooser projectChoose(loader.getSelf());
-    projectChoose.hideAddButton();
-    projectChoose.show();
+    projectChoose.resize(800,600);
+    projectChoose.showMaximized();
 
     ModeChooser chooser(loader.getSelf());
-    bool connected = QObject::connect(&projectChoose, &ProjectChooser::projectChoosen, &chooser, &QWidget::show);
+    bool connected = QObject::connect(&projectChoose, &ProjectChooser::projectChoosen, &chooser, &QWidget::showMaximized);
     Q_ASSERT(connected);
 
     QObject::connect(&projectChoose, &ProjectChooser::projectChoosen,
@@ -44,6 +46,8 @@ int main(int argc, char *argv[])
     {
         loader.loadAll();
     }  );
+
+    QApplication::setStyle(new NorwegianWoodStyle);
 
     return a.exec();
 }
