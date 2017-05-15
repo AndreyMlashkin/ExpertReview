@@ -56,6 +56,8 @@ public:
     //! т.е. в одной строке должно быть 1, в другой приведённое значение.
     static void normalise(double& _one, double& _other);// !!! make universal
 
+    static QMap<QString, double> normalisedByGroups(TreeLeftSideInfo* _leftSide, TreeRightSideValues* _rightSide);
+
 private:
     QMap<QString, double> calculateProject(const QMap<QString, double>& _source,
                                            const QString& _formulsFilename);

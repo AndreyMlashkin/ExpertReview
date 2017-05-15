@@ -42,12 +42,12 @@ TreeRightSideValues *ProjectCalculator::getAverageRightSide(ProjectsLoaderPtr &_
     QList<TreeRightSideValues *> rightSides = leftSide->getRightSides();
     QMap<QString, double> averageValues;
     int rightSidesCount = 0;
-    for(TreeRightSideValues* leftSide : rightSides)
+    for(TreeRightSideValues* rightSide : rightSides)
     {
-        if(leftSide->isTemp() || leftSide->id() == "finalCast")
+        if(rightSide->isTemp() || rightSide->id() == "finalCast")
             continue;
 
-        QMap<QString, double> values = leftSide->values();
+        QMap<QString, double> values = rightSide->values();
         QMapIterator<QString, double> iter(values);
         while (iter.hasNext())
         {
@@ -181,8 +181,11 @@ void ProjectCalculator::calculate()
     logInColumns(oneProjectCalculation, otherProjectCalculation);
 
     qDebug() << "\nWEIGHTS:\n" << m_metodicJudgesAverage->values();
-    oneProjectCalculation   = multiply(oneProjectCalculation,   m_metodicJudgesAverage->values()); // умножаем на среднее по весам критериев по экспертам
-    otherProjectCalculation = multiply(otherProjectCalculation, m_metodicJudgesAverage->values());
+    QMap<QString, double> normalizedWeights = normalisedByGroups(m_methodicJudges, m_metodicJudgesAverage);
+    qDebug() << "\nNORMALIZED BY SECTIONS WEIGHTS:\n" << normalizedWeights;
+
+    oneProjectCalculation   = multiply(oneProjectCalculation,   normalizedWeights); // умножаем на среднее по весам критериев по экспертам
+    otherProjectCalculation = multiply(otherProjectCalculation, normalizedWeights);
     qDebug() << "\nAFTER MULTIPLY ON THE WEIGHTS:\n";
     logInColumns(oneProjectCalculation, otherProjectCalculation);
 
@@ -260,6 +263,33 @@ void ProjectCalculator::normalise(double &_one, double &_other)
     }
     _one /= max;
     _other /= max;
+}
+
+QMap<QString, double> ProjectCalculator::normalisedByGroups(TreeLeftSideInfo *_leftSide, TreeRightSideValues *_rightSide)
+{
+    Q_ASSERT(_rightSide->leftSideId() == _leftSide->getTreeName());
+
+    QMap<QString, double> ans;
+    QMap<QString, double> values = _rightSide->values();
+
+    for (PropertyNode* node : _leftSide->nodes())
+    {
+        const QString& groupKey = node->key();
+        ans[groupKey] = 0;
+
+        double maxValue = 0;
+        for (PropertyNode* subNode : node->children())
+        {
+            const QString& subNodeKey = subNode->key();
+            double subNodeValue = values[subNodeKey];
+            maxValue = qMax(maxValue, subNodeValue);
+        }
+        for(double& value : values)
+        {
+            value /= maxValue;
+        }
+    }
+    return values;
 }
 
 QMap<QString, double> ProjectCalculator::calculateProject(const QMap<QString, double> &_source, const QString &_formulsFilename)
