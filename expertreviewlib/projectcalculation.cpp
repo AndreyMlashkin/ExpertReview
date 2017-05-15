@@ -92,8 +92,15 @@ TreeRightSideValues *ProjectCalculator::getFinalCastRightSide(ProjectsLoaderPtr 
 
 TreeRightSideValues *ProjectCalculator::normalise(ProjectsLoaderPtr &_loader, TreeRightSideValues *_values)
 {
-    QMap<QString, double> values = _values->values();
+    QMap<QString, double> values = normalised(_values->values());
 
+    TreeRightSideValues* newVals = _loader->getOrCreateRightSide(_values->leftSideId(), "normalised", true);
+    newVals->setValues(values);
+    return newVals;
+}
+
+QMap<QString, double> ProjectCalculator::normalised(QMap<QString, double> values)
+{
     double summ = 0;
     for(double d : values)
         summ += d;
@@ -102,10 +109,7 @@ TreeRightSideValues *ProjectCalculator::normalise(ProjectsLoaderPtr &_loader, Tr
     {
         val /= summ;
     }
-
-    TreeRightSideValues* newVals = _loader->getOrCreateRightSide(_values->leftSideId(), "normalised", true);
-    newVals->setValues(values);
-    return newVals;
+    return values;
 }
 
 QList<QString> ProjectCalculator::findintersection(const QMap<QString, double> &_values1, const QMap<QString, double> &_values2)
@@ -189,9 +193,12 @@ void ProjectCalculator::calculate()
     qDebug() << "\nAFTER MULTIPLY ON THE WEIGHTS:\n";
     logInColumns(oneProjectCalculation, otherProjectCalculation);
 
+    QMap<QString, double> normalizedFinalCast = normalised(m_sectionsFinalCast->values());
     qDebug() << "final cast: " << m_sectionsFinalCast->values();
-    oneProjectCalculation   = multiplyWithSection(oneProjectCalculation,   m_sectionsFinalCast->values(), m_methodicJudges->nodes());
-    otherProjectCalculation = multiplyWithSection(otherProjectCalculation, m_sectionsFinalCast->values(), m_methodicJudges->nodes());
+    qDebug() << "normalized final cast: " << normalizedFinalCast;
+
+    oneProjectCalculation   = multiplyWithSection(oneProjectCalculation,   normalizedFinalCast, m_methodicJudges->nodes());
+    otherProjectCalculation = multiplyWithSection(otherProjectCalculation, normalizedFinalCast, m_methodicJudges->nodes());
     qDebug() << "\nAFTER MULTIPLY ON THE SECTIONS FINAL CAST:\n";
     logInColumns(oneProjectCalculation, otherProjectCalculation);
 

@@ -40,6 +40,7 @@ public:
     //!
     //! \brief normalise нормализует вектор значений одного проекта
     static TreeRightSideValues* normalise(ProjectsLoaderPtr &_loader, TreeRightSideValues *_values);
+    static QMap<QString, double> normalised(QMap<QString, double> values);
 
     static QList<QString> findintersection(const QMap<QString, double> &_values1, const QMap<QString, double> &_values2);
     static QList<QString> findDiff(const QMap<QString, double> &_values1, const QMap<QString, double> &_values2);
