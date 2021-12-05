@@ -18,5 +18,8 @@ INCLUDEPATH += ../expertreviewlib
 
 SOURCES += main.cpp
 
-LIBS += -L$$PWD/../bin \
-        -lexpertreview
+LIBS += -L$$PWD/../bin         \
+        -lexpertreview         \
+        -lqtpropertybrowser    \
+        -lstatisticsview       \
+        -lexpressioncalculator

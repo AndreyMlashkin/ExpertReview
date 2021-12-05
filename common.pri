@@ -1,4 +1,4 @@
-QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -std=c++17
 
 debug {
     DESTDIR     = $$PWD/bin

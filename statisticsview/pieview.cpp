@@ -1,5 +1,6 @@
 #include <math.h>
 #include <QScrollBar>
+#include <QPainterPath>
 
 #ifndef M_PI
 #define M_PI 3.1415927

@@ -20,7 +20,7 @@ FinalCastProxyModel::FinalCastProxyModel(const QString &_treeName, const Project
 {
     setSourceModel(m_source);
 
-    connect(this, QAbstractItemModel::modelAboutToBeReset, this, FinalCastProxyModel::updateArMean);
+    connect(this, &QAbstractItemModel::modelAboutToBeReset, this, &FinalCastProxyModel::updateArMean);
     updateArMean();
     updateFinalCast();
 

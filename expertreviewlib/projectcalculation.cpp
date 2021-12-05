@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include <QDebug>
 #include <QStringList>
 #include <QFile>
