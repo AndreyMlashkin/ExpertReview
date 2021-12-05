@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QStringList>
 #include <QFile>
+#include <QMessageBox>
 
 #include <parseradaptor.h>
 #include "projectapi.h"
@@ -39,7 +40,8 @@ TreeRightSideValues *ProjectCalculator::getAverageRightSide(ProjectsLoaderPtr &_
                                                             const QString &_leftSide)
 {
     TreeLeftSideInfo* leftSide = _loader->getLeftSideInfo(_leftSide);
-    Q_ASSERT(leftSide);
+    if(!leftSide)
+        return nullptr;
 
     QList<TreeRightSideValues *> rightSides = leftSide->getRightSides();
     QMap<QString, double> averageValues;
@@ -154,7 +156,7 @@ void ProjectCalculator::calculate()
 
     const QString formulsPath = m_loader->formulsPath();
 
-    Q_ASSERT_X(m_constants->savedRightSidesCount() == 2, Q_FUNC_INFO, "it should be 2 constants values files"); // Пока так
+    Q_ASSERT_X(m_constants && m_constants->savedRightSidesCount() == 2, Q_FUNC_INFO, "it should be 2 constants values files"); // Пока так
     TreeRightSideValues* constants0 = m_constants->openRightSide(0);
     TreeRightSideValues* constants1 = m_constants->openRightSide(1);
 
@@ -162,6 +164,18 @@ void ProjectCalculator::calculate()
     QMap<QString, double> otherProjConstants = constants1->values();
     qDebug() << "project constants:\n";
     logInColumns(oneProjConstants, otherProjConstants);
+
+    if(m_averageRangedConstantsJudges1 == nullptr ||
+       m_averageRangedConstantsJudges2 == nullptr)
+    {
+        int projectIndex = m_averageRangedConstantsJudges1? 1 : 0;
+        QString projectName = m_loader->getProjectNames().at(projectIndex);
+
+        QMessageBox::warning(nullptr, QString("Экспертная оценка"),
+                                   QString("Отсутствуют данные по проекту %1").arg(projectName),
+                                   QMessageBox::Ok);
+        return;
+    }
 
     qDebug() << "ranged factors:\n";
     logInColumns(m_averageRangedConstantsJudges1->values(),
